@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 # object for the matchmaker queue
 
 
-class recipientProfile:
+class recipientProfile(object):
     def __init__(self, recipient_name, recipient_email, amount_recieved, date_created, num_donations):
         self._amount_receieved = amount_recieved
         self._date_created = date_created
@@ -41,9 +41,50 @@ class recipientProfile:
     def __ne__(self, other):
         return not (self._burn_adj_amount_recieved == other._burn_adj_amount_recieved) & (self._num_donations == other._num_donations) & (self._date_created == other._date_created)
 
-    # TODO: Finish the comparisons in the obj for less than, greater than, etc.
     def __lt__(self, other):
-        if
+        if (self._burn_adj_amount_recieved < other._burn_adj_amount_recieved) is True:
+            return True
+        elif (self._num_donations < other._num_donations) is True:
+            return True
+        # the sign is flipped here bc the older is considered "less" in this case as we want to support the individual with a greater date created but a lower balance and num donations
+        elif (self._date_created > other._date_created) is True:
+            return True
+        else:
+            return False
+
+    def __le__(self, other):
+        if (self._burn_adj_amount_recieved <= other._burn_adj_amount_recieved) is True:
+            return True
+        elif (self._num_donations <= other._num_donations) is True:
+            return True
+        # the sign is flipped here bc the older is considered "less" in this case as we want to support the individual with a greater date created but a lower balance and num donations
+        elif (self._date_created >= other._date_created) is True:
+            return True
+        else:
+            return False
+
+    def __gt__(self, other):
+        if (self._burn_adj_amount_recieved > other._burn_adj_amount_recieved) is True:
+            return True
+        elif (self._num_donations > other._num_donations) is True:
+            return True
+        # the sign is flipped here bc the older is considered "less" in this case as we want to support the individual with a greater date created but a lower balance and num donations
+        elif (self._date_created < other._date_created) is True:
+            return True
+        else:
+            return False
+
+    def __ge__(self, other):
+        if (self._burn_adj_amount_recieved >= other._burn_adj_amount_recieved) is True:
+            return True
+        elif (self._num_donations >= other._num_donations) is True:
+            return True
+        # the sign is flipped here bc the older is considered "less" in this case as we want to support the individual with a greater date created but a lower balance and num donations
+        elif (self._date_created <= other._date_created) is True:
+            return True
+        else:
+            return False
+
 
 # use to implement priority queue and house method that will actually return the desired tuple of
 # userid and email
