@@ -23,14 +23,19 @@ def config(filename='database.ini', section='postgresql'):
 
     return db
 
-def update_user_entry_post_payment(recipientProfile, dollars):
+def update_user_entry(recipientProfile, dollars):
     """ Update the user donated amount and the num donations after recieiving payment """
     new_num_donations = recipientProfile.get_num_donations() + 1
+    print(new_num_donations)
+    print(type(new_num_donations))
     new_total_recieved = recipientProfile.get_amount_recieved() + dollars
+    print(new_total_recieved)
+    print(type(new_total_recieved))
     ruid = recipientProfile.get_recipient_user_id()
-    sql = """UPDATE recipients SET num_donations = (new_num_donations), total_recieved = (new_total_recieved) WHERE uid = (ruid)
+    print(new_num_donations)
     
-        VALUES( % s, % s, % s);"""
+    sql = """UPDATE recipients SET num_donations = (new_num_donations), total_recieved = (new_total_recieved) WHERE uid = (ruid) VALUES (%s, %s, %s);"""
+    data = (str(new_num_donations), new_total_recieved, ruid)
     conn = None
     vendor_id = None
     try:
@@ -41,13 +46,15 @@ def update_user_entry_post_payment(recipientProfile, dollars):
         # create a new cursor
         cur = conn.cursor()
         # execute the INSERT statement
-        cur.execute(sql, (new_num_donations, new_total_recieved, first_name))
+        cur.execute(sql, data)
         # commit the changes to the database
         conn.commit()
         # close communication with the database
         cur.close()
+        return True
     except (Exception, psycopg2.DatabaseError) as error:
-        return "FAILED!! Nice going idiot: " + str(error)
+        print("FAILED!! Nice going idiot: " + str(error))
+        return False
     finally:
         if conn is not None:
             conn.close()
