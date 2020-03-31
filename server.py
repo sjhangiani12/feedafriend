@@ -1,12 +1,13 @@
+from db_manager import insert_user
+from payment import preFill
+from payment import purchase
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from waitress import serve
 
 from error import InvalidUsage
-from door_dash import purchase
-from door_dash import preFill
 
-from db_manager import insert_user
+from matchmaker import Matchmaker
 
 app = Flask(__name__)
 CORS(app)
@@ -69,6 +70,31 @@ def createUser():
     response = insert_user(request.json['email'], request.json['first_name'], request.json['last_name'],
                            request.json['bio'], request.json['zip_code'])
     return response
+
+
+@app.route('/makeDonation', methods=['POST'])
+def makeDonation():
+    if not has_args(request.json, ['sender_name', 'sender_email', 'sender_address', 'city', 'state', 'zipcode', 'cardholder_name', 'card_number', 'exp_date', 'cvv', 'dollars']):
+        raise InvalidUsage('Missing paramenters')
+
+    # get matchmaker obj
+    # fill out form
+    # pay and deliver
+    # update User DB
+    # insert to Transactions DB
+    # send confirm email to both particpants
+        # which should update the transaction to indicate this was complete
+    recipient = Matchmaker().get_recipientProfile()
+    print(recipient)
+    # purchase_status = False
+    if preFill(dollars=request.json['dollars'], recipient_name=recipient.get_first_name(),
+               recipient_email=recipient.get_email(), sender_name=request.json['sender_name']):
+        return recipient.get_email()
+
+    #     purchase_status = purchase(sender_email=request.json['sender_email'], sender_address=request.json['sender_address'], city=request.json['city'], state=request.json['state'],
+    #                                zipcode=request.json['zipcode'], cardholder_name=request.json['cardholder_name'], card_number=request.json['card_number'], exp_date=request.json['exp_date'], cvv=request.json['cvv'])
+    #     print(purchase_status)
+    # return status
 
 
 if __name__ == '__main__':

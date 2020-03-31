@@ -85,11 +85,11 @@ def purchase(sender_email, sender_address, city, state, zipcode, cardholder_name
             sleep(randint(.02, 1.5))
 
         # place order
-        #driver.find_element_by_xpath("//button[@class='action-button action-button--purchase-now']").click()
-        return 'Success!'
+        # driver.find_element_by_xpath("//button[@class='action-button action-button--purchase-now']").click()
+        return True
     else:
         print('Error - more than one order-item')
-        return 'FAIL'
+        return False
 
 
 def preFill(dollars, recipient_name, recipient_email, sender_name):
@@ -114,7 +114,12 @@ def preFill(dollars, recipient_name, recipient_email, sender_name):
             "//input[@name='sender_name']").send_keys(sender_name)
         driver.find_element_by_xpath(
             "//button[@class='action-button']").click()
-        return ('preFill success!')
+        return True
     except:
         print('preFill failure')
-        return ('FAILED, FUCK YOU!')
+        return False
+
+    # def update_user_table(self, user_object, dollars):
+    #     # TODO need to add last donation date to schema to get a more accurate burn rate adjusted amount
+    #     # after the payment is made, update the user's amount and number of donations
+    #             "SELECT first_name, last_name, email, total_recieved, date_created, num_donations, uid FROM recipients ORDER BY date_created")

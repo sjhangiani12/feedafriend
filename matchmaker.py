@@ -3,12 +3,11 @@ import psycopg2
 from db_manager import config
 from queue import PriorityQueue
 
+
 # object for the matchmaker queue
-
-
 class recipientProfile(object):
-    def __init__(self, first_name, last_name, recipient_email, amount_recieved, date_created, num_donations, user_id):
-        self._user_id = user_id
+    def __init__(self, first_name, last_name, recipient_email, amount_recieved, date_created, num_donations, recipient_user_id):
+        self._recipient_user_id = recipient_user_id
         self._amount_receieved = amount_recieved
         self._date_created = date_created
         self._first_name = first_name
@@ -24,8 +23,8 @@ class recipientProfile(object):
         burn_rate = -0.119
         self._burn_adj_amount_recieved = amount_recieved*burn_rate*hours_since_creation
 
-    def get_user_id(self):
-        return self._user_id
+    def get_recipient_user_id(self):
+        return self._recipient_user_id
 
     def get_first_name(self):
         return self._first_name
@@ -101,7 +100,7 @@ class recipientProfile(object):
             return False
 
     def __repr__(self):
-        return "First Name: %s | Email: %s | UID: %s" % (self._first_name, self._recipient_email, self._user_id)
+        return "First Name: %s | Email: %s | UID: %s" % (self._first_name, self._recipient_email, self._recipient_user_id)
 
 
 # use to implement priority queue and house method that will actually return the desired tuple of
@@ -137,8 +136,9 @@ class Matchmaker:
                 user[0], user[1], user[2], user[3], user[4], user[5], user[6])
             self._queue.put(curr)
 
-    def get_recipient(self):
+    def get_recipientProfile(self):
         # get the recipient to be donated to
         # params: none
         # returns: recipient profile object that selected as the "lowest" or individual who requires donation the most
-        return self._queue.get()
+        obj = self._queue.get()
+        return obj
