@@ -28,7 +28,7 @@ def insert_user(email, first_name, last_name, bio, zip_code):
     sql = """INSERT INTO recipients(uid, email, first_name, last_name, bio, zip_code, date_created,
              num_donations, total_recieved)
 
-             VALUES(%s, %s, %s, %s, %s, %d, %s, %d, %d);"""
+             VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);"""
     conn = None
     vendor_id = None
     try:
@@ -39,22 +39,20 @@ def insert_user(email, first_name, last_name, bio, zip_code):
         # create a new cursor
         cur = conn.cursor()
         # generate the Uid
-        uuid = uuid.uuid5(NAMESPACE_OID, email)
+        created_uuid = uuid.uuid5(uuid.NAMESPACE_OID, email)
         # get the date created (TIMESTAMP '2004-10-19 10:23:54')
         timestamp_string = time.strftime("%a, %d %b %Y %H:%M:%S +0000", datetime.fromtimestamp(int(time.time())).timetuple())
         # execute the INSERT statement
-        cur.execute(sql, (uuid, email, first_name, last_name, bio, zip_code, timestamp_string, 0, 0))
-        # get the generated id back
-        vendor_id = cur.fetchone()[0]
+        cur.execute(sql, (str(created_uuid), email, first_name, last_name, bio, str(zip_code), timestamp_string, str(0), str(0)))
         # commit the changes to the database
         conn.commit()
         # close communication with the database
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
-        return "FAILED!! Nice going idiot: " + error.str()
+        return "FAILED!! Nice going idiot: " + str(error)
     finally:
         if conn is not None:
             conn.close()
  
-    return "user inserted with uid: " + uuid
+    return "user inserted with uid: " + str(created_uuid)
 
