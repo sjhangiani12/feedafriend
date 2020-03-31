@@ -1,11 +1,12 @@
 from db_manager import insert_user
-from payment import preFill
-from payment import purchase
+from payment import DoorDash
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from waitress import serve
+from time import sleep
 
 from error import InvalidUsage
+from random import randint
 
 from matchmaker import Matchmaker
 
@@ -35,27 +36,27 @@ def handle_invalid_usage(error):
     return response
 
 
-@app.route('/purchase', methods=['POST'])
-def purch():
-    if not has_args(request.json, ['sender_email', 'sender_address', 'city', 'state', 'zipcode', 'cardholder_name', 'card_number', 'exp_date', 'cvv']):
-        raise InvalidUsage('note all paramenters present')
+# @app.route('/purchase', methods=['POST'])
+# def purch():
+#     if not has_args(request.json, ['sender_email', 'sender_address', 'city', 'state', 'zipcode', 'cardholder_name', 'card_number', 'exp_date', 'cvv']):
+#         raise InvalidUsage('note all paramenters present')
 
-    a = Matchmaker().get_recipient()
-    print(a)
+#     a = Matchmaker().get_recipient()
+#     print(a)
 
-    status = purchase(sender_email=request.json['sender_email'], sender_address=request.json['sender_address'], city=request.json['city'], state=request.json['state'],
-                      zipcode=request.json['zipcode'], cardholder_name=request.json['cardholder_name'], card_number=request.json['card_number'], exp_date=request.json['exp_date'], cvv=request.json['cvv'])
+#     status = purchase(sender_email=request.json['sender_email'], sender_address=request.json['sender_address'], city=request.json['city'], state=request.json['state'],
+#                       zipcode=request.json['zipcode'], cardholder_name=request.json['cardholder_name'], card_number=request.json['card_number'], exp_date=request.json['exp_date'], cvv=request.json['cvv'])
 
-    return status
+#     return status
 
 
-@app.route('/preFill', methods=['POST'])
-def pref():
-    if not has_args(request.json, ['dollars', 'recipient_name', 'recipient_email', 'sender_name']):
-        raise InvalidUsage('note all paramenters present')
-    status = preFill(dollars=request.json['dollars'], recipient_name=request.json['recipient_name'],
-                     recipient_email=request.json['recipient_email'], sender_name=request.json['sender_name'])
-    return status
+# @app.route('/preFill', methods=['POST'])
+# def pref():
+#     if not has_args(request.json, ['dollars', 'recipient_name', 'recipient_email', 'sender_name']):
+#         raise InvalidUsage('note all paramenters present')
+#     status = preFill(dollars=request.json['dollars'], recipient_name=request.json['recipient_name'],
+#                      recipient_email=request.json['recipient_email'], sender_name=request.json['sender_name'])
+#     return status
 
 
 @app.route('/createUser', methods=['POST'])
@@ -90,12 +91,11 @@ def makeDonation():
     payment = DoorDash()
     if payment.preFill(dollars=request.json['dollars'], recipient_name=recipient.get_first_name(),
                        recipient_email=recipient.get_email(), sender_name=request.json['sender_name']):
-        return recipient.get_email()
+        sleep(randint(1, 2))
 
-    #     purchase_status = purchase(sender_email=request.json['sender_email'], sender_address=request.json['sender_address'], city=request.json['city'], state=request.json['state'],
-    #                                zipcode=request.json['zipcode'], cardholder_name=request.json['cardholder_name'], card_number=request.json['card_number'], exp_date=request.json['exp_date'], cvv=request.json['cvv'])
-    #     print(purchase_status)
-    # return status
+        purchase_status = payment.purchase(sender_email=request.json['sender_email'], sender_address=request.json['sender_address'], city=request.json['city'], state=request.json['state'], zipcode=request.json['zipcode'], cardholder_name=request.json['cardholder_name'], card_number=request.json['card_number'], exp_date=request.json['exp_date'], cvv=request.json['cvv'])
+        print(purchase_status)
+    return str(purchase_status)
 
 
 if __name__ == '__main__':

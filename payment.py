@@ -41,12 +41,19 @@ class DoorDash():
             # city
             self.driver.find_element_by_xpath("//input[@name='city']").send_keys(city)
             # state
-            self.driver.find_element_by_xpath(
-                "//*[@id='pay-form']/form/div[2]/div/div[4]/div[1]/div/div/div/span[2]").click()
-            self.driver.find_element_by_xpath(
-                "//input[@aria-activedescendant='react-select-2--option-0']").send_keys(state)
-            self.driver.find_element_by_xpath(
-                "//input[@aria-activedescendant='react-select-2--option-0']").send_keys(Keys.ENTER)
+            # self.driver.find_element_by_xpath(
+            #     "//*[@id='pay-form']/form/div[2]/div/div[4]/div[1]/div/div/div/span[2]").click()
+            # self.driver.find_element_by_xpath(
+            #     "//input[@aria-activedescendant='react-select-2--option-0']").send_keys(state)
+            # self.driver.find_element_by_xpath(
+            #     "//input[@aria-activedescendant='react-select-2--option-0']").send_keys(Keys.ENTER)
+            cit = self.driver.find_element_by_xpath("//input[@name='city']")
+            cit.send_keys(Keys.TAB)
+            st = self.driver.switch_to.active_element
+            actions = ActionChains(self.driver)
+            actions.send_keys(state)
+            actions.send_keys(Keys.ENTER)
+            actions.perform()
             # zipcode
             self.driver.find_element_by_xpath("//input[@name='zip']").send_keys(zipcode)
 
@@ -93,6 +100,7 @@ class DoorDash():
 
 
     def preFill(self, dollars, recipient_name, recipient_email, sender_name):
+        dollars = int(dollars)
         amounts = {25: 1, 50: 2, 100: 3, 200: 4}
         amount = amounts[dollars]
         try:
