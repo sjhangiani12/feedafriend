@@ -6,6 +6,8 @@ from error import InvalidUsage
 from door_dash import purchase
 from door_dash import preFill
 
+from db_manager import insert_user
+
 app = Flask(__name__)
 CORS(app)
 
@@ -22,7 +24,7 @@ def has_args(iterable, args):
 
 @app.route('/', methods=['GET'])
 def ping():
-    return 'API is Running'
+    return 'API is Running... wait slow down. The fuck, come back API!'
 
 
 @app.errorhandler(InvalidUsage)
@@ -35,26 +37,37 @@ def handle_invalid_usage(error):
 @app.route('/purchase', methods=['POST'])
 def purch():
     if not has_args(request.json, ['sender_email', 'sender_address', 'city', 'state', 'zipcode', 'cardholder_name', 'card_number', 'exp_date', 'cvv']):
-        raise InvalidUsage('not all paramenters present')
+        raise InvalidUsage('note all paramenters present')
 
     # response = jsonify(error.to_dict())
     # response.status_code = error.status_code
 
     # updates the opening prices dictionary in stockFilter
     request.json['ticker']
-    status = purchase(sender_email=request.json['sender_email'], sender_address=request.json['sender_address'], city=request.json['city'], state=request.json['state'],
-                      zipcode=request.json['zipcode'], cardholder_name=request.json['cardholder_name'], card_number=request.json['card_number'], exp_date=request.json['exp_date'], cvv=request.json['cvv'])
+    status = purchase(sender_email=request.json['sender_email'], sender_address=request.json['sender_address'], city=request.json['city'], state=request.json['state'], zipcode=request.json['zipcode'], cardholder_name=request.json['cardholder_name'], card_number=request.json['card_number'], exp_date=request.json['exp_date'], cvv=request.json['cvv'])
 
     return status
 
-
-@app.route('/preFill', methods=['POST'])
+@app.route('/preFill', methods = ['POST'])
 def pref():
     if not has_args(request.json, ['dollars', 'recipient_name', 'recipient_email', 'sender_name']):
         raise InvalidUsage('note all paramenters present')
-    status = preFill(dollars=request.json['dollars'], recipient_name=request.json['recipient_name'],
-                     recipient_email=request.json['recipient_email'], sender_name=request.json['sender_name'])
+    status = preFill(dollars=request.json['dollars'], recipient_name=request.json['recipient_name'], recipient_email=request.json['recipient_email'], sender_name=request.json['sender_name'])
     return status
+
+
+@app.route('/createUser', methods = ['POST'])
+def createUser():
+    # required params 
+    if not has_args(request.json, ['email', 'first_name', 'last_name', 'zip_code']):
+        raise InvalidUsage('note all paramenters present')
+    # check if they put a bio
+    if not has_args(request.json, ['bio']):
+        request.json['bio'] = ""
+    # insert that bish in the db, naaaah what im sayin
+    response = insert_user(request.json['email'], request.json['first_name'], request.json['last_name'],
+                           request.json['bio'], request.json['zip_code'])
+    return response
 
 
 if __name__ == '__main__':
