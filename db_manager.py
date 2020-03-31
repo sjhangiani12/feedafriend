@@ -3,14 +3,14 @@ import uuid
 from datetime import datetime
 import time
 from configparser import ConfigParser
- 
- 
+
+
 def config(filename='database.ini', section='postgresql'):
     # create a parser
     parser = ConfigParser()
     # read config file
     parser.read(filename)
- 
+
     # get section, default to postgresql
     db = {}
     if parser.has_section(section):
@@ -18,8 +18,9 @@ def config(filename='database.ini', section='postgresql'):
         for param in params:
             db[param[0]] = param[1]
     else:
-        raise Exception('Section {0} not found in the {1} file'.format(section, filename))
- 
+        raise Exception(
+            'Section {0} not found in the {1} file'.format(section, filename))
+
     return db
 
 
@@ -41,9 +42,11 @@ def insert_user(email, first_name, last_name, bio, zip_code):
         # generate the Uid
         created_uuid = uuid.uuid5(uuid.NAMESPACE_OID, email)
         # get the date created (TIMESTAMP '2004-10-19 10:23:54')
-        timestamp_string = time.strftime("%a, %d %b %Y %H:%M:%S +0000", datetime.fromtimestamp(int(time.time())).timetuple())
+        timestamp_string = time.strftime(
+            "%a, %d %b %Y %H:%M:%S +0000", datetime.fromtimestamp(int(time.time())).timetuple())
         # execute the INSERT statement
-        cur.execute(sql, (str(created_uuid), email, first_name, last_name, bio, str(zip_code), timestamp_string, str(0), str(0)))
+        cur.execute(sql, (str(created_uuid), email, first_name, last_name, bio, str(
+            zip_code), timestamp_string, str(0), str(0)))
         # commit the changes to the database
         conn.commit()
         # close communication with the database
@@ -53,6 +56,5 @@ def insert_user(email, first_name, last_name, bio, zip_code):
     finally:
         if conn is not None:
             conn.close()
- 
-    return "user inserted with uid: " + str(created_uuid)
 
+    return "user inserted with uid: " + str(created_uuid)

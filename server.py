@@ -44,21 +44,24 @@ def purch():
 
     # updates the opening prices dictionary in stockFilter
     request.json['ticker']
-    status = purchase(sender_email=request.json['sender_email'], sender_address=request.json['sender_address'], city=request.json['city'], state=request.json['state'], zipcode=request.json['zipcode'], cardholder_name=request.json['cardholder_name'], card_number=request.json['card_number'], exp_date=request.json['exp_date'], cvv=request.json['cvv'])
+    status = purchase(sender_email=request.json['sender_email'], sender_address=request.json['sender_address'], city=request.json['city'], state=request.json['state'],
+                      zipcode=request.json['zipcode'], cardholder_name=request.json['cardholder_name'], card_number=request.json['card_number'], exp_date=request.json['exp_date'], cvv=request.json['cvv'])
 
     return status
 
-@app.route('/preFill', methods = ['POST'])
+
+@app.route('/preFill', methods=['POST'])
 def pref():
     if not has_args(request.json, ['dollars', 'recipient_name', 'recipient_email', 'sender_name']):
         raise InvalidUsage('note all paramenters present')
-    status = preFill(dollars=request.json['dollars'], recipient_name=request.json['recipient_name'], recipient_email=request.json['recipient_email'], sender_name=request.json['sender_name'])
+    status = preFill(dollars=request.json['dollars'], recipient_name=request.json['recipient_name'],
+                     recipient_email=request.json['recipient_email'], sender_name=request.json['sender_name'])
     return status
 
 
-@app.route('/createUser', methods = ['POST'])
+@app.route('/createUser', methods=['POST'])
 def createUser():
-    # required params 
+    # required params
     if not has_args(request.json, ['email', 'first_name', 'last_name', 'zip_code']):
         raise InvalidUsage('note all paramenters present')
     # check if they put a bio

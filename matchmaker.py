@@ -1,14 +1,18 @@
 from datetime import datetime, timedelta
+import psycopg2
+from db_manager import config
+from queue import PriorityQueue
 
 # object for the matchmaker queue
 
 
 class recipientProfile(object):
-    def __init__(self, recipient_name, recipient_email, amount_recieved, date_created, num_donations, user_id):
+    def __init__(self, first_name, last_name, recipient_email, amount_recieved, date_created, num_donations, user_id):
         self._user_id = user_id
         self._amount_receieved = amount_recieved
         self._date_created = date_created
-        self._recipient_name = recipient_name
+        self._first_name = first_name
+        self._last_name = last_name
         self._recipient_email = recipient_email
         self._num_donations = num_donations
 
@@ -23,8 +27,11 @@ class recipientProfile(object):
     def get_user_id(self):
         return self._user_id
 
-    def get_name(self):
-        return self._recipient_name
+    def get_first_name(self):
+        return self._first_name
+
+    def get_last_name(self):
+        return self._last_name
 
     def get_email(self):
         return self._recipient_email
@@ -94,7 +101,7 @@ class recipientProfile(object):
             return False
 
     def __repr__(self):
-        return "Name: %s | Email: %s | UID: %s" % (self._recipient_name, self._recipient_email, self._user_id)
+        return "First Name: %s | Email: %s | UID: %s" % (self._first_name, self._recipient_email, self._user_id)
 
 
 # use to implement priority queue and house method that will actually return the desired tuple of
@@ -103,23 +110,39 @@ class Matchmaker:
     # this class builds the priority queue using the objects above
 
     def __init__(self):
-        pass
+        conn = None
+        vendor_id = None
+        try:
+            # read database configuration
+            params = config()
+            # connect to the PostgreSQL database
+            conn = psycopg2.connect(**params)
+            # create a new cursor
+            cur = conn.cursor()
+            # get all the entries in the recipients table
+            cur.execute(
+                "SELECT first_name, last_name, email, total_recieved, date_created, num_donations, uid FROM recipients ORDER BY date_created")
+            all_users = cur.fetchall()
+            print("The number of users in DB: ", cur.rowcount)
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
 
-    # get user data from SQL table
-    # convert to recipientProfile objects and store in an array
-    # put all the objects in priority queue
-    # def get_user_data(self):
+        self._queue = PriorityQueue()
+        for user in all_users:
+            curr = recipientProfile(
+                user[0], user[1], user[2], user[3], user[4], user[5], user[6])
+            self._queue.put(curr)
 
-    a = recipientProfile("John Smit", "john@test.com",
-                         45, datetime.date(2002, 3, 11), 4, 'ere33')
+    def get_recipient(self):
+        # get the recipient to be donated to
+        # params: none
+        # returns: recipient profile object that selected as the "lowest" or individual who requires donation the most
+        return self._queue.get()
 
-    c = recipientProfile("John Smit", "john@test.com",
-                         45, datetime.date(2002, 3, 11), 4, 'ere33')
 
-    b = recipientProfile("Alex Jo", "alex@test.com",
-                         45, datetime.now(), 4, 'afdj33')
-
-    print(a.get_date_created())
-    print(c.get_date_created())
-
-    print(a < c)
+a = Matchmaker().get_recipient()
+print(a)
