@@ -34,8 +34,10 @@ def update_user_entry(recipientProfile, dollars):
     ruid = recipientProfile.get_recipient_user_id()
     print(new_num_donations)
     
-    sql = """UPDATE recipients SET num_donations = (new_num_donations), total_recieved = (new_total_recieved) WHERE uid = (ruid) VALUES (%s, %s, %s);"""
-    data = (str(new_num_donations), new_total_recieved, ruid)
+    sql = """UPDATE recipients SET num_donations = (new_num_donations), total_recieved = (new_total_recieved) WHERE uid = (ruid) 
+    
+    VALUES (%s, %s, %s);"""
+    data = (str(new_num_donations), str(new_total_recieved), str(ruid))
     conn = None
     vendor_id = None
     try:

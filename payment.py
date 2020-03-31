@@ -123,7 +123,8 @@ class DoorDash():
             self.driver.find_element_by_xpath(
                 "//button[@class='action-button']").click()
             return True
-        except:
+        except Exception as e:
+            print(e)
             print('preFill failure')
             return False
 
