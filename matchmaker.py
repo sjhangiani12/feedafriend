@@ -142,7 +142,3 @@ class Matchmaker:
         # params: none
         # returns: recipient profile object that selected as the "lowest" or individual who requires donation the most
         return self._queue.get()
-
-
-a = Matchmaker().get_recipient()
-print(a)

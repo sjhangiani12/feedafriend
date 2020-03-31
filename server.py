@@ -39,11 +39,9 @@ def purch():
     if not has_args(request.json, ['sender_email', 'sender_address', 'city', 'state', 'zipcode', 'cardholder_name', 'card_number', 'exp_date', 'cvv']):
         raise InvalidUsage('note all paramenters present')
 
-    # response = jsonify(error.to_dict())
-    # response.status_code = error.status_code
+    a = Matchmaker().get_recipient()
+    print(a)
 
-    # updates the opening prices dictionary in stockFilter
-    request.json['ticker']
     status = purchase(sender_email=request.json['sender_email'], sender_address=request.json['sender_address'], city=request.json['city'], state=request.json['state'],
                       zipcode=request.json['zipcode'], cardholder_name=request.json['cardholder_name'], card_number=request.json['card_number'], exp_date=request.json['exp_date'], cvv=request.json['cvv'])
 
