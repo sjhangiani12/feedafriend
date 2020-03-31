@@ -1,6 +1,6 @@
 from db_manager import insert_user
-from payment import DoorDash
-# from payment import purchase
+from payment import preFill
+from payment import purchase
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from waitress import serve
@@ -86,9 +86,10 @@ def makeDonation():
         # which should update the transaction to indicate this was complete
     recipient = Matchmaker().get_recipientProfile()
     print(recipient)
-    # purchase_status = False
-    if preFill(dollars=request.json['dollars'], recipient_name=recipient.get_first_name(),
-               recipient_email=recipient.get_email(), sender_name=request.json['sender_name']):
+    purchase_status = False
+    payment = DoorDash()
+    if payment.preFill(dollars=request.json['dollars'], recipient_name=recipient.get_first_name(),
+                       recipient_email=recipient.get_email(), sender_name=request.json['sender_name']):
         return recipient.get_email()
 
     #     purchase_status = purchase(sender_email=request.json['sender_email'], sender_address=request.json['sender_address'], city=request.json['city'], state=request.json['state'],
