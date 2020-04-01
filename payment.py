@@ -106,20 +106,34 @@ class DoorDash():
         try:
             gift_message = "Hi {}, please enjoy these credits! Courtesy of your donor, {}, brought to you by your friends at care37!".format(
                 recipient_name, sender_name)
+
+            # Dollars
             self.driver.find_element_by_xpath(
                 "//span[@class='Select-arrow-zone']").click()
+            sleep(randint(.2, 1))
             self.driver.find_element_by_xpath(
                 "//*[@id='react-select-2--list']/div/div/div/div[{}]".format(amount)).click()
             self.driver.find_element_by_xpath(
                 "//*[@id='app']/div/div/div[2]/div[2]/div[2]/div/div[1]/div/div[3]/div/div/form/div[1]/label[1]").click()
+            
+            # Recipient Name
             self.driver.find_element_by_xpath(
                 "//input[@name='recipient_name']").send_keys(recipient_name)
+            # Recipient Email
             self.driver.find_element_by_xpath(
                 "//input[@name='recipient_email']").send_keys(recipient_email)
+            
+            # Gift Message
             self.driver.find_element_by_xpath(
                 "//*[@id='app']/div/div/div[2]/div[2]/div[2]/div/div[1]/div/div[3]/div/div/form/div[4]/textarea").send_keys(gift_message)
+            
+            # Sender Name
             self.driver.find_element_by_xpath(
                 "//input[@name='sender_name']").send_keys(sender_name)
+            
+            sleep(randint(1, 1.5))
+            
+            # Add to Cart
             self.driver.find_element_by_xpath(
                 "//button[@class='action-button']").click()
             return True
