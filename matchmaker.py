@@ -35,6 +35,9 @@ class recipientProfile(object):
     def get_email(self):
         return self._recipient_email
 
+    def get_amount_recieved(self):
+        return self._amount_receieved
+
     def get_burn_adj_amount_recieved(self):
         return self._burn_adj_amount_recieved
 

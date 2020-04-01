@@ -1,13 +1,16 @@
-from db_manager import insert_user
-from payment import DoorDash
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from waitress import serve
 from time import sleep
-
-from error import InvalidUsage
 from random import randint
 
+
+from error import InvalidUsage
+from db_manager import insert_user
+from db_manager import update_user_entry
+from db_manager import insert_donation
+
+from payment import DoorDash
 from matchmaker import Matchmaker
 
 app = Flask(__name__)
@@ -36,29 +39,6 @@ def handle_invalid_usage(error):
     return response
 
 
-# @app.route('/purchase', methods=['POST'])
-# def purch():
-#     if not has_args(request.json, ['sender_email', 'sender_address', 'city', 'state', 'zipcode', 'cardholder_name', 'card_number', 'exp_date', 'cvv']):
-#         raise InvalidUsage('note all paramenters present')
-
-#     a = Matchmaker().get_recipient()
-#     print(a)
-
-#     status = purchase(sender_email=request.json['sender_email'], sender_address=request.json['sender_address'], city=request.json['city'], state=request.json['state'],
-#                       zipcode=request.json['zipcode'], cardholder_name=request.json['cardholder_name'], card_number=request.json['card_number'], exp_date=request.json['exp_date'], cvv=request.json['cvv'])
-
-#     return status
-
-
-# @app.route('/preFill', methods=['POST'])
-# def pref():
-#     if not has_args(request.json, ['dollars', 'recipient_name', 'recipient_email', 'sender_name']):
-#         raise InvalidUsage('note all paramenters present')
-#     status = preFill(dollars=request.json['dollars'], recipient_name=request.json['recipient_name'],
-#                      recipient_email=request.json['recipient_email'], sender_name=request.json['sender_name'])
-#     return status
-
-
 @app.route('/createUser', methods=['POST'])
 def createUser():
     # required params
@@ -75,32 +55,32 @@ def createUser():
 
 @app.route('/makeDonation', methods=['POST'])
 def makeDonation():
-    if not has_args(request.json, ['sender_name', 'sender_email', 'sender_address', 'city', 'state', 'zipcode', 'cardholder_name', 'card_number', 'exp_date', 'cvv', 'dollars']):
+    if not has_args(request.json, ['sender_first_name', 'sender_last_name', 'sender_email', 'sender_address', 'city', 'state', 'zipcode', 'cardholder_name', 'card_number', 'exp_date', 'cvv', 'dollars']):
         raise InvalidUsage('Missing paramenters')
 
     # get matchmaker obj
-    # fill out form
-    # pay and deliver
-    # update User DB
-    # insert to Transactions DB
-    # send confirm email to both particpants
-        # which should update the transaction to indicate this was complete
     recipient = Matchmaker().get_recipientProfile()
     print(recipient)
     purchase_status = False
     payment = DoorDash()
+    #fill out form
+    full_name = request.json['sender_first_name'] + request.json['sender_last_name']
     if payment.preFill(dollars=request.json['dollars'], recipient_name=recipient.get_first_name(),
-                       recipient_email=recipient.get_email(), sender_name=request.json['sender_name']):
+                       recipient_email=recipient.get_email(), sender_name=full_name) == True:
         sleep(randint(1, 2))
-
+        # pay and deliver
         purchase_status = payment.purchase(sender_email=request.json['sender_email'], sender_address=request.json['sender_address'], city=request.json['city'], state=request.json['state'], zipcode=request.json['zipcode'], cardholder_name=request.json['cardholder_name'], card_number=request.json['card_number'], exp_date=request.json['exp_date'], cvv=request.json['cvv'])
         print(purchase_status)
-    return str(purchase_status)
-
+    
+    # update User DB
+    user_update_status = update_user_entry(recipient, request.json["dollars"])
+    # insert to Transactions DB
+    donation_update_status = insert_donation(recipient, request.json["dollars"], request.json["sender_email"], request.json["sender_first_name"], request.json["sender_last_name"])
+    # send confirm email to both particpants
+        # which should update the transaction to indicate this was complete
+    return "Transaction Complete:" + str(purchase_status) + " | User Table Updated:" + str(user_update_status) + " | Transactions Table Inserted:" + str(donation_update_status)
 
 if __name__ == '__main__':
     app.debug = True
     app.run(threaded=True)
 
-
-serve(app, host='0.0.0.0', port=5000, threads=350)
