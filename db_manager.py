@@ -64,12 +64,12 @@ def update_user_entry(recipientProfile, dollars):
     # TODO need to add last donation date to schema to get a more accurate burn rate adjusted amount
 
 
-def insert_donation(recipientProfile, dollars, donor_email, donor_name):
+def insert_donation(recipientProfile, dollars, donor_email, donor_first_name, donor_last_name):
     """ Insert donation record into donations database """
     ruid = recipientProfile.get_recipient_user_id()
-    sql = """INSERT INTO transactions()
+    sql = """INSERT INTO transactions(tid, uid, amount_donated, donor_email, donor_first_name, donor_last_name, donation_timestamp, donor_email_setup, recipient_email_sent)
 
-             VALUES( );"""
+             VALUES(% s, % s, % s, % s, % s, % s, % s, % s, % s);"""
     conn = None
     vendor_id = None
     try:
@@ -85,16 +85,18 @@ def insert_donation(recipientProfile, dollars, donor_email, donor_name):
         timestamp_string = time.strftime(
             "%a, %d %b %Y %H:%M:%S +0000", datetime.fromtimestamp(int(time.time())).timetuple())
         # execute the INSERT statement
-        
-        TODO: cur.execute(sql, (str(created_tuid), email, first_name, last_name, bio, str(
-            zip_code), timestamp_string, str(0), str(0)))
+        data = (str(created_tuid), str(ruid), str(dollars), donor_email, donor_first_name, donor_last_name, timestamp_string, 0, 0)
+
+        cur.execute(sql, data)
 
         # commit the changes to the database
         conn.commit()
         # close communication with the database
         cur.close()
+        return True
     except (Exception, psycopg2.DatabaseError) as error:
-        return "FAILED!! Nice going idiot: " + str(error)
+        print("FAILED!! Nice going idiot: " + str(error))
+        return False
     finally:
         if conn is not None:
             conn.close()
