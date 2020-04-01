@@ -104,9 +104,9 @@ def insert_donation(recipientProfile, dollars, donor_email, donor_first_name, do
 def insert_user(email, first_name, last_name, bio, zip_code):
     """ insert a new vendor into the vendors table """
     sql = """INSERT INTO recipients(uid, email, first_name, last_name, bio, zip_code, date_created,
-             num_donations, total_recieved)
+                                    num_donations, total_recieved)
 
-             VALUES( % s, % s, % s, % s, % s, % s, % s, % s, % s);"""
+             VALUES( %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
     conn = None
     vendor_id = None
     try:

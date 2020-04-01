@@ -82,4 +82,5 @@ def makeDonation():
 if __name__ == '__main__':
     app.debug = True
     app.run(threaded=True)
+    app.run(ssl_context='adhoc')
 
