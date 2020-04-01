@@ -67,9 +67,10 @@ def update_user_entry(recipientProfile, dollars):
 def insert_donation(recipientProfile, dollars, donor_email, donor_first_name, donor_last_name):
     """ Insert donation record into donations database """
     ruid = recipientProfile.get_recipient_user_id()
-    sql = """INSERT INTO transactions(tid, uid, amount_donated, donor_email, donor_first_name, donor_last_name, donation_timestamp, donor_email_setup, recipient_email_sent)
+    sql = """INSERT INTO donations(tid, uid, amount_donated, donor_email, donor_first_name, donor_last_name,
+             donation_timestamp, donor_email_sent, recipient_email_sent)
 
-             VALUES(% s, % s, % s, % s, % s, % s, % s, % s, % s);"""
+             VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);"""
     conn = None
     vendor_id = None
     try:
