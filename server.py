@@ -60,7 +60,6 @@ def makeDonation():
 
     # get matchmaker obj
     recipient = Matchmaker().get_recipientProfile()
-    print(recipient)
     purchase_status = False
     payment = DoorDash()
     #fill out form
@@ -69,8 +68,8 @@ def makeDonation():
                        recipient_email=recipient.get_email(), sender_name=full_name) == True:
         sleep(randint(1, 2))
         # pay and deliver
-        purchase_status = payment.purchase(sender_email=request.json['sender_email'], sender_address=request.json['sender_address'], city=request.json['city'], state=request.json['state'], zipcode=request.json['zipcode'], cardholder_name=request.json['cardholder_name'], card_number=request.json['card_number'], exp_date=request.json['exp_date'], cvv=request.json['cvv'])
-        print(purchase_status)
+        purchase_status = payment.purchase(sender_email=request.json['sender_email'], sender_address=request.json['sender_address'],
+                                            city=request.json['city'], state=request.json['state'], zipcode=request.json['zipcode'], cardholder_name=request.json['cardholder_name'], card_number=request.json['card_number'], exp_date=request.json['exp_date'], cvv=request.json['cvv'])
     
     # update User DB
     user_update_status = update_user_entry(recipient, request.json["dollars"])

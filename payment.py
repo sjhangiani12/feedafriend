@@ -110,7 +110,7 @@ class DoorDash():
             # Dollars
             self.driver.find_element_by_xpath(
                 "//span[@class='Select-arrow-zone']").click()
-            sleep(randint(.2, 1))
+            sleep(randint(1, 2))
             self.driver.find_element_by_xpath(
                 "//*[@id='react-select-2--list']/div/div/div/div[{}]".format(amount)).click()
             self.driver.find_element_by_xpath(
@@ -131,7 +131,7 @@ class DoorDash():
             self.driver.find_element_by_xpath(
                 "//input[@name='sender_name']").send_keys(sender_name)
             
-            sleep(randint(1, 1.5))
+            sleep(randint(1, 2))
             
             # Add to Cart
             self.driver.find_element_by_xpath(
