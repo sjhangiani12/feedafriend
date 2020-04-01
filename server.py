@@ -30,7 +30,6 @@ def has_args(iterable, args):
 @app.before_request
 def before_request():
     if request.url.startswith('http://'):
-        print("you are being redirected")
         url = request.url.replace('http://', 'https://', 1)
         code = 301
         return redirect(url, code=code)
@@ -91,5 +90,7 @@ def makeDonation():
 if __name__ == '__main__':
     app.debug = True
     app.run(threaded=True)
-    app.run(ssl_context='adhoc')
+    context = ('local.crt', 'local.key')#certificate and key files
+    app.run(debug=True, ssl_context=context)
+
 
