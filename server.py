@@ -30,6 +30,7 @@ def has_args(iterable, args):
 @app.before_request
 def before_request():
     if request.url.startswith('http://'):
+        print("you are being redirected")
         url = request.url.replace('http://', 'https://', 1)
         code = 301
         return redirect(url, code=code)
