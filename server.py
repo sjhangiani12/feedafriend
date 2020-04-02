@@ -35,6 +35,17 @@ def before_request():
         return redirect(url, code=code)
 
 
+@app.before_request
+def authorize():
+    if 'auth-token' in request.headers:
+        token = request.headers.get('auth-token')
+        if token != "SharanSmellsSauravLikesPHPRobiIsAFacist":
+            raise InvalidUsage('YOU SHALL NOT PASS... invalid auth token') 
+    else:
+        code = 401
+        raise InvalidUsage('WHERE MY TOKEN AT? no auth-token provided')
+
+
 @app.route('/', methods=['GET'])
 def ping():
     return 'API is Running... wait slow down. The fuck, come back API!'
@@ -88,9 +99,10 @@ def makeDonation():
     return "Transaction Complete:" + str(purchase_status) + " | User Table Updated:" + str(user_update_status) + " | Transactions Table Inserted:" + str(donation_update_status)
 
 if __name__ == '__main__':
-    app.debug = True
-    app.run(threaded=True)
-    context = ('local.crt', 'local.key')#certificate and key files
-    app.run(debug=True, ssl_context=context)
+    # app.debug = True
+    # app.run(threaded=True)
+    # enable ssl for local development https://stackoverflow.com/questions/29458548/can-you-add-https-functionality-to-a-python-flask-web-server
+    context = ('/Users/MrSwag/Library/Keychains/server.crt', '/Users/MrSwag/Library/Keychains/server.key')#certificate and key files
+    app.run('127.0.0.1', port=5000, debug=True, ssl_context=context)
 
 
