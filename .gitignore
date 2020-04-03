@@ -6,3 +6,5 @@ database.ini
 .vscode
 .ipynb_checkpoints
 .DS_store
+sendgrid.env
+sendgrid.env
