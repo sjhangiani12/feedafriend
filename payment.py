@@ -31,7 +31,7 @@ class DoorDash():
 
         # PROJECT_ROOT = os.path.abspath(os.path.dirname('payment.py'))
         # DRIVER_BIN = os.path.join(PROJECT_ROOT, "chromedriver")
-        self.driver = webdriver.Chrome(
+        self.driver = selenium.webdriver.Chrome(
             execution_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
         self.driver.get('https://doordash.launchgiftcards.com/')
 
