@@ -26,13 +26,8 @@ def config(filename='database.ini', section='postgresql'):
 def update_user_entry(recipientProfile, dollars):
     """ Update the user donated amount and the num donations after recieiving payment """
     new_num_donations = recipientProfile.get_num_donations() + 1
-    print(new_num_donations)
-    print(type(new_num_donations))
     new_total_recieved = recipientProfile.get_amount_recieved() + dollars
-    print(new_total_recieved)
-    print(type(new_total_recieved))
     ruid = recipientProfile.get_recipient_user_id()
-    print(new_num_donations)
     
     sql = """UPDATE recipients SET num_donations = (%s), total_recieved = (%s) WHERE uid = (%s);"""
 
@@ -67,9 +62,10 @@ def update_user_entry(recipientProfile, dollars):
 def insert_donation(recipientProfile, dollars, donor_email, donor_first_name, donor_last_name):
     """ Insert donation record into donations database """
     ruid = recipientProfile.get_recipient_user_id()
-    sql = """INSERT INTO transactions(tid, uid, amount_donated, donor_email, donor_first_name, donor_last_name, donation_timestamp, donor_email_setup, recipient_email_sent)
+    sql = """INSERT INTO donations(tid, uid, amount_donated, donor_email, donor_first_name, donor_last_name,
+             donation_timestamp, donor_email_sent, recipient_email_sent)
 
-             VALUES(% s, % s, % s, % s, % s, % s, % s, % s, % s);"""
+             VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);"""
     conn = None
     vendor_id = None
     try:
@@ -79,11 +75,12 @@ def insert_donation(recipientProfile, dollars, donor_email, donor_first_name, do
         conn = psycopg2.connect(**params)
         # create a new cursor
         cur = conn.cursor()
-        # generate the Uid
-        created_tuid = uuid.uuid5(uuid.NAMESPACE_OID, donor_email)
         # get the date created (TIMESTAMP '2004-10-19 10:23:54')
         timestamp_string = time.strftime(
             "%a, %d %b %Y %H:%M:%S +0000", datetime.fromtimestamp(int(time.time())).timetuple())
+        # generate the Uid
+        uuid_string = donor_email + timestamp_string
+        created_tuid = uuid.uuid5(uuid.NAMESPACE_OID, uuid_string)
         # execute the INSERT statement
         data = (str(created_tuid), str(ruid), str(dollars), donor_email, donor_first_name, donor_last_name, timestamp_string, 0, 0)
 
@@ -107,9 +104,9 @@ def insert_donation(recipientProfile, dollars, donor_email, donor_first_name, do
 def insert_user(email, first_name, last_name, bio, zip_code):
     """ insert a new vendor into the vendors table """
     sql = """INSERT INTO recipients(uid, email, first_name, last_name, bio, zip_code, date_created,
-             num_donations, total_recieved)
+                                    num_donations, total_recieved)
 
-             VALUES( % s, % s, % s, % s, % s, % s, % s, % s, % s);"""
+             VALUES( %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
     conn = None
     vendor_id = None
     try:
@@ -119,11 +116,11 @@ def insert_user(email, first_name, last_name, bio, zip_code):
         conn = psycopg2.connect(**params)
         # create a new cursor
         cur = conn.cursor()
-        # generate the Uid
-        created_uuid = uuid.uuid5(uuid.NAMESPACE_OID, email)
         # get the date created (TIMESTAMP '2004-10-19 10:23:54')
         timestamp_string = time.strftime(
             "%a, %d %b %Y %H:%M:%S +0000", datetime.fromtimestamp(int(time.time())).timetuple())
+        # generate the Uid
+        created_uuid = uuid.uuid5(uuid.NAMESPACE_OID, email)
         # execute the INSERT statement
         cur.execute(sql, (str(created_uuid), email, first_name, last_name, bio, str(
             zip_code), timestamp_string, str(0), str(0)))

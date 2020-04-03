@@ -1,0 +1,18 @@
+import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+
+message = Mail(
+    from_email='sharan@care37.org',
+    to_emails='sharan@uw.edu',
+    subject='Sending with Twilio SendGrid is Fun',
+    html_content='<strong>and easy to do anywhere, even with Python</strong>')
+try:
+    sg = SendGridAPIClient('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')
+    response = sg.send(message)
+    print(response.status_code)
+    print(response.body)
+    print(response.headers)
+except Exception as e:
+    print('failed')
+    print(e)

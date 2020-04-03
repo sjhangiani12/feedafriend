@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, redirect
 from flask_cors import CORS
 from waitress import serve
 from time import sleep
@@ -25,6 +25,25 @@ def has_args(iterable, args):
 
     except TypeError:
         return False
+
+
+@app.before_request
+def before_request():
+    if request.url.startswith('http://'):
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return redirect(url, code=code)
+
+
+@app.before_request
+def authorize():
+    if 'auth-token' in request.headers:
+        token = request.headers.get('auth-token')
+        if token != "SharanSmellsSauravLikesPHPRobiIsAFacist":
+            raise InvalidUsage('YOU SHALL NOT PASS... invalid auth token') 
+    else:
+        code = 401
+        raise InvalidUsage('WHERE MY TOKEN AT? no auth-token provided')
 
 
 @app.route('/', methods=['GET'])
@@ -60,7 +79,6 @@ def makeDonation():
 
     # get matchmaker obj
     recipient = Matchmaker().get_recipientProfile()
-    print(recipient)
     purchase_status = False
     payment = DoorDash()
     #fill out form
@@ -69,8 +87,8 @@ def makeDonation():
                        recipient_email=recipient.get_email(), sender_name=full_name) == True:
         sleep(randint(1, 2))
         # pay and deliver
-        purchase_status = payment.purchase(sender_email=request.json['sender_email'], sender_address=request.json['sender_address'], city=request.json['city'], state=request.json['state'], zipcode=request.json['zipcode'], cardholder_name=request.json['cardholder_name'], card_number=request.json['card_number'], exp_date=request.json['exp_date'], cvv=request.json['cvv'])
-        print(purchase_status)
+        purchase_status = payment.purchase(sender_email=request.json['sender_email'], sender_address=request.json['sender_address'],
+                                            city=request.json['city'], state=request.json['state'], zipcode=request.json['zipcode'], cardholder_name=request.json['cardholder_name'], card_number=request.json['card_number'], exp_date=request.json['exp_date'], cvv=request.json['cvv'])
     
     # update User DB
     user_update_status = update_user_entry(recipient, request.json["dollars"])
@@ -81,6 +99,10 @@ def makeDonation():
     return "Transaction Complete:" + str(purchase_status) + " | User Table Updated:" + str(user_update_status) + " | Transactions Table Inserted:" + str(donation_update_status)
 
 if __name__ == '__main__':
-    app.debug = True
-    app.run(threaded=True)
+    # app.debug = True
+    # app.run(threaded=True)
+    # enable ssl for local development https://stackoverflow.com/questions/29458548/can-you-add-https-functionality-to-a-python-flask-web-server
+    context = ('/Users/MrSwag/Library/Keychains/server.crt', '/Users/MrSwag/Library/Keychains/server.key')#certificate and key files
+    app.run('127.0.0.1', port=5000, debug=True, ssl_context=context)
+
 

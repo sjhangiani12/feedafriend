@@ -125,7 +125,6 @@ class Matchmaker:
             cur.execute(
                 "SELECT first_name, last_name, email, total_recieved, date_created, num_donations, uid FROM recipients ORDER BY date_created")
             all_users = cur.fetchall()
-            print("The number of users in DB: ", cur.rowcount)
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
