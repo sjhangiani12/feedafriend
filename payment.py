@@ -21,12 +21,18 @@ import selenium
 
 class DoorDash():
     def __init__(self):
+        GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
+        CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
         chrome_options = Options()
         chrome_options.add_argument("--headless")
-        PROJECT_ROOT = os.path.abspath(os.path.dirname('payment.py'))
-        DRIVER_BIN = os.path.join(PROJECT_ROOT, "chromedriver")
-        self.driver = selenium.webdriver.Chrome(
-            executable_path=DRIVER_BIN, chrome_options=chrome_options)
+        chrome_options.add_argument('--disable-gpu')
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.binary_location = GOOGLE_CHROME_PATH
+
+        # PROJECT_ROOT = os.path.abspath(os.path.dirname('payment.py'))
+        # DRIVER_BIN = os.path.join(PROJECT_ROOT, "chromedriver")
+        self.driver = webdriver.Chrome(
+            execution_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
         self.driver.get('https://doordash.launchgiftcards.com/')
 
     def purchase(self, sender_email, sender_address, city, state, zipcode, cardholder_name, card_number, exp_date, cvv):
