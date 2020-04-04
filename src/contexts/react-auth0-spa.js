@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import createAuth0Client from "@auth0/auth0-spa-js";
-import geo2zip from 'geo2zip';
 
 const DEFAULT_REDIRECT_CALLBACK = () =>
   window.history.replaceState({}, document.title, window.location.pathname);
@@ -14,7 +13,6 @@ export const Auth0Provider = ({
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState();
   const [user, setUser] = useState();
-  const [text, setText] = useState();
   const [auth0Client, setAuth0] = useState();
   const [loading, setLoading] = useState(true);
   const [popupOpen, setPopupOpen] = useState(false);
@@ -55,46 +53,18 @@ export const Auth0Provider = ({
       setPopupOpen(false);
     }
     const user = await auth0Client.getUser();
-
-    let info = user ["https://example.com/geoip"];
-    let location = {latitude: info.latitude, longitude: info.longitude};
-    const zip = await geo2zip(location);
-
-    const data = {
-      first_name: user.given_name,
-      last_name: user.family_name,
-      email: user.email,
-      zip_code:  zip
-    }
-
-    const response = await fetch('https://care37.herokuapp.com/createUser/', {
-      method: "post",
-      headers: {
-        "Accept"  : "application/json",
-        "Content-Type" : "application/json"
-      },
-
-      body: JSON.stringify (data)
-    });
-
-
     setUser(user);
     setIsAuthenticated(true);
   };
 
   const handleRedirectCallback = async () => {
-    console.log("handle redirect");
     setLoading(true);
     await auth0Client.handleRedirectCallback();
     const user = await auth0Client.getUser();
-
-  
-
     setLoading(false);
     setIsAuthenticated(true);
     setUser(user);
   };
-
   return (
     <Auth0Context.Provider
       value={{
