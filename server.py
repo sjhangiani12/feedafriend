@@ -14,7 +14,7 @@ from payment import DoorDash
 from matchmaker import Matchmaker
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 
 def has_args(iterable, args):
