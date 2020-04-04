@@ -27,23 +27,23 @@ def has_args(iterable, args):
         return False
 
 
-@app.before_request
-def before_request():
-    if request.url.startswith('http://'):
-        url = request.url.replace('http://', 'https://', 1)
-        code = 301
-        return redirect(url, code=code)
+# @app.before_request
+# def before_request():
+#     if request.url.startswith('http://'):
+#         url = request.url.replace('http://', 'https://', 1)
+#         code = 301
+#         return redirect(url, code=code)
 
 
-@app.before_request
-def authorize():
-    if 'auth-token' in request.headers:
-        token = request.headers.get('auth-token')
-        if token != "SharanSmellsSauravLikesPHPRobiIsAFacist":
-            raise InvalidUsage('YOU SHALL NOT PASS... invalid auth token') 
-    else:
-        code = 401
-        raise InvalidUsage('WHERE MY TOKEN AT? no auth-token provided')
+# @app.before_request
+# def authorize():
+#     if 'auth-token' in request.headers:
+#         token = request.headers.get('auth-token')
+#         if token != "SharanSmellsSauravLikesPHPRobiIsAFacist":
+#             raise InvalidUsage('YOU SHALL NOT PASS... invalid auth token') 
+#     else:
+#         code = 401
+#         raise InvalidUsage('WHERE MY TOKEN AT? no auth-token provided')
 
 
 @app.route('/', methods=['GET'])
@@ -99,10 +99,10 @@ def makeDonation():
     return "Transaction Complete:" + str(purchase_status) + " | User Table Updated:" + str(user_update_status) + " | Transactions Table Inserted:" + str(donation_update_status)
 
 if __name__ == '__main__':
-    # app.debug = True
-    # app.run(threaded=True)
+    app.debug = True
+    app.run(threaded=True)
     # enable ssl for local development https://stackoverflow.com/questions/29458548/can-you-add-https-functionality-to-a-python-flask-web-server
-    context = ('/Users/MrSwag/Library/Keychains/server.crt', '/Users/MrSwag/Library/Keychains/server.key')#certificate and key files
-    app.run('127.0.0.1', port=5000, debug=True, ssl_context=context)
+    # context = ('/Users/MrSwag/Library/Keychains/server.crt', '/Users/MrSwag/Library/Keychains/server.key')#certificate and key files
+    # app.run('127.0.0.1', port=5000, debug=True, ssl_context=context)
 
 

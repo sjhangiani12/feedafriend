@@ -22,12 +22,20 @@ import selenium
 class DoorDash():
     def __init__(self):
         chrome_options = Options()
+
+        # PROJECT_ROOT = os.path.abspath(os.path.dirname('payment.py'))
+        # DRIVER_BIN = os.path.join(PROJECT_ROOT, "chromedriver")
+        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
         chrome_options.add_argument("--headless")
-        PROJECT_ROOT = os.path.abspath(os.path.dirname('payment.py'))
-        DRIVER_BIN = os.path.join(PROJECT_ROOT, "chromedriver")
-        self.driver = selenium.webdriver.Chrome(
-            executable_path=DRIVER_BIN, chrome_options=chrome_options)
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--no-sandbox")
+        self.driver = webdriver.Chrome(executable_path=os.environ.get(
+            "CHROMEDRIVER_PATH"), chrome_options=chrome_options)
         self.driver.get('https://doordash.launchgiftcards.com/')
+
+
+
+
 
     def purchase(self, sender_email, sender_address, city, state, zipcode, cardholder_name, card_number, exp_date, cvv):
         # Check to make sure only one order item

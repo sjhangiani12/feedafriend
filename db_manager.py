@@ -26,7 +26,7 @@ def config(filename='database.ini', section='postgresql'):
 def update_user_entry(recipientProfile, dollars):
     """ Update the user donated amount and the num donations after recieiving payment """
     new_num_donations = recipientProfile.get_num_donations() + 1
-    new_total_recieved = recipientProfile.get_amount_recieved() + dollars
+    new_total_recieved = int(recipientProfile.get_amount_recieved()) + int(dollars)
     ruid = recipientProfile.get_recipient_user_id()
     
     sql = """UPDATE recipients SET num_donations = (%s), total_recieved = (%s) WHERE uid = (%s);"""
