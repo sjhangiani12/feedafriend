@@ -4,7 +4,6 @@ from waitress import serve
 from time import sleep
 from random import randint
 
-
 from error import InvalidUsage
 from db_manager import insert_user
 from db_manager import update_user_entry

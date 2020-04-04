@@ -1,6 +1,7 @@
 {
   "name": "care37",
   "version": "0.1.0",
+  "homepage": ".",
   "private": true,
   "engines": {
     "node": "11.6.0",
