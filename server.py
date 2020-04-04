@@ -4,7 +4,6 @@ from waitress import serve
 from time import sleep
 from random import randint
 
-
 from error import InvalidUsage
 from db_manager import insert_user
 from db_manager import update_user_entry
@@ -14,8 +13,8 @@ from payment import DoorDash
 from matchmaker import Matchmaker
 
 app = Flask(__name__)
-CORS(app)
-
+CORS(app, resources={r"/*": {"origins": "*"}})
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 def has_args(iterable, args):
     """Verify that all args are in the iterable."""
@@ -58,7 +57,7 @@ def handle_invalid_usage(error):
     return response
 
 
-@app.route('/createUser', methods=['POST'])
+@app.route('/createUser', methods=['POST', 'OPTIONS'])
 def createUser():
     # required params
     if not has_args(request.json, ['email', 'first_name', 'last_name', 'zip_code']):
