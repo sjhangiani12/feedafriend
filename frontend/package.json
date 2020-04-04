@@ -12,12 +12,15 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "auth0-lock": "^11.23.0",
+    "geo2zip": "^2.0.2",
     "react": "^16.13.1",
     "react-credit-card-input": "^1.1.5",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
-    "styled-components": "^5.0.1"
+    "styled-components": "^5.0.1",
+    "zipcodes": "^8.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
