@@ -4,7 +4,7 @@ import { useAuth0 } from "../contexts/react-auth0-spa";
 import geo2zip from 'geo2zip';
 
 function ReceivePage () {
-  const { isAuthenticated, loginWithRedirect, logout, user, text } = useAuth0();
+  const { loading, isAuthenticated, loginWithRedirect, logout, user, text } = useAuth0();
 
   const [userInfo, setUserInfo] = useState(user);
 
@@ -42,7 +42,7 @@ function ReceivePage () {
 
   return (
     <div style={{"marginTop" : "100px"}}>
-        {!isAuthenticated && (
+        {!loading && !isAuthenticated && (
          <button onClick={() => loginWithRedirect({})}>Log in</button>
        )}
 
