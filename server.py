@@ -12,6 +12,8 @@ from db_manager import insert_donation
 from payment import DoorDash
 from matchmaker import Matchmaker
 
+import smtplib
+
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -57,7 +59,19 @@ def handle_invalid_usage(error):
     return response
 
 
+@app.route('/sendEmail', methods=['POST', 'OPTIONS'])
+def sendEmail():
+    content = 'python is java as a walking is to take a helicopter'
+    mail = smtplib.SMTP('smtp.gmail.com', 587)
+    mail.ehlo()
+    mail.starttls()
+    mail.login('email', 'password')
+    mail.sendmail('fromemail', 'reciever', content)
+    mail.close()
+
+
 @app.route('/createUser', methods=['POST', 'OPTIONS'])
+@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
 def createUser():
     # required params
     if not has_args(request.json, ['email', 'first_name', 'last_name', 'zip_code']):
