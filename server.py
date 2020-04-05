@@ -83,12 +83,8 @@ def createUser():
     # insert that bish in the db, naaaah what im sayin
     response = insert_user(request.json['email'], request.json['first_name'], request.json['last_name'],
                            request.json['bio'], request.json['zip_code'])
-<<<<<<< HEAD
     response = Response(response)
     response.headers.add('Access-Control-Allow-Origin', '*')
-=======
-#    response.headers.add('Access-Control-Allow-Origin', '*')
->>>>>>> 94b0746e67e9d5f349383677e313fc661ad9aa22
     return response
 
 
