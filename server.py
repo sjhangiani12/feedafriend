@@ -1,8 +1,4 @@
 from flask import Flask, jsonify, request, redirect, Response
-<<<<<<< HEAD
-=======
-
->>>>>>> 17b4598cb682955c04b2b58f1f6e0f010aac7ef1
 from flask_cors import CORS, cross_origin
 from waitress import serve
 from time import sleep
