@@ -27,4 +27,4 @@ def send_donor_order_confirmation(donor_email, amount_donated, donor_name, ):
     server.quit()
 
 
-send_order_confirmation("sharan@uw.edu", )
+send_order_confirmation("sharan@uw.edu", 3, "Sharan")
