@@ -15,8 +15,8 @@ from matchmaker import Matchmaker
 import smtplib
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
-app.config['CORS_HEADERS'] = 'Content-Type'
+#CORS(app, resources={r"/*": {"origins": "*"}})
+#app.config['CORS_HEADERS'] = 'Content-Type'
 
 def has_args(iterable, args):
     """Verify that all args are in the iterable."""
@@ -71,7 +71,7 @@ def sendEmail():
 
 
 @app.route('/createUser', methods=['POST', 'OPTIONS'])
-@cross_origin(origin='*',headers=['Content- Type','Authorization'])
+#@cross_origin(origin='*',headers=['Content- Type','Authorization'])
 def createUser():
     # required params
     if not has_args(request.json, ['email', 'first_name', 'last_name', 'zip_code']):
@@ -82,7 +82,7 @@ def createUser():
     # insert that bish in the db, naaaah what im sayin
     response = insert_user(request.json['email'], request.json['first_name'], request.json['last_name'],
                            request.json['bio'], request.json['zip_code'])
-    response.headers.add('Access-Control-Allow-Origin', '*')
+#    response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 
