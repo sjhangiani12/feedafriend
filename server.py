@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, redirect
+from flask import Flask, jsonify, request, redirect, Response
 from flask_cors import CORS, cross_origin
 from waitress import serve
 from time import sleep
@@ -82,7 +82,8 @@ def createUser():
     # insert that bish in the db, naaaah what im sayin
     response = insert_user(request.json['email'], request.json['first_name'], request.json['last_name'],
                            request.json['bio'], request.json['zip_code'])
-#    response.headers.add('Access-Control-Allow-Origin', '*')
+    response = Response(response)
+    response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 
