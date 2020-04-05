@@ -62,11 +62,11 @@ def handle_invalid_usage(error):
 @app.route('/sendEmail', methods=['POST', 'OPTIONS'])
 def sendEmail():
     content = 'python is java as a walking is to take a helicopter'
-    mail = smtplib.SMTP('smtp.gmail.com', 587)
+    mail = smtplib.SMTP('smtp.zoho.com', 465)
     mail.ehlo()
     mail.starttls()
-    mail.login('email', 'password')
-    mail.sendmail('fromemail', 'reciever', content)
+    mail.login('nikhil@care37.org', 'NikhileatsASS69')
+    mail.sendmail('nikhil@care37.org', 'sharan@care37.org', content)
     mail.close()
 
 
@@ -82,6 +82,7 @@ def createUser():
     # insert that bish in the db, naaaah what im sayin
     response = insert_user(request.json['email'], request.json['first_name'], request.json['last_name'],
                            request.json['bio'], request.json['zip_code'])
+    response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 
