@@ -15,7 +15,7 @@ from matchmaker import Matchmaker
 import smtplib
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 def has_args(iterable, args):
@@ -71,7 +71,7 @@ def sendEmail():
 
 
 @app.route('/createUser', methods=['POST', 'OPTIONS'])
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+@cross_origin(origin='*',headers=['Content- Type','Authorization'])
 def createUser():
     # required params
     if not has_args(request.json, ['email', 'first_name', 'last_name', 'zip_code']):
