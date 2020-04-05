@@ -83,7 +83,7 @@ def createUser():
     response = insert_user(request.json['email'], request.json['first_name'], request.json['last_name'],
                            request.json['bio'], request.json['zip_code'])
     response = Response(response)
-    response.headers.add('Access-Control-Allow-Origin', 'google.com')
+    # response.headers.add('Access-Control-Allow-Origin', 'google.com')
     return response
 
 
