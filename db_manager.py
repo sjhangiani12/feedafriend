@@ -23,6 +23,48 @@ def config(filename='database.ini', section='postgresql'):
 
     return db
 
+def update_donations_email(tid, recipient_email_sent_check, donor_email_sent_check):
+    """ Update the user donated amount and the num donations after recieiving payment """
+    if recipient_email_sent_check is True:
+        recipient_email = 1
+    else:
+        recipient_email = 0
+        
+    if donor_email_sent_check is True:
+        donor_email = 1
+    else:
+        donor_email = 0
+    
+    sql = """UPDATE donations SET recipient_email_sent = (%s), donor_email_sent = (%s) WHERE tid = (%s);"""
+
+    data = (str(recipient_email), str(donor_email), str(tid))
+    conn = None
+    vendor_id = None
+    try:
+        # read database configuration
+        params = config()
+        # connect to the PostgreSQL database
+        conn = psycopg2.connect(**params)
+        # create a new cursor
+        cur = conn.cursor()
+        # execute the INSERT statement
+        cur.execute(sql, data)
+        # commit the changes to the database
+        conn.commit()
+        # close communication with the database
+        cur.close()
+        return True
+    except (Exception, psycopg2.DatabaseError) as error:
+        print("FAILED!! Nice going idiot: " + str(error))
+        return False
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return "Donations Table Email Fields Updated " + str(tuid)
+    # TODO need to add last donation date to schema to get a more accurate burn rate adjusted amount
+
+
 def update_user_entry(recipientProfile, dollars):
     """ Update the user donated amount and the num donations after recieiving payment """
     new_num_donations = recipientProfile.get_num_donations() + 1
