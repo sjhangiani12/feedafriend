@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, redirect
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from waitress import serve
 from time import sleep
 from random import randint
