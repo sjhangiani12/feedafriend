@@ -1,30 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import {
   Link
 } from 'react-router-dom';
 
+import { PrimaryButton, SecondaryButton } from "../shared/ButtonComponents";
+
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from '@material-ui/core/AppBar';
+
 import { useAuth0 } from "../contexts/react-auth0-spa";
 
 const links = {
-  "color" : "white",
+  "color" : "black",
   "font-family" : "sans-serif",
   "text-decoration"  : "none",
+  "margin-right" : "36px",
   "&:hover": {
       textDecoration: "underline"
   }
 }
 
-
 const useStyles = makeStyles(() => ({
   root: {
       flexDirection: "row",
-      justifyContent: "space-evenly",
+      justifyContent: "space-between",
       alignItems:  "center",
-      height: "50px",
-      backgroundColor: "#f39c12"
+      height: "90px",
+      backgroundColor: "#FFFFFF",
+      boxShadow: "none"
+
   }
 }));
 
@@ -35,11 +40,15 @@ function NavBar () {
 
   return (
     <AppBar className={classes.root} positive="static" style={{"margin-bottom" : "100px"}}>
-      <Link style={links} to="/" >Home</Link>
-      <Link style={links} to="/donate">Donate</Link>
-      <Link style={links} to="/receive">Receive</Link>
-      <Link style={links} to="/about_us">About Us</Link>
-      {isAuthenticated && <Link style={links} to="/recipient_portal">Your Portal</Link>}
+          <Link style={links} to="/" ><img src="../../../static/CARE_37.svg" alt="logo" /></Link>
+          <div>
+            <Link style={links} to="/about_us">About</Link>
+            <Link style={links} to="/receive"><SecondaryButton text="Receive"/></Link>
+            <Link style={links} to="/donate"><PrimaryButton text="Donate"/></Link>
+            {isAuthenticated && <Link style={links} to="/recipient_portal">Your Portal</Link>}
+          </div>
+
+
     </AppBar>
   );
 
