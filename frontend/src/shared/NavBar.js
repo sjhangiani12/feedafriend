@@ -19,7 +19,22 @@ const links = {
   "margin-right" : "18px",
   "&:hover": {
       textDecoration: "underline"
-  }
+  },
+  "position": "relative",
+  "right": "20%"
+}
+
+const forLogo = {
+  "color": "black",
+  "font-family": "sans-serif",
+  "text-decoration": "none",
+
+  "&:hover": {
+    textDecoration: "underline"
+  },
+  "position": "relative",
+  "left": "10%"
+
 }
 
 const useStyles = makeStyles(() => ({
@@ -29,7 +44,7 @@ const useStyles = makeStyles(() => ({
       alignItems:  "center",
       height: "90px",
       backgroundColor: "#FFFFFF",
-      boxShadow: "none"
+      boxShadow: "none",
 
   }
 }));
@@ -41,8 +56,8 @@ function NavBar () {
 
   return (
     <AppBar className={classes.root} positive="static" style={{"margin-bottom" : "100px"}}>
-          <Link style={links} to="/" ><img src={logo} alt="logo" /></Link>
-          <div>
+          <Link style={forLogo} to="/" ><img src={logo} alt="logo" /></Link>
+          <div style = {{position: "relative", right: "5%"}}>
             <Link style={links} to="/about_us">About</Link>
             <Link style={links} to="/receive"><SecondaryButton text="Receive"/></Link>
             <Link style={links} to="/donate"><PrimaryButton text="Donate"/></Link>

@@ -10,6 +10,7 @@ function DonatePage() {
     flex: "1",
     justifyContent: "center",
     alignItems: "center",
+    marginTop: "10%"
   }
 
   const bigTextFlex = {

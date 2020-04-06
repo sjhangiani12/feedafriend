@@ -10,15 +10,17 @@ import { PrimaryButton, SecondaryButton } from "../shared/ButtonComponents";
 function HomePage () {
 
   const root = {
-    position: "absolute",
-    top: "25%",
-    left: "20%",
-    width: "70%"
+    position: "relative",
+    marginTop: "10%",
+    // left: "20%",
+    // width: "70%"
+    marginLeft: "40px",
+    marginRight: "40px"
   }
 
   const header = {
     display: "flex",
-    justifyContent: "space-between"
+    justifyContent: "center"
   }
 
 
@@ -71,7 +73,7 @@ function HomePage () {
             <Link to="/receive"><SecondaryButton text="Receive" /></Link>
           </div>
         </div>
-        <img src={banner} alt="header image" />
+        <img style={{ marginLeft: "5%" }} src={banner} alt="header image" />
       </div>
     </div>
   );
