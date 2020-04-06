@@ -8,14 +8,15 @@ import { PrimaryButton, SecondaryButton } from "../shared/ButtonComponents";
 
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from '@material-ui/core/AppBar';
-
+import logo from "../static/CARE_37.svg";
 import { useAuth0 } from "../contexts/react-auth0-spa";
 
 const links = {
   "color" : "black",
   "font-family" : "sans-serif",
   "text-decoration"  : "none",
-  "margin-right" : "36px",
+  "marginLeft" : "18px",
+  "margin-right" : "18px",
   "&:hover": {
       textDecoration: "underline"
   }
@@ -40,7 +41,7 @@ function NavBar () {
 
   return (
     <AppBar className={classes.root} positive="static" style={{"margin-bottom" : "100px"}}>
-          <Link style={links} to="/" ><img src="../../../static/CARE_37.svg" alt="logo" /></Link>
+          <Link style={links} to="/" ><img src={logo} alt="logo" /></Link>
           <div>
             <Link style={links} to="/about_us">About</Link>
             <Link style={links} to="/receive"><SecondaryButton text="Receive"/></Link>

@@ -4,6 +4,8 @@ import geo2zip from 'geo2zip';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from "../contexts/react-auth0-spa";
+import banner from "../static/banner.svg";
+import { PrimaryButton, SecondaryButton } from "../shared/ButtonComponents";
 
 function HomePage () {
 
@@ -11,7 +13,7 @@ function HomePage () {
     position: "absolute",
     top: "25%",
     left: "20%",
-    width: "60%"
+    width: "70%"
   }
 
   const header = {
@@ -19,9 +21,6 @@ function HomePage () {
     justifyContent: "space-between"
   }
 
-  const content = {
-    marginTop: "50px"
-  }
 
   const { loading, isAuthenticated, loginWithRedirect, logout, user, text } = useAuth0();
 
@@ -63,18 +62,16 @@ function HomePage () {
     <div style={root}>
       <div style={header}>
         <div>
-          <h1>Care 37</h1>
-          <p>Donate today!</p>
-        </div>
-        <img src="blank" alt="header image" />
-      </div>
+          <p style={{color: "#828282", fontFamily: "sans-serif", fontWeight: "bold"}}>WHAT WE DO</p>
+          <h1 style={{fontSize: "48px", margin: "0px"}}>Help feed people in <br /> need and support<br /> local restaurants.</h1>
+          <p style={{color: "#828282", fontFamily: "sans-serif"}}>All of donated funds are used to purchase DoorDash<br /> credits for hungry people in need.</p>
 
-      <div style={content}>
-        <Link to="/donate"><button>Donate</button></Link>
-        <Link to="/receive"><button>Receive</button></Link>
-        <br />
-        <br />
-        <Link to="/about_us">What's Care37?</Link>
+          <div style={{marginTop: "30px"}}>
+            <Link to="/donate" style={{marginRight: "20px"}}><PrimaryButton text="Donate" /></Link>
+            <Link to="/receive"><SecondaryButton text="Receive" /></Link>
+          </div>
+        </div>
+        <img src={banner} alt="header image" />
       </div>
     </div>
   );
