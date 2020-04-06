@@ -26,7 +26,7 @@ function ReceivePage () {
         zip_code:  zip[0]
       }
 
-      const response = await fetch('https://cors-anywhere.herokuapp.com/https://care37.herokuapp.com/createUser', {
+      const response = await fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/createUser', {
         method: "POST",
         headers: {
           "Content-Type" : "application/json"
