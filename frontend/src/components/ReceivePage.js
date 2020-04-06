@@ -26,16 +26,21 @@ function ReceivePage () {
         zip_code:  zip[0]
       }
 
+<<<<<<< HEAD
 
       const pls = await fetch("https://care37.herokuapp.com/");
       const plstext = await pls.text();
       await console.log(plstext);
 
       const response = await fetch('https://care37.herokuapp.com/createUser/', {
+=======
+      const response = await fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/createUser', {
+>>>>>>> c6c9bd37db3d63c3301f9a8e7ef9ec6c4fb27b73
         method: "POST",
         mode : "no-cors",
         headers: {
           "Content-Type" : "application/json",
+          "Access-Control-Allow-Origin" :  "*"
         },
 
         body: JSON.stringify (data)
