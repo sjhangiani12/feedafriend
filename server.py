@@ -87,7 +87,7 @@ def createUser():
     return response
 
 
-@app.route('/makeDonation', methods=['POST'])
+@app.route('/makeDonation', methods=['POST', 'OPTIONS'])
 def makeDonation():
     if not has_args(request.json, ['sender_first_name', 'sender_last_name', 'sender_email', 
                                    'sender_address', 'city', 'state', 'zipcode', 'cardholder_name', 
