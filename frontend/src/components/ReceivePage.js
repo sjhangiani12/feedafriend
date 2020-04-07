@@ -28,7 +28,6 @@ function ReceivePage () {
 
       const response = await fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/createUser', {
         method: "POST",
-        mode : "no-cors",
         headers: {
           "Content-Type" : "application/json"
         },
