@@ -10,7 +10,10 @@ function RecipientPortal () {
   return (
     <div style={{"marginTop" : "100px"}}>
       { isAuthenticated && (
-          <p>Hello</p>
+          <div>
+            <h1>Thank you for signing up to be a recipient!</h1>
+            <h1>Your imformation has been added to our database and you will recieve an email when have been matched.</h1>
+          </div>
         )
       }
 
