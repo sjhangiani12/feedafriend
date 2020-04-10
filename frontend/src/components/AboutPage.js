@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 const sty = {
   position: "relative",
-  marginTop: "100px",
+  marginTop: "150px",
   display: "flex",
   justifyContent: "center"
 }
@@ -13,84 +13,92 @@ const ro = {
   justifyContent: "center"
 }
 
-function AboutPage () {
+const who = {
+  display: "flex",
+  justifyContent: "center",
+  marginTop: "75px"
+}
 
-  return (
-    <div className="container-fluid" style={sty}> 
-      <div className="row" style = {ro}>
-        <div className="col-sm-2">
-          <div class="card border-0 shadow">
-            <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="..." />
+class Team extends React.Component {
+  render() {
+    return (
+      <div className="container-fluid" style={sty} >
+        <div className="row" style={ro}>
+          <div className="col-xl-3 col-md-4 mb-4 mx-xl-2 mx-sm-4">
+            <div class="card border-0 shadow">
+              <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="..." />
               <div class="card-body text-center">
                 <h5 class="card-title mb-0">Robi</h5>
-                <div class="card-text text-black-50">Web Developer</div>
               </div>
+            </div>
           </div>
-        </div>
-        <div className="col-sm-2">
-          <div class="card border-0 shadow">
-            <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="..." />
-            <div class="card-body text-center">
-              <h5 class="card-title mb-0">Saurav</h5>
-              <div class="card-text text-black-50">Web Developer</div>
+          <div className="col-xl-3 col-md-4 mb-4 mx-xl-2 mx-sm-4">
+            <div class="card border-0 shadow">
+              <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="..." />
+              <div class="card-body text-center">
+                <h5 class="card-title mb-0">Saurav</h5>
+              </div>
+            </div>
+          </div>
+          <div className="col-xl-3 col-md-4 mb-4 mx-xl-2 mx-sm-4">
+            <div class="card border-0 shadow">
+              <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="..." />
+              <div class="card-body text-center">
+                <h5 class="card-title mb-0">Nikhil</h5>
+              </div>
+            </div>
+          </div>
+          <div className="col-xl-3 col-md-4 mb-4 mx-xl-2 mx-sm-4">
+            <div class="card border-0 shadow">
+              <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="..." />
+              <div class="card-body text-center">
+                <h5 class="card-title mb-0">Sharan</h5>
+              </div>
+            </div>
+          </div>
+          <div className="col-xl-3 col-md-4 mb-4 mx-xl-2 mx-sm-4">
+            <div class="card border-0 shadow">
+              <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="..." />
+              <div class="card-body text-center">
+                <h5 class="card-title mb-0">John</h5>
+              </div>
             </div>
           </div>
         </div>
-        <div className=" col-sm-2">
-          <div class="card border-0 shadow">
-            <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="..." />
-            <div class="card-body text-center">
-              <h5 class="card-title mb-0">Nikhil</h5>
-              <div class="card-text text-black-50">Web Developer</div>
-            </div>
-          </div>
+      </div >
+    )
+  }
+}
+
+class About extends React.Component {
+render() {
+  return (
+    <div className="container-fluid" style={who}>
+      <div className="row" style={ro} >
+        <div className="col-xl-5 col-md-4 col-sm-12 mx-4">
+            <h2 align = "center">Who we are</h2>
+            <p align = "center ">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+          
         </div>
-        <div className="col-sm-2">
-          <div class="card border-0 shadow">
-            <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="..." />
-            <div class="card-body text-center">
-              <h5 class="card-title mb-0">Sharan</h5>
-              <div class="card-text text-black-50">Web Developer</div>
-            </div>
-          </div>
-        </div>
-        <div className="col-sm-2">
-          <div class="card border-0 shadow">
-            <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="..." />
-            <div class="card-body text-center">
-              <h5 class="card-title mb-0">John</h5>
-              <div class="card-text text-black-50">Web Developer</div>
-            </div>
-          </div>
+        <div className="col-xl-5 col-md-4 col-sm-12 mx-4">
+          <h2 align = "center">Why we built this</h2>
+          <p align = "center">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+
         </div>
       </div>
     </div>
+  )
+}
+}
 
+function AboutPage () {
 
-      // <div style={sty}>
-      //   {/* <about className="container"> */}
+  return (
+    <div>
+      <Team />
+      <About />
+    </div>
 
-      //       {/* <div className="col-12 col-md-4 text-left text-md-center pb-4">
-      //         <p className="font-weight-bold">Resources</p>
-      //         <div className="d-flex flex-column">
-      //           <a href="https://en.wikipedia.org/wiki/Regression_analysis">Regression</a>
-      //           <a href="https://www.r-project.org/">R</a>
-      //           <FootModal />
-      //         </div>
-      //       </div>
-      //       <div className="col-12 col-md-4 text-left text-md-right pb-4">
-      //         <p className="font-weight-bold">Contact</p>
-      //         <div className="d-flex flex-column">
-      //           <a href="https://www.linkedin.com/in/robert-lin1/">Robi Lin</a>
-      //           <a href="https://www.linkedin.com/in/oscar-avatare/">Oscar Avatare</a>
-      //           <a href="https://www.linkedin.com/in/jacquesdebar/">Jacques DeBar</a>
-      //           <a href="https://www.linkedin.com/in/lucas-woo-84103966/">Lucas Woo</a>
-
-      //         </div>
-      //       </div>
-      //     </div> */}
-      //   {/* </about> */}
-      // </div>
   );
 
 }
