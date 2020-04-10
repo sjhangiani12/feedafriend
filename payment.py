@@ -100,7 +100,6 @@ class DoorDash():
                 sleep(randint(.02, 1.5))
 
             # place order
-            test = True
             self.driver.find_element_by_xpath("//button[@class='action-button action-button--purchase-now']").click()
             confirm = self.driver.find_element_by_xpath(
                 "//p[@class='success__body-text success__body-text--large']").text
