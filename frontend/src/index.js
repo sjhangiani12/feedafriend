@@ -30,18 +30,27 @@ function App () {
       <Switch>
         <Route exact path="/">
           <HomePage />
+          <Footer />
+
         </Route>
         <Route path="/donate">
           <DonatePage />
+          <Footer />
+
         </Route>
         <Route path="/receive">
           <ReceivePage />
+          <Footer />
+
         </Route>
         <Route path="/recipient_portal">
           <RecipientPortal />
+          <Footer />
+
         </Route>
         <Route path="/about_us">
           <AboutPage />
+          <Footer />
         </Route>
       </Switch>
     </Router>
