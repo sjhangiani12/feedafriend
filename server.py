@@ -31,8 +31,8 @@ def has_args(iterable, args):
 @app.before_request
 def before_request():
     print(request.url)
-    print(request.url_root)
-    print(request.headers['Host'])
+    print(request.host)
+    print(request.host_url)
     if request.url.startswith('http://'):
         url = request.url.replace('http://', 'https://', 1)
         code = 301
