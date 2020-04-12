@@ -15,17 +15,17 @@ const header = {
   display: "flex",
   justifyContent: "center"
 }
-
+const root = {
+  position: "relative",
+  marginTop: "10%",
+  // left: "20%",
+  // width: "70%"
+  marginLeft: "40px",
+  marginRight: "40px"
+}
 function HomePage () {
 
-  const root = {
-    position: "relative",
-    marginTop: "10%",
-    // left: "20%",
-    // width: "70%"
-    marginLeft: "40px",
-    marginRight: "40px"
-  }
+
 
 
 
@@ -93,89 +93,70 @@ function HomePage () {
 }
 
 
-const cap1 = {
-  position: "absolute",
-  width: "auto",
-  height: "28px",
-  left: "240px",
-  marginTop: "62%",
-  fontFamily: "Abril Titling",
-  fontStyle: "italic",
-  fontWeight: "bold",
-  fontSize: "24px",
-  lineHeight: "28px",
-  align: "center",
-  letterSpacing: "0.02em",
-  color: "#333333"
-}
-const cap2 = {
-  position: "absolute",
-  width: "300px",
-  height: "28px",
-  left: "552px",
-  marginTop: "62%",
-  fontFamily: "Abril Titling",
-  fontStyle: "italic",
-  fontWeight: "bold",
-  fontSize: "24px",
-  lineHeight: "28px",
-  textAlign: "center",
-  letterSpacing: "0.02em",
-  color: "#333333"
-}
-const cap3 = {
-  position: "absolute",
-  width: "300px",
-  height: "28px",
-  left: "963px",
-  marginTop: "62%",
-  fontFamily: "Abril Titling",
-  fontStyle: "italic",
-  fontWeight: "bold",
-  fontSize: "24px",
-  lineHeight: "28px",
-  textAlign: "center",
-  letterSpacing: "0.02em",
-  color: "#333333"
-}
-const how = {
-  display: "flex",
-  justifyContent: "center",
-  position: "relative",
-  marginTop: "20%",
-  // left: "20%",
-  // width: "70%"
-  marginLeft: "40px",
-  marginRight: "40px"
-}
-
 const them = {
   width: "70%",
-  height: "auto"
+  height: "auto",
+  marginTop: "0%"
+}
+
+const lines = {
+  display: "flex",
+  justifyContent: "center",
+  align: "center",
+  marginTop: "5%"
+}
+
+const headed = {
+  display: "flex",
+  justifyContent: "center",
+  align: "center",
+  marginLeft: "40px",
+  marginRight: "40px",
+  marginTop: "25%"
+}
+const ro = {
+  display: "flex",
+  justifyContent: "center"
+}
+
+const who = {
+  display: "flex",
+  justifyContent: "center",
+  marginTop: "20%"
 }
 
 function How () {
   return (
     <div>
-      <div className="container-fluid" style={how}>
-
-        <div >
-          <div className="row" align="center" style={header}>
-            <div className="col-xl-10">
-              <h1>Here is how we use funds</h1>
-              <br />
-              <br />
-              <img src={big}/>
-            </div>
+      <div >
+        <div className="row" align="center" style={headed}>
+          <div className="col-xl-10">
+            <h1>Here is how we use funds</h1>
+            <br />
+            <br />
+            <img src={big} style={{ width: "30%", height: "auto" }} />
           </div>
         </div>
       </div>
-      <div className="row" style={header}>
-        <span style={cap1}>You donate</span>
-        <span style={cap2}>Our system selects someone in need</span>
-        <span style={cap3}>They get a DoorDash gift card so they can enjoy a meal at home!</span>
+      <div style={lines}>
         <img style={them} src={flow} alt="line" />
+
       </div>
+
+    <div className="container-fluid" style={who}>
+      <div className="row" style={ro} >
+        <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
+            <h2 align = "center">Step 1</h2>
+            <p align = "center ">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+          
+        </div>
+        <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
+          <h2 align = "center">Step 2</h2>
+          <p align = "center">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+
+        </div>
+      </div>
+    </div>
     </div>
 
   )
