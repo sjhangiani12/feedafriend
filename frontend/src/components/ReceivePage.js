@@ -41,18 +41,46 @@ function ReceivePage() {
   }
 
   return (
-    <div style={{ "marginTop": "100px" }}>
+    <div style={header}>
       {!loading && !isAuthenticated && (
-        <button onClick={() => loginWithRedirect({})}>Log in</button>
+        <button style={loginButton} onClick={() => loginWithRedirect({})}>Log in</button>
       )}
 
-      {isAuthenticated && <div>
-        <h1>Thank you for signing up!</h1>
-        <button onClick={() => logout()}>Log out</button>
+      {isAuthenticated && 
+      <div style={loggedInView}>
+        <h1 style={signUpMessage}>Thank you for signing up!</h1>
+        <button style={logoutButton} onClick={() => logout()}>Log out</button>
       </div>}
     </div>
   );
+}
 
+const loginButton = {
+  marginTop: "100px",
+}
+
+const signUpMessage = {
+  flexBasis: "40%",
+  padding: "20px",
+}
+
+const logoutButton = {
+  flexBasis: "40%",
+  width: "150px",
+  height: "28px",
+}
+
+const loggedInView = {
+  marginTop: "100px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+}
+
+const header = {
+  marginTop: "100px",
+  display: "flex",
+  justifyContent: "center",
 }
 
 export default ReceivePage;

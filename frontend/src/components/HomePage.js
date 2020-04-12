@@ -15,6 +15,7 @@ const header = {
   display: "flex",
   justifyContent: "center"
 }
+
 function HomePage () {
 
   const root = {
