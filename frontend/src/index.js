@@ -30,7 +30,7 @@ function App () {
       <Switch>
         <Route exact path="/">
           <HomePage />
-          <Footer />
+          {/* <Footer /> */}
 
         </Route>
         <Route path="/donate">
