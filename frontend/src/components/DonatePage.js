@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { PrimaryButton, SecondaryButton } from "../shared/ButtonComponents.js"
-import { ButtonToolbar, ButtonGroup, Button } from 'react-bootstrap';
+import { PrimaryButton, SecondaryButton } from '../shared/ButtonComponents.js';
+import { ButtonToolbar, Button, Form } from 'react-bootstrap';
+import CurrencyInput from 'react-currency-input';
 
 function DonatePage() {
 
@@ -12,9 +13,7 @@ function DonatePage() {
     justifyContent: "center",
     alignItems: "center",
     marginTop: "15%",
-  }
-
-  const bigTextFlex = {
+    alignItems: "flex-start",
   }
 
   const bigText = {
@@ -44,7 +43,9 @@ function DonatePage() {
     fontStyle: "normal",
     fontWeight: "600",
     fontSize: "36px",
-    lineHeight: "40px"
+    lineHeight: "40px",
+    paddingBottom: "20px",
+    
   }
 
   const supportSiteText = {
@@ -52,32 +53,56 @@ function DonatePage() {
     fontStyle: "normal",
     fontWeight: "300",
     fontSize: "18px",
-    lineHeight: "21px"
+    lineHeight: "21px",
+    paddingBottom: "10px",
+  }
+
+  const amountButton = {
+    margin: "10px",
+    width: "80px",
+    height: "45px",
+    background: "#F9F9F9",
+    borderRadius: "41px",
+    border: "none",
+    color: "#000000",
+    fontSize: "18px",
+    lineHeight: "21px",
+    fontWeight: "bold",
+    fontFamily: "Roboto",
+  }
+
+  const supportForm = {
+    paddingBottom: "40px",
+  }
+
+  const buttonToolbar = {
+    paddingBottom: "20px",
+  }
+
+  const supportInput = {
+    width: "60px",
+    height: "30px",
+    background: "transparent",
+    borderColor: "#828282",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    color: "#828282",
   }
 
   return (
     <div style={donateHeader}>
-      <div style={bigTextFlex}>
-        <h1 style={bigText}>You are making the world better.</h1>
-      </div>
+      <h1 style={bigText}>You are making the world better.</h1>
       <div style={donationText}>
         <h1 style={step}>STEP 1</h1>
         <h1 style={enterDonation}>Enter donation amount</h1>
-        <ButtonToolbar>
-          <ButtonGroup>
-            <Button>25</Button>
-          </ButtonGroup>
-          <ButtonGroup>
-            <Button>25</Button>
-          </ButtonGroup>
-          <ButtonGroup>
-            <Button>25</Button>
-          </ButtonGroup>
-          <ButtonGroup>
-            <Button>25</Button>
-          </ButtonGroup>
-        </ButtonToolbar>
+          <Button style={amountButton}>$25</Button>
+          <Button style={amountButton}>$50</Button>
+          <Button style={amountButton}>$100</Button>
+          <Button style={amountButton}>$200</Button>
         <h1 style={supportSiteText}>Would you like to help support this site?</h1>
+        <div style={supportForm}>
+          <CurrencyInput style={supportInput} prefix="$" />
+        </div>
         <PrimaryButton text="Next: Payment information" />
       </div>
     </div>
