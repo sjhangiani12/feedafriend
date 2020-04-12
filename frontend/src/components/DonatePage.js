@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { PrimaryButton, SecondaryButton } from "../shared/ButtonComponents.js"
+import { ButtonToolbar, ButtonGroup, Button } from 'react-bootstrap';
 
 function DonatePage() {
 
@@ -10,7 +11,7 @@ function DonatePage() {
     flex: "1",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: "10%"
+    marginTop: "15%",
   }
 
   const bigTextFlex = {
@@ -25,20 +26,19 @@ function DonatePage() {
     fontSize: "50px",
     lineHeight: "81px"
   }
-  
+
   const donationText = {
-    width: "378px",
-    height: "40px",
   }
 
   const step = {
     fontFamily: "Roboto",
     fontStyle: "normal",
     fontWeight: "bold",
-    fontSize: "18px", 
-    lineHeight: "21px" 
+    fontSize: "18px",
+    lineHeight: "21px",
+    color: "#828282",
   }
-   
+
   const enterDonation = {
     fontFamily: "Abril Titling",
     fontStyle: "normal",
@@ -63,8 +63,22 @@ function DonatePage() {
       <div style={donationText}>
         <h1 style={step}>STEP 1</h1>
         <h1 style={enterDonation}>Enter donation amount</h1>
+        <ButtonToolbar>
+          <ButtonGroup>
+            <Button>25</Button>
+          </ButtonGroup>
+          <ButtonGroup>
+            <Button>25</Button>
+          </ButtonGroup>
+          <ButtonGroup>
+            <Button>25</Button>
+          </ButtonGroup>
+          <ButtonGroup>
+            <Button>25</Button>
+          </ButtonGroup>
+        </ButtonToolbar>
         <h1 style={supportSiteText}>Would you like to help support this site?</h1>
-        <PrimaryButton text="Next: Payment information"/>
+        <PrimaryButton text="Next: Payment information" />
       </div>
     </div>
   );
