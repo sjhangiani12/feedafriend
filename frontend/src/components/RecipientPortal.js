@@ -12,7 +12,7 @@ function RecipientPortal () {
       { isAuthenticated && (
           <div>
             <h1>Thank you for signing up to be a recipient!</h1>
-            <h1>Your imformation has been added to our database and you will recieve an email when have been matched.</h1>
+            <h1>Your information has been added to our database and you will recieve an email when have been matched.</h1>
           </div>
         )
       }
