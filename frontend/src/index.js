@@ -15,6 +15,8 @@ import HomePage from './components/HomePage.js';
 import DonatePage from './components/DonatePage.js';
 import ReceivePage from './components/ReceivePage.js';
 import AboutPage from './components/AboutPage.js';
+import Footer from './components/Footer.js';
+
 import RecipientPortal from './components/RecipientPortal.js';
 import NavBar from './shared/NavBar.js';
 
@@ -28,18 +30,27 @@ function App () {
       <Switch>
         <Route exact path="/">
           <HomePage />
+          {/* <Footer /> */}
+
         </Route>
         <Route path="/donate">
           <DonatePage />
+          <Footer />
+
         </Route>
         <Route path="/receive">
           <ReceivePage />
+          <Footer />
+
         </Route>
         <Route path="/recipient_portal">
           <RecipientPortal />
+          <Footer />
+
         </Route>
         <Route path="/about_us">
           <AboutPage />
+          <Footer />
         </Route>
       </Switch>
     </Router>
