@@ -1,5 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import john from "../static/john.jpg";
+import nikhil from "../static/nikhil.jpg";
+import saurav from "../static/saurav.jpg";
+import sharan from "../static/sharan.jpg";
+import robi from "../static/robi.jpg";
 
 
 const sty = {
@@ -27,7 +32,7 @@ class Team extends React.Component {
         <div className="row" style={ro}>
           <div className="col-xl-3 col-md-4 mb-4 mx-xl-2 mx-sm-4">
             <div class="card border-0 shadow">
-              <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="..." />
+              <img src={robi} class="card-img-top" alt="..." />
               <div class="card-body text-center">
                 <h5 class="card-title mb-0">Robi</h5>
               </div>
@@ -35,7 +40,7 @@ class Team extends React.Component {
           </div>
           <div className="col-xl-3 col-md-4 mb-4 mx-xl-2 mx-sm-4">
             <div class="card border-0 shadow">
-              <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="..." />
+              <img src={saurav} class="card-img-top" alt="..." />
               <div class="card-body text-center">
                 <h5 class="card-title mb-0">Saurav</h5>
               </div>
@@ -43,7 +48,7 @@ class Team extends React.Component {
           </div>
           <div className="col-xl-3 col-md-4 mb-4 mx-xl-2 mx-sm-4">
             <div class="card border-0 shadow">
-              <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="..." />
+              <img src={nikhil} class="card-img-top" alt="..." />
               <div class="card-body text-center">
                 <h5 class="card-title mb-0">Nikhil</h5>
               </div>
@@ -51,7 +56,7 @@ class Team extends React.Component {
           </div>
           <div className="col-xl-3 col-md-4 mb-4 mx-xl-2 mx-sm-4">
             <div class="card border-0 shadow">
-              <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="..." />
+              <img src={sharan} class="card-img-top" alt="..." />
               <div class="card-body text-center">
                 <h5 class="card-title mb-0">Sharan</h5>
               </div>
@@ -59,7 +64,7 @@ class Team extends React.Component {
           </div>
           <div className="col-xl-3 col-md-4 mb-4 mx-xl-2 mx-sm-4">
             <div class="card border-0 shadow">
-              <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="..." />
+              <img src={john} class="card-img-top" alt="..." />
               <div class="card-body text-center">
                 <h5 class="card-title mb-0">John</h5>
               </div>
