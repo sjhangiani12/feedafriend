@@ -194,7 +194,7 @@ function DonatePage() {
 
   return (
     // this is step one of the donation process
-    (true && (!nextToPaymentPressed || donateAmount == 0)) ? (
+    (false && (!nextToPaymentPressed || donateAmount == 0)) ? (
       <div style={donateHeader}>
         {/* if the user selected an amount give them the meals estimate */}
         {(donateAmount == 0) ? (
