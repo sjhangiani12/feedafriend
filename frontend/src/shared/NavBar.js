@@ -10,13 +10,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from '@material-ui/core/AppBar';
 import logo from "../static/CARE_37.svg";
 import { useAuth0 } from "../contexts/react-auth0-spa";
+import MediaQuery from 'react-responsive'
 
 const links = {
   "color" : "black",
   "font-family" : "sans-serif",
   "text-decoration"  : "none",
-  "marginLeft" : "18px",
-  "margin-right" : "18px",
   "&:hover": {
       textDecoration: "underline"
   },
@@ -26,7 +25,6 @@ const last = {
   "color": "black",
   "font-family": "sans-serif",
   "text-decoration": "none",
-  "marginLeft": "18px",
   "&:hover": {
     textDecoration: "underline"
   },
@@ -65,13 +63,23 @@ function NavBar () {
 
   return (
     <AppBar className={classes.root} positive="static" style={{"margin-bottom" : "100px"}}>
+        <MediaQuery minDeviceWidth={700} >
           <Link style={forLogo} to="/" ><img src={logo} alt="logo" /></Link>
-          <div style = {{position: "relative", right: "10%"}}>
+          <div style = {{position: "relative", display: "flex", justifyContent: "space-evenly", width: "30%", alignItems: "baseline"}}>
             <Link style={links} to="/about_us">About</Link>
             <Link style={links} to="/receive"><SecondaryButton text="Receive"/></Link>
             <Link style={last} to="/donate"><PrimaryButton text="Donate"/></Link>
             {isAuthenticated && <Link style={links} to="/recipient_portal">Your Portal</Link>}
           </div>
+        </MediaQuery>
+        <MediaQuery maxDeviceWidth={699} >
+          <div style = {{position: "relative", display: "flex", justifyContent: "space-evenly", width: "100%", alignItems: "baseline"}}>
+            <Link style={links} to="/about_us">About</Link>
+            <Link style={links} to="/receive"><SecondaryButton text="Receive"/></Link>
+            <Link style={last} to="/donate"><PrimaryButton text="Donate"/></Link>
+            {isAuthenticated && <Link style={links} to="/recipient_portal">Your Portal</Link>}
+          </div>
+        </MediaQuery>
 
 
     </AppBar>
