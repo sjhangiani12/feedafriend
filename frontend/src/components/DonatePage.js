@@ -3,10 +3,29 @@ import ReactDOM from 'react-dom';
 import { PrimaryButton, SecondaryButton } from '../shared/ButtonComponents.js';
 import { ButtonToolbar, Button, Form } from 'react-bootstrap';
 import CurrencyInput from 'react-currency-input';
+import CreditCardInput from 'react-credit-card-input';
 
 function DonatePage() {
 
-  var donateAmount = 0;
+  const [donateAmount, setDonateAmount] = useState(0);
+  const [nextToPaymentPressed, setNextToPaymentPressed] = useState(false);
+  const [displayPickAmountMessage, setDisplayAmountMessage] = useState(false);
+  const [supportUsAmount, setSupportUsAmount] = useState(0);
+  
+  function handleAmountClick(amount) {
+    setNextToPaymentPressed(false);
+    setDonateAmount(amount);
+    setDisplayAmountMessage(false);
+  }
+
+  function handleNextClick() {
+    setNextToPaymentPressed(true);
+    setDisplayAmountMessage(donateAmount == 0);
+  }
+
+  function handleSupportUsAmountChange(event, maskedvalue, floatvalue){
+    setSupportUsAmount(maskedvalue);
+  }
 
   const donateHeader = {
     display: "flex",
@@ -25,7 +44,7 @@ function DonatePage() {
     fontStyle: "normal",
     fontWeight: "600",
     fontSize: "50px",
-    lineHeight: "81px"
+    lineHeight: "81px",
   }
 
   const donationText = {
@@ -47,7 +66,6 @@ function DonatePage() {
     fontSize: "36px",
     lineHeight: "40px",
     paddingBottom: "20px",
-    
   }
 
   const supportSiteText = {
@@ -65,7 +83,9 @@ function DonatePage() {
     height: "45px",
     background: "#F9F9F9",
     borderRadius: "41px",
-    border: "none",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    borderColor: "#000000",
     color: "#000000",
     fontSize: "18px",
     lineHeight: "21px",
@@ -91,29 +111,52 @@ function DonatePage() {
     color: "#828282",
   }
 
-  function handleAmountClick(amount) {
-    donateAmount = amount;
+  const numOfMealsNumber = {
+    color: "#1136FC",
+    textDecoration: "underline",
+    background: "transparent",
+  }
+
+  const pickAnAmountMessage = {
+    fontFamily: "Roboto",
+    fontStyle: "normal",
+    fontWeight: "normal",
+    fontSize: "14px",
+    lineHeight: "16px",
+    color: "#EB5757",
   }
 
   return (
-    <div style={donateHeader}>
-      <h1 style={bigText}>You are making the world better.</h1>
-      <div style={donationText}>
-        <h1 style={step}>STEP 1</h1>
-        <h1 style={enterDonation}>Enter donation amount</h1>
-        <ButtonToolbar style={buttonToolbar}>
-          <Button onClick={() => handleAmountClick(25)} style={amountButton}>$25</Button>
-          <Button onClick={() => handleAmountClick(50)} style={amountButton}>$50</Button>
-          <Button onClick={() => handleAmountClick(100)} style={amountButton}>$100</Button>
-          <Button onClick={() => handleAmountClick(200)} style={amountButton}>$200</Button>
-        </ButtonToolbar>
-        <h1 style={supportSiteText}>Would you like to help support this site?</h1>
-        <div style={supportForm}>
-          <CurrencyInput style={supportInput} prefix="$" />
+      (!nextToPaymentPressed || donateAmount == 0) ? (
+        <div style={donateHeader}>
+          {(donateAmount == 0) ? (
+            <h1 style={bigText}>You are making the world better.</h1>
+          ) : (
+            <h1 style={bigText}>You are donating <br/> around <mark style={numOfMealsNumber}>
+                                                               {donateAmount / 12.5}</mark> meals</h1>
+          )}
+          <div style={donationText}>
+            <h1 style={step}>STEP 1</h1>
+            <h1 style={enterDonation}>Enter donation amount</h1>
+            <ButtonToolbar style={buttonToolbar}>
+              <Button onClick={() => handleAmountClick(25)} style={amountButton}>$25</Button>
+              <Button onClick={() => handleAmountClick(50)} style={amountButton}>$50</Button>
+              <Button onClick={() => handleAmountClick(100)} style={amountButton}>$100</Button>
+              <Button onClick={() => handleAmountClick(200)} style={amountButton}>$200</Button>
+            </ButtonToolbar>
+            {displayPickAmountMessage && <h1 style={pickAnAmountMessage} >Please select a donation amount</h1>}
+            <h1 style={supportSiteText}>Would you like to help support this site?</h1>
+            <div style={supportForm}>
+              <CurrencyInput onChangeEvent={handleSupportUsAmountChange} style={supportInput}  prefix="$" value={supportUsAmount}/>
+            </div>
+            <PrimaryButton onClick={() => handleNextClick(true)} text="Next: Payment information" />
+          </div>
         </div>
-        <PrimaryButton text="Next: Payment information" />
-      </div>
-    </div>
+      ) : ( 
+        <div>
+          <p style={{marginTop: "15%"}}>{supportUsAmount}</p>
+        </div>
+      )
   );
 }
 
