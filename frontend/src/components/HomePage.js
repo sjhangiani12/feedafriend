@@ -8,8 +8,11 @@ import banner from "../static/banner.svg";
 import { PrimaryButton, SecondaryButton } from "../shared/ButtonComponents";
 import vec from "../static/Vector.svg";
 import people from "../static/people.png";
+import mun from "../static/money.png";
+import food from "../static/food.png";
 import flow from "../static/flow.png";
 import big from "../static/value.png";
+import MediaQuery from 'react-responsive'
 
 const header = {
   display: "flex",
@@ -23,11 +26,10 @@ const root = {
   marginLeft: "40px",
   marginRight: "40px"
 }
+
+
+
 function HomePage () {
-
-
-
-
 
 
   const { loading, isAuthenticated, loginWithRedirect, logout, user, text } = useAuth0();
@@ -91,7 +93,11 @@ function HomePage () {
   );
 
 }
-
+const money = {
+  width: "30%",
+  height: "auto",
+  marginTop: "0%"
+}
 
 const them = {
   width: "70%",
@@ -125,6 +131,7 @@ const who = {
   marginTop: "20%"
 }
 
+
 function How () {
   return (
     <div>
@@ -138,16 +145,29 @@ function How () {
           </div>
         </div>
       </div>
-      <div style={lines}>
-        <img style={them} src={flow} alt="line" />
+      <MediaQuery minDeviceWidth={700} >
+        <div style={lines}>
+          <img style={them} src={flow} alt="line" />
 
-      </div>
+        </div>
+      </MediaQuery>
+      <MediaQuery maxDeviceWidth={699}>
+        <div style={{"flex-direction": "column"}}>
+          <img style = {money} src={mun}></img>
+        </div>
+        <div>
+          <img src={people}></img>
+        </div>
+        <div>
+          <img src={food}></img>
+        </div>
+      </MediaQuery>
 
     <div className="container-fluid" style={who}>
-      <div className="row" style={ro} >
+      <div className="row" style={header} >
         <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
             <h2 align = "center">Step 1</h2>
-            <p align = "center ">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+            <p align = "center "> Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
           
         </div>
         <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
