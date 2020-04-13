@@ -15,6 +15,22 @@ function DonatePage() {
   const [displayPickAmountMessage, setDisplayAmountMessage] = useState(false);
   // state for an amount the user wants to give to us
   const [supportUsAmount, setSupportUsAmount] = useState(0);
+  // state for donateNow clicked
+  const [donateNowClicked, setDonateNowClicked] = useState(false);
+
+  // payment info
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [country, setCountry] = useState("");
+  const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [cardNumber, setCardNumber] = useState();
+  const [exp, setExp] = useState("");
+  const [cvc, setCVC] = useState("");
+
 
   // handles when the user select a donation amount
   function handleAmountClick(amount) {
@@ -34,7 +50,30 @@ function DonatePage() {
 
   // handles when the user changes the amount they want to give to us
   function handleSupportUsAmountChange(event, maskedvalue, floatvalue) {
-    setSupportUsAmount(maskedvalue);
+    setSupportUsAmount(floatvalue);
+  }
+
+  // handles back to step 1
+  function handleBackClick() {
+    setNextToPaymentPressed(false);
+    setDonateAmount(0);
+  }
+
+  function handleCardNumberChange(cardNum) {
+    setCardNumber(cardNum);
+  }
+
+  function handleCardExpiryChange(exp) {
+    setExp(exp);
+  }
+
+  function handleCardCVCChange(cvc) {
+    setCVC(cvc);
+  }
+
+  function handleDonateClick() {
+    setDonateNowClicked(true);
+    console.log(cardNumber);
   }
 
   const donateHeader = {
@@ -185,6 +224,8 @@ function DonatePage() {
 
   const cardDetails = {
     flex: "1",
+    display: "flex",
+    flexDirection: "column",
   }
 
   const allInvoiceRows = {
@@ -192,66 +233,144 @@ function DonatePage() {
     marginBottom: "15%",
   }
 
-  return (
-    // this is step one of the donation process
-    (false && (!nextToPaymentPressed || donateAmount == 0)) ? (
-      <div style={donateHeader}>
-        {/* if the user selected an amount give them the meals estimate */}
-        {(donateAmount == 0) ? (
-          <h1 style={bigText}>You are making the world better.</h1>
-        ) : (
-            <h1 style={bigText}>You are donating <br /> around <mark style={numOfMealsNumber}>
-              {donateAmount / 12.5}</mark> meals</h1>
-          )}
-        <div>
-          <h1 style={step}>STEP 1</h1>
-          <h1 style={enterDonation}>Enter donation amount</h1>
-          <ButtonToolbar style={buttonToolbar}>
-            <Button onClick={() => handleAmountClick(25)} style={amountButton}>$25</Button>
-            <Button onClick={() => handleAmountClick(50)} style={amountButton}>$50</Button>
-            <Button onClick={() => handleAmountClick(100)} style={amountButton}>$100</Button>
-            <Button onClick={() => handleAmountClick(200)} style={amountButton}>$200</Button>
-          </ButtonToolbar>
-          {/* error message if they next without selecting a donation amount */}
-          {displayPickAmountMessage && <h1 style={pickAnAmountMessage} >Please select a donation amount</h1>}
-          <h1 style={supportSiteText}>Would you like to help support this site?</h1>
-          <div style={supportForm}>
-            <CurrencyInput onChangeEvent={handleSupportUsAmountChange} style={supportInput} prefix="$" value={supportUsAmount} />
+  const paymentInfoSections = {
+    fontFamily: "Roboto",
+    fontStyle: "normal",
+    fontWeight: "normal",
+    fontSize: "16px",
+    lineHeight: "19px",
+    color: "#000000",
+  }
+
+  const paymentFieldInput = {
+    fontFamily: "Roboto",
+    fontStyle: "normal",
+    fontWeight: "normal",
+    fontSize: "16px",
+    lineHeight: "19px",
+    fontColor: "#B0B0B0",
+    height: "40px",
+    background: "transparent",
+    borderColor: "#828282",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    color: "#828282",
+    marginBottom: "2%",
+    textIndent: "5px",
+  }
+
+  const paymentInfoContainer = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  }
+
+  const creditCardInput = {
+    background: "transparent",
+    borderColor: "#828282",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    height: "40px",
+  }
+
+  const creditCardField = {
+    height: "65px",
+    background: "transparent",
+  }
+
+  // this is step one of the donation process
+  if ((!nextToPaymentPressed || donateAmount == 0)) {
+    return (<div style={donateHeader}>
+      {/* if the user selected an amount give them the meals estimate */}
+      {(donateAmount == 0) ? (
+        <h1 style={bigText}>You are making the world better.</h1>
+      ) : (
+          <h1 style={bigText}>You are donating <br /> around <mark style={numOfMealsNumber}>
+            {donateAmount / 12.5}</mark> meals</h1>
+        )}
+      <div>
+        <h1 style={step}>STEP 1</h1>
+        <h1 style={enterDonation}>Enter donation amount</h1>
+        <ButtonToolbar style={buttonToolbar}>
+          <Button onClick={() => handleAmountClick(25)} style={amountButton}>$25</Button>
+          <Button onClick={() => handleAmountClick(50)} style={amountButton}>$50</Button>
+          <Button onClick={() => handleAmountClick(100)} style={amountButton}>$100</Button>
+          <Button onClick={() => handleAmountClick(200)} style={amountButton}>$200</Button>
+        </ButtonToolbar>
+        {/* error message if they next without selecting a donation amount */}
+        {displayPickAmountMessage && <h1 style={pickAnAmountMessage} >Please select a donation amount</h1>}
+        <h1 style={supportSiteText}>Would you like to help support this site?</h1>
+        <div style={supportForm}>
+          <CurrencyInput onChangeEvent={handleSupportUsAmountChange} style={supportInput} prefix="$" value={supportUsAmount} />
+        </div>
+        <PrimaryButton onClick={() => handleNextClick(true)} text="Next: Payment information" />
+      </div>
+    </div>
+    )
+  } else if (!donateNowClicked) {
+    return (
+      // this is the second step,1G user enters payment info
+      <div style={{ ...donateHeader, marginTop: "10%" }}>
+        <div style={invoice}>
+          <h1 style={bigText}>Your support <br />means a lot.</h1>
+          <div style={allInvoiceRows}>
+            <div style={invoiceRow}>
+              <h1 style={invoiceText}>Donation</h1>
+              <h1 style={invoiceText}>${donateAmount}</h1>
+            </div>
+            <div style={invoiceRow}>
+              <h1 style={invoiceText}>Your support &#128150;</h1>
+              <h1 style={invoiceText}>${supportUsAmount}</h1>
+            </div>
+            <hr style={{ backgroundColor: "black" }} />
+            <div style={invoiceRow}>
+              <h1 style={invoiceSum}>Total Amount</h1>
+              <h1 style={invoiceSum}>${supportUsAmount + donateAmount}</h1>
+            </div>
           </div>
-          <PrimaryButton onClick={() => handleNextClick(true)} text="Next: Payment information" />
+          <div>
+            <h1 style={protectInfoHeader}>protecting your information</h1>
+            <h1 style={protectInfoBody}>We never store your credit card information and your payment details are sent over a secure connection.</h1>
+          </div>
+        </div>
+        <div style={cardDetails}>
+          <h1 style={step}>STEP 2</h1>
+          <h1 style={enterDonation}>Enter payment details</h1>
+          <div style={paymentInfoContainer}>
+            <h1 style={paymentInfoSections}>Your information</h1>
+            <div>
+              <input style={paymentFieldInput} placeholder="First Name" value={firstName}></input>
+              <input style={paymentFieldInput} placeholder="Last Name" value={lastName}></input>
+            </div>
+            <input style={paymentFieldInput} placeholder="Email address" value={email}></input>
+            <h1 style={paymentInfoSections}>Address</h1>
+            <input style={paymentFieldInput} placeholder="Country" value={country}></input>
+            <input style={paymentFieldInput} placeholder="Address 1" value={address1}></input>
+            <input style={paymentFieldInput} placeholder="Address 2" value={address2}></input>
+            <div>
+              <input style={paymentFieldInput} placeholder="City" value={city}></input>
+              <input style={paymentFieldInput} placeholder="State" value={state}></input>
+            </div>
+          </div>
+          <h1 style={paymentInfoSections}>Payment information</h1>
+          <CreditCardInput fieldStyle={creditCardField} inputStyle={creditCardInput}
+            cardNumberInputProps={{ value: cardNumber, onChange: () => handleCardNumberChange() }}
+            cardExpiryInputProps={{ value: exp, onChange: () => handleCardExpiryChange() }}
+            cardCVCInputProps={{ value: cvc, onChange: () => handleCardCVCChange() }}
+          />
+          <div>
+            <SecondaryButton onClick={() => handleBackClick()} text="Back" />
+            <PrimaryButton text="Donate now" onClick={() => handleDonateClick()}/>
+          </div>
+          <h1 style={protectInfoBody}>By continuing, you are agreeing with CARE 37 terms and praivacy policy.</h1>
         </div>
       </div>
-    ) : (
-        // this is the second step,1G user enters payment info
-        <div style={{...donateHeader, marginTop: "10%"}}>
-          <div style={invoice}>
-            <h1 style={bigText}>Your support <br />means a lot.</h1>
-            <div style={allInvoiceRows}>
-              <div style={invoiceRow}>
-                <h1 style={invoiceText}>Donation</h1>
-                <h1 style={invoiceText}>${donateAmount}</h1>
-              </div>
-              <div style={invoiceRow}>
-                <h1 style={invoiceText}>Your support &#128150;</h1>
-                <h1 style={invoiceText}>${supportUsAmount}</h1>
-              </div>
-              <hr style={{backgroundColor: "black"}}/>
-              <div style={invoiceRow}>
-                <h1 style={invoiceSum}>Total Amount</h1>
-                <h1 style={invoiceSum}>${supportUsAmount + donateAmount}</h1>
-              </div>
-            </div>
-            <div>
-              <h1 style={protectInfoHeader}>protecting your information</h1>
-              <h1 style={protectInfoBody}>We never store your credit card information and your payment details are sent over a secure connection.</h1>
-            </div>
-          </div>
-          <div style={cardDetails}>
-            <CreditCardInput></CreditCardInput>
-          </div>
-        </div>
-      )
-  );
+    )
+  } else if (donateNowClicked) {
+    return (
+      <h1 style={{marginTop: "10%",}}>Thank you for making the world better.</h1>
+    )
+  }
 }
 
 export default DonatePage;
