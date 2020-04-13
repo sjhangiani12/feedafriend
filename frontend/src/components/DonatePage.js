@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { PrimaryButton, SecondaryButton } from '../shared/ButtonComponents.js';
+import { PrimaryButton, SecondaryButton, TertiartyButton } from '../shared/ButtonComponents.js';
 import { ButtonToolbar, Button, Form } from 'react-bootstrap';
 import CurrencyInput from 'react-currency-input';
 import CreditCardInput from 'react-credit-card-input';
@@ -89,10 +89,9 @@ function DonatePage() {
   const bigText = {
     width: "551px",
     height: "142px",
-    fontFamily: "Abril Titling",
     fontStyle: "normal",
     fontWeight: "600",
-    fontSize: "60px",
+    fontSize: "48px",
     lineHeight: "70px",
   }
 
@@ -106,7 +105,6 @@ function DonatePage() {
   }
 
   const enterDonation = {
-    fontFamily: "Abril Titling",
     fontStyle: "normal",
     fontWeight: "600",
     fontSize: "36px",
@@ -115,7 +113,7 @@ function DonatePage() {
   }
 
   const supportSiteText = {
-    fontFamily: "Roboto",
+    fontFamily: "sans-serif",
     fontStyle: "normal",
     fontWeight: "300",
     fontSize: "18px",
@@ -137,6 +135,11 @@ function DonatePage() {
     lineHeight: "21px",
     fontWeight: "bold",
     fontFamily: "Roboto",
+  }
+
+  const support = {
+    color: "#828282", 
+    fontFamily: "sans-serif"
   }
 
   const supportForm = {

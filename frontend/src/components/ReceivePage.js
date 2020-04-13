@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { useAuth0 } from "../contexts/react-auth0-spa";
 import geo2zip from 'geo2zip';
+import { PrimaryButton, SecondaryButton } from "../shared/ButtonComponents";
 
 function ReceivePage() {
   const { loading, isAuthenticated, loginWithRedirect, logout, user, text } = useAuth0();
@@ -41,18 +42,58 @@ function ReceivePage() {
   }
 
   return (
-    <div style={header}>
+    <div style={header} className="sm-mx-5 l-mx-0">
+      
       {!loading && !isAuthenticated && (
-        <button style={loginButton} onClick={() => loginWithRedirect({})}>Log in</button>
+        <div style={textHeader}>
+          <h1 style={thankYou}>Sign up to be added to our system!</h1>
+          <h4 style={infoBeenAdded}>Once you create an account with us, you will be added to our donation queue and can expect a donation soon!</h4>
+          <div style={last} >
+            <PrimaryButton onClick={() => loginWithRedirect({})} text="Log In"/>
+          </div>
+        </div>
       )}
 
       {isAuthenticated && 
       <div style={loggedInView}>
-        <h1 style={signUpMessage}>Thank you for signing up!</h1>
-        <button style={logoutButton} onClick={() => logout()}>Log out</button>
+        <h1 style={signUpMessage}>Thank you for signing up to be a recipient!</h1>
+        <h4 style={infoBeenAdded}>Your information has been added to our database and you will
+                                      recieve an email when have been matched.</h4>
+        <SecondaryButton onClick={() => logout({})} text="Log out" />
       </div>}
     </div>
   );
+}
+const thankYou = {
+  flex: "1",
+  textAlign: "center",
+  paddingBottom: "20px",
+}
+
+const infoBeenAdded = {
+  flex: "1",
+  textAlign: "center",
+  marginLeft: "200px",
+  marginRight: "200px",
+}
+
+const textHeader = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center"
+}
+const last = {
+  "color": "black",
+  "font-family": "sans-serif",
+  "text-decoration": "none",
+  "&:hover": {
+    textDecoration: "underline"
+  },
+  display: "flex",
+  flexDirection: "column",
+  width: "100px",
+  marginTop: "5%"
 }
 
 const loginButton = {
@@ -78,9 +119,9 @@ const loggedInView = {
 }
 
 const header = {
-  marginTop: "100px",
+  marginTop: "25%",
   display: "flex",
-  justifyContent: "center",
+  justifyContent: "center"
 }
 
 export default ReceivePage;

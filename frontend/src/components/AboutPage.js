@@ -94,7 +94,7 @@ render() {
         </div>
         <div className="col-xl-5 col-md-4 col-sm-12 mx-4">
           <h2 align = "left">Why we built this</h2>
-          <p align = "left">We had been ideating on a number of project ideas for a few days when COVID-19 started to become a national emergency. We thought, 'What can we build that would help people?'. We started out thinking about what people need and how to get it to them. After a number of rounds of iteration, this idea emerged!</p>
+          <p align = "left">We had been ideating on a number of project ideas for a few days when COVID-19 started to become a national emergency. We thought, 'What can we build that would help people?'. We started to think about what people need and how to get it to them. After a number of rounds of iteration, this idea emerged!</p>
 
         </div>
       </div>
