@@ -18,6 +18,13 @@ const header = {
   display: "flex",
   justifyContent: "center"
 }
+const header2 = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  marginTop: "20%"
+}
 const root = {
   position: "relative",
   marginTop: "10%",
@@ -71,19 +78,37 @@ function HomePage () {
   return (
     <div>
       <div style={root}>
-        <div style={header}>
-          <div>
-            <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p>
-            <h1 style={{ fontSize: "48px", margin: "0px" }}>Help feed people in <br /> need and support<br /> local restaurants.</h1>
-            <p style={{ color: "#828282", fontFamily: "sans-serif" }}>All of donated funds are used to purchase DoorDash<br /> credits for hungry people in need.</p>
+        <MediaQuery minDeviceWidth={700} >
+          <div style={header}>
+            <div>
+              <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p>
+              <h1 style={{ fontSize: "48px", margin: "0px" }}>Help feed people in <br /> need and support<br /> local restaurants.</h1>
+              <p style={{ color: "#828282", fontFamily: "sans-serif" }}>All of donated funds are used to purchase DoorDash<br /> credits for hungry people in need.</p>
 
-            <div style={{ marginTop: "30px" }}>
-              <Link to="/donate" style={{ marginRight: "20px" }}><PrimaryButton text="Donate" /></Link>
-              <Link to="/receive"><SecondaryButton text="Receive" /></Link>
+              <div style={{ marginTop: "30px" }}>
+                <Link to="/donate" style={{ marginRight: "20px" }}><PrimaryButton text="Donate" /></Link>
+                <Link to="/receive"><SecondaryButton text="Receive" /></Link>
+              </div>
             </div>
+            <img style={{ marginLeft: "5%" }} src={banner} alt="header image" />
           </div>
-          <img style={{ marginLeft: "5%" }} src={banner} alt="header image" />
-        </div>
+        </MediaQuery>
+
+        <MediaQuery maxDeviceWidth={699}>
+          <div style={header2}>
+            <div>
+              <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p>
+              <h1 style={{ fontSize: "48px", margin: "0px" }}>Help feed people in <br /> need and support<br /> local restaurants.</h1>
+              <p style={{ color: "#828282", fontFamily: "sans-serif" }}>All of donated funds are used to purchase DoorDash<br /> credits for hungry people in need.</p>
+
+              <div style={{ marginTop: "30px" }}>
+                <Link to="/donate" style={{ marginRight: "20px" }}><PrimaryButton text="Donate" /></Link>
+                <Link to="/receive"><SecondaryButton text="Receive" /></Link>
+              </div>
+            </div>
+            <img style={{ marginTop: "10%" }} src={banner} alt="header image" />
+          </div>
+        </MediaQuery>
       </div>
       <div>
         <How />
@@ -96,7 +121,12 @@ function HomePage () {
 const money = {
   width: "30%",
   height: "auto",
-  marginTop: "0%"
+  marginTop: "0%",
+}
+const peep = {
+  width: "40%",
+  height: "auto",
+  marginTop: "0%",
 }
 
 const them = {
@@ -122,8 +152,10 @@ const headed = {
 }
 const ro = {
   display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
   justifyContent: "center",
-  "flex-direction": "column"
+  marginTop: "15%"
 }
 
 const who = {
@@ -132,6 +164,15 @@ const who = {
   marginTop: "20%"
 }
 
+const cap = {
+  fontFamily: "Abril Titling",
+  fontStyle: "italic",
+  fontWeight: "bold",
+  width: "400px",
+  fontSize: "30px",
+  textAlign: "center",
+  marginTop: "10px"
+}
 
 function How () {
   return (
@@ -154,29 +195,25 @@ function How () {
       </MediaQuery>
       <MediaQuery maxDeviceWidth={699}>
         <div style={ro}>
-          <div>
-            <img style={money} src={mun}></img>
-          </div>
-          <div>
-            <img src={people}></img>
-          </div>
-          <div>
-            <img src={food}></img>
-          </div>
+          <img style={money} src={mun}></img>
+          <p style = {cap}>You donate</p>          
+          <img style={peep} src={people}></img>
+          <p style = {cap}>Our system selects someone in need</p>
+          <img style={money} src={food}></img>
+          <p style={cap}> They get a DoorDash gift card so they can enjoy a meal at home!</p>
         </div>
-
       </MediaQuery>
 
     <div className="container-fluid" style={who}>
       <div className="row" style={header} >
         <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
             <h2 align = "center">Step 1</h2>
-            <p align = "center "> Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+            <p align="center " >People in need sign up on our platform and we call each and every one of them by phone to verify that they are in need. We add them to system and order them by how much they've been donated and how recently they've been donated to.</p>
           
         </div>
         <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
           <h2 align = "center">Step 2</h2>
-          <p align = "center">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+          <p align="center">When you donate, our system selects the highest priority recipient. We securely port your credit card data and the recipient we selected directly into Door Dash using end-to-end encryption. The recipient gets 100% of the funds you donated and can enjoy a meal in the safety of their own home!</p>
 
         </div>
       </div>
