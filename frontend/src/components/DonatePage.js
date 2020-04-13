@@ -53,7 +53,7 @@ function DonatePage() {
     fontFamily: "Abril Titling",
     fontStyle: "normal",
     fontWeight: "600",
-    fontSize: "50px",
+    fontSize: "60px",
     lineHeight: "70px",
   }
 
@@ -136,8 +136,6 @@ function DonatePage() {
   const invoice = {
     display: "flex",
     flexDirection: "column",
-    marginRight: "10%",
-    marginLeft: "10%",
     flex: "1",
   }
 
@@ -182,6 +180,7 @@ function DonatePage() {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+    marginBottom: "3%",
   }
 
   const cardDetails = {
@@ -190,11 +189,12 @@ function DonatePage() {
 
   const allInvoiceRows = {
     marginTop: "10%",
+    marginBottom: "15%",
   }
 
   return (
     // this is step one of the donation process
-    (false && (!nextToPaymentPressed || donateAmount == 0)) ? (
+    (true && (!nextToPaymentPressed || donateAmount == 0)) ? (
       <div style={donateHeader}>
         {/* if the user selected an amount give them the meals estimate */}
         {(donateAmount == 0) ? (
@@ -223,7 +223,7 @@ function DonatePage() {
       </div>
     ) : (
         // this is the second step,1G user enters payment info
-        <div style={donateHeader}>
+        <div style={{...donateHeader, marginTop: "10%"}}>
           <div style={invoice}>
             <h1 style={bigText}>Your support <br />means a lot.</h1>
             <div style={allInvoiceRows}>
@@ -235,6 +235,7 @@ function DonatePage() {
                 <h1 style={invoiceText}>Your support &#128150;</h1>
                 <h1 style={invoiceText}>${supportUsAmount}</h1>
               </div>
+              <hr style={{backgroundColor: "black"}}/>
               <div style={invoiceRow}>
                 <h1 style={invoiceSum}>Total Amount</h1>
                 <h1 style={invoiceSum}>${supportUsAmount + donateAmount}</h1>
