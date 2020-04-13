@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { PrimaryButton, SecondaryButton, TertiartyButton } from '../shared/ButtonComponents.js';
-import { ButtonToolbar, Button, Form } from 'react-bootstrap';
+import { ButtonToolbar, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import CurrencyInput from 'react-currency-input';
 import CreditCardInput from 'react-credit-card-input';
 
@@ -119,6 +119,16 @@ function DonatePage() {
     fontSize: "18px",
     lineHeight: "21px",
     paddingBottom: "10px",
+  }
+   
+  const whyTheseAmountsText = {
+    fontFamily: "sans-serif",
+    fontStyle: "normal",
+    fontWeight: "300",
+    fontSize: "18px",
+    lineHeight: "21px",
+    paddingBottom: "10px",
+    textDecoration: "underline",
   }
 
   const amountButton = {
@@ -302,10 +312,20 @@ function DonatePage() {
         </ButtonToolbar>
         {/* error message if they next without selecting a donation amount */}
         {displayPickAmountMessage && <h1 style={pickAnAmountMessage} >Please select a donation amount</h1>}
-        <h1 style={supportSiteText}>Would you like to help support this site?</h1>
+        <OverlayTrigger
+          placement={'top'}
+          overlay={
+            <Tooltip>
+              These are the amounts that DoorDash allows for giftcards.
+            </Tooltip>
+          }
+        >
+          <h1 style={whyTheseAmountsText}>Why these amounts?</h1>
+        </OverlayTrigger>
+        {/*<h1 style={supportSiteText}>Would you like to help support this site?</h1>
         <div style={supportForm}>
           <CurrencyInput onChangeEvent={handleSupportUsAmountChange} style={supportInput} prefix="$" value={supportUsAmount} />
-        </div>
+        </div>*/}
         <PrimaryButton onClick={() => handleNextClick(true)} text="Next: Payment information" />
       </div>
     </div>
@@ -321,10 +341,10 @@ function DonatePage() {
               <h1 style={invoiceText}>Donation</h1>
               <h1 style={invoiceText}>${donateAmount}</h1>
             </div>
-            <div style={invoiceRow}>
+            {/*<div style={invoiceRow}>
               <h1 style={invoiceText}>Your support &#128150;</h1>
               <h1 style={invoiceText}>${supportUsAmount}</h1>
-            </div>
+            </div>*/}
             <hr style={{ backgroundColor: "black" }} />
             <div style={invoiceRow}>
               <h1 style={invoiceSum}>Total Amount</h1>
