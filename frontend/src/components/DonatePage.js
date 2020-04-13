@@ -177,7 +177,7 @@ function DonatePage() {
     lineHeight: "16px",
     color: "#4F4F4F",
   }
-  
+
   const invoiceRow = {
     display: "flex",
     flexDirection: "row",
@@ -186,6 +186,10 @@ function DonatePage() {
 
   const cardDetails = {
     flex: "1",
+  }
+
+  const allInvoiceRows = {
+    marginTop: "10%",
   }
 
   return (
@@ -222,17 +226,19 @@ function DonatePage() {
         <div style={donateHeader}>
           <div style={invoice}>
             <h1 style={bigText}>Your support <br />means a lot.</h1>
-            <div style={invoiceRow}>
-              <h1 style={invoiceText}>Donation</h1>
-              <h1 style={invoiceText}>${donateAmount}</h1>
-            </div>
-            <div style={invoiceRow}>
-              <h1 style={invoiceText}>Your support &#128150;</h1>
-              <h1 style={invoiceText}>${supportUsAmount}</h1>
-            </div>
-            <div style={invoiceRow}>
-              <h1 style={invoiceSum}>Total Amount</h1>
-              <h1 style={invoiceSum}>${supportUsAmount + donateAmount}</h1>
+            <div style={allInvoiceRows}>
+              <div style={invoiceRow}>
+                <h1 style={invoiceText}>Donation</h1>
+                <h1 style={invoiceText}>${donateAmount}</h1>
+              </div>
+              <div style={invoiceRow}>
+                <h1 style={invoiceText}>Your support &#128150;</h1>
+                <h1 style={invoiceText}>${supportUsAmount}</h1>
+              </div>
+              <div style={invoiceRow}>
+                <h1 style={invoiceSum}>Total Amount</h1>
+                <h1 style={invoiceSum}>${supportUsAmount + donateAmount}</h1>
+              </div>
             </div>
             <div>
               <h1 style={protectInfoHeader}>protecting your information</h1>
