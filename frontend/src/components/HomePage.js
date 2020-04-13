@@ -34,6 +34,12 @@ const root = {
   marginRight: "40px"
 }
 
+const support = {
+  color: "#828282",
+  fontFamily: "sans-serif"
+}
+
+
 
 
 function HomePage () {
@@ -84,6 +90,7 @@ function HomePage () {
               <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p>
               <h1 style={{ fontSize: "48px", margin: "0px" }}>Help feed people in <br /> need and support<br /> local restaurants.</h1>
               <p style={{ color: "#828282", fontFamily: "sans-serif" }}>All of donated funds are used to purchase DoorDash<br /> credits for hungry people in need.</p>
+              <a style={support} href="https://www.patreon.com/care37">Click here to support us!</a>
 
               <div style={{ marginTop: "30px" }}>
                 <Link to="/receive" style={{ marginRight: "20px" }}><SecondaryButton text="Receive" /></Link>
@@ -148,7 +155,7 @@ const headed = {
   align: "center",
   marginLeft: "40px",
   marginRight: "40px",
-  marginTop: "25%"
+  marginTop: "15%"
 }
 const ro = {
   display: "flex",
@@ -177,6 +184,20 @@ const cap = {
 function How () {
   return (
     <div>
+      <div className="container-fluid" style={who}>
+        <div className="row" style={header} >
+          <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
+            <h2 align="left">Step 1</h2>
+            <p align="left " >People in need sign up on our platform and we call each and every one of them by phone to verify that they are in need. We add them to the system and prioritize them by how much they've been donated to and how recently they've been donated to.</p>
+
+          </div>
+          <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
+            <h2 align="left">Step 2</h2>
+            <p align="left">When you donate, our system selects the highest priority recipient. We securely port your credit card data and the recipient we selected directly into Door Dash using end-to-end encryption. The recipient gets 100% of the funds you donated and can enjoy a meal in the safety of their own home!</p>
+
+          </div>
+        </div>
+      </div>
       <div >
         <div className="row" align="center" style={headed}>
           <div className="col-xl-10">
@@ -204,20 +225,6 @@ function How () {
         </div>
       </MediaQuery>
 
-    <div className="container-fluid" style={who}>
-      <div className="row" style={header} >
-        <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
-            <h2 align = "left">Step 1</h2>
-            <p align="left " >People in need sign up on our platform and we call each and every one of them by phone to verify that they are in need. We add them to the system and prioritize them by how much they've been donated to and how recently they've been donated to.</p>
-          
-        </div>
-        <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
-          <h2 align = "left">Step 2</h2>
-          <p align="left">When you donate, our system selects the highest priority recipient. We securely port your credit card data and the recipient we selected directly into Door Dash using end-to-end encryption. The recipient gets 100% of the funds you donated and can enjoy a meal in the safety of their own home!</p>
-
-        </div>
-      </div>
-    </div>
     </div>
 
   )

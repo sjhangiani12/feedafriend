@@ -48,6 +48,7 @@ function Footer() {
               <p className="font-weight-bold">Contact</p>
               <div className="d-flex flex-column">
                 <a href="/">info@care37.org</a>
+                <a href="https://www.patreon.com/care37">Support Us!</a>
 
               </div>
             </div>

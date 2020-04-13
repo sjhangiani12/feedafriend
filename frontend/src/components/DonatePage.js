@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { PrimaryButton, SecondaryButton } from '../shared/ButtonComponents.js';
+import { PrimaryButton, SecondaryButton, TertiartyButton } from '../shared/ButtonComponents.js';
 import { ButtonToolbar, Button, Form } from 'react-bootstrap';
 import CurrencyInput from 'react-currency-input';
 import CreditCardInput from 'react-credit-card-input';
@@ -100,7 +100,7 @@ function DonatePage() {
 
   const support = {
     color: "#828282", 
-    fontFamily: "sans-serif" 
+    fontFamily: "sans-serif"
   }
 
   const supportForm = {
@@ -201,14 +201,14 @@ function DonatePage() {
       <div style={donateHeader}>
         {/* if the user selected an amount give them the meals estimate */}
         <div style={{marginRight: "5%"}}>
-          {(donateAmount == 0) ? ( <>
+          {(donateAmount == 0) ? (
             <h1 style={bigText}>You are making the world better.</h1>
-            <p style={support}>100% of donated funds are used to purchase DoorDash<br /> credits for hungry people in need.</p>
-
-          </>) : (
+          ) : (
               <h1 style={bigText}>You are donating <br /> around <mark style={numOfMealsNumber}>
                 {donateAmount / 12.5}</mark> meals</h1>
             )}
+          <p style={support}>100% of donated funds are used to purchase DoorDash<br /> credits for hungry people in need.</p>
+
         </div>
 
         <div>
@@ -222,11 +222,19 @@ function DonatePage() {
           </ButtonToolbar>
           {/* error message if they next without selecting a donation amount */}
           {displayPickAmountMessage && <h1 style={pickAnAmountMessage} >Please select a donation amount</h1>}
-          <p style={support}>Would you like to help support this site?</p>
-          <div style={supportForm}>
+          <a style={support} href="https://www.patreon.com/care37">Would you like to help support this site?</a>
+          <br></br>
+          <br></br>
+          {/* <div style={supportForm}>
             <CurrencyInput onChangeEvent={handleSupportUsAmountChange} style={supportInput} prefix="$" value={supportUsAmount} />
-          </div>
+          </div> */}
+          {(donateAmount == 0) ? (
+
           <PrimaryButton onClick={() => handleNextClick(true)} text="Next: Payment information" />
+          ) : (
+          <TertiartyButton onClick={() => handleNextClick(true)} text="Next: Payment information" />
+          )}
+
         </div>
       </div>
     ) : (
