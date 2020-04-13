@@ -86,8 +86,8 @@ function HomePage () {
               <p style={{ color: "#828282", fontFamily: "sans-serif" }}>All of donated funds are used to purchase DoorDash<br /> credits for hungry people in need.</p>
 
               <div style={{ marginTop: "30px" }}>
-                <Link to="/donate" style={{ marginRight: "20px" }}><PrimaryButton text="Donate" /></Link>
-                <Link to="/receive"><SecondaryButton text="Receive" /></Link>
+                <Link to="/receive" style={{ marginRight: "20px" }}><SecondaryButton text="Receive" /></Link>
+                <Link to="/donate"><PrimaryButton text="Donate" /></Link>
               </div>
             </div>
             <img style={{ marginLeft: "5%" }} src={banner} alt="header image" />
@@ -102,8 +102,8 @@ function HomePage () {
               <p style={{ color: "#828282", fontFamily: "sans-serif" }}>All of donated funds are used to purchase DoorDash<br /> credits for hungry people in need.</p>
 
               <div style={{ marginTop: "30px" }}>
-                <Link to="/donate" style={{ marginRight: "20px" }}><PrimaryButton text="Donate" /></Link>
                 <Link to="/receive"><SecondaryButton text="Receive" /></Link>
+                <Link to="/donate" style={{ marginRight: "20px" }}><PrimaryButton text="Donate" /></Link>
               </div>
             </div>
             <img style={{ marginTop: "10%" }} src={banner} alt="header image" />

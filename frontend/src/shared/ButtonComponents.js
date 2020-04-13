@@ -8,7 +8,9 @@ export function PrimaryButton (props) {
     padding: "12px 24px",
     color: "white",
     fontFamily: "sans-serif",
-    fontSize: "18px"
+    fontSize: "18px",
+    whiteSpace: "nowrap",
+    overflow: "hidden"
   }
 
   return (
@@ -26,7 +28,10 @@ export function SecondaryButton (props) {
     padding: "12px 24px",
     color: "#1136FC",
     fontFamily: "sans-serif",
-    fontSize: "18px"
+    fontSize: "18px",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    alignText: "center"
   }
 
   return (
