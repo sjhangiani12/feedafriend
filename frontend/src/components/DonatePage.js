@@ -7,23 +7,33 @@ import CreditCardInput from 'react-credit-card-input';
 
 function DonatePage() {
 
+  // state for the donation amount
   const [donateAmount, setDonateAmount] = useState(0);
+  // state for when the user clicks the next button (may be unecessary but im lazy)
   const [nextToPaymentPressed, setNextToPaymentPressed] = useState(false);
+  // state for wether to display a message that the user did not select a donation amount
   const [displayPickAmountMessage, setDisplayAmountMessage] = useState(false);
+  // state for an amount the user wants to give to us
   const [supportUsAmount, setSupportUsAmount] = useState(0);
-  
+
+  // handles when the user select a donation amount
   function handleAmountClick(amount) {
+    // set to false, so it does not auto nav when the use selects the new amount (trust me, i think we need it)
     setNextToPaymentPressed(false);
     setDonateAmount(amount);
+    // they selected a new amount, so remove the error message
     setDisplayAmountMessage(false);
   }
 
+  // handles when next: to payment info is clicked
   function handleNextClick() {
     setNextToPaymentPressed(true);
+    // check if the user selected an amount, and sets the display message accordingly
     setDisplayAmountMessage(donateAmount == 0);
   }
 
-  function handleSupportUsAmountChange(event, maskedvalue, floatvalue){
+  // handles when the user changes the amount they want to give to us
+  function handleSupportUsAmountChange(event, maskedvalue, floatvalue) {
     setSupportUsAmount(maskedvalue);
   }
 
@@ -44,10 +54,7 @@ function DonatePage() {
     fontStyle: "normal",
     fontWeight: "600",
     fontSize: "50px",
-    lineHeight: "81px",
-  }
-
-  const donationText = {
+    lineHeight: "70px",
   }
 
   const step = {
@@ -126,35 +133,115 @@ function DonatePage() {
     color: "#EB5757",
   }
 
+  const invoice = {
+    display: "flex",
+    flexDirection: "column",
+    marginRight: "10%",
+    marginLeft: "10%",
+    flex: "1",
+  }
+
+  const invoiceText = {
+    fontFamily: "Abril Tilting",
+    fontStyle: "normal",
+    fontWeight: "600",
+    fontSize: "24px",
+    lineHeight: "27px",
+    color: "#828282",
+  }
+
+  const invoiceSum = {
+    fontFamily: "Abril Tilting",
+    fontStyle: "normal",
+    fontWeight: "600",
+    fontSize: "24px",
+    lineHeight: "27px",
+    color: "#000000",
+  }
+
+  const protectInfoHeader = {
+    fontFamily: "Roboto",
+    fontStyle: "normal",
+    fontWeight: "bold",
+    fontSize: "14px",
+    lineHeight: "16px",
+    textTransform: "uppercase",
+    color: "#000000",
+  }
+
+  const protectInfoBody = {
+    fontFamily: "Roboto",
+    fontStyle: "normal",
+    fontWeight: "300",
+    fontSize: "14px",
+    lineHeight: "16px",
+    color: "#4F4F4F",
+  }
+  
+  const invoiceRow = {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  }
+
+  const cardDetails = {
+    flex: "1",
+  }
+
   return (
-      (!nextToPaymentPressed || donateAmount == 0) ? (
-        <div style={donateHeader}>
-          {(donateAmount == 0) ? (
-            <h1 style={bigText}>You are making the world better.</h1>
-          ) : (
-            <h1 style={bigText}>You are donating <br/> around <mark style={numOfMealsNumber}>
-                                                               {donateAmount / 12.5}</mark> meals</h1>
+    // this is step one of the donation process
+    (false && (!nextToPaymentPressed || donateAmount == 0)) ? (
+      <div style={donateHeader}>
+        {/* if the user selected an amount give them the meals estimate */}
+        {(donateAmount == 0) ? (
+          <h1 style={bigText}>You are making the world better.</h1>
+        ) : (
+            <h1 style={bigText}>You are donating <br /> around <mark style={numOfMealsNumber}>
+              {donateAmount / 12.5}</mark> meals</h1>
           )}
-          <div style={donationText}>
-            <h1 style={step}>STEP 1</h1>
-            <h1 style={enterDonation}>Enter donation amount</h1>
-            <ButtonToolbar style={buttonToolbar}>
-              <Button onClick={() => handleAmountClick(25)} style={amountButton}>$25</Button>
-              <Button onClick={() => handleAmountClick(50)} style={amountButton}>$50</Button>
-              <Button onClick={() => handleAmountClick(100)} style={amountButton}>$100</Button>
-              <Button onClick={() => handleAmountClick(200)} style={amountButton}>$200</Button>
-            </ButtonToolbar>
-            {displayPickAmountMessage && <h1 style={pickAnAmountMessage} >Please select a donation amount</h1>}
-            <h1 style={supportSiteText}>Would you like to help support this site?</h1>
-            <div style={supportForm}>
-              <CurrencyInput onChangeEvent={handleSupportUsAmountChange} style={supportInput}  prefix="$" value={supportUsAmount}/>
-            </div>
-            <PrimaryButton onClick={() => handleNextClick(true)} text="Next: Payment information" />
-          </div>
-        </div>
-      ) : ( 
         <div>
-          <p style={{marginTop: "15%"}}>{supportUsAmount}</p>
+          <h1 style={step}>STEP 1</h1>
+          <h1 style={enterDonation}>Enter donation amount</h1>
+          <ButtonToolbar style={buttonToolbar}>
+            <Button onClick={() => handleAmountClick(25)} style={amountButton}>$25</Button>
+            <Button onClick={() => handleAmountClick(50)} style={amountButton}>$50</Button>
+            <Button onClick={() => handleAmountClick(100)} style={amountButton}>$100</Button>
+            <Button onClick={() => handleAmountClick(200)} style={amountButton}>$200</Button>
+          </ButtonToolbar>
+          {/* error message if they next without selecting a donation amount */}
+          {displayPickAmountMessage && <h1 style={pickAnAmountMessage} >Please select a donation amount</h1>}
+          <h1 style={supportSiteText}>Would you like to help support this site?</h1>
+          <div style={supportForm}>
+            <CurrencyInput onChangeEvent={handleSupportUsAmountChange} style={supportInput} prefix="$" value={supportUsAmount} />
+          </div>
+          <PrimaryButton onClick={() => handleNextClick(true)} text="Next: Payment information" />
+        </div>
+      </div>
+    ) : (
+        // this is the second step,1G user enters payment info
+        <div style={donateHeader}>
+          <div style={invoice}>
+            <h1 style={bigText}>Your support <br />means a lot.</h1>
+            <div style={invoiceRow}>
+              <h1 style={invoiceText}>Donation</h1>
+              <h1 style={invoiceText}>${donateAmount}</h1>
+            </div>
+            <div style={invoiceRow}>
+              <h1 style={invoiceText}>Your support &#128150;</h1>
+              <h1 style={invoiceText}>${supportUsAmount}</h1>
+            </div>
+            <div style={invoiceRow}>
+              <h1 style={invoiceSum}>Total Amount</h1>
+              <h1 style={invoiceSum}>${supportUsAmount + donateAmount}</h1>
+            </div>
+            <div>
+              <h1 style={protectInfoHeader}>protecting your information</h1>
+              <h1 style={protectInfoBody}>We never store your credit card information and your payment details are sent over a secure connection.</h1>
+            </div>
+          </div>
+          <div style={cardDetails}>
+            <CreditCardInput></CreditCardInput>
+          </div>
         </div>
       )
   );
