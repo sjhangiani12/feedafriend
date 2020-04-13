@@ -161,7 +161,7 @@ const ro = {
 const who = {
   display: "flex",
   justifyContent: "center",
-  marginTop: "20%"
+  marginTop: "15%"
 }
 
 const cap = {
@@ -207,13 +207,13 @@ function How () {
     <div className="container-fluid" style={who}>
       <div className="row" style={header} >
         <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
-            <h2 align = "center">Step 1</h2>
-            <p align="center " >People in need sign up on our platform and we call each and every one of them by phone to verify that they are in need. We add them to system and order them by how much they've been donated and how recently they've been donated to.</p>
+            <h2 align = "left">Step 1</h2>
+            <p align="left " >People in need sign up on our platform and we call each and every one of them by phone to verify that they are in need. We add them to system and order them by how much they've been donated and how recently they've been donated to.</p>
           
         </div>
         <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
-          <h2 align = "center">Step 2</h2>
-          <p align="center">When you donate, our system selects the highest priority recipient. We securely port your credit card data and the recipient we selected directly into Door Dash using end-to-end encryption. The recipient gets 100% of the funds you donated and can enjoy a meal in the safety of their own home!</p>
+          <h2 align = "left">Step 2</h2>
+          <p align="left">When you donate, our system selects the highest priority recipient. We securely port your credit card data and the recipient we selected directly into Door Dash using end-to-end encryption. The recipient gets 100% of the funds you donated and can enjoy a meal in the safety of their own home!</p>
 
         </div>
       </div>
