@@ -122,7 +122,8 @@ const headed = {
 }
 const ro = {
   display: "flex",
-  justifyContent: "center"
+  justifyContent: "center",
+  "flex-direction": "column"
 }
 
 const who = {
@@ -152,15 +153,18 @@ function How () {
         </div>
       </MediaQuery>
       <MediaQuery maxDeviceWidth={699}>
-        <div style={{"flex-direction": "column"}}>
-          <img style = {money} src={mun}></img>
+        <div style={ro}>
+          <div>
+            <img style={money} src={mun}></img>
+          </div>
+          <div>
+            <img src={people}></img>
+          </div>
+          <div>
+            <img src={food}></img>
+          </div>
         </div>
-        <div>
-          <img src={people}></img>
-        </div>
-        <div>
-          <img src={food}></img>
-        </div>
+
       </MediaQuery>
 
     <div className="container-fluid" style={who}>
