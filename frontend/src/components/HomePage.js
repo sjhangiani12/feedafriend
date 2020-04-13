@@ -208,7 +208,7 @@ function How () {
       <div className="row" style={header} >
         <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
             <h2 align = "left">Step 1</h2>
-            <p align="left " >People in need sign up on our platform and we call each and every one of them by phone to verify that they are in need. We add them to system and order them by how much they've been donated and how recently they've been donated to.</p>
+            <p align="left " >People in need sign up on our platform and we call each and every one of them by phone to verify that they are in need. We add them to the system and prioritize them by how much they've been donated to and how recently they've been donated to.</p>
           
         </div>
         <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">

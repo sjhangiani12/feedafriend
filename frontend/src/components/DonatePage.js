@@ -50,10 +50,9 @@ function DonatePage() {
   const bigText = {
     width: "551px",
     height: "142px",
-    fontFamily: "Abril Titling",
     fontStyle: "normal",
     fontWeight: "600",
-    fontSize: "60px",
+    fontSize: "48px",
     lineHeight: "70px",
   }
 
@@ -67,7 +66,6 @@ function DonatePage() {
   }
 
   const enterDonation = {
-    fontFamily: "Abril Titling",
     fontStyle: "normal",
     fontWeight: "600",
     fontSize: "36px",
@@ -76,7 +74,7 @@ function DonatePage() {
   }
 
   const supportSiteText = {
-    fontFamily: "Roboto",
+    fontFamily: "sans-serif",
     fontStyle: "normal",
     fontWeight: "300",
     fontSize: "18px",
@@ -98,6 +96,11 @@ function DonatePage() {
     lineHeight: "21px",
     fontWeight: "bold",
     fontFamily: "Roboto",
+  }
+
+  const support = {
+    color: "#828282", 
+    fontFamily: "sans-serif" 
   }
 
   const supportForm = {
@@ -197,12 +200,17 @@ function DonatePage() {
     (true && (!nextToPaymentPressed || donateAmount == 0)) ? (
       <div style={donateHeader}>
         {/* if the user selected an amount give them the meals estimate */}
-        {(donateAmount == 0) ? (
-          <h1 style={bigText}>You are making the world better.</h1>
-        ) : (
-            <h1 style={bigText}>You are donating <br /> around <mark style={numOfMealsNumber}>
-              {donateAmount / 12.5}</mark> meals</h1>
-          )}
+        <div style={{marginRight: "5%"}}>
+          {(donateAmount == 0) ? ( <>
+            <h1 style={bigText}>You are making the world better.</h1>
+            <p style={support}>100% of donated funds are used to purchase DoorDash<br /> credits for hungry people in need.</p>
+
+          </>) : (
+              <h1 style={bigText}>You are donating <br /> around <mark style={numOfMealsNumber}>
+                {donateAmount / 12.5}</mark> meals</h1>
+            )}
+        </div>
+
         <div>
           <h1 style={step}>STEP 1</h1>
           <h1 style={enterDonation}>Enter donation amount</h1>
@@ -214,7 +222,7 @@ function DonatePage() {
           </ButtonToolbar>
           {/* error message if they next without selecting a donation amount */}
           {displayPickAmountMessage && <h1 style={pickAnAmountMessage} >Please select a donation amount</h1>}
-          <h1 style={supportSiteText}>Would you like to help support this site?</h1>
+          <p style={support}>Would you like to help support this site?</p>
           <div style={supportForm}>
             <CurrencyInput onChangeEvent={handleSupportUsAmountChange} style={supportInput} prefix="$" value={supportUsAmount} />
           </div>
