@@ -6,6 +6,8 @@ import CurrencyInput from 'react-currency-input';
 
 function DonatePage() {
 
+  var donateAmount = 0;
+
   const donateHeader = {
     display: "flex",
     flexDirection: "row",
@@ -89,16 +91,22 @@ function DonatePage() {
     color: "#828282",
   }
 
+  function handleAmountClick(amount) {
+    donateAmount = amount;
+  }
+
   return (
     <div style={donateHeader}>
       <h1 style={bigText}>You are making the world better.</h1>
       <div style={donationText}>
         <h1 style={step}>STEP 1</h1>
         <h1 style={enterDonation}>Enter donation amount</h1>
-          <Button style={amountButton}>$25</Button>
-          <Button style={amountButton}>$50</Button>
-          <Button style={amountButton}>$100</Button>
-          <Button style={amountButton}>$200</Button>
+        <ButtonToolbar style={buttonToolbar}>
+          <Button onClick={() => handleAmountClick(25)} style={amountButton}>$25</Button>
+          <Button onClick={() => handleAmountClick(50)} style={amountButton}>$50</Button>
+          <Button onClick={() => handleAmountClick(100)} style={amountButton}>$100</Button>
+          <Button onClick={() => handleAmountClick(200)} style={amountButton}>$200</Button>
+        </ButtonToolbar>
         <h1 style={supportSiteText}>Would you like to help support this site?</h1>
         <div style={supportForm}>
           <CurrencyInput style={supportInput} prefix="$" />
