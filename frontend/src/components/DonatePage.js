@@ -31,7 +31,6 @@ function DonatePage() {
   const [exp, setExp] = useState("");
   const [cvc, setCVC] = useState("");
 
-
   // handles when the user select a donation amount
   function handleAmountClick(amount) {
     // set to false, so it does not auto nav when the use selects the new amount (trust me, i think we need it)
@@ -80,7 +79,7 @@ function DonatePage() {
     display: "flex",
     flexDirection: "row",
     flex: "1",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     alignItems: "center",
     marginTop: "15%",
     alignItems: "flex-start",
@@ -120,7 +119,7 @@ function DonatePage() {
     lineHeight: "21px",
     paddingBottom: "10px",
   }
-   
+
   const whyTheseAmountsText = {
     fontFamily: "sans-serif",
     fontStyle: "normal",
@@ -148,7 +147,7 @@ function DonatePage() {
   }
 
   const support = {
-    color: "#828282", 
+    color: "#828282",
     fontFamily: "sans-serif"
   }
 
@@ -188,6 +187,7 @@ function DonatePage() {
   const invoice = {
     display: "flex",
     flexDirection: "column",
+    padding: "0px 100px 0px 100px",
     flex: "1",
   }
 
@@ -226,6 +226,7 @@ function DonatePage() {
     fontSize: "14px",
     lineHeight: "16px",
     color: "#4F4F4F",
+    paddingTop: "10px"
   }
 
   const invoiceRow = {
@@ -239,6 +240,7 @@ function DonatePage() {
     flex: "1",
     display: "flex",
     flexDirection: "column",
+    padding: "0px 100px 0px 50px"
   }
 
   const allInvoiceRows = {
@@ -289,6 +291,24 @@ function DonatePage() {
   const creditCardField = {
     height: "65px",
     background: "transparent",
+  }
+
+  const donateTitleContainer = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  }
+
+  const nameContainer = {
+    display: "flex",
+    justifyContent: "space-between",
+    width: "73%",
+  }
+
+  const buttonContainer = {
+    display: "flex",
+    justifyContent: "space-between",
+    width: "50%",
   }
 
   // this is step one of the donation process
@@ -361,7 +381,7 @@ function DonatePage() {
           <h1 style={enterDonation}>Enter payment details</h1>
           <div style={paymentInfoContainer}>
             <h1 style={paymentInfoSections}>Your information</h1>
-            <div>
+            <div style={nameContainer}>
               <input style={paymentFieldInput} placeholder="First Name" value={firstName}></input>
               <input style={paymentFieldInput} placeholder="Last Name" value={lastName}></input>
             </div>
@@ -370,7 +390,7 @@ function DonatePage() {
             <input style={paymentFieldInput} placeholder="Country" value={country}></input>
             <input style={paymentFieldInput} placeholder="Address 1" value={address1}></input>
             <input style={paymentFieldInput} placeholder="Address 2" value={address2}></input>
-            <div>
+            <div style={nameContainer}>
               <input style={paymentFieldInput} placeholder="City" value={city}></input>
               <input style={paymentFieldInput} placeholder="State" value={state}></input>
             </div>
@@ -381,7 +401,7 @@ function DonatePage() {
             cardExpiryInputProps={{ value: exp, onChange: () => handleCardExpiryChange() }}
             cardCVCInputProps={{ value: cvc, onChange: () => handleCardCVCChange() }}
           />
-          <div>
+          <div style={buttonContainer}>
             <SecondaryButton onClick={() => handleBackClick()} text="Back" />
             <PrimaryButton text="Donate now" onClick={() => handleDonateClick()}/>
           </div>
