@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { PrimaryButton, SecondaryButton, TertiartyButton } from '../shared/ButtonComponents.js';
+import ConfirmationPage from './ConfirmationPage.js';
 import { ButtonToolbar, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import CurrencyInput from 'react-currency-input';
 import CreditCardInput from 'react-credit-card-input';
 import SelectSearch from 'react-select-search';
 import '../style.css';
-import { useHistory } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 
 function DonatePage() {
 
@@ -20,6 +21,8 @@ function DonatePage() {
   const [supportUsAmount, setSupportUsAmount] = useState(0);
   // state for donateNow clicked
   const [donateNowClicked, setDonateNowClicked] = useState(false);
+  // state if there was an error w/ the payment info
+  const [errorWithPayment, setErrorWithPayment] = useState(false);
   // payment info
   const [cardNumber, setCardNumber] = useState("");
   const [exp, setExp] = useState("");
@@ -99,16 +102,6 @@ function DonatePage() {
   }
 
   function handleDonateClick() {
-    history.push({
-      pathname: "/confirmation",
-      state: {
-        formVals: formValues,
-        cardNum: cardNumber,
-        exp: exp,
-        cvc: cvc,
-        amount: donateAmount,
-      }
-    });
     setDonateNowClicked(true);
     console.log(cardNumber);
   }
@@ -165,6 +158,10 @@ function DonatePage() {
     }))
   }
 
+  function handleBackFromConfirmation() {
+    setDonateNowClicked(false);
+    setErrorWithPayment(true);
+  }
 
 
   const donateHeader = {
@@ -483,6 +480,9 @@ function DonatePage() {
         <div style={cardDetails}>
           <h1 style={step}>STEP 2</h1>
           <h1 style={enterDonation}>Enter payment details</h1>
+          {errorWithPayment && (
+            <h1 style={pickAnAmountMessage} >Please review your payment details.</h1>
+          )}
           <div style={paymentInfoContainer}>
             <h1 style={paymentInfoSections}>Your information</h1>
             <div style={nameContainer}>
@@ -532,7 +532,7 @@ function DonatePage() {
     )
   } else if (donateNowClicked) {
     return (
-      <h1 style={{ marginTop: "10%", }}>Thank you for making the world better.</h1>
+      <ConfirmationPage formVals={formValues} cardNum={cardNumber} exp={exp} cvc={cvc} amount={donateAmount} handleBackToPaymentInfo={() => handleBackFromConfirmation()}></ConfirmationPage>
     )
   }
 }
@@ -847,4 +847,4 @@ const states = [
   { name: "Wyoming", value: "Wyoming" }
 ]
 
-export default DonatePage;
+export default withRouter(DonatePage);

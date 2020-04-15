@@ -46,18 +46,18 @@ function ConfirmationPage(props) {
         console.log(props);
 
         const data = {
-            sender_first_name: props.location.state.formVals.firstName,
-            sender_last_name: props.location.state.formVals.lastName,
-            sender_email: props.location.state.formVals.email,
-            sender_address: props.location.state.formVals.address1 + " " + props.location.state.formVals.address2,
-            city: props.location.state.formVals.city,
-            state: props.location.state.formVals.state,
-            zipcode: props.location.state.formVals.zipcode,
-            cardholder_name: props.location.state.formVals.first_name + " " + props.location.state.formVals.last_name,
-            card_number: props.location.state.cardNum,
-            exp_date: props.location.state.exp.trim(),
-            cvc: props.location.state.cvc,
-            dollars: props.location.state.amount,
+            sender_first_name: props.formVals.firstName,
+            sender_last_name: props.formVals.lastName,
+            sender_email: props.formVals.email,
+            sender_address: props.formVals.address1 + " " + props.formVals.address2,
+            city: props.formVals.city,
+            state: props.formVals.state,
+            zipcode: props.formVals.zipcode,
+            cardholder_name: props.formVals.first_name + " " + props.formVals.last_name,
+            card_number: props.cardNum,
+            exp_date: props.exp.trim(),
+            cvc: props.cvc,
+            dollars: props.amount,
         }
 
         fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/makeDonation', {
@@ -105,7 +105,7 @@ function ConfirmationPage(props) {
         return (
             <div style={header}>
                 <h3>There was an error - your card wasn't charged. Please review your payment info and give it another go.</h3>
-                <SecondaryButton text="Review payment info" onClick={() => handleBackToPaymentInfo()} />
+                <SecondaryButton text="Review payment info" onClick={props.handleBackToPaymentInfo} />
             </div>
         );
     } else {
@@ -118,4 +118,4 @@ function ConfirmationPage(props) {
     }
 }
 
-export default withRouter(ConfirmationPage);
+export default ConfirmationPage;
