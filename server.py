@@ -94,7 +94,7 @@ def createUser():
 def makeDonation():
     if not has_args(request.json, ['sender_first_name', 'sender_last_name', 'sender_email', 
                                    'sender_address', 'city', 'state', 'zipcode', 'cardholder_name', 
-                                   'card_number', 'exp_date', 'cvv', 'dollars']):
+                                   'card_number', 'exp_date', 'cvc', 'dollars']):
         raise InvalidUsage('Missing paramenters')
 
     # get matchmaker obj
@@ -114,7 +114,7 @@ def makeDonation():
                                             cardholder_name=request.json['cardholder_name'], 
                                             card_number=request.json['card_number'], 
                                             exp_date=request.json['exp_date'], 
-                                            cvv=request.json['cvv'])
+                                            cvc=request.json['cvc'])
     
     # update User DB
     user_update_status = update_user_entry(recipient, request.json["dollars"])
