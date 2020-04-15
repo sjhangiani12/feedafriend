@@ -129,7 +129,7 @@ def makeDonation():
                                              request.json["sender_last_name"], timestamp_string)
     # send confirm email to both particpants
     
-    html = render_template('templates/billing.html', amount_donated=request.json["dollars"], 
+    html = render_template('./templates/billing.html', amount_donated=request.json["dollars"], 
                         invoice_number=1, 
                         Transaction_date=timestamp_string)
     # donor_email, amount_donated, donor_name, invoice_number, transaction_date, html
