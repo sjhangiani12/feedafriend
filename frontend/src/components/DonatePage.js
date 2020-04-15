@@ -7,7 +7,6 @@ import CurrencyInput from 'react-currency-input';
 import CreditCardInput from 'react-credit-card-input';
 import SelectSearch from 'react-select-search';
 import '../style.css';
-import { useHistory, withRouter } from "react-router-dom";
 
 function DonatePage() {
 
@@ -23,6 +22,7 @@ function DonatePage() {
   const [donateNowClicked, setDonateNowClicked] = useState(false);
   // state if there was an error w/ the payment info
   const [errorWithPayment, setErrorWithPayment] = useState(false);
+
   // payment info
   const [cardNumber, setCardNumber] = useState("");
   const [exp, setExp] = useState("");
@@ -41,20 +41,6 @@ function DonatePage() {
   }
   const [formValues, setFormValues] = useState(formDefaultValues);
   const { firstName, lastName, email, country, address1, address2, city, state, zipcode } = formValues
-  const formDefaultErrors = {
-    firstName: [],
-    lastName: [],
-    email: [],
-    country: [],
-    address1: [],
-    address2: [],
-    city: [],
-    state: [],
-    zipcode: [],
-  }
-  const [formErrors, setFormErrors] = useState(formDefaultErrors)
-
-  const history = useHistory();
 
   // handles when the user select a donation amount
   function handleAmountClick(amount) {
@@ -86,63 +72,54 @@ function DonatePage() {
   function handleCardNumberChange(cardNum) {
     setCardNumber(cardNum);
     console.log(cardNum)
-
   }
 
   function handleCardExpiryChange(exp) {
     setExp(exp);
     console.log(exp)
-
   }
 
   function handleCardCVCChange(cvc) {
     setCVC(cvc);
     console.log(cvc)
-
   }
 
   function handleDonateClick() {
-    setDonateNowClicked(true);
+    if (checkAllFieldsFilled()) {
+      setDonateNowClicked(true);
+    } else {
+      alert("Please fill out all the fields.");
+    }
     console.log(cardNumber);
   }
 
-  function handleChange(e, validators) {
+  function checkAllFieldsFilled() {
+    if (formValues.firstName != "" &&
+        formValues.lastName != "" &&
+        formValues.email != "" &&
+        formValues.country != "" &&
+        formValues.address1 != "" &&
+        formValues.address2 != "" &&
+        formValues.city != "" &&
+        formValues.state != "" &&
+        formValues.zipcode != "" &&
+        cardNumber != "" &&
+        exp != "" &&
+        cvc != ""
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function handleChange(e) {
     const target = e.target
     setFormValues(prevState => ({
       ...prevState,
       [target.name]: target.value
     }))
     console.log(formValues)
-    handleValidations(target, validators)
-  }
-
-  function handleValidations(target, validators) {
-    validators.forEach(validation => {
-      const result = validation(target.value)
-      const errors = formErrors[target.name]
-      if (result.valid) {
-        if (errors.includes(result.message)) {
-          setFormErrors(prevState => ({
-            ...prevState,
-            [target.name]: errors.filter(error => error != result.message)
-          }))
-        }
-      } else {
-        if (!errors.includes(result.message)) {
-          setFormErrors(prevState => ({
-            ...prevState,
-            [target.name]: [...errors, result.message]
-          }))
-        }
-      }
-    })
-  }
-
-  function noBlanks(value) {
-    return {
-      valid: value.replace(/\s+/, "") > 0,
-      message: "Value cannot be blank"
-    }
   }
 
   function handleChangeCountry(value) {
@@ -486,24 +463,15 @@ function DonatePage() {
           <div style={paymentInfoContainer}>
             <h1 style={paymentInfoSections}>Your information</h1>
             <div style={nameContainer}>
-              <input type="text" onChange={(e) => handleChange(e, [noBlanks])} style={paymentFieldInput} placeholder="First Name" name={"firstName"} value={firstName}></input>
-              <input type="text" onChange={(e) => handleChange(e, [noBlanks])} style={paymentFieldInput} placeholder="Last Name" name={"lastName"} value={lastName}></input>
+              <input type="text" onChange={(e) => handleChange(e)} style={paymentFieldInput} placeholder="First Name" name={"firstName"} value={firstName}></input>
+              <input type="text" onChange={(e) => handleChange(e)} style={paymentFieldInput} placeholder="Last Name" name={"lastName"} value={lastName}></input>
             </div>
-            <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e, [noBlanks])} placeholder="Email address" name={"email"} value={email}></input>
+            <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e)} placeholder="Email address" name={"email"} value={email}></input>
             <h1 style={paymentInfoSections}>Address</h1>
-            <SelectSearch
-              key="countries"
-              value={country}
-              name={"country"}
-              options={countries}
-              onChange={handleChangeCountry}
-              placeholder="Your country"
-              search
-            />
-            <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e, [noBlanks])} placeholder="Address 1" name={"address1"} value={address1}></input>
-            <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e, [noBlanks])} placeholder="Address 2" name={"address2"} value={address2}></input>
+            <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e)} placeholder="Address 1" name={"address1"} value={address1}></input>
+            <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e)} placeholder="Address 2" name={"address2"} value={address2}></input>
             <div style={nameContainer}>
-              <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e, [noBlanks])} placeholder="City" name={"city"} value={city}></input>
+              <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e)} placeholder="City" name={"city"} value={city}></input>
               <SelectSearch
                 key="states"
                 value={state}
@@ -514,7 +482,7 @@ function DonatePage() {
                 search
               />
             </div>
-            <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e, [noBlanks])} placeholder="Zip code" name={"zipcode"} value={zipcode}></input>
+            <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e)} placeholder="Zip code" name={"zipcode"} value={zipcode}></input>
           </div>
           <h1 style={paymentInfoSections}>Payment information</h1>
           <CreditCardInput fieldStyle={creditCardField} inputStyle={creditCardInput}
@@ -847,4 +815,4 @@ const states = [
   { name: "Wyoming", value: "Wyoming" }
 ]
 
-export default withRouter(DonatePage);
+export default DonatePage;
