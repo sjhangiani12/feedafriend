@@ -7,6 +7,7 @@ import { PrimaryButton, SecondaryButton, TertiartyButton } from '../shared/Butto
 function ConfirmationPage(props) {
 
     const [isLoaded, setIsLoaded] = useState(false);
+    const [responseCode, setResponseCode] = useState(0);
     const [error, setError] = useState(false);
     const history = useHistory();
 
@@ -69,7 +70,9 @@ function ConfirmationPage(props) {
             body: JSON.stringify(data)
         }).then(
             function (response) {
+                setIsLoaded(true);
                 console.log(response);
+                setResponseCode(response.status);            
             }
         )
     }
@@ -85,18 +88,32 @@ function ConfirmationPage(props) {
                 </div>
             </div>
         );
-    } else if (error) {
+    } else if (responseCode == 400) {
         return (
             <div style={header}>
                 <h3>There was an error - your card wasn't charged. Please review your payment info and give it another go.</h3>
                 <SecondaryButton text="Review payment info" onClick={props.handleBackToPaymentInfo} />
             </div>
         );
-    } else {
+    } else if (responseCode == 200) {
         return (
             <div style={loadingContainer}>
                 <h1>Thank you for your donation.</h1>
                 <a style={support} href="https://www.patreon.com/care37">Click here to support us!</a>
+            </div>
+        );
+    } else if (responseCode == 500) {
+        return (
+            <div style={header}>
+                <h3>Looks like our website isn't working right :( - your card wasn't charged. Please retry your request and contact us if the issue persists.</h3>
+                <SecondaryButton text="Retry" onClick={props.handleBackToPaymentInfo} />
+            </div>
+        );
+    } else {
+        return (
+            <div style={header}>
+                <h3>Looks like our website encoutered an unexpected issue :( - your card wasn't charged. Please retry your request and contact us if the issue persists.</h3>
+                <SecondaryButton text="Retry" onClick={props.handleBackToPaymentInfo} />
             </div>
         );
     }
