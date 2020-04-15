@@ -9,8 +9,8 @@ from db_manager import insert_user
 from db_manager import update_user_entry
 from db_manager import insert_donation
 
-from payment import DoorDash
 from matchmaker import Matchmaker
+from payment import DoorDash
 
 import smtplib
 

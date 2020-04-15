@@ -109,7 +109,7 @@ class DoorDash():
             except: 
                 return ({'status': False, 'message': 'there was an issue with the information you provided'})
         else:
-            return ({'status': False, 'more than 1 item'})
+            return ({'status': False, 'message': 'more than 1 item'})
 
 
     def preFill(self, dollars, recipient_name, recipient_email, sender_name):

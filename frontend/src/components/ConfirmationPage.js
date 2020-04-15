@@ -10,7 +10,7 @@ function ConfirmationPage(props) {
 
     useEffect(() => {
         makePaymentCall();
-    })
+    }, []);
 
     const header = {
         display: "flex",
