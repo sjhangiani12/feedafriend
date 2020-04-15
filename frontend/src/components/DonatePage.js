@@ -17,19 +17,42 @@ function DonatePage() {
   const [supportUsAmount, setSupportUsAmount] = useState(0);
   // state for donateNow clicked
   const [donateNowClicked, setDonateNowClicked] = useState(false);
-
   // payment info
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [country, setCountry] = useState("");
-  const [address1, setAddress1] = useState("");
-  const [address2, setAddress2] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [country, setCountry] = useState("");
+  // const [address1, setAddress1] = useState("");
+  // const [address2, setAddress2] = useState("");
+  // const [city, setCity] = useState("");
+  // const [state, setState] = useState("");
   const [cardNumber, setCardNumber] = useState();
   const [exp, setExp] = useState("");
   const [cvc, setCVC] = useState("");
+
+  const formDefaultValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    country: "",
+    address1: "",
+    address2: "",
+    city: "",
+    state: ""
+  }
+  const [formValues, setFormValues] = useState(formDefaultValues);
+  const {firstName, lastName, email, country, address1, address2, city, state} = formValues
+  const formDefaultErrors = {
+    firstName: [],
+    lastName: [],
+    email: [],
+    country: [],
+    address1: [],
+    address2: [],
+    city: [],
+    state: [], 
+  }
+  const [formErrors, setFormErrors] = useState(formDefaultErrors)
 
   // handles when the user select a donation amount
   function handleAmountClick(amount) {
@@ -75,14 +98,52 @@ function DonatePage() {
     console.log(cardNumber);
   }
 
+  function handleChange(e, validators) {
+    const target = e.target 
+    setFormValues(prevState => ({
+      ...prevState,
+      [target.name]: target.value
+    }))
+    console.log(formValues)
+    handleValidations(target, validators)
+  }
+  function handleValidations(target, validators) {
+    validators.forEach(validation => {
+      const result = validation(target.value)
+      const errors = formErrors[target.name]
+      if (result.valid) {
+        if(errors.includes(result.message)) {
+          setFormErrors(prevState => ({
+            ...prevState,
+            [target.name]: errors.filter(error => error != result.message)
+          }))
+        }
+      } else {
+        if(!errors.includes(result.message)) {
+          setFormErrors(prevState => ({
+            ...prevState,
+            [target.name]: [...errors, result.message]
+          }))
+        }
+      }
+    })
+  }
+  function noBlanks(value) {
+    return {
+      valid: value.replace(/\s+/,"") > 0,
+      message: "Value cannot be blank" 
+    }
+  }
+
   const donateHeader = {
     display: "flex",
     flexDirection: "row",
     flex: "1",
+    height: "100vh",
     justifyContent: "space-evenly",
     alignItems: "center",
     marginTop: "15%",
-    alignItems: "flex-start",
+    alignItems: "flex-start"
   }
 
   const bigText = {
@@ -353,7 +414,7 @@ function DonatePage() {
   } else if (!donateNowClicked) {
     return (
       // this is the second step,1G user enters payment info
-      <div style={{ ...donateHeader, marginTop: "10%" }}>
+      <div style={{ ...donateHeader }}>
         <div style={invoice}>
           <h1 style={bigText}>Your support <br />means a lot.</h1>
           <div style={allInvoiceRows}>
@@ -382,17 +443,17 @@ function DonatePage() {
           <div style={paymentInfoContainer}>
             <h1 style={paymentInfoSections}>Your information</h1>
             <div style={nameContainer}>
-              <input style={paymentFieldInput} placeholder="First Name" value={firstName}></input>
-              <input style={paymentFieldInput} placeholder="Last Name" value={lastName}></input>
+              <input type="text" onChange={(e) => handleChange(e, [noBlanks])} style={paymentFieldInput} placeholder="First Name" name = {"firstName"} value={firstName}></input>
+              <input type="text" onChange={(e) => handleChange(e, [noBlanks])} style={paymentFieldInput} placeholder="Last Name" name = {"lastName"} value={lastName}></input>
             </div>
-            <input style={paymentFieldInput} placeholder="Email address" value={email}></input>
+            <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e, [noBlanks])} placeholder="Email address" name={"email"} value={email}></input>
             <h1 style={paymentInfoSections}>Address</h1>
-            <input style={paymentFieldInput} placeholder="Country" value={country}></input>
-            <input style={paymentFieldInput} placeholder="Address 1" value={address1}></input>
-            <input style={paymentFieldInput} placeholder="Address 2" value={address2}></input>
+            <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e, [noBlanks])} placeholder="Country" name={"country"}  value={country}></input>
+            <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e, [noBlanks])} placeholder="Address 1" name={"address1"} value={address1}></input>
+            <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e, [noBlanks])} placeholder="Address 2" name={"address2"}  value={address2}></input>
             <div style={nameContainer}>
-              <input style={paymentFieldInput} placeholder="City" value={city}></input>
-              <input style={paymentFieldInput} placeholder="State" value={state}></input>
+              <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e, [noBlanks])} placeholder="City" name={"city"} value={city}></input>
+              <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e, [noBlanks])} placeholder="State" name={"state"}  value={state}></input>
             </div>
           </div>
           <h1 style={paymentInfoSections}>Payment information</h1>

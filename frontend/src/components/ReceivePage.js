@@ -55,8 +55,8 @@ function ReceivePage() {
       )}
 
       {isAuthenticated && 
-      <div style={loggedInView}>
-        <h1 style={signUpMessage}>Thank you for signing up to be a recipient!</h1>
+        <div style={textHeader}>
+        <h1 style={thankYou}>Thank you for signing up to be a recipient!</h1>
         <h4 style={infoBeenAdded}>Your information has been added to our database and you will
                                       recieve an email when have been matched.</h4>
         <SecondaryButton onClick={() => logout({})} text="Log out" />
@@ -65,13 +65,11 @@ function ReceivePage() {
   );
 }
 const thankYou = {
-  flex: "1",
   textAlign: "center",
   paddingBottom: "20px",
 }
 
 const infoBeenAdded = {
-  flex: "1",
   textAlign: "center",
   marginLeft: "200px",
   marginRight: "200px",
@@ -119,9 +117,9 @@ const loggedInView = {
 }
 
 const header = {
-  marginTop: "25%",
   display: "flex",
-  justifyContent: "center"
+  justifyContent: "center",
+  height: "100vh"
 }
 
 export default ReceivePage;

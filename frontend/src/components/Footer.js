@@ -12,7 +12,7 @@ const sty = {
 }
 const useStyles = makeStyles(() => ({
   root: {
-    marginTop: "200px",
+    position: "absolute",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
     boxShadow: "none",
     color: "white",
     position: "relative",
-    bottom: "0px",
+    bottom: "0",
 
   }
 }));

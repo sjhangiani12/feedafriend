@@ -44,13 +44,11 @@ const last = {
 }
 
 const thankYou = {
-  flex: "1",
   textAlign: "center",
   paddingBottom: "20px",
 }
 
 const infoBeenAdded = {
-  flex: "1",
   textAlign: "center",
   marginLeft: "200px",
   marginRight: "200px",
@@ -67,7 +65,8 @@ const textHeader = {
 const header = {
   marginTop : "100px",
   display: "flex",
-  justifyContent: "center"
+  justifyContent: "center",
+  height: "100vh"
 
 }
 

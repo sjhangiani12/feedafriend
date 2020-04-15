@@ -75,14 +75,14 @@ function NavBar () {
           <Link style={links} to="/about_us">About</Link>
           <Link style={links} to="/receive"><SecondaryButton text="Receive" /></Link>
           <Link style={links} to="/donate"><PrimaryButton text="Donate" /></Link>
-          <Link style={last} to="/recipient_portal">Your Portal</Link></div>}
+          <Link style={links} to="/receive">Logged In!</Link></div>}
         </MediaQuery>
         <MediaQuery maxDeviceWidth={699} >
           <div style = {{position: "relative", display: "flex", justifyContent: "space-evenly", width: "100%", alignItems: "baseline"}}>
             <Link style={links} to="/about_us">About</Link>
             <Link style={links} to="/receive"><SecondaryButton text="Receive"/></Link>
             <Link style={last} to="/donate"><PrimaryButton text="Donate"/></Link>
-            {isAuthenticated && <Link style={links} to="/recipient_portal">Your Portal</Link>}
+          {isAuthenticated && <Link style={links} to="/receive">Logged In!</Link>}
           </div>
         </MediaQuery>
 
