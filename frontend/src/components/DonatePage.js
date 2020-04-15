@@ -21,14 +21,6 @@ function DonatePage() {
   // state for donateNow clicked
   const [donateNowClicked, setDonateNowClicked] = useState(false);
   // payment info
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [country, setCountry] = useState("");
-  // const [address1, setAddress1] = useState("");
-  // const [address2, setAddress2] = useState("");
-  // const [city, setCity] = useState("");
-  // const [state, setState] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [exp, setExp] = useState("");
   const [cvc, setCVC] = useState("");
@@ -114,6 +106,7 @@ function DonatePage() {
         cardNum: cardNumber,
         exp: exp,
         cvc: cvc,
+        amount: donateAmount,
       }
     });
     setDonateNowClicked(true);
