@@ -81,15 +81,6 @@ function ConfirmationPage(props) {
             )
     }
 
-    function handleBackToPaymentInfo() {
-        history.push({
-            pathname: "/donate",
-            state: {
-            }
-        });
-
-    }
-
     if (!isLoaded) {
         return (
             <div style={header}>
