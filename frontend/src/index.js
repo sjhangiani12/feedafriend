@@ -20,6 +20,8 @@ import Footer from './components/Footer.js';
 import RecipientPortal from './components/RecipientPortal.js';
 import NavBar from './shared/NavBar.js';
 
+import ConfirmationPage from './components/ConfirmationPage.js';
+
 function App () {
 
   return (
@@ -51,6 +53,12 @@ function App () {
         <Route path="/about_us">
           <AboutPage />
           <Footer />
+
+        </Route>
+        <Route path="/confirmation">
+          <ConfirmationPage />
+          <Footer />
+
         </Route>
       </Switch>
     </Router>
