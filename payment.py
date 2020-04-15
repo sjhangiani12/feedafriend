@@ -25,12 +25,20 @@ class DoorDash():
 
         # PROJECT_ROOT = os.path.abspath(os.path.dirname('payment.py'))
         # DRIVER_BIN = os.path.join(PROJECT_ROOT, "chromedriver")
-        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        # chrome_options.add_argument("--headless")
+        # chrome_options.add_argument("--disable-dev-shm-usage")
+        # chrome_options.add_argument("--no-sandbox")
+        # self.driver = webdriver.Chrome(executable_path=os.environ.get(
+        #     "CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+        # self.driver.get('https://doordash.launchgiftcards.com/')
+
+        chrome_options = Options()
         chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--disable-dev-shm-usage")
-        chrome_options.add_argument("--no-sandbox")
-        self.driver = webdriver.Chrome(executable_path=os.environ.get(
-            "CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+        PROJECT_ROOT = os.path.abspath(os.path.dirname('payment.py'))
+        DRIVER_BIN = os.path.join(PROJECT_ROOT, "chromedriver")
+        self.driver = selenium.webdriver.Chrome(
+            executable_path=DRIVER_BIN, chrome_options=chrome_options)
         self.driver.get('https://doordash.launchgiftcards.com/')
 
 

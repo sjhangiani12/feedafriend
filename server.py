@@ -30,15 +30,15 @@ def has_args(iterable, args):
         return False
 
 
-@app.before_request
-def before_request():
-    print(request.url)
-    print(request.host)
-    print(request.host_url)
-    if request.url.startswith('http://'):
-        url = request.url.replace('http://', 'https://', 1)
-        code = 301
-        return redirect(url, code=code)
+# @app.before_request
+# def before_request():
+#     print(request.url)
+#     print(request.host)
+#     print(request.host_url)
+#     if request.url.startswith('http://'):
+#         url = request.url.replace('http://', 'https://', 1)
+#         code = 301
+#         return redirect(url, code=code)
 
 
 # @app.before_request
@@ -54,7 +54,7 @@ def before_request():
 
 @app.route('/', methods=['GET'])
 def ping():
-    return 'API is Running... wait slow down. The fuck, come back API!'
+    return 'API is Running... wait slow down. The fuck, come back API!', 200
 
 
 @app.errorhandler(InvalidUsage)
@@ -89,7 +89,7 @@ def createUser():
                            request.json['bio'], request.json['zip_code'])
     response = Response(response)
     # response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    return response, 200
 
 
 @app.route('/makeDonation', methods=['POST', 'OPTIONS'])
@@ -98,7 +98,7 @@ def makeDonation():
                                    'sender_address', 'city', 'state', 'zipcode', 'cardholder_name', 
                                    'card_number', 'exp_date', 'cvc', 'dollars']):
         raise InvalidUsage('Missing paramenters')
-
+        return 400
     # get matchmaker obj
     recipient = Matchmaker().get_recipientProfile()
     purchase_status = False
@@ -117,25 +117,30 @@ def makeDonation():
                                             card_number=request.json['card_number'], 
                                             exp_date=request.json['exp_date'], 
                                             cvc=request.json['cvc'])
-    
-    # update User DB
-    user_update_status = update_user_entry(recipient, request.json["dollars"])
-    # insert to Transactions DB
-    timestamp_string = time.strftime(
-    "%a, %d %b %Y %H:%M:%S +0000", datetime.fromtimestamp(int(time.time())).timetuple())
-    donation_update_status = insert_donation(recipient, request.json["dollars"], 
-                                             request.json["sender_email"], 
-                                             request.json["sender_first_name"], 
-                                             request.json["sender_last_name"], timestamp_string)
-    # send confirm email to both particpants
-    
-    # html = render_template('billing.html', amount_donated=request.json["dollars"], 
-    #                     invoice_number=1, 
-    #                     Transaction_date=timestamp_string)
-    # # donor_email, amount_donated, donor_name, invoice_number, transaction_date, html
-    # send_donor_order_confirmation(donor_email = request.json["sender_email"], amount_donated = request.json['dollars'], donor_name = request.json["sender_first_name"], invoice_number = 1,transaction_date =  timestamp_string, html=html)
-        # which should update the transaction to indicate this was complete
-    return "Transaction Complete:" + str(purchase_status) + " | User Table Updated:" + str(user_update_status) + " | Transactions Table Inserted:" + str(donation_update_status)
+        if purchase_status['status'] == True:
+
+            # update User DB
+            user_update_status = update_user_entry(recipient, request.json["dollars"])
+            # insert to Transactions DB
+            timestamp_string = time.strftime(
+            "%a, %d %b %Y %H:%M:%S +0000", datetime.fromtimestamp(int(time.time())).timetuple())
+            donation_update_status = insert_donation(recipient, request.json["dollars"], 
+                                                    request.json["sender_email"], 
+                                                    request.json["sender_first_name"], 
+                                                    request.json["sender_last_name"], timestamp_string)
+            # send confirm email to both particpants
+            return "Transaction Complete:" + str(purchase_status) + " | User Table Updated:" + str(user_update_status) + " | Transactions Table Inserted:" + str(donation_update_status), 200
+        else:
+            return "Transaction Complete:" + str(purchase_status) + " | User Table Updated:" + "False" + " | Transactions Table Inserted:" + "False", 400
+
+        # html = render_template('billing.html', amount_donated=request.json["dollars"], 
+        #                     invoice_number=1, 
+        #                     Transaction_date=timestamp_string)
+        # # donor_email, amount_donated, donor_name, invoice_number, transaction_date, html
+        # send_donor_order_confirmation(donor_email = request.json["sender_email"], amount_donated = request.json['dollars'], donor_name = request.json["sender_first_name"], invoice_number = 1,transaction_date =  timestamp_string, html=html)
+            # which should update the transaction to indicate this was complete
+    else: 
+        return "There was an error", 500
 
 if __name__ == '__main__':
     app.debug = True
