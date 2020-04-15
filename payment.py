@@ -39,6 +39,8 @@ class DoorDash():
 
     def purchase(self, sender_email, sender_address, city, state, zipcode, cardholder_name, card_number, exp_date, cvv):
         # Check to make sure only one order item
+        for i in len(self.driver.find_elements_by_xpath("//div[@class='preview-order-item']")) - 1:
+            self.driver.find_element_by_xpath("//button[@class='button item-button']").click()
         if len(self.driver.find_elements_by_xpath("//div[@class='preview-order-item']")) == 1:
             # email
             self.driver.find_element_by_xpath(
@@ -101,12 +103,13 @@ class DoorDash():
 
             # place order
             self.driver.find_element_by_xpath("//button[@class='action-button action-button--purchase-now']").click()
-            confirm = self.driver.find_element_by_xpath(
-                "//p[@class='success__body-text success__body-text--large']").text
-            return ({'status': True, 'confirm': confirm })
+            try:
+                confirm = self.driver.find_element_by_xpath("//p[@class='success__body-text success__body-text--large']").text
+                return ({'status': True, 'message': confirm })
+            except: 
+                return ({'status': False, 'message': 'there was an issue with the information you provided'})
         else:
-            print('Error - more than one order-item')
-            return False
+            return ({'status': False, 'more than 1 item'})
 
 
     def preFill(self, dollars, recipient_name, recipient_email, sender_name):
