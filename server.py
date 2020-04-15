@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, redirect, Response
+from flask import Flask, jsonify, request, redirect, Response, render_template
 from flask_cors import CORS, cross_origin
 from waitress import serve
 from time import sleep
@@ -8,6 +8,7 @@ from error import InvalidUsage
 from db_manager import insert_user
 from db_manager import update_user_entry
 from db_manager import insert_donation
+from send_email import send_donor_order_confirmation
 
 from matchmaker import Matchmaker
 from payment import DoorDash
@@ -119,11 +120,20 @@ def makeDonation():
     # update User DB
     user_update_status = update_user_entry(recipient, request.json["dollars"])
     # insert to Transactions DB
+    timestamp_string = time.strftime(
+    "%a, %d %b %Y %H:%M:%S +0000", datetime.fromtimestamp(int(time.time())).timetuple())
     donation_update_status = insert_donation(recipient, request.json["dollars"], 
                                              request.json["sender_email"], 
                                              request.json["sender_first_name"], 
-                                             request.json["sender_last_name"])
+                                             request.json["sender_last_name"], timestamp_string)
     # send confirm email to both particpants
+    
+    html = render_template('templates/billing.html', amount_donated=request.json["dollars"], 
+                        invoice_number=1, 
+                        Transaction_date=timestamp_string)
+    donor_email, amount_donated, donor_name, invoice_number, transaction_date, html
+    send_donor_order_confirmation(request.json["sender_email"], request.json['dollars'], request.json["sender_first_name"], 1, timestamp_string, html)
+
         # which should update the transaction to indicate this was complete
     return "Transaction Complete:" + str(purchase_status) + " | User Table Updated:" + str(user_update_status) + " | Transactions Table Inserted:" + str(donation_update_status)
 

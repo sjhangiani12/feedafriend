@@ -16,7 +16,7 @@ def config(filename='database.ini', section='postgresql'):
     if parser.has_section(section):
         params = parser.items(section)
         for param in params:
-            db[param[0]] = param[1]
+            db[param[0]] = param[1] 
     else:
         raise Exception(
             'Section {0} not found in the {1} file'.format(section, filename))
@@ -101,7 +101,7 @@ def update_user_entry(recipientProfile, dollars):
     # TODO need to add last donation date to schema to get a more accurate burn rate adjusted amount
 
 
-def insert_donation(recipientProfile, dollars, donor_email, donor_first_name, donor_last_name):
+def insert_donation(recipientProfile, dollars, donor_email, donor_first_name, donor_last_name, timestamp_string):
     """ Insert donation record into donations database """
     ruid = recipientProfile.get_recipient_user_id()
     sql = """INSERT INTO donations(tid, uid, amount_donated, donor_email, donor_first_name, donor_last_name,
@@ -117,9 +117,6 @@ def insert_donation(recipientProfile, dollars, donor_email, donor_first_name, do
         conn = psycopg2.connect(**params)
         # create a new cursor
         cur = conn.cursor()
-        # get the date created (TIMESTAMP '2004-10-19 10:23:54')
-        timestamp_string = time.strftime(
-            "%a, %d %b %Y %H:%M:%S +0000", datetime.fromtimestamp(int(time.time())).timetuple())
         # generate the Uid
         uuid_string = donor_email + timestamp_string
         created_tuid = uuid.uuid5(uuid.NAMESPACE_OID, uuid_string)
