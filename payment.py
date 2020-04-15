@@ -37,7 +37,7 @@ class DoorDash():
 
 
 
-    def purchase(self, sender_email, sender_address, city, state, zipcode, cardholder_name, card_number, exp_date, cvv):
+    def purchase(self, sender_email, sender_address, city, state, zipcode, cardholder_name, card_number, exp_date, cvc):
         # Check to make sure only one order item
         for i in len(self.driver.find_elements_by_xpath("//div[@class='preview-order-item']")) - 1:
             self.driver.find_element_by_xpath("//button[@class='button item-button']").click()
@@ -88,11 +88,11 @@ class DoorDash():
             actions.send_keys(exp_date)
             actions.perform()
 
-            # cvv (security code of card)
+            # cvc (security code of card)
             expDate.send_keys(Keys.TAB)
             securityCode = self.driver.switch_to.active_element
             actions = ActionChains(self.driver)
-            actions.send_keys(cvv)
+            actions.send_keys(cvc)
             actions.perform()
 
             # accept terms and conditions
