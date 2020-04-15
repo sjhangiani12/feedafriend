@@ -39,7 +39,7 @@ class DoorDash():
 
     def purchase(self, sender_email, sender_address, city, state, zipcode, cardholder_name, card_number, exp_date, cvc):
         # Check to make sure only one order item
-        for i in len(self.driver.find_elements_by_xpath("//div[@class='preview-order-item']")) - 1:
+        for i in range(len(self.driver.find_elements_by_xpath("//div[@class='preview-order-item']")) - 1):
             self.driver.find_element_by_xpath("//button[@class='button item-button']").click()
         if len(self.driver.find_elements_by_xpath("//div[@class='preview-order-item']")) == 1:
             # email
