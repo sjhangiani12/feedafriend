@@ -29,7 +29,7 @@ function DonatePage() {
   // const [address2, setAddress2] = useState("");
   // const [city, setCity] = useState("");
   // const [state, setState] = useState("");
-  const [cardNumber, setCardNumber] = useState();
+  const [cardNumber, setCardNumber] = useState("");
   const [exp, setExp] = useState("");
   const [cvc, setCVC] = useState("");
 
