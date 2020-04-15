@@ -97,9 +97,7 @@ function DonatePage() {
     if (formValues.firstName != "" &&
         formValues.lastName != "" &&
         formValues.email != "" &&
-        formValues.country != "" &&
         formValues.address1 != "" &&
-        formValues.address2 != "" &&
         formValues.city != "" &&
         formValues.state != "" &&
         formValues.zipcode != "" &&

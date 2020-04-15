@@ -67,18 +67,11 @@ function ConfirmationPage(props) {
             },
 
             body: JSON.stringify(data)
-        }).then(res => setError(!res.ok))
-            .then(
-                (result) => {
-                    setIsLoaded(true);
-                    console.log("is there an error: " + result);
-                },
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                    console.log("look an error: " + error);
-                }
-            )
+        }).then(
+            function (response) {
+                console.log(response);
+            }
+        )
     }
 
     if (!isLoaded) {
