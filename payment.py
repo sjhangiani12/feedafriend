@@ -22,7 +22,6 @@ import selenium
 class DoorDash():
     def __init__(self):
         chrome_options = Options()
-
         PROJECT_ROOT = os.path.abspath(os.path.dirname('payment.py'))
         DRIVER_BIN = os.path.join(PROJECT_ROOT, "chromedriver")
         chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
