@@ -26,8 +26,8 @@
     "react-responsive": "^8.0.3",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
-    "react-spinners": "^0.8.1",
     "react-select-search": "^1.0.2",
+    "react-spinners": "^0.8.1",
     "semantic-ui-react": "^0.88.2",
     "styled-components": "^5.0.1",
     "zipcodes": "^8.0.0"

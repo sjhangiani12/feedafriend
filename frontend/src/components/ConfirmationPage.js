@@ -40,6 +40,29 @@ function ConfirmationPage(props) {
         marginTop: "5%",
     }
 
+    const data = {
+        sender_first_name: props.location.state.formVals.firstName,
+        sender_last_name: props.location.state.formVals.lastName,
+        sender_email: props.location.state.formVals.email,
+        sender_address: props.location.state.formVals.address,
+        city: props.location.state.formVals.city,
+        state: props.location.state.formVals.state,
+        zipcode: props.location.state.formVals.zipcode,
+        cardholder_name: props.location.state.formVals.first_name + " " + props.location.state.formVals.last_name,
+        card_number: props.card_number,
+        exp_date: props.exp_date,
+        cvc: props.cvc,
+        dollars: props.amount,
+    }
+
+    // async function makePaymentCall() {
+    //     const response = await fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/makeDonation',
+    //         { method: 'POST', body: JSON.stringify(data), headers: { "Content-Type": "application/json" } }
+    //     );
+    //     const dat = await response.json()
+    //     console.log(dat)
+    // }
+
     const makePaymentCall = async () => {
         console.log(props);
 
@@ -65,16 +88,14 @@ function ConfirmationPage(props) {
             },
 
             body: JSON.stringify(data)
-        }).then(res => res.json())
+        }).then(res => console.log(res))
             .then(
                 (result) => {
                     setIsLoaded(true);
-                    console.log(result);
                 },
                 (error) => {
                     setIsLoaded(true);
                     setError(error);
-                    console.log(error);
                 }
             )
     }
@@ -93,7 +114,7 @@ function ConfirmationPage(props) {
     } else if (error) {
         return (
             <div style={header}>
-                cunt, theres an error.
+                There was an error - your card wasn't charged but you'll have to try again.
             </div>
         );
     } else {

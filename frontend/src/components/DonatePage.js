@@ -90,14 +90,20 @@ function DonatePage() {
 
   function handleCardNumberChange(cardNum) {
     setCardNumber(cardNum);
+    console.log(cardNum)
+
   }
 
   function handleCardExpiryChange(exp) {
     setExp(exp);
+    console.log(exp)
+
   }
 
   function handleCardCVCChange(cvc) {
     setCVC(cvc);
+    console.log(cvc)
+
   }
 
   function handleDonateClick() {
@@ -519,9 +525,9 @@ function DonatePage() {
           </div>
           <h1 style={paymentInfoSections}>Payment information</h1>
           <CreditCardInput fieldStyle={creditCardField} inputStyle={creditCardInput}
-            cardNumberInputProps={{ value: cardNumber, onChange: () => handleCardNumberChange() }}
-            cardExpiryInputProps={{ value: exp, onChange: () => handleCardExpiryChange() }}
-            cardCVCInputProps={{ value: cvc, onChange: () => handleCardCVCChange() }}
+            cardNumberInputProps={{ value: cardNumber, onChange: e => handleCardNumberChange(e.target.value) }}
+            cardExpiryInputProps={{ value: exp, onChange: e => handleCardExpiryChange(e.target.value) }}
+            cardCVCInputProps={{ value: cvc, onChange: e => handleCardCVCChange(e.target.value) }}
           />
           <div style={buttonContainer}>
             <SecondaryButton onClick={() => handleBackClick()} text="Back" />
