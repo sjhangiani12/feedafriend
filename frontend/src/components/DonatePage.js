@@ -385,6 +385,10 @@ function DonatePage() {
     position: "relative"
   }
 
+  return (
+      <ConfirmationPage formVals={formValues} cardNum={cardNumber} exp={exp} cvc={cvc} amount={donateAmount} handleBackToPaymentInfo={() => handleBackFromConfirmation()}></ConfirmationPage>
+  );
+
   // this is step one of the donation process
   if ((!nextToPaymentPressed || donateAmount == 0)) {
     return (<div style={donateHeader}>
