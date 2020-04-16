@@ -13,7 +13,7 @@ function RecipientPortal () {
           <div style={textHeader}>
             <h1 style={thankYou}>Thank you for signing up to be a recipient!</h1>
             <h4 style={infoBeenAdded}>Your information has been added to our database and you will 
-                                      recieve an email when have been matched.</h4>
+                                      recieve an email when have been matched with a donor.</h4>
           <div style={last} >
             <SecondaryButton onClick={() => logout({})} text="Log out" />
           </div>

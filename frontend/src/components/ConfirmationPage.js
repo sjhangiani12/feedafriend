@@ -7,6 +7,7 @@ import { PrimaryButton, SecondaryButton, TertiartyButton } from '../shared/Butto
 function ConfirmationPage(props) {
 
     const [isLoaded, setIsLoaded] = useState(false);
+    const [responseCode, setResponseCode] = useState(0);
     const [error, setError] = useState(false);
     const history = useHistory();
 
@@ -21,7 +22,6 @@ function ConfirmationPage(props) {
         justifyContent: "center",
         alignItems: "center",
         marginTop: "15%",
-        alignItems: "flex-start"
     }
 
     const loader = {
@@ -36,11 +36,38 @@ function ConfirmationPage(props) {
         alignItems: "center",
     }
 
+    const siteNotWorkingContainer = {
+        height: "50vh",
+        marginTop: "15%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+    }
+
     const support = {
         color: "#828282",
         fontFamily: "sans-serif",
         marginTop: "5%",
     }
+
+    const bigText = {
+        fontStyle: "normal",
+        fontWeight: "600",
+        fontSize: "48px",
+        lineHeight: "70px",
+        marginBottom: "2%",
+    }
+
+    const descriptionText = {
+        fontFamily: "Abril Tilting",
+        fontStyle: "normal",
+        fontWeight: "600",
+        fontSize: "24px",
+        lineHeight: "27px",
+        color: "#828282",
+        marginBottom: "3%",
+    }
+
 
     const makePaymentCall = async () => {
         console.log(props);
@@ -67,43 +94,55 @@ function ConfirmationPage(props) {
             },
 
             body: JSON.stringify(data)
-        }).then(res => setError(!res.ok))
-            .then(
-                (result) => {
-                    setIsLoaded(true);
-                    console.log("is there an error: " + result);
-                },
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                    console.log("look an error: " + error);
-                }
-            )
+        }).then(
+            function (response) {
+                setIsLoaded(true);
+                console.log(response);
+                setResponseCode(response.status);
+            }
+        )
     }
 
     if (!isLoaded) {
         return (
-            <div style={header}>
-                <div style={loadingContainer}>
-                    <h1>One moment please. We are processing your donation.</h1>
-                    <div style={loader}>
-                        <BounceLoader color={"#999999"} size={100} />
-                    </div>
+            <div style={loadingContainer}>
+                <h1>One moment please. We are processing your donation.</h1>
+                <div style={loader}>
+                    <BounceLoader color={"#999999"} size={100} />
                 </div>
             </div>
         );
-    } else if (error) {
+    } else if (responseCode == 400) {
         return (
             <div style={header}>
-                <h3>There was an error - your card wasn't charged. Please review your payment info and give it another go.</h3>
+                <h1 style={bigText}>There was an error with your payment info</h1>
+                <h1 style={descriptionText}>Please review your payment info and give it another go.</h1>
                 <SecondaryButton text="Review payment info" onClick={props.handleBackToPaymentInfo} />
             </div>
         );
+    } else if (responseCode == 200) {
+        return (
+            <div style={header}>
+                <h1 style={bigText}>Thank you for your donation</h1>
+                <h1 style={descriptionText}>You should receive an email shortly.</h1>
+                <a style={support} href="https://www.patreon.com/care37">Click here to support us!</a>
+            </div>
+        );
+    } else if (responseCode == 500) {
+        return (
+        <div style={siteNotWorkingContainer}>
+            <h1 style={bigText}>Looks like our website isn't working right :( </h1>
+            <h1 style={descriptionText}>Your card wasn't charged. Please retry your request and contact us if the issue persists.</h1>
+            <SecondaryButton text="Retry" onClick={props.handleBackToPaymentInfo} />
+        </div>
+        );
     } else {
         return (
-            <div style={loadingContainer}>
-                <h1>Thank you for your donation.</h1>
-                <a style={support} href="https://www.patreon.com/care37">Click here to support us!</a>
+            <div style={siteNotWorkingContainer}>
+                <h1 style={bigText}>Looks like our website encoutered an unexpected issue :( </h1>
+                <h1 style={descriptionText}>Your card wasn't charged. Please retry your request and contact us if the issue persists.</h1>
+                <h1></h1>
+                <SecondaryButton text="Retry" onClick={props.handleBackToPaymentInfo} />
             </div>
         );
     }
