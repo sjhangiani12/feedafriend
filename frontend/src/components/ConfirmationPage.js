@@ -28,13 +28,24 @@ function ConfirmationPage(props) {
         marginTop: "5%",
     }
 
-    const loadingContainer = {
-        height: "50vh",
+    const na = {
+        height: "100vh",
         marginTop: "15%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
     }
+
+    const loadingContainer = {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        marginRight: "5%",
+        marginLeft: "5%"
+    }
+
 
     const siteNotWorkingContainer = {
         height: "50vh",
@@ -114,7 +125,7 @@ function ConfirmationPage(props) {
         );
     } else if (responseCode == 400) {
         return (
-            <div style={header}>
+            <div style={loadingContainer}>
                 <h1 style={bigText}>There was an error with your payment info</h1>
                 <h1 style={descriptionText}>Please review your payment info and give it another go.</h1>
                 <SecondaryButton text="Review payment info" onClick={props.handleBackToPaymentInfo} />
@@ -122,7 +133,7 @@ function ConfirmationPage(props) {
         );
     } else if (responseCode == 200) {
         return (
-            <div style={header}>
+            <div style={loadingContainer}>
                 <h1 style={bigText}>Thank you for your donation</h1>
                 <h1 style={descriptionText}>You should receive an email shortly.</h1>
                 <a style={support} href="https://www.patreon.com/care37">Click here to support us!</a>
@@ -130,7 +141,7 @@ function ConfirmationPage(props) {
         );
     } else if (responseCode == 500) {
         return (
-        <div style={siteNotWorkingContainer}>
+            <div style={loadingContainer}>
             <h1 style={bigText}>Looks like our website isn't working right :( </h1>
             <h1 style={descriptionText}>Your card wasn't charged. Please retry your request and contact us if the issue persists.</h1>
             <SecondaryButton text="Retry" onClick={props.handleBackToPaymentInfo} />

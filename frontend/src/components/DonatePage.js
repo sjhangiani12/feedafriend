@@ -161,6 +161,15 @@ function DonatePage() {
     fontSize: "48px",
     lineHeight: "70px",
   }
+  const bigText2 = {
+    width: "551px",
+    height: "142px",
+    fontStyle: "normal",
+    fontWeight: "600",
+    fontSize: "48px",
+    lineHeight: "70px",
+    marginRight: "5%"
+  }
 
   const step = {
     fontFamily: "Roboto",
@@ -250,7 +259,9 @@ function DonatePage() {
   const invoice = {
     display: "flex",
     flexDirection: "column",
-    marginBottom: "5%"
+    marginBottom: "5%",
+    marginRight: "5%",
+    marginLeft: "5%"
   }
 
   const invoiceText = {
@@ -299,10 +310,8 @@ function DonatePage() {
   }
 
   const cardDetails = {
-    flex: "1",
     display: "flex",
     flexDirection: "column",
-    padding: "0px 100px 0px 50px"
   }
 
   const allInvoiceRows = {
@@ -394,12 +403,12 @@ function DonatePage() {
         <div className="row">
           {/* if the user selected an amount give them the meals estimate */}
           {(donateAmount == 0) ? (
-            <h1 style={bigText}>You are making the world better.</h1>
+            <h1 style={bigText}>You are making the <br/> world better.</h1>
           ) : (
               <h1 style={bigText}>You are donating <br /> around <mark style={numOfMealsNumber}>
                 {donateAmount / 12.5}</mark> meals</h1>
             )}
-          <div>
+          <div >
             <h1 style={step}>STEP 1</h1>
             <h1 style={enterDonation}>Enter donation amount</h1>
             <ButtonToolbar style={buttonToolbar}>
@@ -438,7 +447,7 @@ function DonatePage() {
     return (
 
       // this is the second step,1G user enters payment info
-      <div  id="donator">
+      <div  id="donator2">
         <div style={invoice}>
           <MediaQuery minDeviceWidth={700} >
 
