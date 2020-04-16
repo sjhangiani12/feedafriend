@@ -16,7 +16,9 @@ import MediaQuery from 'react-responsive'
 
 const header = {
   display: "flex",
-  justifyContent: "center"
+  justifyContent: "center",
+  marginLeft: "5%",
+  marginRight: "5%"
 }
 const header2 = {
   display: "flex",
@@ -39,6 +41,15 @@ const support = {
   fontFamily: "sans-serif"
 }
 
+const whyTheseAmountsText = {
+  fontFamily: "sans-serif",
+  fontStyle: "normal",
+  fontWeight: "300",
+  fontSize: "18px",
+  lineHeight: "21px",
+  paddingBottom: "10px",
+  textDecoration: "underline",
+}
 
 
 
@@ -90,7 +101,7 @@ function HomePage () {
               <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p>
               <h1 style={{ fontSize: "48px", margin: "0px" }}>Help feed people in <br /> need and support<br /> local restaurants.</h1>
               <p style={{ color: "#828282", fontFamily: "sans-serif" }}>All of donated funds are used to purchase DoorDash<br /> credits for hungry people in need.</p>
-              <a style={support} href="https://www.patreon.com/care37">Click here to support us!</a>
+              <a href="https://www.patreon.com/care37"> <h1 style={whyTheseAmountsText}>Click here to support us!</h1></a>
 
               <div style={{ marginTop: "30px" }}>
                 <Link to="/receive" style={{ marginRight: "20px" }}><SecondaryButton text="Receive" /></Link>

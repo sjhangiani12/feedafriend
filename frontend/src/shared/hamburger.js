@@ -34,6 +34,7 @@ export default class Nav extends React.Component {
         background: 'white',
         width: '100%',
         color: 'black',
+        height: "7vh",
         fontFamily: 'Lobster',
       },
       logo: {
@@ -49,14 +50,14 @@ export default class Nav extends React.Component {
         transition: 'filter 0.5s ease',
       },
     }
-    const menu = ['Home', 'Recieve a donation', 'Donate a meal', 'Team']
+    const menu = ['Home', 'Recieve a donation', 'Donate a meal', 'About us']
     const to = {0: "/", 1: "/receive", 2: "/donate", 3: "/about_us"}
     const menuItems = menu.map((val, index) => {
       return (
         <MenuItem
           key={index}
           delay={`${index * 0.1}s`}
-          onClick={() => { this.handleLinkClick(); }}><a style= {{color: "inherit"}} href={to[index]}>{val}</a></MenuItem>)
+          onClick={() => { this.handleLinkClick(); }}><Link style= {{color: "inherit"}} to={to[index]}>{val}</Link></MenuItem>)
     });
 
     return (

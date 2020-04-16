@@ -62,7 +62,7 @@ function NavBar () {
 
   return (
     <>
-      <MediaQuery minDeviceWidth={700} >
+      <MediaQuery minDeviceWidth={1029} >
         <AppBar className={classes.root} positive="static" style={{ "margin-bottom": "100px" }}>
 
           <Link style={forLogo} to="/" ><img src={logo} alt="logo" /></Link>
@@ -80,8 +80,8 @@ function NavBar () {
         </AppBar>
 
       </MediaQuery>
-      <MediaQuery maxDeviceWidth={699} >
-      <Nav />
+      <MediaQuery maxDeviceWidth={1028} >
+        <Nav />
         {/* <div style = {{position: "relative", display: "flex", justifyContent: "space-evenly", width: "100%", alignItems: "baseline"}}>
             <Link style={links} to="/about_us">About</Link>
             <Link style={links} to="/receive"><SecondaryButton text="Receive"/></Link>

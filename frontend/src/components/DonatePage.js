@@ -8,6 +8,7 @@ import CreditCardInput from 'react-credit-card-input';
 import SelectSearch from 'react-select-search';
 import '../style.css';
 import { useHistory, withRouter } from "react-router-dom";
+import MediaQuery from 'react-responsive';
 
 function DonatePage() {
 
@@ -164,15 +165,16 @@ function DonatePage() {
   }
 
 
-  const donateHeader = {
+ 
+  const donateHeaderMobile = {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     flex: "1",
     height: "120vh",
     justifyContent: "space-evenly",
     alignItems: "center",
     marginTop: "15%",
-    alignItems: "flex-start"
+    alignItems: "flex-start" 
   }
 
   const bigText = {
@@ -272,8 +274,7 @@ function DonatePage() {
   const invoice = {
     display: "flex",
     flexDirection: "column",
-    padding: "0px 100px 0px 100px",
-    flex: "1",
+    marginBottom: "5%"
   }
 
   const invoiceText = {
@@ -412,66 +413,76 @@ function DonatePage() {
 
   // this is step one of the donation process
   if ((!nextToPaymentPressed || donateAmount == 0)) {
-    return (<div style={donateHeader}>
-      {/* if the user selected an amount give them the meals estimate */}
-      {(donateAmount == 0) ? (
-        <h1 style={bigText}>You are making the world better.</h1>
-      ) : (
-          <h1 style={bigText}>You are donating <br /> around <mark style={numOfMealsNumber}>
-            {donateAmount / 12.5}</mark> meals</h1>
-        )}
-      <div>
-        <h1 style={step}>STEP 1</h1>
-        <h1 style={enterDonation}>Enter donation amount</h1>
-        <ButtonToolbar style={buttonToolbar}>
-          <Button onClick={() => handleAmountClick(25)} style={amountButton}>$25</Button>
-          <Button onClick={() => handleAmountClick(50)} style={amountButton}>$50</Button>
-          <Button onClick={() => handleAmountClick(100)} style={amountButton}>$100</Button>
-          <Button onClick={() => handleAmountClick(200)} style={amountButton}>$200</Button>
-        </ButtonToolbar>
-        {/* error message if they next without selecting a donation amount */}
-        {displayPickAmountMessage && <h1 style={pickAnAmountMessage} >Please select a donation amount</h1>}
-        <OverlayTrigger
-          placement={'top'}
-          overlay={
-            <Tooltip>
-              These are the amounts that DoorDash allows for giftcards.
+    return (<div id ="donator">
+      <div className="container-fliud">
+        <div className="row">
+          {/* if the user selected an amount give them the meals estimate */}
+          {(donateAmount == 0) ? (
+            <h1 style={bigText}>You are making the world better.</h1>
+          ) : (
+              <h1 style={bigText}>You are donating <br /> around <mark style={numOfMealsNumber}>
+                {donateAmount / 12.5}</mark> meals</h1>
+            )}
+          <div>
+            <h1 style={step}>STEP 1</h1>
+            <h1 style={enterDonation}>Enter donation amount</h1>
+            <ButtonToolbar style={buttonToolbar}>
+              <Button onClick={() => handleAmountClick(25)} style={amountButton}>$25</Button>
+              <Button onClick={() => handleAmountClick(50)} style={amountButton}>$50</Button>
+              <Button onClick={() => handleAmountClick(100)} style={amountButton}>$100</Button>
+              <Button onClick={() => handleAmountClick(200)} style={amountButton}>$200</Button>
+            </ButtonToolbar>
+            {/* error message if they next without selecting a donation amount */}
+            {displayPickAmountMessage && <h1 style={pickAnAmountMessage} >Please select a donation amount</h1>}
+            <OverlayTrigger
+              placement={'top'}
+              overlay={
+                <Tooltip>
+                  These are the amounts that DoorDash allows for giftcards.
             </Tooltip>
-          }
-        >
-          <h1 style={whyTheseAmountsText}>Why these amounts?</h1>
+              }
+            >
+              <h1 style={whyTheseAmountsText}>Why these amounts?</h1>
 
-        </OverlayTrigger>
+            </OverlayTrigger>
 
-        {/*<h1 style={supportSiteText}>Would you like to help support this site?</h1>
+            {/*<h1 style={supportSiteText}>Would you like to help support this site?</h1>
         <div style={supportForm}>
           <CurrencyInput onChangeEvent={handleSupportUsAmountChange} style={supportInput} prefix="$" value={supportUsAmount} />
         </div>*/}
-        <PrimaryButton onClick={() => handleNextClick(true)} text="Next: Payment information" />
+            <PrimaryButton onClick={() => handleNextClick(true)} text="Next: Payment information" />
+          </div>
+        </div>
       </div>
+
+
     </div>
     )
   } else if (!donateNowClicked) {
     return (
+
       // this is the second step,1G user enters payment info
-      <div style={{ ...donateHeader }}>
+      <div  id="donator">
         <div style={invoice}>
+          <MediaQuery minDeviceWidth={700} >
+
           <h1 style={bigText}>Your support <br />means a lot.</h1>
-          <div style={allInvoiceRows}>
-            <div style={invoiceRow}>
-              <h1 style={invoiceText}>Donation</h1>
-              <h1 style={invoiceText}>${donateAmount}</h1>
+            <div style={allInvoiceRows}>
+              <div style={invoiceRow}>
+                <h1 style={invoiceText}>Donation</h1>
+                <h1 style={invoiceText}>${donateAmount}</h1>
+              </div>
+              {/*<div style={invoiceRow}>
+                <h1 style={invoiceText}>Your support &#128150;</h1>
+                <h1 style={invoiceText}>${supportUsAmount}</h1>
+              </div>*/}
+              <hr style={{ backgroundColor: "black" }} />
+              <div style={invoiceRow}>
+                <h1 style={invoiceSum}>Total Amount</h1>
+                <h1 style={invoiceSum}>${supportUsAmount + donateAmount}</h1>
+              </div>
             </div>
-            {/*<div style={invoiceRow}>
-              <h1 style={invoiceText}>Your support &#128150;</h1>
-              <h1 style={invoiceText}>${supportUsAmount}</h1>
-            </div>*/}
-            <hr style={{ backgroundColor: "black" }} />
-            <div style={invoiceRow}>
-              <h1 style={invoiceSum}>Total Amount</h1>
-              <h1 style={invoiceSum}>${supportUsAmount + donateAmount}</h1>
-            </div>
-          </div>
+          </MediaQuery>
           <div>
             <h1 style={protectInfoHeader}>protecting your information</h1>
             <h1 style={protectInfoBody}>We never store your credit card information and your payment details are sent over a secure connection.</h1>
@@ -491,15 +502,6 @@ function DonatePage() {
             </div>
             <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e, [noBlanks])} placeholder="Email address" name={"email"} value={email}></input>
             <h1 style={paymentInfoSections}>Address</h1>
-            <SelectSearch
-              key="countries"
-              value={country}
-              name={"country"}
-              options={countries}
-              onChange={handleChangeCountry}
-              placeholder="Your country"
-              search
-            />
             <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e, [noBlanks])} placeholder="Address 1" name={"address1"} value={address1}></input>
             <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e, [noBlanks])} placeholder="Address 2" name={"address2"} value={address2}></input>
             <div style={nameContainer}>
