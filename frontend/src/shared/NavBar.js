@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom';
 import {
   Link
 } from 'react-router-dom';
-
 import { PrimaryButton, SecondaryButton } from "../shared/ButtonComponents";
-
+import Nav from './hamburger.js'
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from '@material-ui/core/AppBar';
 import logo from "../static/CARE_37.svg";
@@ -62,34 +61,41 @@ function NavBar () {
   const { isAuthenticated } = useAuth0();
 
   return (
-    <AppBar className={classes.root} positive="static" style={{"margin-bottom" : "100px"}}>
-        <MediaQuery minDeviceWidth={700} >
+    <>
+      <MediaQuery minDeviceWidth={700} >
+        <AppBar className={classes.root} positive="static" style={{ "margin-bottom": "100px" }}>
+
           <Link style={forLogo} to="/" ><img src={logo} alt="logo" /></Link>
           {!isAuthenticated && <div style={{ position: "relative", display: "flex", justifyContent: "space-evenly", width: "30%", alignItems: "baseline" }}>
 
-              <Link style={links} to="/about_us">About</Link>
-              <Link style={links} to="/receive"><SecondaryButton text="Receive" /></Link>
-              <Link style={last} to="/donate"><PrimaryButton text="Donate" /></Link></div>}
-        {isAuthenticated && <div style={{ position: "relative", display: "flex", justifyContent: "space-evenly", width: "40%", alignItems: "baseline" }}>
+            <Link style={links} to="/about_us">About</Link>
+            <Link style={links} to="/receive"><SecondaryButton text="Receive" /></Link>
+            <Link style={last} to="/donate"><PrimaryButton text="Donate" /></Link></div>}
+          {isAuthenticated && <div style={{ position: "relative", display: "flex", justifyContent: "space-evenly", width: "40%", alignItems: "baseline" }}>
 
-          <Link style={links} to="/about_us">About</Link>
-          <Link style={links} to="/receive"><SecondaryButton text="Receive" /></Link>
-          <Link style={links} to="/donate"><PrimaryButton text="Donate" /></Link>
-          <Link style={links} to="/receive">Logged In!</Link></div>}
-        </MediaQuery>
-        <MediaQuery maxDeviceWidth={699} >
-          <div style = {{position: "relative", display: "flex", justifyContent: "space-evenly", width: "100%", alignItems: "baseline"}}>
+            <Link style={links} to="/about_us">About</Link>
+            <Link style={links} to="/receive"><SecondaryButton text="Receive" /></Link>
+            <Link style={links} to="/donate"><PrimaryButton text="Donate" /></Link>
+            <Link style={links} to="/receive">Logged In!</Link></div>}
+        </AppBar>
+
+      </MediaQuery>
+      <MediaQuery maxDeviceWidth={699} >
+      <Nav />
+        {/* <div style = {{position: "relative", display: "flex", justifyContent: "space-evenly", width: "100%", alignItems: "baseline"}}>
             <Link style={links} to="/about_us">About</Link>
             <Link style={links} to="/receive"><SecondaryButton text="Receive"/></Link>
             <Link style={last} to="/donate"><PrimaryButton text="Donate"/></Link>
           {isAuthenticated && <Link style={links} to="/receive">Logged In!</Link>}
-          </div>
-        </MediaQuery>
+          </div> */}
+
+      </MediaQuery>
+    </>
 
 
-    </AppBar>
+
+
   );
-
 }
 
 export default NavBar;
