@@ -91,8 +91,13 @@ def makeDonation():
     # get matchmaker obj
     recipient = Matchmaker().get_recipientProfile()
     if recipient is None:
+<<<<<<< HEAD
         raise InvalidUsage("No recipient in the database")
         return 400
+=======
+        return "Sorry there are no users to donate to at this time. Try again in a bit", 503
+
+>>>>>>> d1424c9cd749087fe4f3f808fdf840390ff3a15c
     purchase_status = False
     payment = DoorDash()
     #fill out form
