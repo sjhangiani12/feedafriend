@@ -101,6 +101,9 @@ def makeDonation():
         return 400
     # get matchmaker obj
     recipient = Matchmaker().get_recipientProfile()
+    if recipient is null:
+        return "Sorry there are no users to donate to at this time. Try again in a bit", 503
+
     purchase_status = False
     payment = DoorDash()
     #fill out form

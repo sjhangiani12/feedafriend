@@ -142,11 +142,19 @@ function ConfirmationPage(props) {
     } else if (responseCode == 500) {
         return (
             <div style={loadingContainer}>
-            <h1 style={bigText}>Looks like our website isn't working right :( </h1>
-            <h1 style={descriptionText}>Your card wasn't charged. Please retry your request and contact us if the issue persists.</h1>
-            <SecondaryButton text="Retry" onClick={props.handleBackToPaymentInfo} />
-        </div>
+                <h1 style={bigText}>Looks like our website isn't working right :( </h1>
+                <h1 style={descriptionText}>Your card wasn't charged. Please retry your request and contact us if the issue persists.</h1>
+                <SecondaryButton text="Retry" onClick={props.handleBackToPaymentInfo} />
+            </div>
         );
+    } else if (responseCode == 503) {
+        return (
+            <div style={loadingContainer}>
+                <h1 style={bigText}>At the moment we don't have any recipients signed up. </h1>
+                <h1 style={descriptionText}>Your card wasn't charged. We hope to have some recipients signed up soon.</h1>
+            </div>
+        );
+
     } else {
         return (
             <div style={siteNotWorkingContainer}>

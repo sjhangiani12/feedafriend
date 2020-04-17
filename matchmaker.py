@@ -19,7 +19,7 @@ class recipientProfile(object):
         # using a 20$ per week rate to drop the amount
         # in other words, drop amount by 0.119$ every hour
         hours_since_creation = (
-            (datetime.now() - date_created).total_seconds() / 60)
+            (datetime.now() - date_created).total_seconds() / 3600)
         burn_rate = -0.119
         self._burn_adj_amount_recieved = amount_recieved*burn_rate*hours_since_creation
 
@@ -143,7 +143,7 @@ class Matchmaker:
         # params: none
         # returns: recipient profile object that selected as the "lowest" or individual who requires donation the most
         if len(self._queue) == 0:
-            return Exception "No Users in Queue"
+            return null
         else:
             obj = self._queue.get()
             return obj
