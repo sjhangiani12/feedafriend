@@ -61,7 +61,7 @@ def update_donations_email(tid, recipient_email_sent_check, donor_email_sent_che
         if conn is not None:
             conn.close()
 
-    return "Donations Table Email Fields Updated " + str(tuid)
+    return "Donations Table Email Fields Updated " + str(tid)
     # TODO need to add last donation date to schema to get a more accurate burn rate adjusted amount
 
 
@@ -97,7 +97,7 @@ def update_user_entry(recipientProfile, dollars):
         if conn is not None:
             conn.close()
 
-    return "user inserted with uid: " + str(created_uuid)
+    return "updated user entry with uuid: " + str(recipientProfile.recipient_user_id)
     # TODO need to add last donation date to schema to get a more accurate burn rate adjusted amount
 
 
@@ -137,7 +137,7 @@ def insert_donation(recipientProfile, dollars, donor_email, donor_first_name, do
         if conn is not None:
             conn.close()
 
-    return "user inserted with uid: " + str(created_uuid)
+    return "donation inserted with uid: " + str(created_tuid)
 
 
 def insert_user(email, first_name, last_name, bio, zip_code):

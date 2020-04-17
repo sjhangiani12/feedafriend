@@ -21,7 +21,12 @@ class recipientProfile(object):
         hours_since_creation = (
             (datetime.now() - date_created).total_seconds() / 3600)
         burn_rate = -0.119
-        self._burn_adj_amount_recieved = amount_recieved*burn_rate*hours_since_creation
+        adjusted_amount = amount_recieved * burn_rate * hours_since_creation
+        # makes sure the adjusted amount cannot be 0
+        if adjusted_amount < 0:
+            self._burn_adj_amount_recieved = 0
+        else:
+            self._burn_adj_amount_recieved = adjusted_amount
 
     def get_recipient_user_id(self):
         return self._recipient_user_id
@@ -142,8 +147,12 @@ class Matchmaker:
         # get the recipient to be donated to
         # params: none
         # returns: recipient profile object that selected as the "lowest" or individual who requires donation the most
-        if len(self._queue) == 0:
+        if (self._queue.__sizeof__) == 0:
             return None 
         else:
             obj = self._queue.get()
             return obj
+
+
+matchmaker = Matchmaker()
+print(matchmaker.get_recipientProfile())
