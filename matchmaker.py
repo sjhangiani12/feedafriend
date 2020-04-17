@@ -143,7 +143,7 @@ class Matchmaker:
         # params: none
         # returns: recipient profile object that selected as the "lowest" or individual who requires donation the most
         if len(self._queue) == 0:
-            return null
+            return None 
         else:
             obj = self._queue.get()
             return obj
