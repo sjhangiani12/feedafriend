@@ -64,17 +64,6 @@ def handle_invalid_usage(error):
     return response
 
 
-@app.route('/sendEmail', methods=['POST', 'OPTIONS'])
-def sendEmail():
-    content = 'python is java as a walking is to take a helicopter'
-    mail = smtplib.SMTP('smtp.zoho.com', 465)
-    mail.ehlo()
-    mail.starttls()
-    mail.login('nikhil@care37.org', 'NikhileatsASS69')
-    mail.sendmail('nikhil@care37.org', 'sharan@care37.org', content)
-    mail.close()
-
-
 @app.route('/createUser', methods=['POST', 'OPTIONS'])
 #@cross_origin(origin='*',headers=['Content- Type','Authorization'])
 def createUser():
@@ -101,6 +90,9 @@ def makeDonation():
         return 400
     # get matchmaker obj
     recipient = Matchmaker().get_recipientProfile()
+    if recipient is None:
+        raise InvalidUsage("No recipient in the database")
+        return 400
     purchase_status = False
     payment = DoorDash()
     #fill out form

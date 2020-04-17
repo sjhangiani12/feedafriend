@@ -142,8 +142,8 @@ class Matchmaker:
         # get the recipient to be donated to
         # params: none
         # returns: recipient profile object that selected as the "lowest" or individual who requires donation the most
-        if len(self._queue) == 0:
-            return Exception "No Users in Queue"
+        if self._queue.qsize() == 0:
+            return None
         else:
             obj = self._queue.get()
             return obj
