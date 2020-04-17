@@ -12,13 +12,15 @@ import mun from "../static/money.png";
 import food from "../static/food.png";
 import flow from "../static/flow.png";
 import big from "../static/value.png";
-import MediaQuery from 'react-responsive'
+import MediaQuery from 'react-responsive';
+import { ButtonToolbar, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+
 
 const header = {
   display: "flex",
-  justifyContent: "center",
+  flexWrap: "wrap",
   marginLeft: "5%",
-  marginRight: "5%"
+  marginRight: "5%",
 }
 const header2 = {
   display: "flex",
@@ -96,20 +98,25 @@ function HomePage () {
     <div>
       <div style={root}>
         <MediaQuery minDeviceWidth={700} >
-          <div style={header}>
-            <div>
-              <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p>
-              <h1 style={{ fontSize: "48px", margin: "0px" }}>Help feed people in <br /> need and support<br /> local restaurants.</h1>
-              <p style={{ color: "#828282", fontFamily: "sans-serif" }}>All of donated funds are used to purchase DoorDash<br /> credits for hungry people in need.</p>
-              <a href="https://www.patreon.com/care37"> <h1 style={whyTheseAmountsText}>Click here to support us!</h1></a>
-
-              <div style={{ marginTop: "30px" }}>
-                <Link to="/receive" style={{ marginRight: "20px" }}><SecondaryButton text="Receive" /></Link>
-                <Link to="/donate"><PrimaryButton text="Donate" /></Link>
+          <div className="container-fluid">
+            <div className="row flex-wrap" style={header}>
+              <div className="col-md-7 col-sm-9" >
+                {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
+                <h1 style={{ fontSize: "3em", margin: "0px" }}>Help feed people in <br /> need and support<br /> local restaurants.</h1>
+                <p style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>People all over the nation are struggling to meet their basic food needs while self-isolating with little to no income. Meanwhile, your local restaurants are suffering as a result of depressed business due to the health crisis.
+              Support your locals restaurants while giving people a meal by buying and donating a Door Dash gift card so they can enjoy a meal in the safety of their own home. </p>
+                <a href="https://www.patreon.com/care37"> <h1 style={whyTheseAmountsText}>Click here to support us!</h1></a>
+                <div style={{ marginTop: "30px" }}>
+                  <Link to="/receive" style={{ marginRight: "20px" }}><SecondaryButton text="Receive" /></Link>
+                  <Link to="/donate"><PrimaryButton text="Donate" /></Link>
+                </div>
+              </div>
+              <div className="col-md-5 col-sm-8 mt-5">
+                <img style={{ marginLeft: "5%", width: "120%"}} src={banner} alt="header image" />
               </div>
             </div>
-            <img style={{ marginLeft: "5%" }} src={banner} alt="header image" />
           </div>
+
         </MediaQuery>
 
         <MediaQuery maxDeviceWidth={699}>
@@ -117,7 +124,8 @@ function HomePage () {
             <div>
               <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p>
               <h1 style={{ fontSize: "48px", margin: "0px" }}>Help feed people in <br /> need and support<br /> local restaurants.</h1>
-              <p style={{ color: "#828282", fontFamily: "sans-serif" }}>All of donated funds are used to purchase DoorDash<br /> credits for hungry people in need.</p>
+            <p style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%"}}>People all over the nation are struggling to meet their basic food needs while self-isolating with little to no income. Meanwhile, your local restaurants are suffering as a result of depressed business due to the health crisis.
+              Support your locals restaurants while giving people a meal by buying and donating a Door Dash gift card so they can enjoy a meal in the safety of their own home. </p>
 
               <div style={{ marginTop: "30px" }}>
                 <Link to="/receive"><SecondaryButton text="Receive" /></Link>
@@ -129,7 +137,8 @@ function HomePage () {
         </MediaQuery>
       </div>
       <div>
-        <How />
+        <How2/>
+        {/* <How /> */}
       </div>
     </div>
 
@@ -241,4 +250,77 @@ function How () {
   )
 }
 
+function How2() {
+  return (
+    <div style={{background: "#fff"}}>
+    <div className="container-fluid" style={{paddingLeft: "10%", paddingRight: "10%", textAlign: "center", marginTop: "10%"}}>
+      <h2 style={{marginBottom: "50px", paddingTop: "50px"}}>Helping is easy</h2>
+      <div className="row" style={{display: "flex"}}>
+        <div className="col-md-4 " style={how2col}>
+          <img src={mun} style={money2}></img>
+          <a style={cap2}>Choose to donate either 25, 50, 100, or 200 dollars.</a>
+        </div>
+        <div className="col-md-4 " style={how2col}>
+          <img src={people} style={peep2}></img>
+          <a style={cap2}>We pair you with someone in need.</a>
+          <br></br>
+            <OverlayTrigger
+              placement={'bottom'}
+              overlay={
+              <Tooltip>
+                100% of your money becomes DoorDash credits for a pre-vetted recipient in our system. We speak to everyone who signs up to ensure donor money goes to the right plcaes.
+              </Tooltip>
+              }>
+              <h1 style={whyTheseAmountsText}>Where does the money go?</h1>
+
+            </OverlayTrigger>
+        </div>
+        <div className="col-md-4 " style={how2col}>
+          <img src={food} style={money2}></img>
+          <a style={cap2}>They get a DoorDash gift card so they can enjoy a meal at home!</a>
+        </div>
+      </div>
+    </div>
+    <div className="container-fluid" style={who}>
+      <div className="row" style={{display: "flex", justifyContent: "center"}} >
+        <div className="col-xl-5 col-md-4 col-sm-12 px-50">
+          <h2 align="left">Step 1</h2>
+          <p align="left " >People in need sign up on our platform and we call each and every one of them by phone to verify that they are in need. We add them to the system and prioritize them by how much they've been donated to and how recently they've been donated to.</p>
+
+        </div>
+        <div className="col-xl-5 col-md-4 col-sm-12 px-50">
+          <h2 align="left">Step 2</h2>
+          <p align="left">When you donate, our system selects the highest priority recipient. We securely port your credit card data and the recipient we selected directly into Door Dash using end-to-end encryption. The recipient gets 100% of the funds you donated and can enjoy a meal in the safety of their own home!</p>
+
+        </div>
+      </div>
+    </div>
+    </div>
+  )
+}
+
+const how2col = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+
+}
+
+const cap2 = {
+  fontWeight: "bold",
+  width: "200px",
+  fontSize: "17px",
+  textAlign: "center",
+  marginTop: "10px"
+}
+const money2 = {
+  width: "30%",
+  height: "auto",
+  marginTop: "0%",
+}
+const peep2 = {
+  width: "50%",
+  height: "auto",
+  marginTop: ".5%",
+}
 export default HomePage;

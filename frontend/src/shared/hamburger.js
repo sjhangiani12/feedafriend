@@ -26,7 +26,7 @@ export default class Nav extends React.Component {
       container: {
         position: 'absolute',
         top: 0,
-        left: 0,
+        right: 0,
         zIndex: '99',
         opacity: 0.9,
         display: 'flex',
@@ -63,8 +63,9 @@ export default class Nav extends React.Component {
     return (
       <div>
         <div style={styles.container}>
+          <Link  to="/" style={{position: "relative", left: "5%"}} ><img src={logo} alt="logo" /></Link>
           <MenuButton open={this.state.menuOpen} onClick={() => this.handleMenuClick()} color='black' />
-          <Link  to="/" ><img src={logo} alt="logo" /></Link>
+
         </div>
         <Menu open={this.state.menuOpen}>
           {menuItems}
@@ -203,6 +204,8 @@ class MenuButton extends React.Component {
   render() {
     const styles = {
       container: {
+        right: "0",
+        position: "absolute",
         height: 'auto',
         width: '10%',
         marginTop: "1%",

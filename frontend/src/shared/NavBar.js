@@ -62,25 +62,31 @@ function NavBar () {
 
   return (
     <>
-      <MediaQuery minDeviceWidth={1029} >
-        <AppBar className={classes.root} positive="static" style={{ "margin-bottom": "100px" }}>
+    <div id ="barNav">
+        {/* <MediaQuery minDeviceWidth={"60em"} > */}
+          <AppBar className={classes.root} positive="static" style={{ "margin-bottom": "100px" }}>
+          <div style={forLogo}>
+            <NavItem underline="false"><Link to="/" ><img src={logo} alt="logo" /></Link></NavItem>
 
-          <Link style={forLogo} to="/" ><img src={logo} alt="logo" /></Link>
-          {!isAuthenticated && <div style={{ position: "relative", display: "flex", justifyContent: "space-evenly", width: "30%", alignItems: "baseline" }}>
+          </div>
+            {!isAuthenticated && <div style={{ position: "relative", display: "flex", justifyContent: "space-evenly", width: "30%", alignItems: "baseline" }}>
 
-            <Link style={links} to="/about_us">About</Link>
-            <Link style={links} to="/receive"><SecondaryButton text="Receive" /></Link>
-            <Link style={last} to="/donate"><PrimaryButton text="Donate" /></Link></div>}
-          {isAuthenticated && <div style={{ position: "relative", display: "flex", justifyContent: "space-evenly", width: "40%", alignItems: "baseline" }}>
+            <Link style={links} to="/about_us"><NavItem >About</NavItem></Link>
+              {/* <Link style={links} to="/receive"><SecondaryButton text="Receive" /></Link> */}
+            <Link style={links} to="/receive"><NavItem getHelp="true">Get Help</NavItem></Link>
+            <Link style={last} to="/donate"><NavItem underline="false"><PrimaryButton text="Donate" /></NavItem></Link></div>}
+            {isAuthenticated && <div style={{ position: "relative", display: "flex", justifyContent: "space-evenly", width: "40%", alignItems: "baseline" }}>
 
-            <Link style={links} to="/about_us">About</Link>
-            <Link style={links} to="/receive"><SecondaryButton text="Receive" /></Link>
-            <Link style={links} to="/donate"><PrimaryButton text="Donate" /></Link>
-            <Link style={links} to="/receive">Logged In!</Link></div>}
-        </AppBar>
+              <Link style={links} to="/about_us">About</Link>
+              <Link style={links} to="/receive"><SecondaryButton text="Receive" /></Link>
+              <Link style={links} to="/donate"><PrimaryButton text="Donate" /></Link>
+              <Link style={links} to="/receive">Logged In!</Link></div>}
+          </AppBar>
 
-      </MediaQuery>
-      <MediaQuery maxDeviceWidth={1028} >
+        {/* </MediaQuery> */}
+    </div>
+
+      {/* <MediaQuery maxDeviceWidth={"60em"} > */}
         <Nav />
         {/* <div style = {{position: "relative", display: "flex", justifyContent: "space-evenly", width: "100%", alignItems: "baseline"}}>
             <Link style={links} to="/about_us">About</Link>
@@ -89,13 +95,77 @@ function NavBar () {
           {isAuthenticated && <Link style={links} to="/receive">Logged In!</Link>}
           </div> */}
 
-      </MediaQuery>
+      {/* </MediaQuery> */}
     </>
 
 
 
 
   );
+}
+
+class NavItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hover: false,
+    }
+  }
+
+  handleHover() {
+    this.setState({ hover: !this.state.hover });
+  }
+
+
+  render() {
+    const styles = {
+      container: {
+        opacity: 0,
+        animation: '1s appear forwards',
+        animationDelay: this.props.delay,
+      },
+      menuItem: {
+        fontFamily: `'Open Sans', sans-serif`,
+        fontSize: '1em',
+        width: "100%",
+        cursor: 'pointer',
+        color: this.state.hover ? 'black' : 'black',
+        color: this.props.getHelp ? '#1136FC' : 'black',
+        transition: 'color 0.2s ease-in-out',
+        animation: '0.5s slideIn forwards',
+        animationDelay: this.props.delay,
+
+      },
+      line: {
+        display: this.state.hover ? 'block' : 'none',
+        width: '100%',
+        height: '1px',
+        background: 'gray',
+        color: "#1136FC",
+        margin: '0 auto',
+        animation: '0.5s shrink forwards',
+        animationDelay: this.props.delay,
+
+      }
+    }
+    return (
+      <div style={styles.container}>
+        <div
+          style={styles.menuItem}
+          onMouseEnter={() => { this.handleHover(); }}
+          onMouseLeave={() => { this.handleHover(); }}
+          onClick={this.props.onClick}
+        >
+          {this.props.children}
+        </div>
+        {(this.props.underline != "false") ? (
+          <div style={styles.line} />
+        ) : (
+            <></>
+          )}
+      </div>
+    )
+  }
 }
 
 export default NavBar;
