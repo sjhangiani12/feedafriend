@@ -259,3 +259,15 @@
         height: 120vh;
     }
 }
+
+@media (min-width: 60em) {
+  .Nav {
+      display: none;
+  }
+}
+
+@media (max-width: 60em) {
+  #barNav {
+      display: none;
+  }
+}
