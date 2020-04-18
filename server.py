@@ -77,16 +77,13 @@ def addPhoneNumber():
     if not has_args(request.json, ['email', 'phone_number']):
         raise InvalidUsage('note all paramenters present')
     # add the phone number to the DB entry
-    respone = add_phone_number(request.json['email'], request.json['phone_number'])
+    respone = add_phone_number(request.json['email'], request.view_args['phone_number'])
     return respone, 200
 
 @app.route('/getPhoneNumber', methods=['GET', 'OPTIONS'])
 def getPhoneNumber():
-    # check all the args are there
-    if not has_args(request.json, ['email']):
-        raise InvalidUsage('note all paramenters present')
     # get the phone number
-    phone_number = get_phone_number(request.json['email'])
+    phone_number = get_phone_number(request.view_args['email'])
     return str(phone_number), 200
 
 

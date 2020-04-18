@@ -22,7 +22,7 @@ function RecipientPortal() {
       email: user.email
     }
 
-    fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getPhoneNumber/email=${encodeURIComponent(data.email}', {
+    fetch(`https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getPhoneNumber?email=${encodeURIComponent(data.email)}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -40,7 +40,7 @@ function RecipientPortal() {
       email: user.email
     }
 
-    fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getPhoneNumber/email=${encodeURIComponent(data.email}', {
+    fetch(`https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getIsVerified?email=${encodeURIComponent(data.email)}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
