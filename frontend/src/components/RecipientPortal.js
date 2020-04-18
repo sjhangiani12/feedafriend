@@ -41,7 +41,7 @@ function RecipientPortal() {
       email: user.email
     }
 
-    fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getIsVerfied', {
+    fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getIsVerified', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
