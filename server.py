@@ -18,6 +18,8 @@ from db_manager import add_phone_number
 from db_manager import get_phone_number 
 from db_manager import get_is_verified
 from send_email import send_donor_order_confirmation
+from send_email import send_reicipient_welcome_email
+
 from matchmaker import Matchmaker
 from payment import DoorDash
 
@@ -26,6 +28,8 @@ import smtplib
 app = Flask(__name__)
 #CORS(app, resources={r"/*": {"origins": "*"}})
 #app.config['CORS_HEADERS'] = 'Content-Type'
+
+env = Environment(loader=FileSystemLoader('%s/templates/' % os.path.dirname(__file__)))
 
 def has_args(iterable, args):
     """Verify that all args are in the iterable."""
@@ -111,9 +115,13 @@ def createUser():
     # check if they put a bio
     if not has_args(request.json, ['bio']):
         request.json['bio'] = ""
+    template = env.get_template('recipient_intro.html')
+    html = template.render(recipient_name=request.json["first_name"])
+    # send confirm email to donor
+    email = send_reicipient_welcome_email(recipient_email=request.json["email"], bodyContent=html)
     # insert that bish in the db, naaaah what im sayin
     response = insert_user(request.json['email'], request.json['first_name'], request.json['last_name'],
-                           request.json['bio'], request.json['zip_code'])
+                           request.json['bio'], request.json['zip_code'], email)
     response = Response(response)
     # response.headers.add('Access-Control-Allow-Origin', '*')
     return response, 200
@@ -148,6 +156,19 @@ def makeDonation():
                                             cvc=request.json['cvc'])
         if purchase_status['status'] == True:
 
+             # render template for donor:
+            d2 = date.today().strftime("%B %d, %Y")
+            template = env.get_template('billing.html')
+            html = template.render(amount_donated=request.json["dollars"], 
+                        invoice_number=1, 
+                        Transaction_date=d2)
+            # send confirm email to donor
+            donor_confirm_email = send_donor_order_confirmation(donor_email = request.json["sender_email"], bodyContent=html)
+            # render template for recipient:
+            template = env.get_template('recipient_confirmation.html')
+            html = template.render(recipient_name=recipient.get_first_name(),
+                                   amount_donated=request.json["dollars"])
+            recipient_confirm_email = send_recipient_order_confirmation(recipient_email = recipient.get_email())
             # update User DB
             user_update_status = update_user_entry(recipient, request.json["dollars"])
             # insert to Transactions DB
@@ -156,17 +177,11 @@ def makeDonation():
             donation_update_status = insert_donation(recipient, request.json["dollars"], 
                                                     request.json["sender_email"], 
                                                     request.json["sender_first_name"], 
-                                                    request.json["sender_last_name"], timestamp_string)
-            # render template for donor:
-            d2 = date.today().strftime("%B %d, %Y")
-            env = Environment(loader=FileSystemLoader('%s/templates/' % os.path.dirname(__file__)))
-            template = env.get_template('billing.html')
-            html = template.render(amount_donated=request.json["dollars"], 
-                        invoice_number=1, 
-                        Transaction_date=d2)
-            # send confirm email to donor
-            email = send_donor_order_confirmation(donor_email = request.json["sender_email"], bodyContent=html)
-            
+                                                    request.json["sender_last_name"], 
+                                                    timestamp_string, 
+                                                    donor_confirm_email, 
+                                                    recipient_confirm_email)
+           
             return "Transaction Complete:" + str(purchase_status) + " | User Table Updated:" + str(user_update_status) + " | Transactions Table Inserted:" + str(donation_update_status), 200
         else:
             return "Transaction Complete:" + str(purchase_status) + " | User Table Updated:" + "False" + " | Transactions Table Inserted:" + "False", 400

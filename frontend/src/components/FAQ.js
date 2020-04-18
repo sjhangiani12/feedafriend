@@ -52,6 +52,12 @@ const whyTheseAmountsText = {
   paddingBottom: "10px",
   textDecoration: "underline",
 }
+const thankYou = {
+  justifyContent: "center",
+  alignItems: "center",
+  textAlign: "center",
+  paddingBottom: "20px",
+}
 
 class Q extends React.Component {
   constructor(props) {
@@ -108,11 +114,39 @@ class A extends React.Component {
 }
 
 function FAQ () {
-// why does this exist?
 
 
   return (
-    <div className="container-fluid" style={{marginTop: "15%"}}>
+    <div className="container-fluid" style={{marginTop: "20%", marginBottom: "10% "}}>
+
+      < div className="row mx-5" style={{ alignItems: "center", justifyContent: "center"}} >
+        <div style={{marginBottom: "5%"}}>
+          <h1>Frequently Asked Questions (FAQ)</h1>
+        </div>
+        
+        <div className="col-12" style={{
+          display: "flex", alignItems: "baseline", padding: "0"
+        }}>
+          <Q> Is this legit?</Q>
+        </div>
+        <div className="col-12" style={{ display: "flex", alignItems: "baseline", padding: "0" }}>
+          <A> Yes! 100% of your donated funds become DoorDash gift cards for someone in need (we verify their situation by speaking to each and every person who signs up!)</A>
+        </div>
+      </div>
+      <br></br>
+      <br></br>
+      <div className="row mx-5"  >
+        <div className="col-12" style={{
+          display: "flex", alignItems: "baseline", padding: "0"
+        }}>
+          <Q> How can I trust my data is secure?</Q>
+        </div>
+        <div className="col-12" style={{ display: "flex", alignItems: "baseline", padding: "0" }}>
+          <A> We use SSL and HTTPS for end-to-end encryption when handling your credit card information. We port your information directly into DoorDash so that we never have to store any of your data.</A>
+        </div>
+      </div>
+      <br></br>
+      <br></br>
       <div className="row mx-5"  >
         <div className="col-12" style={{
           display: "flex", alignItems: "baseline", padding: "0"}}>

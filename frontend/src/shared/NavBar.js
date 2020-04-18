@@ -66,10 +66,10 @@ function NavBar () {
         {/* <MediaQuery minDeviceWidth={"60em"} > */}
           <AppBar className={classes.root} positive="static" style={{ "margin-bottom": "100px" }}>
           <div style={forLogo}>
-            <NavItem underline="false"><Link to="/" ><img src={logo} alt="logo" /></Link></NavItem>
+            <NavItem underline="false"><Link to="/" ><img style={{width: "130%"}} src={logo} alt="logo" /></Link></NavItem>
 
           </div>
-            {!isAuthenticated && <div style={{ position: "relative", display: "flex", justifyContent: "space-evenly", width: "30%", alignItems: "baseline" }}>
+            {!isAuthenticated && <div style={{ position: "relative", display: "flex", justifyContent: "space-evenly", width: "40%", alignItems: "baseline" }}>
 
             <Link style={links} to="/about_us"><NavItem >About</NavItem></Link>
             <Link style={links} to="/faq"><NavItem >FAQ</NavItem></Link>
@@ -77,11 +77,12 @@ function NavBar () {
             <Link style={links} to="/receive"><NavItem blue="true">Receive a meal</NavItem></Link>
             <Link style={last} to="/donate"><NavItem underline="true" donate="true" blue="true">Donate</NavItem></Link></div>}
             {isAuthenticated && <div style={{ position: "relative", display: "flex", justifyContent: "space-evenly", width: "40%", alignItems: "baseline" }}>
-
-              <Link style={links} to="/about_us">About</Link>
-              <Link style={links} to="/receive"><SecondaryButton text="Receive" /></Link>
-              <Link style={links} to="/donate"><PrimaryButton text="Donate" /></Link>
-              <Link style={links} to="/recipient_portal">Logged In!</Link></div>}
+            <Link style={links} to="/about_us"><NavItem >About</NavItem></Link>
+            <Link style={links} to="/faq"><NavItem >FAQ</NavItem></Link>
+            {/* <Link style={links} to="/receive"><SecondaryButton text="Receive" /></Link> */}
+            <Link style={links} to="/receive"><NavItem blue="true">Receive a meal</NavItem></Link>
+            <Link style={links} to="/recipient_portal">Logged In!</Link>
+            <Link style={last} to="/donate"><NavItem underline="true" donate="true" blue="true">Donate</NavItem></Link></div>}
           </AppBar>
 
         {/* </MediaQuery> */}
@@ -124,10 +125,13 @@ class NavItem extends React.Component {
         opacity: 0,
         animation: '1s appear forwards',
         animationDelay: this.props.delay,
+        marginLeft: "10px",
+        marginRight: "10px",
       },
       menuItem: {
         fontFamily: `'Open Sans', sans-serif`,
-        fontSize: '1em',
+        whiteSpace: "nowrap",
+        fontSize: '1.5em',
         width: "100%",
         cursor: 'pointer',
         color: this.state.hover ? 'black' : 'black',
