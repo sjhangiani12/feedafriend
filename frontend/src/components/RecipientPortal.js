@@ -22,11 +22,12 @@ function RecipientPortal() {
       email: user.email
     }
 
-    fetch(`https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getPhoneNumber?email=${encodeURIComponent(data.email)}`, {
-      method: "GET",
+    fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getPhoneNumber', {
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
-      }
+      },
+      body: JSON.stringify(data)
     }).then(
       function (response) {
         // check if phone number is not 0
@@ -40,11 +41,12 @@ function RecipientPortal() {
       email: user.email
     }
 
-    fetch(`https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getIsVerified?email=${encodeURIComponent(data.email)}`, {
-      method: "GET",
+    fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getIsVerfied', {
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
-      }
+      },
+      body: JSON.stringify(data)
     }).then(
       function (response) {
         // check if user is verified
