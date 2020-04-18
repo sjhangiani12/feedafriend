@@ -3,8 +3,6 @@ import ReactDOM from "react-dom";
 import { Redirect } from 'react-router-dom';
 import { useAuth0 } from "../contexts/react-auth0-spa";
 import { PrimaryButton, SecondaryButton } from "../shared/ButtonComponents";
-import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
 
 function RecipientPortal() {
   const { loading, isAuthenticated, loginWithRedirect, logout, user, text } = useAuth0();
