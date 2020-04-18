@@ -3,8 +3,6 @@ import ReactDOM from "react-dom";
 import { Redirect } from 'react-router-dom';
 import { useAuth0 } from "../contexts/react-auth0-spa";
 import { PrimaryButton, SecondaryButton } from "../shared/ButtonComponents";
-import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
 
 function RecipientPortal() {
   const { loading, isAuthenticated, loginWithRedirect, logout, user, text } = useAuth0();
@@ -111,19 +109,6 @@ const phoneInput = {
   textIndent: "5px",
 }
 
-const last = {
-  "color": "black",
-  "font-family": "sans-serif",
-  "text-decoration": "none",
-  "&:hover": {
-    textDecoration: "underline"
-  },
-  display: "flex",
-  flexDirection: "column",
-  width: "100px",
-  marginTop: "5%"
-}
-
 const thankYou = {
   textAlign: "center",
   paddingBottom: "20px",
@@ -131,12 +116,12 @@ const thankYou = {
 
 const infoBeenAdded = {
   textAlign: "center",
-  marginLeft: "200px",
-  marginRight: "200px",
+  marginLeft: "5%",
+  marginRight: "5%",
 }
 
 const header = {
-  marginTop: "2%",
+  marginTop: "5%",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
