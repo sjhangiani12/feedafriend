@@ -107,7 +107,7 @@ function HomePage () {
               Support your locals restaurants while giving people a meal by buying and donating a Door Dash gift card so they can enjoy a meal in the safety of their own home. </p>
                 <a href="https://www.patreon.com/care37"> <h1 style={whyTheseAmountsText}>Click here to support us!</h1></a>
                 <div style={{ marginTop: "30px" }}>
-                  <Link to="/receive" style={{ marginRight: "20px" }}><SecondaryButton text="Get Help" /></Link>
+                  <Link to="/receive" style={{ marginRight: "20px" }}><SecondaryButton text="Receive a meal" /></Link>
                   <Link to="/donate"><PrimaryButton text="Donate" /></Link>
                 </div>
               </div>
