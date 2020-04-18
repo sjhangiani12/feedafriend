@@ -47,11 +47,6 @@ function App () {
           <Footer />
 
         </Route>
-        <Route path="/recipient_portal">
-          <RecipientPortal />
-          <Footer />
-
-        </Route>
         <Route path="/about_us">
           <AboutPage />
           <Footer />

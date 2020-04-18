@@ -4,6 +4,7 @@ import { useAuth0 } from "../contexts/react-auth0-spa";
 import geo2zip from 'geo2zip';
 import { PrimaryButton, SecondaryButton } from "../shared/ButtonComponents";
 import MediaQuery from 'react-responsive'
+import RecipientPortal from './RecipientPortal.js'
 
 function ReceivePage() {
   const { loading, isAuthenticated, loginWithRedirect, logout, user, text } = useAuth0();
@@ -20,7 +21,6 @@ function ReceivePage() {
   }
 
   const createUser = async () => {
-    console.log("in create user");
     if (userInfo !== undefined) {
       let info = userInfo["https://example.com/geoip"];
       let location = { latitude: info.latitude, longitude: info.longitude };
@@ -63,17 +63,13 @@ function ReceivePage() {
           )}
 
           {isAuthenticated &&
-            <div style={textHeader}>
-              <h1 style={thankYou}>Thank you for signing up to be a recipient!</h1>
-              <h4 style={infoBeenAdded}>Your information has been added to our database and you will
-                                      recieve an email when have been matched.</h4>
-              <SecondaryButton onClick={() => logout({})} text="Log out" />
-            </div>}
+            <RecipientPortal />
+          }
         </div>
       </MediaQuery>
       <MediaQuery maxDeviceWidth={699} >
         <div style={header} className="sm-mx-5 l-mx-0">
-          <div className="row" style ={mobileRow}>
+          <div className="row" style={mobileRow}>
             {!loading && !isAuthenticated && (
               <div style={textHeader}>
                 <h1 style={thankYou}>Sign up to be added to our system!</h1>
@@ -85,14 +81,9 @@ function ReceivePage() {
             )}
 
             {isAuthenticated &&
-              <div style={textHeader}>
-                <h1 style={thankYou}>Thank you for signing up to be a recipient!</h1>
-                <h4 style={infoBeenAdded}>Your information has been added to our database and you will
-                                      recieve an email when have been matched with a donor.</h4>
-                <SecondaryButton onClick={() => logout({})} text="Log out" />
-              </div>}
+              <RecipientPortal />
+            }
           </div>
-
         </div>
       </MediaQuery>
     </>

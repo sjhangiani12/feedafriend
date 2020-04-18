@@ -82,7 +82,7 @@ def addPhoneNumber():
         raise InvalidUsage('note all paramenters present')
     # add the phone number to the DB entry
     respone = add_phone_number(request.json['email'], request.json['phone_number'])
-    return respone, 200
+    return str(respone), 200
 
 @app.route('/getPhoneNumber', methods=['GET', 'OPTIONS'])
 def getPhoneNumber():

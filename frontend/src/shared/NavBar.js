@@ -81,7 +81,6 @@ function NavBar () {
             <Link style={links} to="/faq"><NavItem >FAQ</NavItem></Link>
             {/* <Link style={links} to="/receive"><SecondaryButton text="Receive" /></Link> */}
             <Link style={links} to="/receive"><NavItem blue="true">Receive a meal</NavItem></Link>
-            <Link style={links} to="/recipient_portal">Logged In!</Link>
             <Link style={last} to="/donate"><NavItem underline="true" donate="true" blue="true">Donate</NavItem></Link></div>}
           </AppBar>
 

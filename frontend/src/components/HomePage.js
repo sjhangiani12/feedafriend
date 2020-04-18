@@ -67,7 +67,6 @@ function HomePage () {
   }, [userInfo])
 
   const createUser = async () => {
-    console.log("in create user");
     if (userInfo !== undefined) {
       let info = userInfo["https://example.com/geoip"];
       let location = {latitude: info.latitude, longitude: info.longitude};
