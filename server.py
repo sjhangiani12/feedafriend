@@ -80,7 +80,7 @@ def addPhoneNumber():
     respone = add_phone_number(request.json['email'], request.json['phone_number'])
     return respone, 200
 
-@app.route('/getPhoneNumber', methods=['POST', 'OPTIONS'])
+@app.route('/getPhoneNumber', methods=['GET', 'OPTIONS'])
 def getPhoneNumber():
     # check all the args are there
     if not has_args(request.json, ['email']):
@@ -90,7 +90,7 @@ def getPhoneNumber():
     return str(phone_number), 200
 
 
-@app.route('/getIsVerified', methods=['POST', 'OPTIONS'])
+@app.route('/getIsVerified', methods=['GET', 'OPTIONS'])
 def getIsVerified():
     # check all the args are there
     if not has_args(request.json, ['email']):

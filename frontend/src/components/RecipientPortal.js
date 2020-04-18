@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import { Redirect } from 'react-router-dom';
 import { useAuth0 } from "../contexts/react-auth0-spa";
 import { PrimaryButton, SecondaryButton } from "../shared/ButtonComponents";
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 
 function RecipientPortal() {
   const { loading, isAuthenticated, loginWithRedirect, logout, user, text } = useAuth0();
@@ -22,12 +24,11 @@ function RecipientPortal() {
       email: user.email
     }
 
-    fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getPhoneNumber', {
-      method: "POST",
+    fetch(`https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getPhoneNumber?email=${encodeURIComponent(data.email)}`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
+      }
     }).then(
       function (response) {
         // check if phone number is not 0
@@ -41,12 +42,11 @@ function RecipientPortal() {
       email: user.email
     }
 
-    fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getIsVerified', {
-      method: "POST",
+    fetch(`https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getPhoneNumber?email=${encodeURIComponent(data.email)}`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
+      }
     }).then(
       function (response) {
         // check if user is verified
@@ -111,6 +111,19 @@ const phoneInput = {
   textIndent: "5px",
 }
 
+const last = {
+  "color": "black",
+  "font-family": "sans-serif",
+  "text-decoration": "none",
+  "&:hover": {
+    textDecoration: "underline"
+  },
+  display: "flex",
+  flexDirection: "column",
+  width: "100px",
+  marginTop: "5%"
+}
+
 const thankYou = {
   textAlign: "center",
   paddingBottom: "20px",
@@ -118,12 +131,12 @@ const thankYou = {
 
 const infoBeenAdded = {
   textAlign: "center",
-  marginLeft: "5%",
-  marginRight: "5%",
+  marginLeft: "200px",
+  marginRight: "200px",
 }
 
 const header = {
-  marginTop: "5%",
+  marginTop: "8%",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
