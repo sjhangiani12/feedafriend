@@ -22,11 +22,12 @@ function RecipientPortal() {
       email: user.email
     }
 
-    fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getPhoneNumber/email=${encodeURIComponent(data.email}', {
-      method: "GET",
+    fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getPhoneNumber', {
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
-      }
+      },
+      body: JSON.stringify(data)
     }).then(
       function (response) {
         // check if phone number is not 0
@@ -40,11 +41,12 @@ function RecipientPortal() {
       email: user.email
     }
 
-    fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getPhoneNumber/email=${encodeURIComponent(data.email}', {
-      method: "GET",
+    fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getIsVerified', {
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
-      }
+      },
+      body: JSON.stringify(data)
     }).then(
       function (response) {
         // check if user is verified
@@ -109,19 +111,6 @@ const phoneInput = {
   textIndent: "5px",
 }
 
-const last = {
-  "color": "black",
-  "font-family": "sans-serif",
-  "text-decoration": "none",
-  "&:hover": {
-    textDecoration: "underline"
-  },
-  display: "flex",
-  flexDirection: "column",
-  width: "100px",
-  marginTop: "5%"
-}
-
 const thankYou = {
   textAlign: "center",
   paddingBottom: "20px",
@@ -129,12 +118,12 @@ const thankYou = {
 
 const infoBeenAdded = {
   textAlign: "center",
-  marginLeft: "200px",
-  marginRight: "200px",
+  marginLeft: "5%",
+  marginRight: "5%",
 }
 
 const header = {
-  marginTop: "2%",
+  marginTop: "5%",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",

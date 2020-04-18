@@ -128,7 +128,7 @@ class Matchmaker:
             cur = conn.cursor()
             # get all the entries in the recipients table
             cur.execute(
-                "SELECT first_name, last_name, email, total_recieved, date_created, num_donations, uid FROM recipients ORDER BY date_created")
+                "SELECT first_name, last_name, email, total_recieved, date_created, num_donations, uid, is_verified FROM recipients ORDER BY date_created")
             all_users = cur.fetchall()
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
@@ -139,9 +139,11 @@ class Matchmaker:
 
         self._queue = PriorityQueue()
         for user in all_users:
-            curr = recipientProfile(
-                user[0], user[1], user[2], user[3], user[4], user[5], user[6])
-            self._queue.put(curr)
+            # check if the user is verified before adding them to the queue
+            if user[7]:
+                curr = recipientProfile(
+                    user[0], user[1], user[2], user[3], user[4], user[5], user[6])
+                self._queue.put(curr)
 
     def get_recipientProfile(self):
         # get the recipient to be donated to
@@ -152,7 +154,3 @@ class Matchmaker:
         else:
             obj = self._queue.get()
             return obj
-
-
-matchmaker = Matchmaker()
-print(matchmaker.get_recipientProfile())
