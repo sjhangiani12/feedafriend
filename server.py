@@ -15,6 +15,8 @@ from db_manager import insert_user
 from db_manager import update_user_entry
 from db_manager import insert_donation
 from db_manager import add_phone_number
+from db_manager import get_phone_number 
+from db_manager import get_is_verified
 from send_email import send_donor_order_confirmation
 from matchmaker import Matchmaker
 from payment import DoorDash
@@ -77,6 +79,25 @@ def addPhoneNumber():
     # add the phone number to the DB entry
     respone = add_phone_number(request.json['email'], request.json['phone_number'])
     return respone, 200
+
+@app.route('/getPhoneNumber', methods=['GET', 'OPTIONS'])
+def getPhoneNumber():
+    # check all the args are there
+    if not has_args(request.json, ['email']):
+        raise InvalidUsage('note all paramenters present')
+    # get the phone number
+    phone_number = get_phone_number(request.json['email'])
+    return phone_number, 200
+
+
+@app.route('/getIsVerified', methods=['GET', 'OPTIONS'])
+def getIsVerified():
+    # check all the args are there
+    if not has_args(request.json, ['email']):
+        raise InvalidUsage('note all paramenters present')
+    is_verified = get_is_verified(request.json['email'])
+    return is_verified, 200
+    
 
 
 @app.route('/createUser', methods=['POST', 'OPTIONS'])

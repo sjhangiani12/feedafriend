@@ -195,3 +195,48 @@ def add_phone_number(email, phone_number):
     # close communication with the database
     cur.close()
     return "phone number updated for email: " + str(email)
+
+def get_phone_number(email):
+    """ get phone number """
+    sql = """select phone_number
+             from recipients 
+             where email = %s;"""
+
+    # read database configuration
+    params = config()
+    # connect to the PostgreSQL database
+    conn = psycopg2.connect(**params)
+    # create a new cursor
+    cur = conn.cursor()
+    # execute the UPDATE statement
+    cur.execute(sql, (str(email),))
+    # get the phone number
+    phone_number = cur.fetchone()
+    # commit the changes to the database
+    conn.commit()
+    # close communication with the database
+    cur.close()
+    return phone_number
+
+
+def get_is_verified(email):
+    """ get is verified"""
+    sql = """select is_verified 
+             from recipients 
+             where email = %s;"""
+
+    # read database configuration
+    params = config()
+    # connect to the PostgreSQL database
+    conn = psycopg2.connect(**params)
+    # create a new cursor
+    cur = conn.cursor()
+    # execute the UPDATE statement
+    # cur.execute(sql, (str(email),))
+    # get the phone number
+    # is_verified = cur.fetchone()
+    # commit the changes to the database
+    conn.commit()
+    # close communication with the database
+    cur.close()
+    return False 
