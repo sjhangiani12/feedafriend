@@ -82,6 +82,7 @@ def addPhoneNumber():
 
 @app.route('/getPhoneNumber', methods=['GET', 'OPTIONS'])
 def getPhoneNumber():
+    print(request) 
     # check all the args are there
     if not has_args(request.json, ['email']):
         raise InvalidUsage('note all paramenters present')
@@ -92,6 +93,7 @@ def getPhoneNumber():
 
 @app.route('/getIsVerified', methods=['GET', 'OPTIONS'])
 def getIsVerified():
+    print(request) 
     # check all the args are there
     if not has_args(request.json, ['email']):
         raise InvalidUsage('note all paramenters present')
