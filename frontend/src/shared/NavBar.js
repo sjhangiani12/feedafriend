@@ -72,9 +72,10 @@ function NavBar () {
             {!isAuthenticated && <div style={{ position: "relative", display: "flex", justifyContent: "space-evenly", width: "30%", alignItems: "baseline" }}>
 
             <Link style={links} to="/about_us"><NavItem >About</NavItem></Link>
+            <Link style={links} to="/faq"><NavItem >FAQ</NavItem></Link>
               {/* <Link style={links} to="/receive"><SecondaryButton text="Receive" /></Link> */}
-            <Link style={links} to="/receive"><NavItem getHelp="true">Get Help</NavItem></Link>
-            <Link style={last} to="/donate"><NavItem underline="false"><PrimaryButton text="Donate" /></NavItem></Link></div>}
+            <Link style={links} to="/receive"><NavItem blue="true">Receive a meal</NavItem></Link>
+            <Link style={last} to="/donate"><NavItem underline="true" donate="true" blue="true">Donate</NavItem></Link></div>}
             {isAuthenticated && <div style={{ position: "relative", display: "flex", justifyContent: "space-evenly", width: "40%", alignItems: "baseline" }}>
 
               <Link style={links} to="/about_us">About</Link>
@@ -130,7 +131,8 @@ class NavItem extends React.Component {
         width: "100%",
         cursor: 'pointer',
         color: this.state.hover ? 'black' : 'black',
-        color: this.props.getHelp ? '#1136FC' : 'black',
+        color: this.props.blue ? '#1136FC' : 'black',
+        fontWeight: this.props.donate ? 'bold' : '',
         transition: 'color 0.2s ease-in-out',
         animation: '0.5s slideIn forwards',
         animationDelay: this.props.delay,
@@ -141,7 +143,6 @@ class NavItem extends React.Component {
         width: '100%',
         height: '1px',
         background: 'gray',
-        color: "#1136FC",
         margin: '0 auto',
         animation: '0.5s shrink forwards',
         animationDelay: this.props.delay,

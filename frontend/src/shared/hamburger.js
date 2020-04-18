@@ -50,7 +50,7 @@ export default class Nav extends React.Component {
         transition: 'filter 0.5s ease',
       },
     }
-    const menu = ['Home', 'Recieve a donation', 'Donate a meal', 'About us']
+    const menu = ['Home', 'Get help', 'Donate', 'About us']
     const to = {0: "/", 1: "/receive", 2: "/donate", 3: "/about_us"}
     const menuItems = menu.map((val, index) => {
       return (

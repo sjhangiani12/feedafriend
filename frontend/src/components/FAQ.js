@@ -53,95 +53,78 @@ const whyTheseAmountsText = {
   textDecoration: "underline",
 }
 
-
-
-function HomePage () {
-
-
-  const { loading, isAuthenticated, loginWithRedirect, logout, user, text } = useAuth0();
-
-  const [userInfo, setUserInfo] = useState(user);
-
-  useEffect(() => {
-    createUser();
-  }, [userInfo])
-
-  const createUser = async () => {
-    console.log("in create user");
-    if (userInfo !== undefined) {
-      let info = userInfo["https://example.com/geoip"];
-      let location = {latitude: info.latitude, longitude: info.longitude};
-      const zip = await geo2zip(location);
-
-      const data = {
-        first_name: userInfo.given_name,
-        last_name: userInfo.family_name,
-        email: userInfo.email,
-        zip_code:  zip[0]
-      }
-
-      const response = await fetch('https://care37.herokuapp.com/createUser/', {
-        method: "POST",
-        headers: {
-          "Content-Type" : "application/json",
-        },
-
-        body: JSON.stringify (data)
-      });
-
-      const text = await response.text();
-      await console.log(text);
+class Q extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hover: false,
     }
   }
 
+
+  render() {
+    let line = {
+      borderLeft: "3px solid #1136FC",
+      height: "100%",
+      marginRight: "1%"
+    }
+    return (
+      <div style={{ display: "flex", align: "center", alignItems: "center", background: "#ededed" }}>
+        <div style={line} >
+          <div style={{ display: "flex", alignItems: "baseline"}}>
+            <span style={{ fontSize: "2.75em", marginLeft: "1%", color: "#1136FC", fontStyle: "bold", marginLeft: "5px", marginRight: "5px"}}>Q.  </span>
+            <h2 align="left" style={{ whiteSpace: "nowrap" }}>{this.props.children}</h2>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+class A extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hover: false,
+    }
+  }
+
+  render() {
+    let line = {
+      borderLeft: "3px solid #919191",
+      height: "100%",
+      marginRight: "1%"
+    }
+    return (
+      <div style={{ display: "flex", align: "center", alignItems: "center" }}>
+        <div style={line} >
+          <div style={{ display: "flex", alignItems: "baseline" }}>
+            <span style={{ fontSize: "2.75em", marginLeft: "1%", color: "#919191", fontStyle: "bold", marginLeft: "5px", marginRight: "5px" }}>A.  </span>
+            <h2 align="left" style={{ whiteSpace: "nowrap" }}>{this.props.children}</h2>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+function FAQ () {
+
+
+
   return (
-    <div>
-      <div style={root}>
-        <MediaQuery minDeviceWidth={700} >
-          <div className="container-fluid">
-            <div className="row flex-wrap" style={header}>
-              <div className="col-md-7 col-sm-12" >
-                {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
-                <h1 style={{ fontSize: "3em", margin: "0px" }}>Help feed people in <br /> need and support<br /> local restaurants.</h1>
-                <p style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>People all over the nation are struggling to meet their basic food needs while self-isolating with little to no income. Meanwhile, your local restaurants are suffering as a result of depressed business due to the health crisis.
-              Support your locals restaurants while giving people a meal by buying and donating a Door Dash gift card so they can enjoy a meal in the safety of their own home. </p>
-                <a href="https://www.patreon.com/care37"> <h1 style={whyTheseAmountsText}>Click here to support us!</h1></a>
-                <div style={{ marginTop: "30px" }}>
-                  <Link to="/receive" style={{ marginRight: "20px" }}><SecondaryButton text="Get Help" /></Link>
-                  <Link to="/donate"><PrimaryButton text="Donate" /></Link>
-                </div>
-              </div>
-              <div className="col-md-5 col-sm-12 mt-5">
-                <img style={{ marginLeft: "5%", width: "120%"}} src={banner} alt="header image" />
-              </div>
-            </div>
-          </div>
+    <div className="container-fluid" style={{marginTop: "15%"}}>
+      <div className="row mx-5"  >
+        <div className="col-12" style={{ display: "flex", alignItems: "baseline"}}>
+        <Q> Question</Q>
+        </div>
+        <div className="col-12" style={{ display: "flex", alignItems: "baseline" }}>
+          <A> Answer</A>
 
-        </MediaQuery>
 
-        <MediaQuery maxDeviceWidth={699}>
-          <div style={header2}>
-            <div>
-              {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
-              <h1 style={{ fontSize: "48px", margin: "0px" }}>Help feed people in <br /> need and support<br /> local restaurants.</h1>
-            <p style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%"}}>People all over the nation are struggling to meet their basic food needs while self-isolating with little to no income. Meanwhile, your local restaurants are suffering as a result of depressed business due to the health crisis.
-              Support your locals restaurants while giving people a meal by buying and donating a Door Dash gift card so they can enjoy a meal in the safety of their own home. </p>
-
-              <div style={{ marginTop: "30px" }}>
-                <Link to="/receive"><SecondaryButton text="Receive" /></Link>
-                <Link to="/donate" style={{ marginRight: "20px" }}><PrimaryButton text="Donate" /></Link>
-              </div>
-            </div>
-            <img style={{ marginTop: "10%" }} src={banner} alt="header image" />
-          </div>
-        </MediaQuery>
+        </div>
       </div>
-      <div>
-        <How2/>
-        {/* <How /> */}
-      </div>
+
     </div>
-
   );
 
 }
@@ -323,4 +306,4 @@ const peep2 = {
   height: "auto",
   marginTop: ".5%",
 }
-export default HomePage;
+export default FAQ;
