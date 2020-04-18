@@ -69,10 +69,10 @@ class Q extends React.Component {
       marginRight: "1%"
     }
     return (
-      <div style={{ display: "flex", align: "center", alignItems: "center", background: "#ededed" }}>
+      <div style={{ display: "flex", align: "center", alignItems: "center" }}>
         <div style={line} >
           <div style={{ display: "flex", alignItems: "baseline"}}>
-            <span style={{ fontSize: "2.75em", marginLeft: "1%", color: "#1136FC", fontStyle: "bold", marginLeft: "5px", marginRight: "5px"}}>Q.  </span>
+            <span style={{ fontSize: "2.75em", marginLeft: "1%", color: "#1136FC", fontStyle: "bold", marginLeft: "5px", marginRight: "10px"}}>Q.  </span>
             <h2 align="left" style={{ whiteSpace: "nowrap" }}>{this.props.children}</h2>
           </div>
         </div>
@@ -97,9 +97,9 @@ class A extends React.Component {
     return (
       <div style={{ display: "flex", align: "center", alignItems: "center" }}>
         <div style={line} >
-          <div style={{ display: "flex", alignItems: "baseline" }}>
-            <span style={{ fontSize: "2.75em", marginLeft: "1%", color: "#919191", fontStyle: "bold", marginLeft: "5px", marginRight: "5px" }}>A.  </span>
-            <h2 align="left" style={{ whiteSpace: "nowrap" }}>{this.props.children}</h2>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <span style={{ fontSize: "2.75em", marginLeft: "1%", color: "#919191", fontStyle: "bold", marginLeft: "5px", marginRight: "10px" }}>A.  </span>
+            <span style={{fontSize: "1.7em"}} align="left">{this.props.children}</span>
           </div>
         </div>
       </div>
@@ -108,17 +108,19 @@ class A extends React.Component {
 }
 
 function FAQ () {
-
+// tax bennies?
+// who gets it and why?
+// why does this exist?
 
 
   return (
     <div className="container-fluid" style={{marginTop: "15%"}}>
       <div className="row mx-5"  >
         <div className="col-12" style={{ display: "flex", alignItems: "baseline"}}>
-        <Q> Question</Q>
+        <Q> How can I benefit?</Q>
         </div>
         <div className="col-12" style={{ display: "flex", alignItems: "baseline" }}>
-          <A> Answer</A>
+          <A> If you are under significant monetary stress due to the COVID-19 health crisis, you can sign up for care37 here. We will contact you and verify your status, at which point you will be placed in a queue to receive donated DoorDash credits.</A>
 
 
         </div>
@@ -126,184 +128,5 @@ function FAQ () {
 
     </div>
   );
-
-}
-const money = {
-  width: "30%",
-  height: "auto",
-  marginTop: "0%",
-}
-const peep = {
-  width: "40%",
-  height: "auto",
-  marginTop: "0%",
-}
-
-const them = {
-  width: "70%",
-  height: "auto",
-  marginTop: "0%"
-}
-
-const lines = {
-  display: "flex",
-  justifyContent: "center",
-  align: "center",
-  marginTop: "5%"
-}
-
-const headed = {
-  display: "flex",
-  justifyContent: "center",
-  align: "center",
-  marginLeft: "40px",
-  marginRight: "40px",
-  marginTop: "15%"
-}
-const ro = {
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  marginTop: "15%"
-}
-
-const who = {
-  display: "flex",
-  justifyContent: "center",
-  marginTop: "15%"
-}
-
-const cap = {
-  fontFamily: "Abril Titling",
-  fontStyle: "italic",
-  fontWeight: "bold",
-  width: "400px",
-  fontSize: "30px",
-  textAlign: "center",
-  marginTop: "10px"
-}
-
-function How () {
-  return (
-    <div>
-      <div className="container-fluid" style={who}>
-        <div className="row" style={header} >
-          <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
-            <h2 align="left">Step 1</h2>
-            <p align="left " >People in need sign up on our platform and we call each and every one of them by phone to verify that they are in need. We add them to the system and prioritize them by how much they've been donated to and how recently they've been donated to.</p>
-
-          </div>
-          <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
-            <h2 align="left">Step 2</h2>
-            <p align="left">When you donate, our system selects the highest priority recipient. We securely port your credit card data and the recipient we selected directly into Door Dash using end-to-end encryption. The recipient gets 100% of the funds you donated and can enjoy a meal in the safety of their own home!</p>
-
-          </div>
-        </div>
-      </div>
-      <div >
-        <div className="row" align="center" style={headed}>
-          <div className="col-xl-10">
-            <h1>Here is how we use funds</h1>
-            <br />
-            <br />
-            <img src={big} style={{ width: "30%", height: "auto" }} />
-          </div>
-        </div>
-      </div>
-      <MediaQuery minDeviceWidth={700} >
-        <div style={lines}>
-          <img style={them} src={flow} alt="line" />
-
-        </div>
-      </MediaQuery>
-      <MediaQuery maxDeviceWidth={699}>
-        <div style={ro}>
-          <img style={money} src={mun}></img>
-          <p style = {cap}>You donate</p>          
-          <img style={peep} src={people}></img>
-          <p style = {cap}>Our system selects someone in need</p>
-          <img style={money} src={food}></img>
-          <p style={cap}> They get a DoorDash gift card so they can enjoy a meal at home!</p>
-        </div>
-      </MediaQuery>
-
-    </div>
-
-  )
-}
-
-function How2() {
-  return (
-    <div style={{background: "#fff"}}>
-    <div className="container-fluid" style={{paddingLeft: "10%", paddingRight: "10%", textAlign: "center", marginTop: "10%"}}>
-      <h2 style={{marginBottom: "50px", paddingTop: "50px"}}>Helping is easy</h2>
-      <div className="row" style={{display: "flex"}}>
-        <div className="col-md-4 " style={how2col}>
-          <img src={mun} style={money2}></img>
-          <a style={cap2}>Choose to donate either 25, 50, 100, or 200 dollars.</a>
-        </div>
-        <div className="col-md-4 " style={how2col}>
-          <img src={people} style={peep2}></img>
-          <a style={cap2}>We pair you with someone in need.</a>
-          <br></br>
-            <OverlayTrigger
-              placement={'bottom'}
-              overlay={
-              <Tooltip>
-                100% of your money becomes DoorDash credits for a pre-vetted recipient in our system. We speak to everyone who signs up to ensure donor money goes to the right plcaes.
-              </Tooltip>
-              }>
-              <h1 style={whyTheseAmountsText}>Where does the money go?</h1>
-
-            </OverlayTrigger>
-        </div>
-        <div className="col-md-4 " style={how2col}>
-          <img src={food} style={money2}></img>
-          <a style={cap2}>They get a DoorDash gift card so they can enjoy a meal at home!</a>
-        </div>
-      </div>
-    </div>
-    <div className="container-fluid" style={who}>
-      <div className="row" style={{display: "flex", justifyContent: "center"}} >
-        <div className="col-xl-5 col-md-4 col-sm-12 px-50">
-          <h2 align="left">Step 1</h2>
-          <p align="left " >People in need sign up on our platform and we call each and every one of them by phone to verify that they are in need. We add them to the system and prioritize them by how much they've been donated to and how recently they've been donated to.</p>
-
-        </div>
-        <div className="col-xl-5 col-md-4 col-sm-12 px-50">
-          <h2 align="left">Step 2</h2>
-          <p align="left">When you donate, our system selects the highest priority recipient. We securely port your credit card data and the recipient we selected directly into Door Dash using end-to-end encryption. The recipient gets 100% of the funds you donated and can enjoy a meal in the safety of their own home!</p>
-
-        </div>
-      </div>
-    </div>
-    </div>
-  )
-}
-
-const how2col = {
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-
-}
-
-const cap2 = {
-  fontWeight: "bold",
-  width: "200px",
-  fontSize: "17px",
-  textAlign: "center",
-  marginTop: "10px"
-}
-const money2 = {
-  width: "30%",
-  height: "auto",
-  marginTop: "0%",
-}
-const peep2 = {
-  width: "50%",
-  height: "auto",
-  marginTop: ".5%",
 }
 export default FAQ;
