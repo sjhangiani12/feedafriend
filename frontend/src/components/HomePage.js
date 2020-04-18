@@ -99,7 +99,7 @@ function HomePage () {
         <MediaQuery minDeviceWidth={700} >
           <div className="container-fluid">
             <div className="row flex-wrap" style={header}>
-              <div className="col-md-7 col-sm-12" >
+              <div className="col-md-7 col-sm-12" style={{marginTop: "5%"}} >
                 {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
                 <h1 style={{ fontSize: "3em", margin: "0px" }}>Help feed people in <br /> need and support<br /> local restaurants.</h1>
                 <p style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>People all over the nation are struggling to meet their basic food needs while self-isolating with little to no income. Meanwhile, your local restaurants are suffering as a result of depressed business due to the health crisis.
@@ -110,8 +110,8 @@ function HomePage () {
                   <Link to="/donate"><PrimaryButton text="Donate" /></Link>
                 </div>
               </div>
-              <div className="col-md-5 col-sm-12 mt-5">
-                <img style={{ marginLeft: "5%", width: "120%"}} src={banner} alt="header image" />
+              <div className="col-md-5 col-sm-12 mt-5" style = {{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                <img style={{width: "120%"}} src={banner} alt="header image" />
               </div>
             </div>
           </div>
@@ -131,7 +131,7 @@ function HomePage () {
                 <Link to="/donate" style={{ marginRight: "20px" }}><PrimaryButton text="Donate" /></Link>
               </div>
             </div>
-            <img style={{ marginTop: "10%" }} src={banner} alt="header image" />
+            <img style={{ marginTop: "10%", marginRight: "5%"}} src={banner} alt="header image" />
           </div>
         </MediaQuery>
       </div>
