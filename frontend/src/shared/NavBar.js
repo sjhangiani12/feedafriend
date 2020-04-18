@@ -81,7 +81,7 @@ function NavBar () {
               <Link style={links} to="/about_us">About</Link>
               <Link style={links} to="/receive"><SecondaryButton text="Receive" /></Link>
               <Link style={links} to="/donate"><PrimaryButton text="Donate" /></Link>
-              <Link style={links} to="/receive">Logged In!</Link></div>}
+              <Link style={links} to="/recipient_portal">Logged In!</Link></div>}
           </AppBar>
 
         {/* </MediaQuery> */}
