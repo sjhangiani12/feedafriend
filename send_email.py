@@ -9,8 +9,6 @@ from email.mime.multipart import MIMEMultipart
 
 
 
-#TODO in getting this module done: Create an email template -> get confirmation details and whatever we need, hide pwd from plain text (lol), get
-
 def send_donor_order_confirmation(donor_email, bodyContent):
     # Define to/from
     bcc = 'sharan@uw.edu'
