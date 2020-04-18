@@ -216,7 +216,7 @@ def get_phone_number(email):
     conn.commit()
     # close communication with the database
     cur.close()
-    return phone_number
+    return phone_number[0]
 
 
 def get_is_verified(email):
