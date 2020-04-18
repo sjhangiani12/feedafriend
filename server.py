@@ -84,10 +84,10 @@ def addPhoneNumber():
 def getPhoneNumber():
     print(request.args) 
     # check all the args are there
-    if not has_args(request.json, ['email']):
+    if not has_args(request.args, ['email']):
         raise InvalidUsage('note all paramenters present')
     # get the phone number
-    phone_number = get_phone_number(request.json['email'])
+    phone_number = get_phone_number(request.args['email'])
     return str(phone_number), 200
 
 
@@ -95,9 +95,9 @@ def getPhoneNumber():
 def getIsVerified():
     print(request) 
     # check all the args are there
-    if not has_args(request.json, ['email']):
+    if not has_args(request.args, ['email']):
         raise InvalidUsage('note all paramenters present')
-    is_verified = get_is_verified(request.json['email'])
+    is_verified = get_is_verified(request.args['email'])
     return str(is_verified), 200
     
 
