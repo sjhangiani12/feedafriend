@@ -13,6 +13,8 @@ import history from "./utils/history";
 
 import HomePage from './components/HomePage.js';
 import DonatePage from './components/DonatePage.js';
+import FAQ from './components/FAQ.js';
+
 import ReceivePage from './components/ReceivePage.js';
 import AboutPage from './components/AboutPage.js';
 import Footer from './components/Footer.js';
@@ -45,11 +47,6 @@ function App () {
           <Footer />
 
         </Route>
-        <Route path="/recipient_portal">
-          <RecipientPortal />
-          <Footer />
-
-        </Route>
         <Route path="/about_us">
           <AboutPage />
           <Footer />
@@ -57,6 +54,11 @@ function App () {
         </Route>
         <Route path="/confirmation">
           <ConfirmationPage />
+          <Footer />
+
+        </Route>
+        <Route path="/faq">
+          <FAQ />
           <Footer />
 
         </Route>

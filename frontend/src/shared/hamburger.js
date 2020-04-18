@@ -3,6 +3,8 @@ import logo from "../static/CARE_37.svg";
 import {
   Link
 } from 'react-router-dom';
+import AppBar from '@material-ui/core/AppBar';
+
 /* App.jsx */
 export default class Nav extends React.Component {
   constructor(props) {
@@ -16,8 +18,9 @@ export default class Nav extends React.Component {
     this.setState({ menuOpen: !this.state.menuOpen });
   }
 
-  handleLinkClick() {
+  handleLinkClick(goTo) {
     this.setState({ menuOpen: false });
+    
   }
 
   render() {
@@ -30,12 +33,18 @@ export default class Nav extends React.Component {
         zIndex: '99',
         opacity: 0.9,
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'baseline',
         background: 'white',
         width: '100%',
         color: 'black',
         height: "7vh",
         fontFamily: 'Lobster',
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        height: "90px",
+        marginLeft: "5%"
+
       },
       logo: {
         margin: '0 auto',
@@ -50,20 +59,36 @@ export default class Nav extends React.Component {
         transition: 'filter 0.5s ease',
       },
     }
-    const menu = ['Home', 'Recieve a donation', 'Donate a meal', 'About us']
-    const to = {0: "/", 1: "/receive", 2: "/donate", 3: "/about_us"}
+
+    const forLogo = {
+      "color": "black",
+      "font-family": "sans-serif",
+      "text-decoration": "none",
+
+      "&:hover": {
+        textDecoration: "underline"
+      },
+      "position": "relative",
+      "left": "10%",
+
+    }
+    const menu = ['Home', 'FAQ', 'About us', 'Get help', 'Donate']
+    const to = {0: "/", 1: "/faq", 2: "/about_us", 3: "/receive", 4: "/donate"}
     const menuItems = menu.map((val, index) => {
       return (
-        <MenuItem
-          key={index}
-          delay={`${index * 0.1}s`}
-          onClick={() => { this.handleLinkClick(); }}><Link style= {{color: "inherit"}} to={to[index]}>{val}</Link></MenuItem>)
-    });
+        <a href={to[index]}>
+          <MenuItem
+            key={index}
+            delay={`${index * 0.1}s`}
+            onClick={() => { this.handleLinkClick(index); }}><Link style={{ color: "inherit" }} to={to[index]}>{val}</Link></MenuItem>
+        </a>)
 
+    });
+  
     return (
       <div>
         <div style={styles.container}>
-          <Link  to="/" style={{position: "relative", left: "5%"}} ><img src={logo} alt="logo" /></Link>
+          <Link to="/" style={{ position: "relative", left: "5%" }} ><img style={{ width: "130%" }} src={logo} alt="logo" /></Link>
           <MenuButton open={this.state.menuOpen} onClick={() => this.handleMenuClick()} color='black' />
 
         </div>
@@ -163,6 +188,7 @@ class Menu extends React.Component {
         color: '#fafafa',
         transition: 'height 0.3s ease',
         zIndex: 2,
+        marginTop: "10%"
       },
       menuList: {
         paddingTop: '3rem',
