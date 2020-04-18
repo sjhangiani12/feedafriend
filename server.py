@@ -19,6 +19,8 @@ from db_manager import get_phone_number
 from db_manager import get_is_verified
 from send_email import send_donor_order_confirmation
 from send_email import send_reicipient_welcome_email
+from send_email import send_recipient_order_confirmation
+
 
 from matchmaker import Matchmaker
 from payment import DoorDash
@@ -168,7 +170,7 @@ def makeDonation():
             template = env.get_template('recipient_confirmation.html')
             html = template.render(recipient_name=recipient.get_first_name(),
                                    amount_donated=request.json["dollars"])
-            recipient_confirm_email = send_recipient_order_confirmation(recipient_email = recipient.get_email())
+            recipient_confirm_email = send_recipient_order_confirmation(recipient_email = recipient.get_email(), bodyContent=html)
             # update User DB
             user_update_status = update_user_entry(recipient, request.json["dollars"])
             # insert to Transactions DB
