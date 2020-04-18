@@ -101,7 +101,7 @@ def update_user_entry(recipientProfile, dollars):
     # TODO need to add last donation date to schema to get a more accurate burn rate adjusted amount
 
 
-def insert_donation(recipientProfile, dollars, donor_email, donor_first_name, donor_last_name, timestamp_string):
+def insert_donation(recipientProfile, dollars, donor_email, donor_first_name, donor_last_name, timestamp_string, donor_email_sent, recipient_email_sent):
     """ Insert donation record into donations database """
     ruid = recipientProfile.get_recipient_user_id()
     sql = """INSERT INTO donations(tid, uid, amount_donated, donor_email, donor_first_name, donor_last_name,
@@ -121,7 +121,7 @@ def insert_donation(recipientProfile, dollars, donor_email, donor_first_name, do
         uuid_string = donor_email + timestamp_string
         created_tuid = uuid.uuid5(uuid.NAMESPACE_OID, uuid_string)
         # execute the INSERT statement
-        data = (str(created_tuid), str(ruid), str(dollars), donor_email, donor_first_name, donor_last_name, timestamp_string, 0, 0)
+        data = (str(created_tuid), str(ruid), str(dollars), donor_email, donor_first_name, donor_last_name, timestamp_string, 0, 0, donor_email_sent, recipient_email_sent)
 
         cur.execute(sql, data)
 
@@ -140,12 +140,12 @@ def insert_donation(recipientProfile, dollars, donor_email, donor_first_name, do
     return "donation inserted with uid: " + str(created_tuid)
 
 
-def insert_user(email, first_name, last_name, bio, zip_code):
+def insert_user(email, first_name, last_name, bio, zip_code, intro_email_sent):
     """ insert a new vendor into the vendors table """
     sql = """INSERT INTO recipients(uid, email, first_name, last_name, bio, zip_code, date_created,
-                                    num_donations, total_recieved)
+                                    num_donations, total_recieved, intro_email_sent)
 
-             VALUES( %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
+             VALUES( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
     conn = None
     vendor_id = None
     try:
@@ -162,7 +162,7 @@ def insert_user(email, first_name, last_name, bio, zip_code):
         created_uuid = uuid.uuid5(uuid.NAMESPACE_OID, email)
         # execute the INSERT statement
         cur.execute(sql, (str(created_uuid), email, first_name, last_name, bio, str(
-            zip_code), timestamp_string, str(0), str(0)))
+            zip_code), timestamp_string, str(0), str(0), intro_email_sent))
         # commit the changes to the database
         conn.commit()
         # close communication with the database
