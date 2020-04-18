@@ -14,6 +14,7 @@ from error import InvalidUsage
 from db_manager import insert_user
 from db_manager import update_user_entry
 from db_manager import insert_donation
+from db_manager import add_phone_number
 from send_email import send_donor_order_confirmation
 from matchmaker import Matchmaker
 from payment import DoorDash
@@ -66,6 +67,16 @@ def handle_invalid_usage(error):
     response = jsonify(error.to_dict())
     response.status_code = error.status_code
     return response
+
+
+@app.route('/addPhoneNumber', methods=['POST', 'OPTIONS'])
+def addPhoneNumber():
+    # check all the args are there
+    if not has_args(request.json, ['email', 'phone_number']):
+        raise InvalidUsage('note all paramenters present')
+    # add the phone number to the DB entry
+    respone = add_phone_number(request.json['email'], request.json['phone_number'])
+    return respone, 200
 
 
 @app.route('/createUser', methods=['POST', 'OPTIONS'])
