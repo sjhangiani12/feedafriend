@@ -139,6 +139,7 @@ class Matchmaker:
 
         self._queue = PriorityQueue()
         for user in all_users:
+            # check if the user is verified before adding them to the queue
             if user[7]:
                 curr = recipientProfile(
                     user[0], user[1], user[2], user[3], user[4], user[5], user[6])
@@ -153,7 +154,3 @@ class Matchmaker:
         else:
             obj = self._queue.get()
             return obj
-
-
-matchmaker = Matchmaker()
-print(matchmaker.get_recipientProfile())
