@@ -18,8 +18,9 @@ export default class Nav extends React.Component {
     this.setState({ menuOpen: !this.state.menuOpen });
   }
 
-  handleLinkClick() {
+  handleLinkClick(goTo) {
     this.setState({ menuOpen: false });
+    
   }
 
   render() {
@@ -75,10 +76,13 @@ export default class Nav extends React.Component {
     const to = {0: "/", 1: "/faq", 2: "/about_us", 3: "/receive", 4: "/donate"}
     const menuItems = menu.map((val, index) => {
       return (
-        <MenuItem
-          key={index}
-          delay={`${index * 0.1}s`}
-          onClick={() => { this.handleLinkClick(); }}><Link style= {{color: "inherit"}} to={to[index]}>{val}</Link></MenuItem>)
+        <a href={to[index]}>
+          <MenuItem
+            key={index}
+            delay={`${index * 0.1}s`}
+            onClick={() => { this.handleLinkClick(index); }}><Link style={{ color: "inherit" }} to={to[index]}>{val}</Link></MenuItem>
+        </a>)
+
     });
   
     return (
