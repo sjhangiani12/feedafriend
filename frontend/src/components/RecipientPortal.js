@@ -73,6 +73,12 @@ function RecipientPortal() {
         </div>
       )}
 
+      {addedPhoneNumber && !isVerified && (
+        <div style={header}>
+            <h1 style={thankYou}>Thank you for adding your phone number!</h1>
+            <h1 style={infoBeenAdded}>We are going to give you a call.</h1>
+        </div>
+      )}
       {/*
       {isAuthenticated && (
           <div style={textHeader}>

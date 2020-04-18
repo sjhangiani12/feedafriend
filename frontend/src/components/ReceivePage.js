@@ -14,6 +14,11 @@ function ReceivePage() {
     createUser();
   }, [userInfo])
 
+  function handleLogInPressed() {
+    loginWithRedirect();
+    createUser();
+  }
+
   const createUser = async () => {
     console.log("in create user");
     if (userInfo !== undefined) {
@@ -52,7 +57,7 @@ function ReceivePage() {
               <h1 style={thankYou}>Sign up to be added to our system!</h1>
               <h4 style={infoBeenAdded}>Once you create an account with us, you will be added to our donation queue and can expect a donation soon!</h4>
               <div style={last} >
-                <PrimaryButton onClick={() => loginWithRedirect({})} text="Log In" />
+                <PrimaryButton onClick={() => handleLogInPressed()} text="Log In" />
               </div>
             </div>
           )}
