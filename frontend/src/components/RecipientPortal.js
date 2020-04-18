@@ -38,6 +38,7 @@ function RecipientPortal() {
     }).then(
       function (response) {
         // check if phone number is not 0
+        console.log(response);
         response.json().then(json => {
           setAddedPhoneNumber(json != 0);
         })
@@ -65,8 +66,10 @@ function RecipientPortal() {
       }
     }).then(
       function (response) {
+        console.log(response);
         // check if user is verified
         response.json().then(json => {
+          console.log(json);
           setIsVerified(json);
         })
       }

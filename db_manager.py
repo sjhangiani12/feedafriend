@@ -235,11 +235,11 @@ def get_is_verified(email):
     # create a new cursor
     cur = conn.cursor()
     # execute the UPDATE statement
-    # cur.execute(sql, (str(email),))
+    cur.execute(sql, (str(email),))
     # get the phone number
-    # is_verified = cur.fetchone()
+    is_verified = cur.fetchone()
     # commit the changes to the database
     conn.commit()
     # close communication with the database
     cur.close()
-    return False 
+    return is_verified[0]
