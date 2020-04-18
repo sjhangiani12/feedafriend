@@ -11,32 +11,34 @@ from email.mime.multipart import MIMEMultipart
 
 #TODO in getting this module done: Create an email template -> get confirmation details and whatever we need, hide pwd from plain text (lol), get
 
-def send_donor_order_confirmation(donor_email, amount_donated, donor_name, invoice_number, transaction_date, html):
+def send_donor_order_confirmation(donor_email, bodyContent):
     # Define to/from
     bcc = 'sharan@uw.edu'
     sender = 'admin@care37.org'
     sender_title = "Care 37"
-    email_recipient = str(donor_email)
+    recipient = str(donor_email)
 
     # Create message
-    msg = MIMEMultipart('alternative')
+    msg = MIMEMultipart()
     msg['Subject'] =  Header("Order Confirmation", 'utf-8')
     msg['From'] = formataddr((str(Header(sender_title, 'utf-8')), sender))
-    msg['To'] = email_recipient
+    msg['To'] = recipient
     msg['Bcc'] = 'sharan@uw.edu'
     
     
-    part2 = MIMEText(html, 'html')
-    msg.attach(part2)
-    # Create server object with SSL option
-    server = smtplib.SMTP_SSL('smtp.zoho.com', 465)
+    msg.attach(MIMEText(bodyContent, "html"))
+    msgBody = msg.as_string()
 
-    # Perform operations via server
-    server.login('admin@care37.org', 'Care37Pwd')
-    server.sendmail(sender, [email_recipient], bcc, msg.as_string())
-    server.quit()
-
-    return True
-
-
-
+    try:
+        # Create server object with SSL option
+        print('connecting')
+        server = smtplib.SMTP_SSL('smtp.zoho.com', 465)
+        print('connected')
+        # Perform operations via server
+        server.login('admin@care37.org', 'Care37Pwd')
+        server.sendmail(sender, [recipient], msgBody)
+        server.quit()
+        return True    
+    except Exception as error:
+        print(error)
+        return False

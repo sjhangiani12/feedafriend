@@ -4,13 +4,18 @@ from waitress import serve
 from time import sleep
 from random import randint
 import time
-from datetime import datetime
+from datetime import datetime, date
+from jinja2 import Environment, FileSystemLoader
+import os
+
+
+
 from error import InvalidUsage
 from db_manager import insert_user
 from db_manager import update_user_entry
 from db_manager import insert_donation
+from db_manager import add_phone_number
 from send_email import send_donor_order_confirmation
-
 from matchmaker import Matchmaker
 from payment import DoorDash
 
@@ -30,15 +35,15 @@ def has_args(iterable, args):
         return False
 
 
-@app.before_request
-def before_request():
-    print(request.url)
-    print(request.host)
-    print(request.host_url)
-    if request.url.startswith('http://'):
-        url = request.url.replace('http://', 'https://', 1)
-        code = 301
-        return redirect(url, code=code)
+# @app.before_request
+# def before_request():
+#     print(request.url)
+#     print(request.host)
+#     print(request.host_url)
+#     if request.url.startswith('http://'):
+#         url = request.url.replace('http://', 'https://', 1)
+#         code = 301
+#         return redirect(url, code=code)
 
 
 # @app.before_request
@@ -62,6 +67,16 @@ def handle_invalid_usage(error):
     response = jsonify(error.to_dict())
     response.status_code = error.status_code
     return response
+
+
+@app.route('/addPhoneNumber', methods=['POST', 'OPTIONS'])
+def addPhoneNumber():
+    # check all the args are there
+    if not has_args(request.json, ['email', 'phone_number']):
+        raise InvalidUsage('note all paramenters present')
+    # add the phone number to the DB entry
+    respone = add_phone_number(request.json['email'], request.json['phone_number'])
+    return respone, 200
 
 
 @app.route('/createUser', methods=['POST', 'OPTIONS'])
@@ -91,17 +106,11 @@ def makeDonation():
     # get matchmaker obj
     recipient = Matchmaker().get_recipientProfile()
     if recipient is None:
-<<<<<<< HEAD
-        raise InvalidUsage("No recipient in the database")
-        return 400
-=======
         return "Sorry there are no users to donate to at this time. Try again in a bit", 503
-
->>>>>>> d1424c9cd749087fe4f3f808fdf840390ff3a15c
     purchase_status = False
-    payment = DoorDash()
     #fill out form
     full_name = request.json['sender_first_name'] + request.json['sender_last_name']
+    payment = DoorDash()
     if payment.preFill(dollars=request.json['dollars'], recipient_name=recipient.get_first_name(),
                        recipient_email=recipient.get_email(), sender_name=full_name) == True:
         sleep(randint(1, 2))
@@ -125,17 +134,19 @@ def makeDonation():
                                                     request.json["sender_email"], 
                                                     request.json["sender_first_name"], 
                                                     request.json["sender_last_name"], timestamp_string)
-            # send confirm email to both particpants
+            # render template for donor:
+            d2 = date.today().strftime("%B %d, %Y")
+            env = Environment(loader=FileSystemLoader('%s/templates/' % os.path.dirname(__file__)))
+            template = env.get_template('billing.html')
+            html = template.render(amount_donated=request.json["dollars"], 
+                        invoice_number=1, 
+                        Transaction_date=d2)
+            # send confirm email to donor
+            email = send_donor_order_confirmation(donor_email = request.json["sender_email"], bodyContent=html)
+            
             return "Transaction Complete:" + str(purchase_status) + " | User Table Updated:" + str(user_update_status) + " | Transactions Table Inserted:" + str(donation_update_status), 200
         else:
             return "Transaction Complete:" + str(purchase_status) + " | User Table Updated:" + "False" + " | Transactions Table Inserted:" + "False", 400
-
-        # html = render_template('billing.html', amount_donated=request.json["dollars"], 
-        #                     invoice_number=1, 
-        #                     Transaction_date=timestamp_string)
-        # # donor_email, amount_donated, donor_name, invoice_number, transaction_date, html
-        # send_donor_order_confirmation(donor_email = request.json["sender_email"], amount_donated = request.json['dollars'], donor_name = request.json["sender_first_name"], invoice_number = 1,transaction_date =  timestamp_string, html=html)
-            # which should update the transaction to indicate this was complete
     else: 
         return "There was an error", 500
 

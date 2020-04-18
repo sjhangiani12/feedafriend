@@ -174,3 +174,24 @@ def insert_user(email, first_name, last_name, bio, zip_code):
             conn.close()
 
     return "user inserted with uid: " + str(created_uuid)
+
+
+def add_phone_number(email, phone_number):
+    """ add phone number to the user """
+    sql = """update recipients 
+             set phone_number = %s
+             where email = %s;"""
+
+    # read database configuration
+    params = config()
+    # connect to the PostgreSQL database
+    conn = psycopg2.connect(**params)
+    # create a new cursor
+    cur = conn.cursor()
+    # execute the UPDATE statement
+    cur.execute(sql, (str(phone_number), str(email)))
+    # commit the changes to the database
+    conn.commit()
+    # close communication with the database
+    cur.close()
+    return "phone number updated for email: " + str(email)
