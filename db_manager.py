@@ -210,6 +210,9 @@ def get_phone_number(email):
     cur = conn.cursor()
     # execute the UPDATE statement
     cur.execute(sql, (str(email),))
+    # check if not found
+    if (cur.rowcount == 0):
+        return 0
     # get the phone number
     phone_number = cur.fetchone()
     # commit the changes to the database

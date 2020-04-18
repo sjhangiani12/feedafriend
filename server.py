@@ -92,7 +92,7 @@ def getPhoneNumber():
         raise InvalidUsage('note all paramenters present')
     # get the phone number
     phone_number = get_phone_number(request.args['email'])
-    return str(phone_number), 200
+    return jsonify(phone_number), 200
 
 
 @app.route('/getIsVerified', methods=['GET', 'OPTIONS'])
@@ -102,7 +102,7 @@ def getIsVerified():
     if not has_args(request.args, ['email']):
         raise InvalidUsage('note all paramenters present')
     is_verified = get_is_verified(request.args['email'])
-    return str(is_verified), 200
+    return jsonify(is_verified), 200
     
 
 
