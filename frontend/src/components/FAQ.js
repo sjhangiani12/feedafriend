@@ -117,7 +117,7 @@ function FAQ () {
 
 
   return (
-    <div className="container-fluid" style={{marginTop: "15%", marginBottom: "10% "}}>
+    <div className="container-fluid" style={{marginTop: "20%", marginBottom: "10% "}}>
 
       < div className="row mx-5" style={{ alignItems: "center", justifyContent: "center"}} >
         <div style={{marginBottom: "5%"}}>
