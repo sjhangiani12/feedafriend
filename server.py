@@ -87,7 +87,7 @@ def getPhoneNumber():
         raise InvalidUsage('note all paramenters present')
     # get the phone number
     phone_number = get_phone_number(request.json['email'])
-    return phone_number, 200
+    return str(phone_number), 200
 
 
 @app.route('/getIsVerified', methods=['GET', 'OPTIONS'])
