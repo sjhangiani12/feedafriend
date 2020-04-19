@@ -69,7 +69,7 @@ function NavBar () {
             <NavItem underline="false"><Link to="/" ><img style={{width: "130%"}} src={logo} alt="logo" /></Link></NavItem>
 
           </div>
-            {!isAuthenticated && <div style={{ position: "relative", display: "flex", justifyContent: "space-evenly", width: "40%", alignItems: "baseline" }}>
+            {!isAuthenticated && <div style={{ position: "relative", display: "flex", justifyContent: "space-evenly", width: "40%", alignItems: "baseline", marginRight: "5%"}}>
 
             <Link style={links} to="/about_us"><NavItem >About</NavItem></Link>
             <Link style={links} to="/faq"><NavItem >FAQ</NavItem></Link>

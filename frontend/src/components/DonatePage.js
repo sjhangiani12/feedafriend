@@ -154,7 +154,6 @@ function DonatePage() {
   }
 
   const bigText = {
-    marginRight: "5%",
     fontStyle: "normal",
     fontWeight: "600",
     fontSize: "48px",
@@ -321,6 +320,7 @@ function DonatePage() {
   const paymentFieldInput = {
     fontFamily: "Roboto",
     fontStyle: "normal",
+    width: "51%",
     fontWeight: "normal",
     fontSize: "16px",
     lineHeight: "19px",
@@ -332,6 +332,42 @@ function DonatePage() {
     borderWidth: "1px",
     color: "#828282",
     marginBottom: "2%",
+    marginRight: "1%",
+    textIndent: "5px",
+  }
+  const lasty = {
+    fontFamily: "Roboto",
+    fontStyle: "normal",
+    width: "51%",
+    fontWeight: "normal",
+    fontSize: "16px",
+    lineHeight: "19px",
+    fontColor: "#B0B0B0",
+    height: "40px",
+    background: "transparent",
+    borderColor: "#828282",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    color: "#828282",
+    marginBottom: "2%",
+    textIndent: "5px",
+  }
+  const emailSection = {
+    fontFamily: "Roboto",
+    fontStyle: "normal",
+    fontWeight: "normal",
+    fontSize: "16px",
+    lineHeight: "19px",
+    fontColor: "#B0B0B0",
+    height: "40px",
+    width: "73%",
+    background: "transparent",
+    borderColor: "#828282",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    color: "#828282",
+    marginBottom: "2%",
+    marginRight: "1%",
     textIndent: "5px",
   }
 
@@ -362,13 +398,11 @@ function DonatePage() {
 
   const nameContainer = {
     display: "flex",
-    justifyContent: "space-between",
     width: "73%",
   }
 
   const buttonContainer = {
     display: "flex",
-    justifyContent: "space-between",
     width: "50%",
   }
 
@@ -389,16 +423,20 @@ function DonatePage() {
   // this is step one of the donation process
   if ((!nextToPaymentPressed || donateAmount == 0)) {
     return (<div id ="donator">
-      <div className="container-fliud">
-        <div className="row" style={{position: "absolute", left: "10%"}}>
+      <div className="container-fliud px-2">
+        <div className="row justify-content-center" style={{marginRight: "5%", marginLeft: "10%"}}>
           {/* if the user selected an amount give them the meals estimate */}
           {(donateAmount == 0) ? (
-            <h1 style={bigText}>You are making the <br/> world better.</h1>
+            <div className="col-lg-5 col-sm-12">
+              <h1 style={bigText}>You are making the <br /> world better.</h1>
+            </div>
           ) : (
-              <h1 style={bigText}>You are donating <br /> around <mark style={numOfMealsNumber}>
-                {donateAmount / 12.5}</mark> meals</h1>
+            <div className='col-lg-5 col-sm-12'>
+                <h1 style={bigText}>You are donating <br /> around <mark style={numOfMealsNumber}>
+                  {donateAmount / 12.5}</mark> meals</h1>
+            </div>
             )}
-          <div >
+          <div className='col-lg-6 col-sm-12' >
             <h1 style={step}>STEP 1</h1>
             <h1 style={enterDonation}>Enter donation amount</h1>
             <ButtonToolbar style={buttonToolbar}>
@@ -410,7 +448,7 @@ function DonatePage() {
             {/* error message if they next without selecting a donation amount */}
             {displayPickAmountMessage && <h1 style={pickAnAmountMessage} >Please select a donation amount</h1>}
             <OverlayTrigger
-              placement={'top'}
+              placement={'left'}
               overlay={
                 <Tooltip>
                   These are the amounts that DoorDash allows for giftcards.
@@ -425,7 +463,10 @@ function DonatePage() {
         <div style={supportForm}>
           <CurrencyInput onChangeEvent={handleSupportUsAmountChange} style={supportInput} prefix="$" value={supportUsAmount} />
         </div>*/}
-            <PrimaryButton onClick={() => handleNextClick(true)} text="Next: Payment information" />
+          <div>
+                <PrimaryButton onClick={() => handleNextClick(true)} text="Next: Payment information" />
+
+          </div>
           </div>
         </div>
       </div>
@@ -459,7 +500,7 @@ function DonatePage() {
                   <h1 style={protectInfoBody}>We never store your credit card information and your payment details are sent over a secure connection.</h1>
                 </div>
               </div>
-              <div className="col-lg-7 ml-5">
+              <div className="col-lg-7" id="payment">
                 <div style={cardDetails}>
                   <h1 style={step}>STEP 2</h1>
                   <h1 style={enterDonation}>Enter payment details</h1>
@@ -470,12 +511,12 @@ function DonatePage() {
                     <h1 style={paymentInfoSections}>Your information</h1>
                     <div style={nameContainer}>
                       <input type="text" onChange={(e) => handleChange(e)} style={paymentFieldInput} placeholder="First Name" name={"firstName"} value={firstName}></input>
-                      <input type="text" onChange={(e) => handleChange(e)} style={paymentFieldInput} placeholder="Last Name" name={"lastName"} value={lastName}></input>
+                    <input type="text" onChange={(e) => handleChange(e)} style={lasty} placeholder="Last Name" name={"lastName"} value={lastName}></input>
                     </div>
-                    <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e)} placeholder="Email address" name={"email"} value={email}></input>
+                    <input style={emailSection} type="text" onChange={(e) => handleChange(e)} placeholder="Email address" name={"email"} value={email}></input>
                     <h1 style={paymentInfoSections}>Address</h1>
-                    <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e)} placeholder="Address 1" name={"address1"} value={address1}></input>
-                    <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e)} placeholder="Address 2" name={"address2"} value={address2}></input>
+                  <input style={emailSection} type="text" onChange={(e) => handleChange(e)} placeholder="Address 1" name={"address1"} value={address1}></input>
+                  <input style={emailSection} type="text" onChange={(e) => handleChange(e)} placeholder="Address 2" name={"address2"} value={address2}></input>
                     <div style={nameContainer}>
                       <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e)} placeholder="City" name={"city"} value={city}></input>
                       <SelectSearch
@@ -488,7 +529,10 @@ function DonatePage() {
                         search
                       />
                     </div>
+                  <div style={nameContainer}>
                     <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e)} placeholder="Zip code" name={"zipcode"} value={zipcode}></input>
+
+                  </div>
                   </div>
                   <h1 style={paymentInfoSections}>Payment information</h1>
                   <CreditCardInput fieldStyle={creditCardField} inputStyle={creditCardInput}
@@ -498,7 +542,7 @@ function DonatePage() {
                   />
                   <div style={buttonContainer}>
                     <SecondaryButton onClick={() => handleBackClick()} text="Back" />
-                    <PrimaryButton text="Donate now" onClick={() => handleDonateClick()} />
+                    <PrimaryButton text="Pay Now" onClick={() => handleDonateClick()} />
                   </div>
                   <h1 style={protectInfoBody}>By continuing, you are agreeing with CARE 37 terms and praivacy policy.</h1>
                 </div>
