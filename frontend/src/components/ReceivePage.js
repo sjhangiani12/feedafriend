@@ -13,7 +13,7 @@ function ReceivePage() {
 
   useEffect(() => {
     createUser();
-  }, [userInfo])
+  }, [user])
 
   function handleLogInPressed() {
     loginWithRedirect({
@@ -23,29 +23,42 @@ function ReceivePage() {
   }
 
   const createUser = async () => {
-    if (userInfo !== undefined) {
-      let info = userInfo["https://example.com/geoip"];
+    console.log(user);
+    console.log(typeof user !== 'undefined');
+    if (typeof user !== 'undefined') {
+      let info = user["https://example.com/geoip"];
       let location = { latitude: info.latitude, longitude: info.longitude };
       const zip = await geo2zip(location);
 
       const data = {
-        first_name: userInfo.given_name,
-        last_name: userInfo.family_name,
-        email: userInfo.email,
+        first_name: user.given_name,
+        last_name: user.family_name,
+        email: user.email,
         zip_code: zip[0]
       }
 
-      const response = await fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/createUser', {
+      fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/createUser', {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
 
         body: JSON.stringify(data)
-      });
-
-      const text = await response.text();
-      await console.log(text);
+      }).then(
+        function (response) {
+          if (response.status == 200) {
+            console.log(response);
+            // created the user    
+          } else if (response.status == 400) {
+            console.log(response);
+            // did not create the user
+            // could be that the user already existed
+          } else {
+            console.log(response);
+            // other error
+          }
+        }
+      );
     }
   }
 

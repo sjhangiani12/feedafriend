@@ -11,20 +11,21 @@ import MediaQuery from 'react-responsive'
 
 const sty = {
   position: "relative",
-  marginTop: "150px",
+  marginTop: "5%",
   display: "flex",
   justifyContent: "center"
 }
 
 const ro = {
   display: "flex",
-  justifyContent: "center"
+  justifyContent: "center",
+  marginTop: "5%",
 }
 
 const who = {
   display: "flex",
   justifyContent: "center",
-  marginTop: "20%"
+  marginTop: "90px"
 }
 
 const prof = {
