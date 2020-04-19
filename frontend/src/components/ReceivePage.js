@@ -16,7 +16,9 @@ function ReceivePage() {
   }, [userInfo])
 
   function handleLogInPressed() {
-    loginWithRedirect();
+    loginWithRedirect({
+      redirect_uri: 'http://localhost:3000/receive'
+    });
     createUser();
   }
 

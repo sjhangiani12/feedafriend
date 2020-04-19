@@ -25,7 +25,7 @@ export const Auth0Provider = ({
       setAuth0(auth0FromHook);
 
       if (window.location.search.includes("code=") &&
-          window.location.search.includes("state=")) {
+        window.location.search.includes("state=")) {
         const { appState } = await auth0FromHook.handleRedirectCallback();
         onRedirectCallback(appState);
       }
@@ -56,25 +56,25 @@ export const Auth0Provider = ({
     }
     const user = await auth0Client.getUser();
 
-    let info = user ["https://example.com/geoip"];
-    let location = {latitude: info.latitude, longitude: info.longitude};
+    let info = user["https://example.com/geoip"];
+    let location = { latitude: info.latitude, longitude: info.longitude };
     const zip = await geo2zip(location);
 
     const data = {
       first_name: user.given_name,
       last_name: user.family_name,
       email: user.email,
-      zip_code:  zip
+      zip_code: zip
     }
 
     const response = await fetch('https://care37.herokuapp.com/createUser/', {
       method: "post",
       headers: {
-        "Accept"  : "application/json",
-        "Content-Type" : "application/json"
+        "Accept": "application/json",
+        "Content-Type": "application/json"
       },
 
-      body: JSON.stringify (data)
+      body: JSON.stringify(data)
     });
 
 
@@ -88,7 +88,7 @@ export const Auth0Provider = ({
     await auth0Client.handleRedirectCallback();
     const user = await auth0Client.getUser();
 
-  
+
 
     setLoading(false);
     setIsAuthenticated(true);
