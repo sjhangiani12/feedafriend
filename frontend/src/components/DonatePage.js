@@ -156,7 +156,7 @@ function DonatePage() {
   const bigText = {
     fontStyle: "normal",
     fontWeight: "600",
-    fontSize: "48px",
+    fontSize: "40px",
     lineHeight: "70px",
   }
 
@@ -170,6 +170,8 @@ function DonatePage() {
   }
 
   const enterDonation = {
+    diaply: "block",
+    whiteSpace: "nowrap",
     fontStyle: "normal",
     fontWeight: "600",
     fontSize: "36px",
@@ -217,6 +219,8 @@ function DonatePage() {
   }
 
   const buttonToolbar = {
+    display: "block",
+    whiteSpace: "nowrap",
     paddingBottom: "20px",
   }
 
@@ -423,20 +427,20 @@ function DonatePage() {
   // this is step one of the donation process
   if ((!nextToPaymentPressed || donateAmount == 0)) {
     return (<div id ="donator">
-      <div className="container-fliud px-2">
-        <div className="row justify-content-center" style={{marginRight: "5%", marginLeft: "10%"}}>
+      <div className="container-fliud px-2" style={{width: "100%"}}>
+        <div className="row justify-content-center" style={{ marginRight: "5%", marginLeft: "10%" }} id="payment">
           {/* if the user selected an amount give them the meals estimate */}
           {(donateAmount == 0) ? (
-            <div className="col-lg-5 col-sm-12">
+            <div className="col-xl-5 col-lg-5 col-sm-12">
               <h1 style={bigText}>You are making the <br /> world better.</h1>
             </div>
           ) : (
-            <div className='col-lg-5 col-sm-12'>
+            <div className='col-xl-5 col-lg-5 col-sm-12'>
                 <h1 style={bigText}>You are donating <br /> around <mark style={numOfMealsNumber}>
                   {donateAmount / 12.5}</mark> meals</h1>
             </div>
             )}
-          <div className='col-lg-6 col-sm-12' >
+          <div className='col-xl-6 col-lg-6 col-sm-12 ml-xl-2' >
             <h1 style={step}>STEP 1</h1>
             <h1 style={enterDonation}>Enter donation amount</h1>
             <ButtonToolbar style={buttonToolbar}>
@@ -480,8 +484,8 @@ function DonatePage() {
       // this is the second step,1G user enters payment info
 
       <div id="donator">
-        <div className="container-fliud">
-          <div className="row" style={{ position: "absolute", left: "10%" }}>
+        <div className="container-fliud" style={{ width: "100%" }}>
+          <div className="row justify-content-center" style={{ marginRight: "5%", marginLeft: "10%" }}>
               <div className="col-lg-4 d-md-none  d-sm-none d-none d-lg-block" id="yourSup">
                 <h1 style={bigText}>Your support <br />means a lot.</h1>
                 <div style={allInvoiceRows}>

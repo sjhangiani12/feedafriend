@@ -227,6 +227,8 @@
 
 #donator {
     position: relative;
+    justify-content: center;
+    display: flex;
     margin-left: 40px;
     margin-right: 40px;
     height: 100vh;
@@ -267,5 +269,12 @@
 @media (max-width: 53em) {
   #payment {
     margin-left: 0px;
+  }
+  #donator {
+    margin-left: 0px;
+    margin-right: 0px
+  }
+  #enterpmt {
+    left: 0px;
   }
 }
