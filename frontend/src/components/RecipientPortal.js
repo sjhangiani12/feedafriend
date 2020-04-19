@@ -222,12 +222,14 @@ const last = {
 const thankYou = {
   textAlign: "center",
   paddingBottom: "20px",
+  fontSize: "3em",
 }
 
 const infoBeenAdded = {
   textAlign: "center",
   marginLeft: "200px",
   marginRight: "200px",
+  fontSize: "1.5em",
 }
 
 const header = {
