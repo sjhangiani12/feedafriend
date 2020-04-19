@@ -25,7 +25,6 @@ const ro = {
 const who = {
   display: "flex",
   justifyContent: "center",
-  marginTop: "90px"
 }
 
 const prof = {
@@ -170,7 +169,10 @@ render() {
 function AboutPage () {
 
   return (
-    <div>
+    <div style={{marginTop: "120px"}}>
+      < div className="row mx-5" style={{ alignItems: "center", justifyContent: "center" }} >
+        <h1>About</h1>
+      </div>
       <About />
 
       <Team />

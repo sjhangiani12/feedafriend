@@ -487,7 +487,7 @@ function DonatePage() {
         <div className="container-fliud" style={{ width: "100%" }}>
           <div className="row justify-content-center" style={{ marginRight: "5%", marginLeft: "10%" }}>
               <div className="col-lg-4 d-md-none  d-sm-none d-none d-lg-block" id="yourSup">
-                <h1 style={bigText}>Your support <br />means a lot.</h1>
+                <h1 style={bigText}>Your support means a lot.</h1>
                 <div style={allInvoiceRows}>
                   <div style={invoiceRow}>
                     <h1 style={invoiceText}>Donation</h1>
@@ -504,7 +504,7 @@ function DonatePage() {
                   <h1 style={protectInfoBody}>We never store your credit card information and your payment details are sent over a secure connection.</h1>
                 </div>
               </div>
-              <div className="col-lg-7" id="payment">
+              <div className="col-lg-7 ml-5" id="payment">
                 <div style={cardDetails}>
                   <h1 style={step}>STEP 2</h1>
                   <h1 style={enterDonation}>Enter payment details</h1>
