@@ -278,3 +278,12 @@
     left: 0px;
   }
 }
+/* #Qqs {
+  white-space: normal;
+}
+
+@media (min-width: 650px) {
+  #Qqs {
+    white-space: nowrap;
+  }
+} */
