@@ -23,7 +23,9 @@ function ReceivePage() {
   }
 
   const createUser = async () => {
-    if (userInfo !== undefined) {
+    console.log(userInfo);
+    console.log(typeof userInfo !== 'undefined');
+    if (typeof userInfo !== 'undefined') {
       let info = userInfo["https://example.com/geoip"];
       let location = { latitude: info.latitude, longitude: info.longitude };
       const zip = await geo2zip(location);
@@ -42,7 +44,21 @@ function ReceivePage() {
         },
 
         body: JSON.stringify(data)
-      });
+      }).then(
+        function (response) {
+          if (response.status == 200) {
+            console.log(response);
+            // created the user    
+          } else if (response.status == 400) {
+            console.log(response);
+            // did not create the user
+            // could be that the user already existed
+          } else {
+            console.log(response);
+            // other error
+          }
+        }
+      );
 
       const text = await response.text();
       await console.log(text);
