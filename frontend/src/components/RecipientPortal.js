@@ -16,7 +16,7 @@ function RecipientPortal() {
   useEffect(() => {
     checkIfPhoneNumberAdded();
     checkIsVerified();
-  }, []);
+  }, [user]);
 
   const checkIfPhoneNumberAdded = async () => {
     var data;
@@ -133,7 +133,7 @@ function RecipientPortal() {
         </div>
       )}
 
-      {addedPhoneNumber && isVerified && (
+      {isVerified && (
         <div style={header}>
           <h1 style={thankYou}>Thank you, you are all set!</h1>
           <h1 style={infoBeenAdded}>Once a match is found, you will receive an email with your donation.</h1>
