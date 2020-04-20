@@ -158,6 +158,7 @@ function DonatePage() {
     fontWeight: "600",
     fontSize: "40px",
     lineHeight: "70px",
+    paddingTop: "12px"
   }
 
   const step = {
