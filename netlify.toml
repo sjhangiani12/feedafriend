@@ -1,0 +1,15 @@
+[build]
+  # This is the directory to change to before starting a build.
+  base    = "frontend/"
+  # NOTE: This is where we will look for package.json/.nvmrc/etc, not root.
+  # This is the directory that you are publishing from (relative to root of     your repo)
+  publish = "frontend/"
+  # This will be your default build command
+  # command = "npm run build"
+
+# A basic redirects rule
+[[redirects]]
+  from = "/*"
+  to = "/receive"
+  status = 200
+  force = true
