@@ -17,7 +17,7 @@ function ReceivePage() {
 
   function handleLogInPressed() {
     loginWithRedirect({
-      redirect_uri: 'http://localhost:3000/receive'
+      redirect_uri: 'https://www.care37.org/receive'
     });
     createUser();
   }
@@ -90,7 +90,7 @@ function ReceivePage() {
                 <h1 style={thankYou}>Sign up to be added to our system!</h1>
                 <h4 style={infoBeenAdded}>Once you create an account with us, you will be added to our donation queue and can expect a donation soon!</h4>
                 <div style={last} >
-                  <PrimaryButton onClick={() => loginWithRedirect({})} text="Log In" />
+                  <PrimaryButton onClick={() => handleLogInPressed()} text="Log In" />
                 </div>
               </div>
             )}

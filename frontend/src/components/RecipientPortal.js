@@ -22,6 +22,12 @@ function RecipientPortal() {
     }
   }, [user]);
 
+  function handleLogOutPressed() {
+    logout({
+      returnTo: 'https://www.care37.org/receive'
+    })
+  }
+
   const checkIfPhoneNumberAdded = async () => {
     var data;
     data = {
@@ -160,7 +166,7 @@ function RecipientPortal() {
             <PhoneInput style={phoneInput} defaultCountry="US" placeholder="Phone Number" value={phoneNumber} onChange={setPhoneNumber}></PhoneInput>
             <div style={last} >
               <PrimaryButton text="Submit" onClick={() => submitPhoneNumber()} />
-              <SecondaryButton onClick={() => logout({})} text="Log out" />
+              <SecondaryButton onClick={() => handleLogOutPressed()} text="Log out" />
             </div>
           </div>
         )}
@@ -170,7 +176,7 @@ function RecipientPortal() {
             <h1 style={thankYou}>Thank you for adding your phone number!</h1>
             <h1 style={infoBeenAdded}>We are going to give you a call.</h1>
             <div style={last} >
-              <SecondaryButton onClick={() => logout({})} text="Log out" />
+              <SecondaryButton onClick={() => handleLogOutPressed()} text="Log out" />
             </div>
           </div>
         )}
@@ -180,7 +186,7 @@ function RecipientPortal() {
             <h1 style={thankYou}>Thank you, you are all set!</h1>
             <h1 style={infoBeenAdded}>Once a match is found, you will receive an email with your donation.</h1>
             <div style={last} >
-              <SecondaryButton onClick={() => logout({})} text="Log out" />
+              <SecondaryButton onClick={() => handleLogOutPressed()} text="Log out" />
             </div>
           </div>
         )}
