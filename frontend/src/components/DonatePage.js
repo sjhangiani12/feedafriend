@@ -158,7 +158,7 @@ function DonatePage() {
     fontWeight: "600",
     fontSize: "40px",
     lineHeight: "70px",
-    paddingTop: "12px"
+    paddingTop: "12px",
   }
 
   const step = {
@@ -287,7 +287,7 @@ function DonatePage() {
     fontSize: "14px",
     lineHeight: "16px",
     color: "#4F4F4F",
-    paddingTop: "10px"
+    paddingTop: "10px",
   }
 
   const invoiceRow = {
@@ -426,11 +426,11 @@ function DonatePage() {
         <div className="row justify-content-center" style={{ marginRight: "5%", marginLeft: "10%" }} id="payment">
           {/* if the user selected an amount give them the meals estimate */}
           {(donateAmount == 0) ? (
-            <div className="col-xl-5 col-lg-5 col-sm-12">
+            <div className="col-xl-5 col-lg-5 col-sm-12 text-center">
               <h1 style={bigText}>You are making the world better.</h1>
             </div>
           ) : (
-            <div className='col-xl-5 col-lg-5 col-sm-12'>
+            <div className='col-xl-5 col-lg-5 col-sm-12 text-center'>
                 <h1 style={bigText}>You are donating  around <mark style={numOfMealsNumber}>
                   {donateAmount / 12.5}</mark> meals</h1>
             </div>
@@ -469,8 +469,6 @@ function DonatePage() {
           </div>
         </div>
       </div>
-
-
     </div>
     )
   } else if (!donateNowClicked) {
@@ -519,6 +517,7 @@ function DonatePage() {
                     <div style={nameContainer}>
                       <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e)} placeholder="City" name={"city"} value={city}></input>
                       <SelectSearch
+                        style={paymentFieldInput}
                         key="states"
                         value={state}
                         name={"state"}
