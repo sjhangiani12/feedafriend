@@ -10,21 +10,31 @@ import {
 import { Auth0Provider } from "./contexts/react-auth0-spa";
 import config from "./utils/auth0_config.json";
 import history from "./utils/history";
+import ReactGA from 'react-ga';
 
 import HomePage from './components/HomePage.js';
 import DonatePage from './components/DonatePage.js';
 import FAQ from './components/FAQ.js';
-
 import ReceivePage from './components/ReceivePage.js';
 import AboutPage from './components/AboutPage.js';
 import Footer from './components/Footer.js';
-
 import RecipientPortal from './components/RecipientPortal.js';
 import NavBar from './shared/NavBar.js';
-
 import ConfirmationPage from './components/ConfirmationPage.js';
 
+function initGoogleAnayltics() {
+  ReactGA.initialize('UA-163953067-1');
+  ReactGA.pageview("/");
+  ReactGA.pageview("/donate");
+  ReactGA.pageview("/receive");
+  ReactGA.pageview("/about_us");
+  ReactGA.pageview("/confirmation");
+  ReactGA.pageview("/faq");
+}
+
 function App () {
+
+  initGoogleAnayltics();
 
   return (
     <Router>
