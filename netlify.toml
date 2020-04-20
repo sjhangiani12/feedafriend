@@ -1,6 +1,6 @@
 # A basic redirects rule
 [[redirects]]
   from = "/*"
-  to = "/receive"
+  to = "/index.html"
   status = 200
   force = true
