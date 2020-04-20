@@ -9,6 +9,11 @@ import SelectSearch from 'react-select-search';
 import '../style.css';
 import { useHistory, withRouter } from "react-router-dom";
 import MediaQuery from 'react-responsive';
+import Banner from '.././shared/banner.js';
+import Mode from '.././shared/modal.js';
+
+import Toolbar from '@material-ui/core/Toolbar';
+
 
 function DonatePage() {
 
@@ -51,6 +56,7 @@ function DonatePage() {
     setDonateAmount(amount);
     // they selected a new amount, so remove the error message
     setDisplayAmountMessage(false);
+
   }
 
   // handles when next: to payment info is clicked
@@ -58,6 +64,7 @@ function DonatePage() {
     setNextToPaymentPressed(true);
     // check if the user selected an amount, and sets the display message accordingly
     setDisplayAmountMessage(donateAmount == 0);
+
   }
 
   // handles when the user changes the amount they want to give to us
@@ -156,7 +163,7 @@ function DonatePage() {
   const bigText = {
     fontStyle: "normal",
     fontWeight: "600",
-    fontSize: "40px",
+    fontSize: "2.5rem",
     lineHeight: "70px",
     paddingTop: "12px",
   }
@@ -253,7 +260,6 @@ function DonatePage() {
   }
 
   const invoiceText = {
-    fontFamily: "Abril Tilting",
     fontStyle: "normal",
     fontWeight: "600",
     fontSize: "24px",
@@ -262,7 +268,6 @@ function DonatePage() {
   }
 
   const invoiceSum = {
-    fontFamily: "Abril Tilting",
     fontStyle: "normal",
     fontWeight: "600",
     fontSize: "24px",
@@ -274,7 +279,7 @@ function DonatePage() {
     fontFamily: "Roboto",
     fontStyle: "normal",
     fontWeight: "bold",
-    fontSize: "14px",
+    fontSize: "1.1rem",
     lineHeight: "16px",
     textTransform: "uppercase",
     color: "#000000",
@@ -284,7 +289,7 @@ function DonatePage() {
     fontFamily: "Roboto",
     fontStyle: "normal",
     fontWeight: "300",
-    fontSize: "14px",
+    fontSize: "1.1rem",
     lineHeight: "16px",
     color: "#4F4F4F",
     paddingTop: "10px",
@@ -294,7 +299,7 @@ function DonatePage() {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: "3%",
+    marginBottom: "3%"
   }
 
   const cardDetails = {
@@ -302,13 +307,7 @@ function DonatePage() {
     flexDirection: "column",
   }
 
-  const allInvoiceRows = {
-    marginTop: "10%",
-    marginBottom: "15%",
-  }
-
   const paymentInfoSections = {
-    fontFamily: "Roboto",
     fontStyle: "normal",
     fontWeight: "normal",
     fontSize: "16px",
@@ -317,7 +316,6 @@ function DonatePage() {
   }
 
   const paymentFieldInput = {
-    fontFamily: "Roboto",
     fontStyle: "normal",
     width: "51%",
     fontWeight: "normal",
@@ -335,7 +333,6 @@ function DonatePage() {
     textIndent: "5px",
   }
   const lasty = {
-    fontFamily: "Roboto",
     fontStyle: "normal",
     width: "51%",
     fontWeight: "normal",
@@ -352,14 +349,13 @@ function DonatePage() {
     textIndent: "5px",
   }
   const emailSection = {
-    fontFamily: "Roboto",
     fontStyle: "normal",
     fontWeight: "normal",
     fontSize: "16px",
     lineHeight: "19px",
     fontColor: "#B0B0B0",
     height: "40px",
-    width: "73%",
+    width: "90%",
     background: "transparent",
     borderColor: "#828282",
     borderStyle: "solid",
@@ -419,6 +415,9 @@ function DonatePage() {
     position: "relative"
   }
 
+
+  
+
   // this is step one of the donation process
   if ((!nextToPaymentPressed || donateAmount == 0)) {
     return (<div id ="donator">
@@ -426,12 +425,12 @@ function DonatePage() {
         <div className="row justify-content-center" style={{ marginRight: "5%", marginLeft: "10%" }} id="payment">
           {/* if the user selected an amount give them the meals estimate */}
           {(donateAmount == 0) ? (
-            <div className="col-xl-5 col-lg-5 col-sm-12 text-center">
+            <div className="col-xl-5 col-lg-5 col-sm-12">
               <h1 style={bigText}>You are making the world better.</h1>
             </div>
           ) : (
-            <div className='col-xl-5 col-lg-5 col-sm-12 text-center'>
-                <h1 style={bigText}>You are donating  around <mark style={numOfMealsNumber}>
+            <div className='col-xl-5 col-lg-5 col-sm-12'>
+                <h1 style={bigText}>You're donating  around <mark style={numOfMealsNumber}>
                   {donateAmount / 12.5}</mark> meals</h1>
             </div>
             )}
@@ -463,8 +462,7 @@ function DonatePage() {
           <CurrencyInput onChangeEvent={handleSupportUsAmountChange} style={supportInput} prefix="$" value={supportUsAmount} />
         </div>*/}
           <div>
-                <PrimaryButton onClick={() => handleNextClick(true)} text="Next: Payment information" />
-
+            <PrimaryButton onClick={() => handleNextClick(true)} text="Next: Payment information" />
           </div>
           </div>
         </div>
@@ -472,16 +470,18 @@ function DonatePage() {
     </div>
     )
   } else if (!donateNowClicked) {
-    return (
+    return ( 
 
       // this is the second step,1G user enters payment info
+      <>
+        <div id="donator2">
+          <Banner></Banner>
 
-      <div id="donator">
-        <div className="container-fliud" style={{ width: "100%" }}>
-          <div className="row justify-content-center sm-mx-0" style={{ marginBottom: "10%" }}>
-              <div className="col-lg-4 d-md-none  d-sm-none d-none d-lg-block" id="yourSup">
+          <div className="container-fliud" style={{ width: "100%" }}>
+            <div className="row justify-content-center mx-2" style={{ marginBottom: "10%" }}>
+              <div className="col-lg-6 col-xl-6 col-md-12 col-sm-12 sm-mx-1 pr-5" id="yourSup">
                 <h1 style={bigText}>Your support means a lot.</h1>
-                <div style={allInvoiceRows}>
+                <div id="allInvoice">
                   <div style={invoiceRow}>
                     <h1 style={invoiceText}>Donation</h1>
                     <h1 style={invoiceText}>${donateAmount}</h1>
@@ -492,12 +492,12 @@ function DonatePage() {
                     <h1 style={invoiceSum}>${supportUsAmount + donateAmount}</h1>
                   </div>
                 </div>
-                <div>
+                <div id="protecting">
                   <h1 style={protectInfoHeader}>protecting your information</h1>
                   <h1 style={protectInfoBody}>We never store your credit card information and your payment details are sent over a secure connection.</h1>
                 </div>
               </div>
-              <div className="col-lg-7 ml-5" id="payment">
+              <div className="col-lg-5 col-xl-5 px-0">
                 <div style={cardDetails}>
                   <h1 style={step}>STEP 2</h1>
                   <h1 style={enterDonation}>Enter payment details</h1>
@@ -508,12 +508,12 @@ function DonatePage() {
                     <h1 style={paymentInfoSections}>Your information</h1>
                     <div style={nameContainer}>
                       <input type="text" onChange={(e) => handleChange(e)} style={paymentFieldInput} placeholder="First Name" name={"firstName"} value={firstName}></input>
-                    <input type="text" onChange={(e) => handleChange(e)} style={lasty} placeholder="Last Name" name={"lastName"} value={lastName}></input>
+                      <input type="text" onChange={(e) => handleChange(e)} style={lasty} placeholder="Last Name" name={"lastName"} value={lastName}></input>
                     </div>
                     <input style={emailSection} type="text" onChange={(e) => handleChange(e)} placeholder="Email address" name={"email"} value={email}></input>
                     <h1 style={paymentInfoSections}>Address</h1>
-                  <input style={emailSection} type="text" onChange={(e) => handleChange(e)} placeholder="Address 1" name={"address1"} value={address1}></input>
-                  <input style={emailSection} type="text" onChange={(e) => handleChange(e)} placeholder="Address 2" name={"address2"} value={address2}></input>
+                    <input style={emailSection} type="text" onChange={(e) => handleChange(e)} placeholder="Address 1" name={"address1"} value={address1}></input>
+                    <input style={emailSection} type="text" onChange={(e) => handleChange(e)} placeholder="Address 2" name={"address2"} value={address2}></input>
                     <div style={nameContainer}>
                       <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e)} placeholder="City" name={"city"} value={city}></input>
                       <SelectSearch
@@ -527,284 +527,40 @@ function DonatePage() {
                         search
                       />
                     </div>
-                  <div style={nameContainer}>
-                    <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e)} placeholder="Zip code" name={"zipcode"} value={zipcode}></input>
+                    <div style={nameContainer}>
+                      <input style={paymentFieldInput} type="text" onChange={(e) => handleChange(e)} placeholder="Zip code" name={"zipcode"} value={zipcode}></input>
 
-                  </div>
+                    </div>
                   </div>
                   <h1 style={paymentInfoSections}>Payment information</h1>
                   <CreditCardInput fieldStyle={creditCardField} inputStyle={creditCardInput}
+                    containerStyle={{ height: "100%" }}
                     cardNumberInputProps={{ value: cardNumber, onChange: e => handleCardNumberChange(e.target.value) }}
                     cardExpiryInputProps={{ value: exp, onChange: e => handleCardExpiryChange(e.target.value) }}
                     cardCVCInputProps={{ value: cvc, onChange: e => handleCardCVCChange(e.target.value) }}
                   />
-                  <div style={buttonContainer}>
+                  <div>
                     <SecondaryButton onClick={() => handleBackClick()} text="Back" />
-                    <PrimaryButton text="Pay Now" onClick={() => handleDonateClick()} />
+                    <a href="/"><PrimaryButton text="Pay Now" onClick={() => handleDonateClick()} /></a>
                   </div>
                   <h1 style={protectInfoBody}>By continuing, you are agreeing with CARE 37 terms and praivacy policy.</h1>
                 </div>
               </div>
+            </div>
           </div>
         </div>
-      </div>
-    )
-  } else if (donateNowClicked) {
-    return (
-      <ConfirmationPage formVals={formValues} cardNum={cardNumber} exp={exp} cvc={cvc} amount={donateAmount} handleBackToPaymentInfo={() => handleBackFromConfirmation()}></ConfirmationPage>
+      </>
+
     )
   }
+  // } else if (donateNowClicked) {
+  //   return (
+  //     <ConfirmationPage formVals={formValues} cardNum={cardNumber} exp={exp} cvc={cvc} amount={donateAmount} handleBackToPaymentInfo={() => handleBackFromConfirmation()}></ConfirmationPage>
+  //   )
+  // }
 }
 
-const countries = [
-  { name: "Andorra", value: "Andorra" },
-  { name: "United Arab Emirates", value: "United Arab Emirates" },
-  { name: "Afghanistan", value: "Afghanistan" },
-  { name: "Antigua and Barbuda", value: "Antigua and Barbuda" },
-  { name: "Anguilla", value: "Anguilla" },
-  { name: "Albania", value: "Albania" },
-  { name: "Armenia", value: "Armenia" },
-  { name: "Angola", value: "Angola" },
-  { name: "Antarctica", value: "Antarctica" },
-  { name: "Argentina", value: "Argentina" },
-  { name: "American Samoa", value: "American Samoa" },
-  { name: "Austria", value: "Austria" },
-  { name: "Australia", value: "Australia" },
-  { name: "Aruba", value: "Aruba" },
-  { name: "Åland Islands", value: "Åland Islands" },
-  { name: "Azerbaijan", value: "Azerbaijan" },
-  { name: "Bosnia and Herzegovina", value: "Bosnia and Herzegovina" },
-  { name: "Barbados", value: "Barbados" },
-  { name: "Bangladesh", value: "Bangladesh" },
-  { name: "Belgium", value: "Belgium" },
-  { name: "Burkina Faso", value: "Burkina Faso" },
-  { name: "Bulgaria", value: "Bulgaria" },
-  { name: "Bahrain", value: "Bahrain" },
-  { name: "Burundi", value: "Burundi" },
-  { name: "Benin", value: "Benin" },
-  { name: "Saint Barthélemy", value: "Saint Barthélemy" },
-  { name: "Bermuda", value: "Bermuda" },
-  { name: "Brunei Darussalam", value: "Brunei Darussalam" },
-  { name: "Bolivia, Plurinational State of", value: "Bolivia, Plurinational State of" },
-  { name: "Bonaire, Sint Eustatius and Saba", value: "Bonaire, Sint Eustatius and Saba" },
-  { name: "Brazil", value: "Brazil" },
-  { name: "Bahamas", value: "Bahamas" },
-  { name: "Bhutan", value: "Bhutan" },
-  { name: "Bouvet Island", value: "Bouvet Island" },
-  { name: "Botswana", value: "Botswana" },
-  { name: "Belarus", value: "Belarus" },
-  { name: "Belize", value: "Belize" },
-  { name: "Canada", value: "Canada" },
-  { name: "Cocos (Keeling) Islands", value: "Cocos (Keeling) Islands" },
-  { name: "Congo, Democratic Republic of the", value: "Congo, Democratic Republic of the" },
-  { name: "Central African Republic", value: "Central African Republic" },
-  { name: "Congo", value: "Congo" },
-  { name: "Switzerland", value: "Switzerland" },
-  { name: "Côte d'Ivoire", value: "Côte d'Ivoire" },
-  { name: "Cook Islands", value: "Cook Islands" },
-  { name: "Chile", value: "Chile" },
-  { name: "Cameroon", value: "Cameroon" },
-  { name: "China", value: "China" },
-  { name: "Colombia", value: "Colombia" },
-  { name: "Costa Rica", value: "Costa Rica" },
-  { name: "Cuba", value: "Cuba" },
-  { name: "Cabo Verde", value: "Cabo Verde" },
-  { name: "Curaçao", value: "Curaçao" },
-  { name: "Christmas Island", value: "Christmas Island" },
-  { name: "Cyprus", value: "Cyprus" },
-  { name: "Czechia", value: "Czechia" },
-  { name: "Germany", value: "Germany" },
-  { name: "Djibouti", value: "Djibouti" },
-  { name: "Denmark", value: "Denmark" },
-  { name: "Dominica", value: "Dominica" },
-  { name: "Dominican Republic", value: "Dominican Republic" },
-  { name: "Algeria", value: "Algeria" },
-  { name: "Ecuador", value: "Ecuador" },
-  { name: "Estonia", value: "Estonia" },
-  { name: "Egypt", value: "Egypt" },
-  { name: "Western Sahara", value: "Western Sahara" },
-  { name: "Eritrea", value: "Eritrea" },
-  { name: "Spain", value: "Spain" },
-  { name: "Ethiopia", value: "Ethiopia" },
-  { name: "Finland", value: "Finland" },
-  { name: "Fiji", value: "Fiji" },
-  { name: "Falkland Islands (Malvinas)", value: "Falkland Islands (Malvinas)" },
-  { name: "Micronesia, Federated States of", value: "Micronesia, Federated States of" },
-  { name: "Faroe Islands", value: "Faroe Islands" },
-  { name: "France", value: "France" },
-  { name: "Gabon", value: "Gabon" },
-  { name: "United Kingdom of Great Britain and Northern Ireland", value: "United Kingdom of Great Britain and Northern Ireland" },
-  { name: "Grenada", value: "Grenada" },
-  { name: "Georgia", value: "Georgia" },
-  { name: "French Guiana", value: "French Guiana" },
-  { name: "Guernsey", value: "Guernsey" },
-  { name: "Ghana", value: "Ghana" },
-  { name: "Gibraltar", value: "Gibraltar" },
-  { name: "Greenland", value: "Greenland" },
-  { name: "Gambia", value: "Gambia" },
-  { name: "Guinea", value: "Guinea" },
-  { name: "Guadeloupe", value: "Guadeloupe" },
-  { name: "Equatorial Guinea", value: "Equatorial Guinea" },
-  { name: "Greece", value: "Greece" },
-  { name: "South Georgia and the South Sandwich Islands", value: "South Georgia and the South Sandwich Islands" },
-  { name: "Guatemala", value: "Guatemala" },
-  { name: "Guam", value: "Guam" },
-  { name: "Guinea-Bissau", value: "Guinea-Bissau" },
-  { name: "Guyana", value: "Guyana" },
-  { name: "Hong Kong", value: "Hong Kong" },
-  { name: "Heard Island and McDonald Islands", value: "Heard Island and McDonald Islands" },
-  { name: "Honduras", value: "Honduras" },
-  { name: "Croatia", value: "Croatia" },
-  { name: "Haiti", value: "Haiti" },
-  { name: "Hungary", value: "Hungary" },
-  { name: "Indonesia", value: "Indonesia" },
-  { name: "Ireland", value: "Ireland" },
-  { name: "Israel", value: "Israel" },
-  { name: "Isle of Man", value: "Isle of Man" },
-  { name: "India", value: "India" },
-  { name: "British Indian Ocean Territory", value: "British Indian Ocean Territory" },
-  { name: "Iraq", value: "Iraq" },
-  { name: "Iran, Islamic Republic of", value: "Iran, Islamic Republic of" },
-  { name: "Iceland", value: "Iceland" },
-  { name: "Italy", value: "Italy" },
-  { name: "Jersey", value: "Jersey" },
-  { name: "Jamaica", value: "Jamaica" },
-  { name: "Jordan", value: "Jordan" },
-  { name: "Japan", value: "Japan" },
-  { name: "Kenya", value: "Kenya" },
-  { name: "Kyrgyzstan", value: "Kyrgyzstan" },
-  { name: "Cambodia", value: "Cambodia" },
-  { name: "Kiribati", value: "Kiribati" },
-  { name: "Comoros", value: "Comoros" },
-  { name: "Saint Kitts and Nevis", value: "Saint Kitts and Nevis" },
-  { name: "Korea, Democratic People's Republic of", value: "Korea, Democratic People's Republic of" },
-  { name: "Korea, Republic of", value: "Korea, Republic of" },
-  { name: "Kuwait", value: "Kuwait" },
-  { name: "Cayman Islands", value: "Cayman Islands" },
-  { name: "Kazakhstan", value: "Kazakhstan" },
-  { name: "Lao People's Democratic Republic", value: "Lao People's Democratic Republic" },
-  { name: "Lebanon", value: "Lebanon" },
-  { name: "Saint Lucia", value: "Saint Lucia" },
-  { name: "Liechtenstein", value: "Liechtenstein" },
-  { name: "Sri Lanka", value: "Sri Lanka" },
-  { name: "Liberia", value: "Liberia" },
-  { name: "Lesotho", value: "Lesotho" },
-  { name: "Lithuania", value: "Lithuania" },
-  { name: "Luxembourg", value: "Luxembourg" },
-  { name: "Latvia", value: "Latvia" },
-  { name: "Libya", value: "Libya" },
-  { name: "Morocco", value: "Morocco" },
-  { name: "Monaco", value: "Monaco" },
-  { name: "Moldova, Republic of", value: "Moldova, Republic of" },
-  { name: "Montenegro", value: "Montenegro" },
-  { name: "Saint Martin, (French part)", value: "Saint Martin, (French part)" },
-  { name: "Madagascar", value: "Madagascar" },
-  { name: "Marshall Islands", value: "Marshall Islands" },
-  { name: "North Macedonia", value: "North Macedonia" },
-  { name: "Mali", value: "Mali" },
-  { name: "Myanmar", value: "Myanmar" },
-  { name: "Mongolia", value: "Mongolia" },
-  { name: "Macao", value: "Macao" },
-  { name: "Northern Mariana Islands", value: "Northern Mariana Islands" },
-  { name: "Martinique", value: "Martinique" },
-  { name: "Mauritania", value: "Mauritania" },
-  { name: "Montserrat", value: "Montserrat" },
-  { name: "Malta", value: "Malta" },
-  { name: "Mauritius", value: "Mauritius" },
-  { name: "Maldives", value: "Maldives" },
-  { name: "Malawi", value: "Malawi" },
-  { name: "Mexico", value: "Mexico" },
-  { name: "Malaysia", value: "Malaysia" },
-  { name: "Mozambique", value: "Mozambique" },
-  { name: "Namibia", value: "Namibia" },
-  { name: "New Caledonia", value: "New Caledonia" },
-  { name: "Niger", value: "Niger" },
-  { name: "Norfolk Island", value: "Norfolk Island" },
-  { name: "Nigeria", value: "Nigeria" },
-  { name: "Nicaragua", value: "Nicaragua" },
-  { name: "Netherlands", value: "Netherlands" },
-  { name: "Norway", value: "Norway" },
-  { name: "Nepal", value: "Nepal" },
-  { name: "Nauru", value: "Nauru" },
-  { name: "Niue", value: "Niue" },
-  { name: "New Zealand", value: "New Zealand" },
-  { name: "Oman", value: "Oman" },
-  { name: "Panama", value: "Panama" },
-  { name: "Peru", value: "Peru" },
-  { name: "French Polynesia", value: "French Polynesia" },
-  { name: "Papua New Guinea", value: "Papua New Guinea" },
-  { name: "Philippines", value: "Philippines" },
-  { name: "Pakistan", value: "Pakistan" },
-  { name: "Poland", value: "Poland" },
-  { name: "Saint Pierre and Miquelon", value: "Saint Pierre and Miquelon" },
-  { name: "Pitcairn", value: "Pitcairn" },
-  { name: "Puerto Rico", value: "Puerto Rico" },
-  { name: "Palestine, State of", value: "Palestine, State of" },
-  { name: "Portugal", value: "Portugal" },
-  { name: "Palau", value: "Palau" },
-  { name: "Paraguay", value: "Paraguay" },
-  { name: "Qatar", value: "Qatar" },
-  { name: "Réunion", value: "Réunion" },
-  { name: "Romania", value: "Romania" },
-  { name: "Serbia", value: "Serbia" },
-  { name: "Russian Federation", value: "Russian Federation" },
-  { name: "Rwanda", value: "Rwanda" },
-  { name: "Saudi Arabia", value: "Saudi Arabia" },
-  { name: "Solomon Islands", value: "Solomon Islands" },
-  { name: "Seychelles", value: "Seychelles" },
-  { name: "Sudan", value: "Sudan" },
-  { name: "Sweden", value: "Sweden" },
-  { name: "Singapore", value: "Singapore" },
-  { name: "Saint Helena, Ascension and Tristan da Cunha", value: "Saint Helena, Ascension and Tristan da Cunha" },
-  { name: "Slovenia", value: "Slovenia" },
-  { name: "Svalbard and Jan Mayen", value: "Svalbard and Jan Mayen" },
-  { name: "Slovakia", value: "Slovakia" },
-  { name: "Sierra Leone", value: "Sierra Leone" },
-  { name: "San Marino", value: "San Marino" },
-  { name: "Senegal", value: "Senegal" },
-  { name: "Somalia", value: "Somalia" },
-  { name: "South Sudan", value: "South Sudan" },
-  { name: "Sao Tome and Principe", value: "Sao Tome and Principe" },
-  { name: "El Salvador", value: "El Salvador" },
-  { name: "Sint Maarten, (Dutch part)", value: "Sint Maarten, (Dutch part)" },
-  { name: "Syrian Arab Republic", value: "Syrian Arab Republic" },
-  { name: "Eswatini", value: "Eswatini" },
-  { name: "Turks and Caicos Islands", value: "Turks and Caicos Islands" },
-  { name: "Chad", value: "Chad" },
-  { name: "French Southern Territories", value: "French Southern Territories" },
-  { name: "Togo", value: "Togo" },
-  { name: "Thailand", value: "Thailand" },
-  { name: "Tajikistan", value: "Tajikistan" },
-  { name: "Tokelau", value: "Tokelau" },
-  { name: "Timor-Leste", value: "Timor-Leste" },
-  { name: "Turkmenistan", value: "Turkmenistan" },
-  { name: "Tunisia", value: "Tunisia" },
-  { name: "Tonga", value: "Tonga" },
-  { name: "Turkey", value: "Turkey" },
-  { name: "Trinidad and Tobago", value: "Trinidad and Tobago" },
-  { name: "Tuvalu", value: "Tuvalu" },
-  { name: "Taiwan, Province of China", value: "Taiwan, Province of China" },
-  { name: "Tanzania, United Republic of", value: "Tanzania, United Republic of" },
-  { name: "Ukraine", value: "Ukraine" },
-  { name: "Uganda", value: "Uganda" },
-  { name: "United States Minor Outlying Islands", value: "United States Minor Outlying Islands" },
-  { name: "United States of America", value: "United States of America" },
-  { name: "Uruguay", value: "Uruguay" },
-  { name: "Uzbekistan", value: "Uzbekistan" },
-  { name: "Holy See", value: "Holy See" },
-  { name: "Saint Vincent and the Grenadines", value: "Saint Vincent and the Grenadines" },
-  { name: "Venezuela, Bolivarian Republic of", value: "Venezuela, Bolivarian Republic of" },
-  { name: "Virgin Islands, British", value: "Virgin Islands, British" },
-  { name: "Virgin Islands, U.S.", value: "Virgin Islands, U.S." },
-  { name: "Viet Nam", value: "Viet Nam" },
-  { name: "Vanuatu", value: "Vanuatu" },
-  { name: "Wallis and Futuna", value: "Wallis and Futuna" },
-  { name: "Samoa", value: "Samoa" },
-  { name: "Yemen", value: "Yemen" },
-  { name: "Mayotte", value: "Mayotte" },
-  { name: "South Africa", value: "South Africa" },
-  { name: "Zambia", value: "Zambia" }
-]
+
 
 const states = [
   { name: "Alaska", value: "Alaska" },

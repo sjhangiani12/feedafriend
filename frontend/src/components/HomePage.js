@@ -15,7 +15,6 @@ import big from "../static/value.png";
 import MediaQuery from 'react-responsive';
 import { ButtonToolbar, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
-
 const header = {
   display: "flex",
   flexWrap: "wrap",
@@ -56,7 +55,6 @@ const whyTheseAmountsText = {
 
 
 function HomePage () {
-
 
   const { loading, isAuthenticated, loginWithRedirect, logout, user, text } = useAuth0();
 

@@ -235,18 +235,17 @@
     margin-top: 15%;
 }
 
+#donator2 {
+    position: relative;
+    justify-content: center;
+    display: flex;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 240px;
+}
 
 /*
-#donator2 {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    align-items: center;
-    justify-content: center;
-    margin-top: 15%;
-    margin-right: 5%;
-    margin-left: 20%;
-}
+
 @media screen and (min-width: 700px) {
     #donator2 {
         flex-direction: row;
@@ -273,7 +272,8 @@
   #donator {
     margin-top: 120px;
     margin-left: 0px;
-    margin-right: 0px
+    margin-right: 0px;
+    height: 100vh
   }
   #enterpmt {
     left: 0px;
@@ -299,4 +299,70 @@
     display: flex;
     flex: wrap;
   }
+
 }
+
+@media (max-width: 591px) {
+  #field-wrapper {
+    height: 10vh;
+  }
+}
+@media (max-width: 591px) {
+  #field-wrapper {
+    height: 10vh;
+  }
+}
+
+#field-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 75%;
+  height: 9vh;
+}
+
+@media (min-width: 940px) {
+  #field-wrapper {
+  width: 100%;
+  height: 10vh
+  }
+  #allInvoice {
+    margin-top: 10%;
+    margin-bottom: 15%;
+  }
+}
+@media (min-width: 1075px) {
+  #field-wrapper {
+    height: 5vh;
+  }
+}
+
+#allInvoice {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+@media (min-width: 0px) {
+  #allInvoice {
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+}
+
+#protecting {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+@media (min-width: 0px) {
+  #protecting {
+    margin-top: 5%;
+    margin-bottom: 8%;
+  }
+}
+#ban {
+  height: 90px;
+}
+@media (max-width: 1072px) {
+  #ban {
+    height: 300px;
+  }
+}
+
