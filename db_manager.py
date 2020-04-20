@@ -84,7 +84,11 @@ def not_existing_user(email):
     finally:
         if conn is not None:
             conn.close()
-    return email not in all_emails
+            
+    for existing_email in all_emails:
+        if email == existing_email[0]:
+            return False
+    return True
     
 
 
