@@ -171,7 +171,6 @@ function DonatePage() {
 
   const enterDonation = {
     diaply: "block",
-    whiteSpace: "nowrap",
     fontStyle: "normal",
     fontWeight: "600",
     fontSize: "36px",
@@ -218,11 +217,6 @@ function DonatePage() {
     paddingBottom: "40px",
   }
 
-  const buttonToolbar = {
-    display: "block",
-    whiteSpace: "nowrap",
-    paddingBottom: "20px",
-  }
 
   const supportInput = {
     width: "60px",
@@ -432,18 +426,18 @@ function DonatePage() {
           {/* if the user selected an amount give them the meals estimate */}
           {(donateAmount == 0) ? (
             <div className="col-xl-5 col-lg-5 col-sm-12">
-              <h1 style={bigText}>You are making the <br /> world better.</h1>
+              <h1 style={bigText}>You are making the world better.</h1>
             </div>
           ) : (
             <div className='col-xl-5 col-lg-5 col-sm-12'>
-                <h1 style={bigText}>You are donating <br /> around <mark style={numOfMealsNumber}>
+                <h1 style={bigText}>You are donating  around <mark style={numOfMealsNumber}>
                   {donateAmount / 12.5}</mark> meals</h1>
             </div>
             )}
           <div className='col-xl-6 col-lg-6 col-sm-12 ml-xl-2' >
             <h1 style={step}>STEP 1</h1>
             <h1 style={enterDonation}>Enter donation amount</h1>
-            <ButtonToolbar style={buttonToolbar}>
+            <ButtonToolbar id="buttonToolbar" className="col-xl-12 col-xs-2">
               <Button onClick={() => handleAmountClick(25)} style={amountButton}>$25</Button>
               <Button onClick={() => handleAmountClick(50)} style={amountButton}>$50</Button>
               <Button onClick={() => handleAmountClick(100)} style={amountButton}>$100</Button>

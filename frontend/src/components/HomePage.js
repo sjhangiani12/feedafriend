@@ -31,7 +31,7 @@ const header2 = {
 }
 const root = {
   position: "relative",
-  marginTop: "10%",
+  marginTop: "120px",
   // left: "20%",
   // width: "70%"
   marginLeft: "40px",
@@ -131,7 +131,7 @@ function HomePage () {
                 <Link to="/donate" style={{ marginRight: "20px" }}><PrimaryButton text="Donate" /></Link>
               </div>
             </div>
-            <img style={{ marginTop: "10%", marginRight: "5%"}} src={banner} alt="header image" />
+            <img style={{ width: "100%", marginTop: "10%", marginRight: "5%"}} src={banner} alt="header image" />
           </div>
         </MediaQuery>
       </div>

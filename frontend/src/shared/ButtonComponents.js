@@ -9,7 +9,6 @@ export function PrimaryButton (props) {
     color: "white",
     fontFamily: "sans-serif",
     fontSize: "18px",
-    whiteSpace: "nowrap",
     overflow: "hidden"
   }
 

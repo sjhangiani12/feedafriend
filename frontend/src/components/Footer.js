@@ -30,7 +30,7 @@ function Footer() {
 
   return (
     <div className={classes.root} positive="static">
-      <section className=" mt-4" style={{ " background-color": "#f1f1ff" }}>
+      <section className=" pt-4" style={{ " background-color": "#f1f1ff" }}>
         <footer className="container">
           <div className="row pt-4">
             <div className="col-12 col-md-4 pb-4">

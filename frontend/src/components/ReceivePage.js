@@ -138,7 +138,7 @@ const last = {
   },
   display: "flex",
   flexDirection: "column",
-  width: "100px",
+  width: "200px",
   marginTop: "5%"
 }
 

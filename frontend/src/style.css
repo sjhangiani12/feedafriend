@@ -271,6 +271,7 @@
     margin-left: 0px;
   }
   #donator {
+    margin-top: 120px;
     margin-left: 0px;
     margin-right: 0px
   }
@@ -287,3 +288,15 @@
     white-space: nowrap;
   }
 } */
+#buttonToolbar {
+    display: block;
+    white-space: nowrap;
+    padding-bottom: 20px;
+}
+
+@media (max-width: 515px) {
+  #buttonToolbar {
+    display: flex;
+    flex: wrap;
+  }
+}
