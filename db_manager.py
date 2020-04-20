@@ -62,7 +62,30 @@ def update_donations_email(tid, recipient_email_sent_check, donor_email_sent_che
             conn.close()
 
     return "Donations Table Email Fields Updated " + str(tid)
-    # TODO need to add last donation date to schema to get a more accurate burn rate adjusted amount
+
+
+def not_existing_user(email):
+    conn = None
+    vendor_id = None
+    try:
+        # read database configuration
+        params = config()
+        # connect to the PostgreSQL database
+        conn = psycopg2.connect(**params)
+        # create a new cursor
+        cur = conn.cursor()
+        # get all the entries in the recipients table
+        cur.execute(
+            "SELECT email FROM recipients ORDER BY date_created")
+        all_emails = cur.fetchall()
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+    return email not in all_emails
+    
 
 
 def update_user_entry(recipientProfile, dollars):

@@ -17,6 +17,7 @@ from db_manager import insert_donation
 from db_manager import add_phone_number
 from db_manager import get_phone_number 
 from db_manager import get_is_verified
+from db_manager import not_existing_user
 from send_email import send_donor_order_confirmation
 from send_email import send_reicipient_welcome_email
 from send_email import send_recipient_order_confirmation
@@ -117,10 +118,12 @@ def createUser():
     # check if they put a bio
     if not has_args(request.json, ['bio']):
         request.json['bio'] = ""
-    template = env.get_template('recipient_intro.html')
-    html = template.render(recipient_name=request.json["first_name"])
-    # send confirm email to donor
-    email = send_reicipient_welcome_email(recipient_email=request.json["email"], bodyContent=html)
+    email = False
+    if not_existing_user(request.json['email']):
+        template = env.get_template('recipient_intro.html')
+        html = template.render(recipient_name=request.json["first_name"])
+        # send confirm email to donor
+        email = send_reicipient_welcome_email(recipient_email=request.json["email"], bodyContent=html)
     # insert that bish in the db, naaaah what im sayin
     response = insert_user(request.json['email'], request.json['first_name'], request.json['last_name'],
                            request.json['bio'], request.json['zip_code'], email)
@@ -157,7 +160,6 @@ def makeDonation():
                                             exp_date=request.json['exp_date'], 
                                             cvc=request.json['cvc'])
         if purchase_status['status'] == True:
-
              # render template for donor:
             d2 = date.today().strftime("%B %d, %Y")
             template = env.get_template('billing.html')
