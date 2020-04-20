@@ -478,7 +478,7 @@ function DonatePage() {
 
       <div id="donator">
         <div className="container-fliud" style={{ width: "100%" }}>
-          <div className="row justify-content-center" style={{ marginRight: "5%", marginLeft: "10%" }}>
+          <div className="row justify-content-center" style={{ marginRight: "5%", marginLeft: "10%", marginBottom: "10%" }}>
               <div className="col-lg-4 d-md-none  d-sm-none d-none d-lg-block" id="yourSup">
                 <h1 style={bigText}>Your support means a lot.</h1>
                 <div style={allInvoiceRows}>
