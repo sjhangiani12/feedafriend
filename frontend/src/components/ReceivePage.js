@@ -138,7 +138,6 @@ const last = {
   },
   display: "flex",
   flexDirection: "column",
-  width: "200px",
   marginTop: "5%"
 }
 
@@ -149,7 +148,7 @@ const loginButton = {
 const mobileRow = {
   position: "absolute",
   top: "15%",
-  padding: "5%",
+  margin: "2%",
   tesstAlign: "center"
 }
 const signUpMessage = {
