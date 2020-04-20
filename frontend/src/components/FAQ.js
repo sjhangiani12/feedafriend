@@ -118,7 +118,7 @@ function FAQ () {
 
   return (
   
-    <div style={{ marginTop: "120px"}}>
+    <div style={{ marginTop: "120px", marginLeft: "5%", marginRight:" 5%"}}>
       < div className="row mx-5" style={{ alignItems: "center", justifyContent: "center" }} >
         <div style={{ marginBottom: "5%" }}>
           <h1>Frequently Asked Questions (FAQ)</h1>
