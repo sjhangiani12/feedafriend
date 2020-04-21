@@ -302,12 +302,7 @@
 
 }
 
-@media (max-width: 591px) {
-  #field-wrapper {
-    height: 10vh;
-  }
-}
-@media (max-width: 591px) {
+@media (min-width: 591px) {
   #field-wrapper {
     height: 10vh;
   }
@@ -317,13 +312,30 @@
   display: flex;
   flex-wrap: wrap;
   width: 75%;
-  height: 9vh;
 }
-
-@media (min-width: 940px) {
+@media (min-width: 340px) {
   #field-wrapper {
   width: 100%;
-  height: 10vh
+  height: 13vh
+  } 
+}
+@media (min-width: 363px) {
+  #field-wrapper {
+  width: 100%;
+  height: 9vh
+  } 
+}
+@media (min-width: 504px) {
+  #field-wrapper {
+  width: 100%;
+  height: 5vh
+  }
+}
+
+@media (min-width: 992px) {
+  #field-wrapper {
+  width: 100%;
+  height: 9vh
   }
   #allInvoice {
     margin-top: 10%;
