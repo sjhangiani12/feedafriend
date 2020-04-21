@@ -62,18 +62,28 @@ function ReceivePage() {
     }
   }
   const bigText = {
+    marginTop: "12px",  
     fontStyle: "normal",
     fontWeight: "600",
     fontSize: "2.5rem",
     paddingTop: "12px",
   }
   const step = {
+    marginTop: "5%",
     fontFamily: "Roboto", 
     fontStyle: "normal",
     fontWeight: "bold",
     fontSize: "18px",
     color: "#828282",
   }
+  const step1 = {
+    fontFamily: "Roboto",
+    fontStyle: "normal",
+    fontWeight: "bold",
+    fontSize: "18px",
+    color: "#828282",
+  }
+
 
   const enterDonation = {
     diaply: "block",
@@ -86,29 +96,34 @@ function ReceivePage() {
 
   return (
     <>
-      <div style={{marginTop: "90px", height: "100vh"}}>
+      <div style={{marginTop: "15%", height: "100vh"}}>
         <div >
 
           { !isAuthenticated && (
             
             <div className="container-fliud px-2" style={{ width: "100%" }}>
               <div className="row justify-content-center" style={{ marginRight: "5%", marginLeft: "10%" }}>
-                <div className="col-xl-5 col-lg-5 col-sm-12 pb-4">
+                <div className="col-xl-5 col-lg-5 col-sm-12  pb-4">
                   <h1 style={bigText}>In need of a meal?</h1>
                 </div>
-                <div className='col-xl-6 col-lg-6 col-sm-12 ml-xl-2' >
-                  <h1 style={step}>STEP 1</h1>
-                  <span style={{ fontSize: "2.2vmax", width: "100%", marginTop: "5%" }} align="left">Create an account with an email.</span>
-                </div>
-                <div className='col-xl-6 col-lg-6 col-sm-12 ml-xl-2' >
-                  <h1 style={step}>STEP 2</h1>
-                  <span style={{ fontSize: "2.2vmax", width: "100%", marginTop: "5%" }} align="left"> Enter your phone number and tell us what you're going through.</span>
-                </div>
-                <div >
-                  <PrimaryButton onClick={() => handleLogInPressed()} text="Log In" />
+                <div className='col-xl-6 col-lg-6 col-sm-12 ml-xl-2'>
+                  <div>
+                    <h1 style={step1}>STEP 1</h1>
+                    <span style={{ fontSize: "2.2vmax", width: "100%" }} align="left">Create an account with an email.</span>
+                  </div>
+                  <div >
+                    <h1 style={step}>STEP 2</h1>
+                    <span style={{ color: "#919191", fontSize: "2.2vmax", width: "100%"}} align="left"> Enter your phone number and tell us what you're going through.</span>
+                  </div>
+                  <div >
+                    <h1 style={step}>STEP 3</h1>
+                    <span style={{ color: "#919191", fontSize: "2.2vmax", width: "100%" }} align="left"> Recieve donated DoorDash credits!</span>
+                  </div>
+                  <div style={{ color: "#919191", display: "flex", alginItems: "center", marginTop: "2%", justifyContent: "center"}}>
+                    <PrimaryButton onClick={() => handleLogInPressed()} text="Log In" />
+                  </div>
                 </div>
               </div>   
-
             {/* <div className="container">
               <div style={{display: "flex", flexDirection: "column"}}>
                 <a style={{fontSize: "2rem", fontWeight: "600"}}>Sign up to be added to our system!</a>
@@ -118,10 +133,9 @@ function ReceivePage() {
             </div> */}
           </div>
           )}
-
-          {isAuthenticated &&
+          {isAuthenticated && (
             <RecipientPortal />
-          }
+          )}
         </div>
       </div>
       {/* <MediaQuery minDeviceWidth={700} >

@@ -160,33 +160,88 @@ function RecipientPortal() {
     return (
       <div style={header}>
         {!addedPhoneNumber && !isVerified && (
-          <div style={header}>
-            <h1 style={thankYou}>Thank you for signing up to be a recipient!</h1>
-            <h1 style={infoBeenAdded}>Please enter a phone number so we can call and verify you.</h1>
-            <PhoneInput style={phoneInput} defaultCountry="US" placeholder="Phone Number" value={phoneNumber} onChange={setPhoneNumber}></PhoneInput>
-            <div style={last} >
-              <PrimaryButton text="Submit" onClick={() => submitPhoneNumber()} />
-              <SecondaryButton onClick={() => handleLogOutPressed()} text="Log out" />
+          <div className="container-fliud px-2" style={{ width: "100%" }}>
+            <div className="row justify-content-center" style={{ marginRight: "5%", marginLeft: "10%" }}>
+              <div className="col-xl-5 col-lg-5 col-sm-12  pb-4">
+                <h1 style={bigText}>Thank you for signing up to be a recipient!</h1>
+                <h1 style={infoBeenAdded}>Please enter a phone number so we can call and verify you.</h1>
+              </div>
+              <div className='col-xl-6 col-lg-6 col-sm-12 ml-xl-2'>
+                <div>
+                  <h1 style={step1}>STEP 1</h1>
+                  <span style={{ color: "#919191", fontSize: "2.2vmax", width: "100%" }} align="left">Create an account with an email.</span>
+                </div>
+                <div >
+                  <h1 style={step}>STEP 2</h1>
+                  <span style={{fontSize: "2.2vmax", width: "100%" }} align="left"> Enter your phone number and tell us what you're going through.</span>
+                </div>
+                <div >
+                  <h1 style={step}>STEP 3</h1>
+                  <span style={{ color: "#919191", fontSize: "2.2vmax", width: "100%" }} align="left"> Recieve donated DoorDash credits!</span>
+                </div>
+                <div style={last} >
+                  <PrimaryButton text="Submit" onClick={() => submitPhoneNumber()} />
+                  <SecondaryButton onClick={() => handleLogOutPressed()} text="Log out" />
+                </div>
+              </div>
             </div>
           </div>
         )}
 
         {addedPhoneNumber && !isVerified && (
-          <div style={header}>
-            <h1 style={thankYou}>Thank you for adding your phone number!</h1>
-            <h1 style={infoBeenAdded}>We are going to give you a call.</h1>
-            <div style={last} >
-              <SecondaryButton onClick={() => handleLogOutPressed()} text="Log out" />
+          <div className="container-fliud px-2" style={{ width: "100%" }}>
+            <div className="row justify-content-center" style={{ marginRight: "5%", marginLeft: "10%" }}>
+              <div className="col-xl-5 col-lg-5 col-sm-12  pb-4">
+                <h1 style={bigText}>Thank you for adding your phone number!</h1>
+                <h1 style={infoBeenAdded}>We are going to give you a call.</h1>
+              </div>
+              <div className='col-xl-6 col-lg-6 col-sm-12 ml-xl-2'>
+                <div>
+                  <h1 style={step1}>STEP 1</h1>
+                  <span style={{ color: "#919191", fontSize: "2.2vmax", width: "100%" }} align="left">Create an account with an email.</span>
+                </div>
+                <div >
+                  <h1 style={step}>STEP 2</h1>
+                  <span style={{ fontSize: "2.2vmax", width: "100%" }} align="left"> Enter your phone number and tell us what you're going through.</span>
+                </div>
+                <div >
+                  <h1 style={step}>STEP 3</h1>
+                  <span style={{ color: "#919191", fontSize: "2.2vmax", width: "100%" }} align="left"> Recieve donated DoorDash credits!</span>
+                </div>
+                <div style={last} >
+                  <SecondaryButton onClick={() => handleLogOutPressed()} text="Log out" />
+                </div>
+              </div>
             </div>
           </div>
+
         )}
 
         {isVerified && addedPhoneNumber && (
-          <div style={header}>
-            <h1 style={thankYou}>Thank you, you are all set!</h1>
-            <h1 style={infoBeenAdded}>Once a match is found, you will receive an email with your donation.</h1>
-            <div style={last} >
-              <SecondaryButton onClick={() => handleLogOutPressed()} text="Log out" />
+
+          <div className="container-fliud px-2" style={{ width: "100%" }}>
+            <div className="row justify-content-center" style={{ marginRight: "5%", marginLeft: "10%" }}>
+              <div className="col-xl-5 col-lg-5 col-sm-12  pb-4">
+                <h1 style={bigText}>Thank you, you are all set!</h1>
+                <h1 style={infoBeenAdded}>Once a match is found, you will receive an email with your donation.</h1>
+              </div>
+              <div className='col-xl-6 col-lg-6 col-sm-12 ml-xl-2'>
+                <div>
+                  <h1 style={step1}>STEP 1</h1>
+                  <span style={{ color: "#919191", fontSize: "2.2vmax", width: "100%" }} align="left">Create an account with an email.</span>
+                </div>
+                <div >
+                  <h1 style={step}>STEP 2</h1>
+                  <span style={{ color: "#919191", fontSize: "2.2vmax", width: "100%" }} align="left"> Enter your phone number and tell us what you're going through.</span>
+                </div>
+                <div >
+                  <h1 style={step}>STEP 3</h1>
+                  <span style={{ fontSize: "2.2vmax", width: "100%" }} align="left"> Recieve donated DoorDash credits!</span>
+                </div>
+                <div style={last} >
+                  <SecondaryButton onClick={() => handleLogOutPressed()} text="Log out" />
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -196,6 +251,28 @@ function RecipientPortal() {
 
 }
 
+const bigText = {
+  marginTop: "12px",
+  fontStyle: "normal",
+  fontWeight: "600",
+  fontSize: "2.5rem",
+  paddingTop: "12px",
+}
+const step = {
+  marginTop: "5%",
+  fontFamily: "Roboto",
+  fontStyle: "normal",
+  fontWeight: "bold",
+  fontSize: "18px",
+  color: "#828282",
+}
+const step1 = {
+  fontFamily: "Roboto",
+  fontStyle: "normal",
+  fontWeight: "bold",
+  fontSize: "18px",
+  color: "#828282",
+}
 const phoneInput = {
   fontFamily: "Roboto",
   fontStyle: "normal",
