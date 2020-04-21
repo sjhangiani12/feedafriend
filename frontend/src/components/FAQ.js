@@ -79,7 +79,7 @@ class Q extends React.Component {
         <div style={line} >
           <div style={{ display: "flex", alignItems: "center", width: "100%"}}>
             <span style={{ fontSize: "4em", marginLeft: "1%", color: "#1136FC", fontStyle: "bold", marginLeft: "5px", marginRight: "10px"}}>Q.  </span>
-            <span id="Qqs" align="left" style={{fontSize: "2.2vmax", width: "100%", marginTop: "5%"}}>{this.props.children}</span>
+            <span align="left" style={{fontSize: "2.2vmax", width: "100%", marginTop: "5%"}}>{this.props.children}</span>
           </div>
         </div>
       </div>
@@ -121,7 +121,7 @@ function FAQ () {
     <div style={{ marginTop: "120px", marginLeft: "5%", marginRight:" 5%"}}>
       < div className="row mx-5" style={{ alignItems: "center", justifyContent: "center" }} >
         <div style={{ marginBottom: "5%" }}>
-          <h1>Frequently Asked Questions (FAQ)</h1>
+          <h1 style={{textAlign: "center"}}>Frequently Asked Questions (FAQ)</h1>
         </div>
       </ div>
       < div className="row mx-5" style={{ alignItems: "center", justifyContent: "center"}} >

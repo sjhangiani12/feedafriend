@@ -29,6 +29,7 @@ function DonatePage() {
   const [donateNowClicked, setDonateNowClicked] = useState(false);
   // state if there was an error w/ the payment info
   const [errorWithPayment, setErrorWithPayment] = useState(false);
+  const [showModal, setShowModal] = useState(true);
 
   // payment info
   const [cardNumber, setCardNumber] = useState("");
@@ -94,11 +95,12 @@ function DonatePage() {
   }
 
   function handleDonateClick() {
-    if (checkAllFieldsFilled()) {
-      setDonateNowClicked(true);
-    } else {
-      alert("Please fill out all the fields.");
-    }
+      setShowModal(true);
+    // if (checkAllFieldsFilled()) {
+    //   setDonateNowClicked(true);
+    // } else {
+    //   alert("Please fill out all the fields.");
+    // }
     console.log(cardNumber);
   }
 
@@ -165,6 +167,13 @@ function DonatePage() {
     fontWeight: "600",
     fontSize: "2.5rem",
     lineHeight: "70px",
+    paddingTop: "12px",
+  }
+
+  const headerBase = {
+    fontStyle: "normal",
+    fontWeight: "600",
+    fontSize: "2.5rem",
     paddingTop: "12px",
   }
 
@@ -423,7 +432,7 @@ function DonatePage() {
           {/* if the user selected an amount give them the meals estimate */}
           {(donateAmount == 0) ? (
             <div className="col-xl-5 col-lg-5 col-sm-12">
-              <h1 style={bigText}>You are making the world better.</h1>
+              <h1 style={headerBase}>Your donation is giving someone a meal.</h1>
             </div>
           ) : (
             <div className='col-xl-5 col-lg-5 col-sm-12'>
@@ -472,7 +481,11 @@ function DonatePage() {
       // this is the second step,1G user enters payment info
       <>
         <div id="donator2">
-          <Banner></Banner>
+          {showModal && (
+            <Banner>
+              <Button onClick={() => setShowModal(false)} >Okay, I got it!</Button>
+            </Banner>
+          )}
 
           <div className="container-fliud" style={{ width: "100%" }}>
             <div className="row justify-content-center mx-2" style={{ marginBottom: "10%" }}>
@@ -538,7 +551,7 @@ function DonatePage() {
                   />
                   <div>
                     <SecondaryButton onClick={() => handleBackClick()} text="Back" />
-                    <a href="/"><PrimaryButton text="Pay Now" onClick={() => handleDonateClick()} /></a>
+                    <PrimaryButton text="Pay Now" onClick={() => handleDonateClick()} />
                   </div>
                   <h1 style={protectInfoBody}>By continuing, you are agreeing with CARE 37 terms and praivacy policy.</h1>
                 </div>

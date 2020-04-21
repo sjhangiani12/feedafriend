@@ -61,10 +61,70 @@ function ReceivePage() {
       );
     }
   }
+  const bigText = {
+    fontStyle: "normal",
+    fontWeight: "600",
+    fontSize: "2.5rem",
+    paddingTop: "12px",
+  }
+  const step = {
+    fontFamily: "Roboto", 
+    fontStyle: "normal",
+    fontWeight: "bold",
+    fontSize: "18px",
+    color: "#828282",
+  }
+
+  const enterDonation = {
+    diaply: "block",
+    fontStyle: "normal",
+    fontWeight: "600",
+    fontSize: "1rem",
+    paddingBottom: "20px",
+  }
+
 
   return (
     <>
-      <MediaQuery minDeviceWidth={700} >
+      <div style={{marginTop: "90px", height: "100vh"}}>
+        <div >
+
+          { !isAuthenticated && (
+            
+            <div className="container-fliud px-2" style={{ width: "100%" }}>
+              <div className="row justify-content-center" style={{ marginRight: "5%", marginLeft: "10%" }}>
+                <div className="col-xl-5 col-lg-5 col-sm-12 pb-4">
+                  <h1 style={bigText}>In need of a meal?</h1>
+                </div>
+                <div className='col-xl-6 col-lg-6 col-sm-12 ml-xl-2' >
+                  <h1 style={step}>STEP 1</h1>
+                  <span style={{ fontSize: "2.2vmax", width: "100%", marginTop: "5%" }} align="left">Create an account with an email.</span>
+                </div>
+                <div className='col-xl-6 col-lg-6 col-sm-12 ml-xl-2' >
+                  <h1 style={step}>STEP 2</h1>
+                  <span style={{ fontSize: "2.2vmax", width: "100%", marginTop: "5%" }} align="left"> Enter your phone number and tell us what you're going through.</span>
+                </div>
+                <div >
+                  <PrimaryButton onClick={() => handleLogInPressed()} text="Log In" />
+                </div>
+              </div>   
+
+            {/* <div className="container">
+              <div style={{display: "flex", flexDirection: "column"}}>
+                <a style={{fontSize: "2rem", fontWeight: "600"}}>Sign up to be added to our system!</a>
+                <a style={{ fontSize: "1rem", fontWeight: "600" }}>Once you create an account with us, you will be added to our donation queue and can expect a donation soon!</a>
+
+              </div>
+            </div> */}
+          </div>
+          )}
+
+          {isAuthenticated &&
+            <RecipientPortal />
+          }
+        </div>
+      </div>
+      {/* <MediaQuery minDeviceWidth={700} >
         <div style={header} className="sm-mx-5 l-mx-0">
 
           {!loading && !isAuthenticated && (
@@ -100,7 +160,7 @@ function ReceivePage() {
             }
           </div>
         </div>
-      </MediaQuery>
+      </MediaQuery> */}
     </>
 
 
