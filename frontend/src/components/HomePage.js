@@ -125,7 +125,7 @@ function HomePage () {
               Support your locals restaurants while giving people a meal by buying and donating a Door Dash gift card so they can enjoy a meal in the safety of their own home. </p>
 
               <div style={{ marginTop: "30px" }}>
-                <Link to="/receive"><SecondaryButton text="Receive" /></Link>
+                <Link to="/receive"><SecondaryButton text="Receive a meal" /></Link>
                 <Link to="/donate" style={{ marginRight: "20px" }}><PrimaryButton text="Donate" /></Link>
               </div>
             </div>
