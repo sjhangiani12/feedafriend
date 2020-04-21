@@ -316,7 +316,7 @@ const thankYou = {
 }
 
 const infoBeenAdded = {
-  textAlign: "center",
+  textAlign: "left",
   fontSize: "1.5em",
 }
 
