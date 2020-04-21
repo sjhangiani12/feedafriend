@@ -119,7 +119,7 @@ function ReceivePage() {
                     <span style={{ color: "#919191", fontSize: "2.2vmax", width: "100%" }} align="left"> Recieve donated DoorDash credits!</span>
                   </div>
                   <div style={{ color: "#919191", display: "flex", alginItems: "center", marginTop: "2%", justifyContent: "center"}}>
-                    <PrimaryButton onClick={() => handleLogInPressed()} text="Log In" />
+                    <PrimaryButton onClick={() => handleLogInPressed()} text="Create Account / Log In" />
                   </div>
                 </div>
               </div>   
