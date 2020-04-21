@@ -173,13 +173,14 @@ function RecipientPortal() {
                 </div>
                 <div >
                   <h1 style={curStep}>STEP 2</h1>
+                  <PhoneInput style={phoneInput} defaultCountry="US" placeholder="Phone Number" value={phoneNumber} onChange={setPhoneNumber}></PhoneInput>
                   <span style={{fontSize: "2.2vmax", width: "100%" }} align="left"> Enter your phone number and tell us what you're going through.</span>
                 </div>
+                
                 <div >
                   <h1 style={step}>STEP 3</h1>
                   <span style={{ color: "#919191", fontSize: "2.2vmax", width: "100%" }} align="left"> Recieve donated DoorDash credits!</span>
                 </div>
-                <PhoneInput style={phoneInput} defaultCountry="US" placeholder="Phone Number" value={phoneNumber} onChange={setPhoneNumber}></PhoneInput>
 
                 <div style={last} >
                   <a style={{marginLeft: "1%"}}>

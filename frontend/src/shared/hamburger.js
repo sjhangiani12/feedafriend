@@ -72,7 +72,7 @@ export default class Nav extends React.Component {
       "left": "10%",
 
     }
-    const menu = ['Home', 'FAQ', 'About us', 'Get help', 'Donate']
+    const menu = ['Home', 'FAQ', 'About us', 'Receive a meal', 'Donate']
     const to = {0: "/", 1: "/faq", 2: "/about_us", 3: "/receive", 4: "/donate"}
     const menuItems = menu.map((val, index) => {
       return (
