@@ -17,60 +17,39 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Slide from '@material-ui/core/Slide';
 
-function HideOnScroll(props) {
-  const { children, window } = props;
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
-  const trigger = useScrollTrigger({ target: window ? window() : undefined });
-  return (
-    <Slide appear={true} direction="down" in={!trigger}>
-      {children}
-    </Slide>
-  );
-}
-
-HideOnScroll.propTypes = {
-  children: PropTypes.element.isRequired,
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
-
 const useStyles = makeStyles(() => ({
   root: {
-      height: "100%",
-      backgroundColor: "#1136FC",
-      boxShadow: "none",
-      top: 'auto',
-      opacity: 0.9,
-      top: 90,
+    height: "100%",
+    backgroundColor: "#1136FC",
+    boxShadow: "none",
+    top: 'auto',
+    opacity: 0.9,
+    top: 90,
   }
 }));
 
 
-function Banner (props) {
+function Banner(props) {
   const classes = useStyles();
   const { isAuthenticated } = useAuth0();
+
   return (
     <div id="ban">
-      <HideOnScroll {...props}>
-        <AppBar className={classes.root} style={{ "margin-bottom": "100px" }}>
-          <div className="row pt-5" style={{justifyContent: "center", display: "flex", marginTop: "10%"}}>
-            <div className="col-lg-5 col-xs-12" style={{justifyContent: "center", textAlign: "center"}}>
-                <h2>Sorry, we're closed right now!</h2>
-              </div>
-            <div className="col-lg-5 col-xs-12" style={{ justifyContent: "center", textAlign: "center"}}>
-                <p style={{fontSize: "1.3rem"}}>
-                  We are gathering more recipients so we have paused donations at this time.
+      <AppBar className={classes.root} style={{ "margin-bottom": "100px" }}>
+        <div className="row pt-5" style={{ justifyContent: "center", display: "flex", marginTop: "10%" }}>
+          <div className="col-lg-5 col-xs-12" style={{ justifyContent: "center", textAlign: "center" }}>
+            <h2>Sorry, we're closed right now!</h2>
+          </div>
+          <div className="col-lg-5 col-xs-12" style={{ justifyContent: "center", textAlign: "center" }}>
+            <p style={{ fontSize: "1.3rem" }}>
+              We are gathering more recipients so we have paused donations at this time.
                 </p>
-              </div>
-            </div>
-            {props.children}
-        </AppBar>
-      </HideOnScroll>
+          </div>
+        </div>
+        <div className="row pt-5" style={{ justifyContent: "center" }}>
+          {props.children}
+        </div>
+      </AppBar>
     </div>
 
 

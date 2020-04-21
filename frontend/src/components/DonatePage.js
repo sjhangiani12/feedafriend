@@ -424,9 +424,6 @@ function DonatePage() {
     position: "relative"
   }
 
-
-  
-
   // this is step one of the donation process
   if ((!nextToPaymentPressed || donateAmount == 0)) {
     return (<div id ="donator">
@@ -486,7 +483,7 @@ function DonatePage() {
         <div id="donator2">
           {showModal && (
             <Banner>
-              <Button onClick={() => setShowModal(false)} >Okay, I got it!</Button>
+              <SecondaryButton text="Okay, I got it!" onClick={() => setShowModal(false)}/>
             </Banner>
           )}
 
