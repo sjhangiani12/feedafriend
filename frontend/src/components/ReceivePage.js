@@ -81,7 +81,6 @@ function ReceivePage() {
     fontStyle: "normal",
     fontWeight: "bold",
     fontSize: "18px",
-    color: "#828282",
   }
 
 
@@ -96,12 +95,12 @@ function ReceivePage() {
 
   return (
     <>
-      <div style={{marginTop: "15%", height: "100vh"}}>
+      <div style={{marginTop: "120px", height: "100vh"}}>
         <div >
 
           { !isAuthenticated && (
             
-            <div className="container-fliud px-2" style={{ width: "100%" }}>
+            <div className="container-fliud px-2" style={{ width: "100%"}}>
               <div className="row justify-content-center" style={{ marginRight: "5%", marginLeft: "10%" }}>
                 <div className="col-xl-5 col-lg-5 col-sm-12  pb-4">
                   <h1 style={bigText}>In need of a meal?</h1>

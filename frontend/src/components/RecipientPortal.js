@@ -172,7 +172,7 @@ function RecipientPortal() {
                   <span style={{ color: "#919191", fontSize: "2.2vmax", width: "100%" }} align="left">Create an account with an email.</span>
                 </div>
                 <div >
-                  <h1 style={step}>STEP 2</h1>
+                  <h1 style={curStep}>STEP 2</h1>
                   <span style={{fontSize: "2.2vmax", width: "100%" }} align="left"> Enter your phone number and tell us what you're going through.</span>
                 </div>
                 <div >
@@ -201,7 +201,7 @@ function RecipientPortal() {
                   <span style={{ color: "#919191", fontSize: "2.2vmax", width: "100%" }} align="left">Create an account with an email.</span>
                 </div>
                 <div >
-                  <h1 style={step}>STEP 2</h1>
+                  <h1 style={curStep}>STEP 2</h1>
                   <span style={{ fontSize: "2.2vmax", width: "100%" }} align="left"> Enter your phone number and tell us what you're going through.</span>
                 </div>
                 <div >
@@ -235,7 +235,7 @@ function RecipientPortal() {
                   <span style={{ color: "#919191", fontSize: "2.2vmax", width: "100%" }} align="left"> Enter your phone number and tell us what you're going through.</span>
                 </div>
                 <div >
-                  <h1 style={step}>STEP 3</h1>
+                  <h1 style={curStep}>STEP 3</h1>
                   <span style={{ fontSize: "2.2vmax", width: "100%" }} align="left"> Recieve donated DoorDash credits!</span>
                 </div>
                 <div style={last} >
@@ -265,6 +265,13 @@ const step = {
   fontWeight: "bold",
   fontSize: "18px",
   color: "#828282",
+}
+const curStep = {
+  marginTop: "5%",
+  fontFamily: "Roboto",
+  fontStyle: "normal",
+  fontWeight: "bold",
+  fontSize: "18px",
 }
 const step1 = {
   fontFamily: "Roboto",
