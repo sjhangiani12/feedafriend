@@ -23,7 +23,6 @@ function HideOnScroll(props) {
   // will default to window.
   // This is only being set here because the demo is in an iframe.
   const trigger = useScrollTrigger({ target: window ? window() : undefined });
-
   return (
     <Slide appear={true} direction="down" in={!trigger}>
       {children}
@@ -65,10 +64,11 @@ function Banner (props) {
               </div>
             <div className="col-lg-5 col-xs-12" style={{ justifyContent: "center", textAlign: "center"}}>
                 <p style={{fontSize: "1.3rem"}}>
-                  Because we're trying to help as many people as possible, we've paused donations untill more recipients have signed up! If you'd like to be notified once you can donate, click <a href="mailto: info@care37.org">here</a>
+                  We are gathering more recipients so we have paused donations at this time.
                 </p>
               </div>
             </div>
+            {props.children}
         </AppBar>
       </HideOnScroll>
     </div>

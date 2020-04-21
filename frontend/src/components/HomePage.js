@@ -101,7 +101,7 @@ function HomePage () {
                 {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
                 <h1 style={{ fontSize: "3em", margin: "0px" }}>Help feed people in <br /> need and support<br /> local restaurants.</h1>
                 <p style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>People all over the nation are struggling to meet their basic food needs while self-isolating with little to no income. Meanwhile, your local restaurants are suffering as a result of depressed business due to the health crisis.
-              Support your locals restaurants while giving people a meal by buying and donating a Door Dash gift card so they can enjoy a meal in the safety of their own home. </p>
+              Support your locals restaurants while giving people a meal that they can enjoy a meal in the safety of their own home by donating a Door Dash gift card.</p>
                 <a href="https://www.patreon.com/care37"> <h1 style={whyTheseAmountsText}>Click here to support us!</h1></a>
                 <div style={{ marginTop: "30px" }}>
                   <Link to="/receive" style={{ marginRight: "20px" }}><SecondaryButton text="Receive a meal" /></Link>
