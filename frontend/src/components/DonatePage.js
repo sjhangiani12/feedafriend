@@ -415,9 +415,6 @@ function DonatePage() {
     position: "relative"
   }
 
-
-  
-
   // this is step one of the donation process
   if ((!nextToPaymentPressed || donateAmount == 0)) {
     return (<div id ="donator">
