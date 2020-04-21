@@ -88,7 +88,7 @@ export default class Nav extends React.Component {
     return (
       <div>
         <div style={styles.container}>
-          <Link to="/" style={{ position: "relative", left: "5%" }} ><img style={{ width: "130%" }} src={logo} alt="logo" /></Link>
+          <a onClick={() => this.handleMenuClick()}><Link to="/" style={{ position: "relative", left: "5%" }} ><img style={{ width: "130%" }} src={logo} alt="logo" /></Link></a>
           <MenuButton open={this.state.menuOpen} onClick={() => this.handleMenuClick()} color='black' />
 
         </div>

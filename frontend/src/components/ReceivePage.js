@@ -95,7 +95,7 @@ function ReceivePage() {
 
   return (
     <>
-      <div style={{marginTop: "120px", height: "100vh"}}>
+      <div id="donator">
         <div >
 
           { !isAuthenticated && (

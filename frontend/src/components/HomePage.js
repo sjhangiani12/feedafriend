@@ -112,6 +112,9 @@ function HomePage () {
                 <img style={{width: "120%"}} src={banner} alt="header image" />
               </div>
             </div>
+            <div className="row flex-wrap" style={{justifyContent: "center", align: "center"}}> 
+              <a href="#toJump">Learn More</a>
+            </div>
           </div>
 
         </MediaQuery>
@@ -133,7 +136,7 @@ function HomePage () {
           </div>
         </MediaQuery>
       </div>
-      <div>
+      <div id="toJump">
         <How2/>
         {/* <How /> */}
       </div>
@@ -255,7 +258,7 @@ function How2() {
       <div className="row" style={{display: "flex"}}>
         <div className="col-md-4 " style={how2col}>
           <img src={mun} style={money2}></img>
-          <a style={cap2}>Choose to donate either 25, 50, 100, or 200 dollars.</a>
+          <a style={cap2}>Choose to donate either $25, $50, $100, or $200.</a>
         </div>
         <div className="col-md-4 " style={how2col}>
           <img src={people} style={peep2}></img>
@@ -278,7 +281,7 @@ function How2() {
         </div>
       </div>
     </div>
-    <div className="container-fluid" style={who}>
+      <div className="container-fluid " style={{display: "flex", justifyContent: "center", marginTop: "10%"}}>
       <div className="row" style={{display: "flex", justifyContent: "center"}} >
         <div className="col-xl-5 col-md-4 col-sm-12 px-50">
           <h2 align="left">Step 1</h2>

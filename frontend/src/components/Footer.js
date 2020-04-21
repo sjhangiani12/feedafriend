@@ -5,67 +5,71 @@ import AppBar from '@material-ui/core/AppBar';
 
 //Render the footer of both Home and REsources page
 
-const sty = {
-  marginLeft: "-12px",
-  marginRight: "-12px",
-  backgroundolor: "#f1f1ff"
-}
-const useStyles = makeStyles(() => ({
-  root: {
-    position: "relative",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-    backgroundColor: "#333333",
-    boxShadow: "none",
-    color: "white",
-    bottom: "0",
-  },
-
-  phantom: {
-    display: "block",
-    padding: "5%",
-    height: "5%",
-    width: "100%",
+class Footer extends React.Component {
+  constructor(props) {
+    super(props);
   }
-}));
-function Footer() {
-  const classes = useStyles();
+  render() {
 
-  return (
-    <div>
-      <div className={classes.phantom} />
-      <div className={classes.root} positive="static">
-        <section className=" pt-4" style={{ " background-color": "#f1f1ff" }}>
-          <footer className="container">
-            <div className="row pt-4">
-              <div className="col-12 col-md-4 pb-4">
-                <p className="font-weight-bold">Project</p>
-                <div className="d-flex flex-column">
-                  <a> All Rights Reserved, 2020</a>
-                  {/* <About />
+    const sty = {
+      marginLeft: "-12px",
+      marginRight: "-12px",
+      backgroundolor: "#f1f1ff"
+    }
+    const root = {
+        position: "relative",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        width: "100%",
+        backgroundColor: "#333333",
+        boxShadow: "none",
+        color: "white",
+        bottom: "0",
+    }
+
+    const phantom = {
+        backgroundColor: this.props.isHome ? '#fff' : null,
+        display: "block",
+        padding: "5%",
+        height: "5%",
+        width: "100%",
+      }
+    
+
+    return (
+      <div>
+        <div style={phantom} />
+        <div style={root} positive="static">
+          <section className=" pt-4" style={{ " background-color": "#f1f1ff" }}>
+            <footer className="container">
+              <div className="row pt-4">
+                <div className="col-12 col-md-4 pb-4">
+                  <p className="font-weight-bold">Project</p>
+                  <div className="d-flex flex-column">
+                    <a> All Rights Reserved, 2020</a>
+                    {/* <About />
             <Built /> */}
+                  </div>
                 </div>
-              </div>
-              <div className="col-12 col-md-4 text-left text-md-center pb-4">
-
-              </div>
-              <div className="col-12 col-md-4 text-left text-md-right pb-4">
-                <p className="font-weight-bold">Contact</p>
-                <div className="d-flex flex-column">
-                  <a href="mailto: info@care37.org">info@care37.org</a>
-                  <a href="https://www.patreon.com/care37">Support Us!</a>
+                <div className="col-12 col-md-4 text-left text-md-center pb-4">
 
                 </div>
-              </div>
-            </div>
-          </footer>
-        </section>
+                <div className="col-12 col-md-4 text-left text-md-right pb-4">
+                  <p className="font-weight-bold">Contact</p>
+                  <div className="d-flex flex-column">
+                    <a href="mailto: info@care37.org">info@care37.org</a>
+                    <a href="https://www.patreon.com/care37">Support Us!</a>
 
+                  </div>
+                </div>
+              </div>
+            </footer>
+          </section>
+
+        </div>
       </div>
-    </div>
-  );
-
-}
+    );
+    }
+  }
 export default Footer;

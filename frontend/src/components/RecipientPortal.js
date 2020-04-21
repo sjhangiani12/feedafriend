@@ -158,13 +158,13 @@ function RecipientPortal() {
     );
   } else {
     return (
-      <div style={header}>
+      <div id="donator">
         {!addedPhoneNumber && !isVerified && (
           <div className="container-fliud px-2" style={{ width: "100%" }}>
             <div className="row justify-content-center" style={{ marginRight: "5%", marginLeft: "10%" }}>
               <div className="col-xl-5 col-lg-5 col-sm-12  pb-4">
                 <h1 style={bigText}>Thank you for signing up to be a recipient!</h1>
-                <h1 style={infoBeenAdded}>Please enter a phone number so we can call and verify you.</h1>
+                <h1 style={infoBeenAdded}>Please enter a phone number so we can talk!</h1>
               </div>
               <div className='col-xl-6 col-lg-6 col-sm-12 ml-xl-2'>
                 <div>
@@ -223,7 +223,7 @@ function RecipientPortal() {
             <div className="row justify-content-center" style={{ marginRight: "5%", marginLeft: "10%" }}>
               <div className="col-xl-5 col-lg-5 col-sm-12  pb-4">
                 <h1 style={bigText}>Thank you, you are all set!</h1>
-                <h1 style={infoBeenAdded}>Once a match is found, you will receive an email with your donation.</h1>
+                <h1 style={infoBeenAdded}>Once you are matched with a donor, you will receive an email with your DoorDash credits.</h1>
               </div>
               <div className='col-xl-6 col-lg-6 col-sm-12 ml-xl-2'>
                 <div>
@@ -318,13 +318,6 @@ const thankYou = {
 const infoBeenAdded = {
   textAlign: "center",
   fontSize: "1.5em",
-}
-
-const header = {
-  marginTop: "8%",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
 }
 
 export default RecipientPortal;

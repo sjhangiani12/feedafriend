@@ -44,7 +44,7 @@ function App () {
       <Switch>
         <Route exact path="/">
           <HomePage />
-          <Footer />
+          <Footer isHome={true} />
 
         </Route>
         <Route path="/donate">
