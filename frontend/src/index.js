@@ -15,7 +15,7 @@ import ReactGA from 'react-ga';
 import HomePage from './components/HomePage.js';
 import DonatePage from './components/DonatePage.js';
 import FAQ from './components/FAQ.js';
-import ReceivePage from './components/ReceivePage.js';
+import ReceivePage2 from './components/ReceivePage2.js';
 import AboutPage from './components/AboutPage.js';
 import Footer from './components/Footer.js';
 import RecipientPortal from './components/RecipientPortal.js';
@@ -53,7 +53,7 @@ function App () {
 
         </Route>
         <Route path="/receive">
-          <ReceivePage />
+          <ReceivePage2 />
           <Footer />
 
         </Route>
