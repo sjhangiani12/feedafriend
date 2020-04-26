@@ -9,7 +9,7 @@ function ReceivePage2() {
         const data = {
             idtoken: response.getAuthResponse().id_token
         }
-        fetch('https://care37-cors-anywhere.herokuapp.com/http://localhost:5000/login', {
+        fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/login', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
