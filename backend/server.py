@@ -194,6 +194,9 @@ def makeDonation():
 
 
 ############################## GOOGLE AUTH ##############################
+
+# logins in a user given their google idtoken
+# returns true is the user exists in the db, false if not
 @app.route('/login', methods=['POST', 'OPTIONS'])
 def login():
     if not has_args(request.json, ['idtoken']):

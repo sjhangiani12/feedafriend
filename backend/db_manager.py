@@ -272,6 +272,7 @@ def get_is_verified(email):
     return is_verified[0]
 
 
+# this endpoint checks if the user is in the database
 def check_if_user_exist(email):
     """ check if the user exists """
     sql = """select email

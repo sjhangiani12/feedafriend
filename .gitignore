@@ -4,6 +4,7 @@ venv/
 __pycache__/
 .vscode
 .ipynb_checkpoints
+database.ini
 .DS_store
 sendgrid.env
 sendgrid.env

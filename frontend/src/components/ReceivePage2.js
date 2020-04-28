@@ -4,6 +4,9 @@ import GoogleLogin from 'react-google-login';
 
 function ReceivePage2() {
 
+    // state is the user is new, if so display them the login page
+    const [isNewUser, setIsNewUser] = useState(false);
+
     function responseGoogle(response) {
         console.log(response.getAuthResponse().id_token);
         const data = {
@@ -19,16 +22,23 @@ function ReceivePage2() {
             body: JSON.stringify(data)
         }).then(
             function(res) {
-                console.log(res);
                 res.json().then(data => {
-                    console.log(data);
+                    // sets if the user who logged in is new or not
+                    setIsNewUser(data.user_exists);
                 });
             }
         )
     }
 
+    const container = {
+        marginTop: "20%", 
+        marginBottom: "10%", 
+        display: "flex", 
+        justifyContent: "center",
+    }
+
     return (
-        <div style={{ marginTop: "20%", marginBottom: "10%", display: "flex", justifyContent: "center" }}>
+        <div style={container}>
             <GoogleLogin
                 clientId="289368909644-hnpai51fbs9fdbbod98omhdgc6e62olh.apps.googleusercontent.com"
                 buttonText="Login"
