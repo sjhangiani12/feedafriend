@@ -19,7 +19,9 @@ function ReceivePage2() {
             body: JSON.stringify(data)
         }).then(
             function(res) {
-                console.log(res);
+                res.json().then(data => {
+                    console.log(data);
+                });
             }
         )
     }

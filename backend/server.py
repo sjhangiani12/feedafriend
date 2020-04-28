@@ -17,6 +17,7 @@ from db_manager import add_phone_number
 from db_manager import get_phone_number
 from db_manager import get_is_verified
 from db_manager import not_existing_user
+from db_manager import check_if_user_exist
 from send_email import send_donor_order_confirmation
 from send_email import send_reicipient_welcome_email
 from send_email import send_recipient_order_confirmation
@@ -207,13 +208,16 @@ def login():
             raise ValueError('Wrong issuer.')
 
         # ID token is valid. Get the user's Google Account ID from the decoded token.
-        userid = idinfo['sub']
-        print(idinfo)
-        return "authenticate", 200
+
+        email = idinfo['email']
+        if check_if_user_exist(email):
+            return jsonify({"user_exists": True}), 200
+        else:
+            return jsonify({"user_exists": False}), 200
 
     except ValueError:
         # Invalid token
-        print("u in invalid")
+        print("invalid login")
         return 400
 
 

@@ -270,3 +270,31 @@ def get_is_verified(email):
     # close communication with the database
     cur.close()
     return is_verified[0]
+
+
+def check_if_user_exist(email):
+    """ check if the user exists """
+    sql = """select email
+             from recipients 
+             where email = %s;"""
+
+    # read database configuration
+    params = config()
+    # connect to the PostgreSQL database
+    conn = psycopg2.connect(**params)
+    # create a new cursor
+    cur = conn.cursor()
+    # execute the UPDATE statement
+    cur.execute(sql, (str(email),))
+    # get the phone number
+    email = cur.fetchone()
+    # check if there was a row
+    exists = False
+    if cur.rowcount > 0:
+        exists = True
+    # commit the changes to the database
+    conn.commit()
+    # close communication with the database
+    cur.close()
+    return exists
+            
