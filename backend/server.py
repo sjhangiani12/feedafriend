@@ -210,6 +210,10 @@ def login():
         if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
             raise ValueError('Wrong issuer.')
 
+        if CLIENT_ID not in idinfo['aud']:
+            print("clientid was not in aud field from google response")
+            return 400
+
         # ID token is valid. Get the user's Google Account ID from the decoded token.
 
         email = idinfo['email']
