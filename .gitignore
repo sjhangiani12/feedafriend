@@ -2,7 +2,6 @@ env/
 venv/
 ./frontend/node_modules
 __pycache__/
-database.ini
 .vscode
 .ipynb_checkpoints
 .DS_store
