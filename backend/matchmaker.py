@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 import psycopg2
 from db_manager import config
 from queue import PriorityQueue
+from holding_table import refresh_table, hold_user, early_release
 
 
 # object for the matchmaker queue
@@ -117,8 +118,11 @@ class Matchmaker:
     # this class builds the priority queue using the objects above
 
     def __init__(self):
+        # check the holding table and remove those past due
+        refresh_table()
+
+        # connections stuff
         conn = None
-        vendor_id = None
         try:
             # read database configuration
             params = config()
@@ -126,31 +130,47 @@ class Matchmaker:
             conn = psycopg2.connect(**params)
             # create a new cursor
             cur = conn.cursor()
-            # get all the entries in the recipients table
+            # get all the entries in the recipients table that are not in the holding table
             cur.execute(
-                "SELECT first_name, last_name, email, total_recieved, date_created, num_donations, uid, is_verified FROM recipients ORDER BY date_created")
+                """ SELECT first_name, last_name, email, total_recieved, date_created, num_donations, uid
+                FROM recipients r
+                WHERE r.uid not in (SELECT uid FROM holding_table)
+                ORDER BY date_created """)
+            # if row count is 0, all users in holding cell (or no users)
+            if cur.rowcount == 0:
+                early_release()
+                cur.execute(
+                    """ SELECT first_name, last_name, email, total_recieved, date_created, num_donations, uid
+                    FROM recipients r
+                    WHERE r.uid not in (SELECT uid FROM holding_table)
+                    ORDER BY date_created """)
+
+
             all_users = cur.fetchall()
             cur.close()
+
+            self._queue = PriorityQueue()
+            for user in all_users:
+                # check if the user is verified before adding them to the queue
+                curr = recipientProfile(
+                    user[0], user[1], user[2], user[3], user[4], user[5], user[6])
+                self._queue.put(curr)
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
         finally:
             if conn is not None:
                 conn.close()
 
-        self._queue = PriorityQueue()
-        for user in all_users:
-            # check if the user is verified before adding them to the queue
-            if user[7]:
-                curr = recipientProfile(
-                    user[0], user[1], user[2], user[3], user[4], user[5], user[6])
-                self._queue.put(curr)
-
     def get_recipientProfile(self):
         # get the recipient to be donated to
         # params: none
         # returns: recipient profile object that selected as the "lowest" or individual who requires donation the most
+        # TODO add the person to the holding table
         if self._queue.qsize() == 0:
             return None
         else:
             obj = self._queue.get()
+            # add the user to the holding table so they are not picked for 5 mins
+            uid = obj.get_recipient_user_id()
+            hold_user(uid)
             return obj

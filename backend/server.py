@@ -114,12 +114,12 @@ def createUser():
     if not has_args(request.json, ['bio']):
         request.json['bio'] = ""
     email = False
-    if not_existing_user(request.json['email']):
-        template = env.get_template('recipient_intro.html')
-        html = template.render(recipient_name=request.json["first_name"])
-        # send confirm email to donor
-        email = send_reicipient_welcome_email(
-            recipient_email=request.json["email"], bodyContent=html)
+    # if not_existing_user(request.json['email']):
+    #     template = env.get_template('recipient_intro.html')
+    #     html = template.render(recipient_name=request.json["first_name"])
+    #     # send confirm email to donor
+    #     email = send_reicipient_welcome_email(
+    #         recipient_email=request.json["email"], bodyContent=html)
     # insert that bish in the db, naaaah what im sayin
     response = insert_user(request.json['email'], request.json['first_name'], request.json['last_name'],
                            request.json['bio'], request.json['zip_code'], email)
@@ -226,6 +226,14 @@ def login():
         # Invalid token
         print("invalid login")
         return 400
+
+
+@app.route('/getNextRecipient', methods=['GET', 'OPTIONS'])
+def get_next_recipient():
+    recipient = Matchmaker().get_recipientProfile()
+    print(recipient)
+    #TODO how the fuck do I access the objects field, i hate py
+    return "good job", 200
 
 
 if __name__ == '__main__':
