@@ -110,11 +110,29 @@ def getIsVerified():
 
 @app.route('/deleteUser', methods=['POST', 'OPTIONS'])
 def deleteUser():
-    # check all the args are there
-    if not has_args(request.args, ['email']):
-        raise InvalidUsage('missing email parameter')
-    delete_user_output = delete_user(request.args['email'])
-    return delete_user_output, 200
+    try:
+        # Specify the CLIENT_ID of the app that accesses the backend:
+        CLIENT_ID = os.environ.get('CARE37_GOOGLE_CLIENT_ID')
+
+        idinfo = id_token.verify_oauth2_token(request.json['idtoken'], requests.Request(), CLIENT_ID)
+
+        if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
+            raise ValueError('Wrong issuer.')
+
+        if CLIENT_ID not in idinfo['aud']:
+            print("clientid was not in aud field from google response")
+            return 400
+
+        # ID token is valid. Get the user's Google Account ID from the decoded token.
+
+        # delete the user
+        email = idinfo['email']
+        delete_user_output = delete_user(request.args['email'])
+        return delete_user_output, 200
+    except ValueError:
+        # Invalid token
+        print("invalid login")
+        return 400
 
 
 @app.route('/createUser', methods=['POST', 'OPTIONS'])
@@ -125,19 +143,48 @@ def createUser():
                                    'uploads']):
         raise InvalidUsage('note all paramenters present')
 
-    email = False
-    # if not_existing_user(request.json['email']):
-    #     template = env.get_template('recipient_intro.html')
-    #     html = template.render(recipient_name=request.json["first_name"])
-    #     # send confirm email to donor
-    #     email = send_reicipient_welcome_email(
-    #         recipient_email=request.json["email"], bodyContent=html)
-    # insert that bish in the db, naaaah what im sayin
-    response = create_profile()
-    response = insert_uploads()
-    response = insert_social_media_links()
-    response = Response(response)
-    return response, 200
+    try:
+        # Specify the CLIENT_ID of the app that accesses the backend:
+        CLIENT_ID = os.environ.get('CARE37_GOOGLE_CLIENT_ID')
+
+        idinfo = id_token.verify_oauth2_token(request.json['idtoken'], requests.Request(), CLIENT_ID)
+
+        if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
+            raise ValueError('Wrong issuer.')
+
+        if CLIENT_ID not in idinfo['aud']:
+            print("clientid was not in aud field from google response")
+            return 400
+
+        # ID token is valid. Get the user's Google Account ID from the decoded token.
+
+        email = idinfo['email']
+        # create the profile 
+        uid = create_profile(email=email, first_name=request.json['first_name'], last_name=request.json['last_name'],
+            bio=request.json['bio'], zip_code=request.json['zip_code'], prof_pic=request.json['prof_pic'],
+            intro_email_sent=True)
+        # insert all of the uploads
+        response = insert_uploads(uid=uid, uploads=request.json['uploads'])
+        print(response)
+        # insert all the social media links
+        response = insert_social_media_links(uid=uid, social_media_links=request.json['social_media_links'])
+        print(response)
+
+        email = False
+        # if not_existing_user(request.json['email']):
+        #     template = env.get_template('recipient_intro.html')
+        #     html = template.render(recipient_name=request.json["first_name"])
+        #     # send confirm email to donor
+        #     email = send_reicipient_welcome_email(
+        #         recipient_email=request.json["email"], bodyContent=html)
+        # insert that bish in the db, naaaah what im sayin
+        return response, 200
+    
+    except ValueError:
+        # Invalid token
+        print("invalid login")
+        return 400
+
 
 
 @app.route('/makeDonation', methods=['POST', 'OPTIONS'])

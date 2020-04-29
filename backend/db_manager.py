@@ -256,7 +256,7 @@ def create_profile(email, first_name, last_name, bio, zip_code, prof_pic, intro_
         if conn is not None:
             conn.close()
 
-    return "user inserted with uid: " + str(created_uuid)
+    return str(created_uuid)
 
 
 # inserts all links in the social_media_links array into the db
