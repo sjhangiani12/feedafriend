@@ -181,7 +181,7 @@ def insert_donation(recipient_email, dollars, donor_email, donor_first_name, don
 
 
 def delete_user(email):
-       """ Update the user donated amount and the num donations after recieiving payment """
+    """ Update the user donated amount and the num donations after recieiving payment """
     sql = """UPDATE recipients SET email = (%s), first_name = (%s), last_name = (%s), bio = (%s), prof_pic = (%s), 
     zip_code = (%s) WHERE uid = (%s);"""
 

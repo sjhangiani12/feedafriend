@@ -10,7 +10,6 @@ import os
 
 
 from error import InvalidUsage
-from db_manager import insert_user
 from db_manager import update_user_entry
 from db_manager import insert_donation
 from db_manager import add_phone_number
@@ -21,6 +20,7 @@ from db_manager import check_if_user_exist
 from db_manager import create_profile
 from db_manager import insert_social_media_links 
 from db_manager import insert_uploads
+from db_manager import delete_user
 
 from send_email import send_donor_order_confirmation
 from send_email import send_reicipient_welcome_email
@@ -106,6 +106,15 @@ def getIsVerified():
         raise InvalidUsage('note all paramenters present')
     is_verified = get_is_verified(request.args['email'])
     return jsonify(is_verified), 200
+
+
+@app.route('/deleteUser', methods=['POST', 'OPTIONS'])
+def deleteUser():
+    # check all the args are there
+    if not has_args(request.args, ['email']):
+        raise InvalidUsage('missing email parameter')
+    delete_user_output = delete_user(request.args['email'])
+    return delete_user_output, 200
 
 
 @app.route('/createUser', methods=['POST', 'OPTIONS'])
