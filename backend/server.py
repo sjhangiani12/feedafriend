@@ -124,7 +124,9 @@ def createUser():
     #     email = send_reicipient_welcome_email(
     #         recipient_email=request.json["email"], bodyContent=html)
     # insert that bish in the db, naaaah what im sayin
-    response = 
+    response = create_profile()
+    response = insert_uploads()
+    response = insert_social_media_links()
     response = Response(response)
     return response, 200
 
