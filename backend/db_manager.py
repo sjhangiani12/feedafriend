@@ -39,7 +39,6 @@ def update_donations_email(tid, recipient_email_sent_check, donor_email_sent_che
 
     data = (str(recipient_email), str(donor_email), str(tid))
     conn = None
-    vendor_id = None
     try:
         # read database configuration
         params = config()
@@ -66,7 +65,6 @@ def update_donations_email(tid, recipient_email_sent_check, donor_email_sent_che
 
 def not_existing_user(email):
     conn = None
-    vendor_id = None
     try:
         # read database configuration
         params = config()
@@ -101,7 +99,6 @@ def update_user_entry(recipient_email, dollars):
     ruid = None
 
     conn = None
-    vendor_id = None
     try:
         # read database configuration
         params = config()
@@ -148,7 +145,6 @@ def insert_donation(recipient_email, dollars, donor_email, donor_first_name, don
     sql_user = """ SELECT uid WHERE email = %s;"""
 
     conn = None
-    vendor_id = None
     try:
         # read database configuration
         params = config()
@@ -191,7 +187,6 @@ def insert_user(email, first_name, last_name, bio, zip_code, intro_email_sent):
 
              VALUES( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
     conn = None
-    vendor_id = None
     try:
         # read database configuration
         params = config()

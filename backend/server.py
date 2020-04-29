@@ -135,7 +135,6 @@ def makeDonation():
                                    'card_number', 'exp_date', 'cvc', 'dollars', 'recipient_email',
                                    'recipient_first_name', 'recipient_last_name']):
         raise InvalidUsage('Missing paramenters')
-        return 400
 
     # get the recipient email, first name, last name
     purchase_status = False
