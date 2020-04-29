@@ -98,6 +98,7 @@ def update_user_entry(recipient_email, dollars):
 
     """ get the info related to the user """
     sql_user = """ SELECT num_donations, total_recieved, uid WHERE email = %s;"""
+    ruid = None
 
     conn = None
     vendor_id = None
@@ -133,10 +134,10 @@ def update_user_entry(recipient_email, dollars):
         if conn is not None:
             conn.close()
 
-    return "updated user entry with uuid: " + str(recipientProfile.recipient_user_id)
+    return "updated user entry with uuid: " + str(ruid)
 
 
-def insert_donation(recipientProfile, dollars, donor_email, donor_first_name, donor_last_name, timestamp_string, donor_email_sent, recipient_email_sent):
+def insert_donation(recipient_email, dollars, donor_email, donor_first_name, donor_last_name, timestamp_string, donor_email_sent, recipient_email_sent):
     """ Insert donation record into donations database """
     sql = """INSERT INTO donations(tid, uid, amount_donated, donor_email, donor_first_name, donor_last_name,
              donation_timestamp, donor_email_sent, recipient_email_sent)
