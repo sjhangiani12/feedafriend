@@ -18,6 +18,10 @@ from db_manager import get_phone_number
 from db_manager import get_is_verified
 from db_manager import not_existing_user
 from db_manager import check_if_user_exist
+from db_manager import create_profile
+from db_manager import insert_social_media_links 
+from db_manager import insert_uploads
+
 from send_email import send_donor_order_confirmation
 from send_email import send_reicipient_welcome_email
 from send_email import send_recipient_order_confirmation
@@ -120,8 +124,7 @@ def createUser():
     #     email = send_reicipient_welcome_email(
     #         recipient_email=request.json["email"], bodyContent=html)
     # insert that bish in the db, naaaah what im sayin
-    response = insert_user(request.json['email'], request.json['first_name'], request.json['last_name'],
-                           request.json['bio'], request.json['zip_code'], email)
+    response = 
     response = Response(response)
     return response, 200
 

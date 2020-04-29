@@ -180,7 +180,7 @@ def insert_donation(recipient_email, dollars, donor_email, donor_first_name, don
     return "donation inserted with uid: " + str(created_tuid)
 
 
-def create_profile(email, first_name, last_name, bio, zip_code, prof_pic, social_media_links, uploads, intro_email_sent):
+def create_profile(email, first_name, last_name, bio, zip_code, prof_pic, intro_email_sent):
     """ insert a new vendor into the vendors table """
     sql_insert_recipient = """INSERT INTO recipients(uid, email, first_name, last_name, bio, prof_pic, zip_code, date_created,
                                     num_donations, total_recieved, intro_email_sent)
@@ -216,10 +216,11 @@ def create_profile(email, first_name, last_name, bio, zip_code, prof_pic, social
     return "user inserted with uid: " + str(created_uuid)
 
 
+# inserts all links in the social_media_links array into the db
 def insert_social_media_links(uid, social_media_links):
     """ insert the social media links """
-    sql_insert_link = """ INSERT INTO social_media_links(uid, link, site_name)
-                               VALUES (%s, %s, %s)"""
+    sql_insert_link = """ INSERT INTO social_media_links(uid, link)
+                               VALUES (%s, %s)"""
 
     conn = None
     try:
@@ -231,7 +232,7 @@ def insert_social_media_links(uid, social_media_links):
         cur = conn.cursor()
         for link in social_media_links:
             # execute the INSERT statement
-            cur.execute(sql_insert_recipient, (uid, ))
+            cur.execute(sql_insert_link, (uid, link))
         # commit the changes to the database
         conn.commit()
         # close communication with the database
@@ -242,7 +243,38 @@ def insert_social_media_links(uid, social_media_links):
         if conn is not None:
             conn.close()
 
-    return "user inserted with uid: " + str(created_uuid)
+    return "inserted links: " + str(uid)
+
+
+# inserts all the uploads from the uploads array into the db with the given uid
+def insert_uploads(uid, uploads):
+    """ insert the uploads"""
+    sql_insert_upload = """ INSERT INTO user_uploads(uid, upload, upload_comment)
+                               VALUES (%s, %s, %s)"""
+
+    conn = None
+    try:
+        # read database configuration
+        params = config()
+        # connect to the PostgreSQL database
+        conn = psycopg2.connect(**params)
+        # create a new cursor
+        cur = conn.cursor()
+        for upload in uploads:
+            # execute the INSERT statement
+            cur.execute(sql_insert_upload, (uid, upload))
+        # commit the changes to the database
+        conn.commit()
+        # close communication with the database
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        return "FAILED!! Nice going idiot: " + str(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return "inserted uploads: " + str(uid)
+
 
 def add_phone_number(email, phone_number):
     """ add phone number to the user """
