@@ -132,20 +132,19 @@ def createUser():
 def makeDonation():
     if not has_args(request.json, ['sender_first_name', 'sender_last_name', 'sender_email',
                                    'sender_address', 'city', 'state', 'zipcode', 'cardholder_name',
-                                   'card_number', 'exp_date', 'cvc', 'dollars']):
+                                   'card_number', 'exp_date', 'cvc', 'dollars', 'recipient_email',
+                                   'recipient_first_name', 'recipient_last_name']):
         raise InvalidUsage('Missing paramenters')
         return 400
-    # get matchmaker obj
-    recipient = Matchmaker().get_recipientProfile()
-    if recipient is None:
-        return "Sorry there are no users to donate to at this time. Try again in a bit", 503
+
+    # get the recipient email, first name, last name
     purchase_status = False
     #fill out form
     full_name = request.json['sender_first_name'] + \
         request.json['sender_last_name']
     payment = DoorDash()
-    if payment.preFill(dollars=request.json['dollars'], recipient_name=recipient.get_first_name(),
-                       recipient_email=recipient.get_email(), sender_name=full_name) == True:
+    if payment.preFill(dollars=request.json['dollars'], recipient_name=request.json['recipient_first_name'],
+                       recipient_email=request.json['recipient_email'], sender_name=full_name) == True:
         sleep(randint(1, 2))
         # pay and deliver
         purchase_status = payment.purchase(sender_email=request.json['sender_email'],
@@ -168,17 +167,17 @@ def makeDonation():
                 donor_email=request.json["sender_email"], bodyContent=html)
             # render template for recipient:
             template = env.get_template('recipient_confirmation.html')
-            html = template.render(recipient_name=recipient.get_first_name(),
+            html = template.render(recipient_name=request.json['recipient_first_name'],
                                    amount_donated=request.json["dollars"])
             recipient_confirm_email = send_recipient_order_confirmation(
-                recipient_email=recipient.get_email(), bodyContent=html)
+                recipient_email=request.json['recipient_email'], bodyContent=html)
             # update User DB
             user_update_status = update_user_entry(
-                recipient, request.json["dollars"])
+                request.json['recipient_email'], request.json["dollars"])
             # insert to Transactions DB
             timestamp_string = time.strftime(
                 "%a, %d %b %Y %H:%M:%S +0000", datetime.fromtimestamp(int(time.time())).timetuple())
-            donation_update_status = insert_donation(recipient, request.json["dollars"],
+            donation_update_status = insert_donation(request.json['recipient_email'], request.json["dollars"],
                                                      request.json["sender_email"],
                                                      request.json["sender_first_name"],
                                                      request.json["sender_last_name"],

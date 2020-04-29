@@ -92,15 +92,13 @@ def not_existing_user(email):
     
 
 
-def update_user_entry(recipientProfile, dollars):
+def update_user_entry(recipient_email, dollars):
     """ Update the user donated amount and the num donations after recieiving payment """
-    new_num_donations = recipientProfile.get_num_donations() + 1
-    new_total_recieved = int(recipientProfile.get_amount_recieved()) + int(dollars)
-    ruid = recipientProfile.get_recipient_user_id()
-    
     sql = """UPDATE recipients SET num_donations = (%s), total_recieved = (%s) WHERE uid = (%s);"""
 
-    data = (str(new_num_donations), str(new_total_recieved), str(ruid))
+    """ get the info related to the user """
+    sql_user = """ SELECT num_donations, total_recieved, uid WHERE email = %s;"""
+
     conn = None
     vendor_id = None
     try:
@@ -110,6 +108,17 @@ def update_user_entry(recipientProfile, dollars):
         conn = psycopg2.connect(**params)
         # create a new cursor
         cur = conn.cursor()
+
+        # get recpient info
+        cur.execute(sql_user, (str(recipient_email),))
+        recipient_row = cur.fetchone()
+
+        # calc new values
+        new_num_donations = int(recipient_row[0]) + 1
+        new_total_recieved = int(recipient_row[1]) + int(dollars)
+        ruid = recipient_row[2]
+
+        data = (str(new_num_donations), str(new_total_recieved), str(ruid))
         # execute the INSERT statement
         cur.execute(sql, data)
         # commit the changes to the database
@@ -125,16 +134,18 @@ def update_user_entry(recipientProfile, dollars):
             conn.close()
 
     return "updated user entry with uuid: " + str(recipientProfile.recipient_user_id)
-    # TODO need to add last donation date to schema to get a more accurate burn rate adjusted amount
 
 
 def insert_donation(recipientProfile, dollars, donor_email, donor_first_name, donor_last_name, timestamp_string, donor_email_sent, recipient_email_sent):
     """ Insert donation record into donations database """
-    ruid = recipientProfile.get_recipient_user_id()
     sql = """INSERT INTO donations(tid, uid, amount_donated, donor_email, donor_first_name, donor_last_name,
              donation_timestamp, donor_email_sent, recipient_email_sent)
 
              VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);"""
+
+    """ get the uid of the user """
+    sql_user = """ SELECT uid WHERE email = %s;"""
+
     conn = None
     vendor_id = None
     try:
@@ -144,6 +155,11 @@ def insert_donation(recipientProfile, dollars, donor_email, donor_first_name, do
         conn = psycopg2.connect(**params)
         # create a new cursor
         cur = conn.cursor()
+
+        # get the recipient uid sql statement
+        cur.execute(sql_user, (str(recipient_email),))
+        ruid = cur.fetchone()[0]
+
         # generate the Uid
         uuid_string = donor_email + timestamp_string
         created_tuid = uuid.uuid5(uuid.NAMESPACE_OID, uuid_string)

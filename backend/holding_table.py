@@ -2,6 +2,11 @@ from datetime import datetime, timedelta
 import psycopg2
 from db_manager import config
 
+# this file handles interactions with the holding table
+# the holding table is meant to prevent the same user being returned
+# consecutively by the matching algo
+
+
 # remove from table where their time is past
 def refresh_table():
     """ remove all users past time in table"""
@@ -48,6 +53,8 @@ def hold_user(uid):
     cur.close()
 
 
+# this method is meant to be used when all users are in the holding table
+# it will remove the 10 users closes to being removed from the table
 def early_release():
     """ remove up to 10 users soonest to getting out """
     sql = """ DELETE FROM holding_table
