@@ -105,14 +105,13 @@ def getIsVerified():
 
 
 @app.route('/createUser', methods=['POST', 'OPTIONS'])
-#@cross_origin(origin='*',headers=['Content- Type','Authorization'])
 def createUser():
     # required params
-    if not has_args(request.json, ['email', 'first_name', 'last_name', 'zip_code']):
+    if not has_args(request.json, ['first_name', 'last_name', 'zip_code',
+                                   'bio', 'social_media_links', 'prof_pic'
+                                   'uploads']):
         raise InvalidUsage('note all paramenters present')
-    # check if they put a bio
-    if not has_args(request.json, ['bio']):
-        request.json['bio'] = ""
+
     email = False
     # if not_existing_user(request.json['email']):
     #     template = env.get_template('recipient_intro.html')
@@ -124,7 +123,6 @@ def createUser():
     response = insert_user(request.json['email'], request.json['first_name'], request.json['last_name'],
                            request.json['bio'], request.json['zip_code'], email)
     response = Response(response)
-    # response.headers.add('Access-Control-Allow-Origin', '*')
     return response, 200
 
 

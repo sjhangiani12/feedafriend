@@ -1,6 +1,7 @@
 drop table if exists donations;
 drop table if exists social_media_links;
 drop table if exists user_uploads;
+drop table if exists holding_table;
 drop table if exists recipients;
 
 CREATE TABLE recipients (
@@ -14,8 +15,6 @@ CREATE TABLE recipients (
     date_created timestamp without time zone,
     num_donations integer DEFAULT 0,
     total_recieved integer DEFAULT 0,
-    phone_number character varying(15) default 0,
-    is_verified boolean default false,
     intro_email_sent boolean default false
 );
 
@@ -42,3 +41,9 @@ create table user_uploads (
 	upload bytea,
 	upload_comment text
 );
+
+create table holding_table (
+	uid uuid references recipients,
+	entered_timestamp TIMESTAMP WITHOUT TIME zone
+);
+

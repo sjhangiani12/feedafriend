@@ -180,12 +180,13 @@ def insert_donation(recipient_email, dollars, donor_email, donor_first_name, don
     return "donation inserted with uid: " + str(created_tuid)
 
 
-def insert_user(email, first_name, last_name, bio, zip_code, intro_email_sent):
+def create_profile(email, first_name, last_name, bio, zip_code, prof_pic, social_media_links, uploads, intro_email_sent):
     """ insert a new vendor into the vendors table """
-    sql = """INSERT INTO recipients(uid, email, first_name, last_name, bio, zip_code, date_created,
+    sql_insert_recipient = """INSERT INTO recipients(uid, email, first_name, last_name, bio, prof_pic, zip_code, date_created,
                                     num_donations, total_recieved, intro_email_sent)
 
-             VALUES( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
+             VALUES( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
+
     conn = None
     try:
         # read database configuration
@@ -200,7 +201,7 @@ def insert_user(email, first_name, last_name, bio, zip_code, intro_email_sent):
         # generate the Uid
         created_uuid = uuid.uuid5(uuid.NAMESPACE_OID, email)
         # execute the INSERT statement
-        cur.execute(sql, (str(created_uuid), email, first_name, last_name, bio, str(
+        cur.execute(sql_insert_recipient, (str(created_uuid), email, first_name, last_name, bio, prof_pic, str(
             zip_code), timestamp_string, str(0), str(0), intro_email_sent))
         # commit the changes to the database
         conn.commit()
@@ -214,6 +215,34 @@ def insert_user(email, first_name, last_name, bio, zip_code, intro_email_sent):
 
     return "user inserted with uid: " + str(created_uuid)
 
+
+def insert_social_media_links(uid, social_media_links):
+    """ insert the social media links """
+    sql_insert_link = """ INSERT INTO social_media_links(uid, link, site_name)
+                               VALUES (%s, %s, %s)"""
+
+    conn = None
+    try:
+        # read database configuration
+        params = config()
+        # connect to the PostgreSQL database
+        conn = psycopg2.connect(**params)
+        # create a new cursor
+        cur = conn.cursor()
+        for link in social_media_links:
+            # execute the INSERT statement
+            cur.execute(sql_insert_recipient, (uid, ))
+        # commit the changes to the database
+        conn.commit()
+        # close communication with the database
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        return "FAILED!! Nice going idiot: " + str(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return "user inserted with uid: " + str(created_uuid)
 
 def add_phone_number(email, phone_number):
     """ add phone number to the user """
