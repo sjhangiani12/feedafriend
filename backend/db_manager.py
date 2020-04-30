@@ -334,7 +334,7 @@ def check_if_user_exist(email):
 
 def get_recipient_profile(email):
     """ get the basic profile of the user """
-    sql_user = """ SELECT uid, first_name, last_name, bio, ENCODE(prof_pic, 'base64') 
+    sql_user = """ SELECT uid, first_name, last_name, bio, prof_pic
                    FROM recipients
                    WHERE email = %s;"""
 

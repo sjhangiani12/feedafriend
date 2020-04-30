@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 function RecipientInput(props) {
 
     const [uploadBinary, setUploadBinary] = useState("");
+    const [retrievedBinary, setRetrivedBinary] = useState("");
 
     function fileSelectedHandler(event) {
         var file = event.target.files[0];
@@ -61,8 +62,9 @@ function RecipientInput(props) {
                 if (res.status == 200) {
                     res.json().then(data => {
                         // sets if the user who logged in is new or not
-                        console.log(res);
-                        console.log(data);
+                        var dataurl = "data:image/png;base64," + data.prof_pic; 
+                        console.log(dataurl);
+                        setRetrivedBinary(dataurl);
                     });
                 } else if (res.status == 400) {
                     alert("error 400");
@@ -77,8 +79,9 @@ function RecipientInput(props) {
     return (
         <div>
             <input type="file" accept='image/*' onChange={(event) => fileSelectedHandler(event)} />
-            <img src={uploadBinary}></img>
+            <img src={uploadBinary} />
             <button onClick={() => createProfile()}>Submit</button>
+            <img src={retrievedBinary} />
         </div>
     );
 }

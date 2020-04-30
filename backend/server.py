@@ -7,6 +7,7 @@ import time
 from datetime import datetime, date
 from jinja2 import Environment, FileSystemLoader
 import os
+import base64
 
 
 from error import InvalidUsage
@@ -281,12 +282,12 @@ def get_recipient_prof():
     links = profile[1]
     uploads = profile[2]
 
-    print(profile)
+    print(profile_basic[4].tobytes())
     profile_dict = {
         "first_name": profile_basic[1],
         "last_name": profile_basic[2],
         "bio": profile_basic[3],
-        "prof_pic": profile_basic[4],
+        "prof_pic": profile_basic[4].tobytes().decode("utf-8"),
         "social_media_links": links,
         "uploads": uploads
     }
