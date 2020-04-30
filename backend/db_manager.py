@@ -342,7 +342,7 @@ def get_recipient_profile(email):
     sql_links = """ SELECT link FROM social_media_links WHERE uid = %s; """
 
     """ get the uploads of the user """
-    sql_uploads = """ SELECT upload_comment, ENCODE(upload, 'base64') FROM user_uploads WHERE uid = %s; """
+    sql_uploads = """ SELECT upload_comment, upload FROM user_uploads WHERE uid = %s; """
 
     # read database configuration
     params = config()

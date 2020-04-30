@@ -267,9 +267,11 @@ def login():
 @app.route('/getNextRecipient', methods=['GET', 'OPTIONS'])
 def get_next_recipient():
     recipient = Matchmaker().get_recipientProfile()
-    print(recipient)
-    #TODO how the fuck do I access the objects field, i hate py
-    return "good job", 200
+    profile = get_recipient_profile(recipient.get_email())
+
+    profile_dict = _profile_to_dict(profile=profile)
+
+    return jsonify(profile_dict), 200
 
 @app.route('/getRecipientProfile', methods=['GET', 'OPTIONS'])
 def get_recipient_prof():
@@ -278,19 +280,8 @@ def get_recipient_prof():
 
     profile = get_recipient_profile(request.args['email'])
 
-    profile_basic = profile[0]
-    links = profile[1]
-    uploads = profile[2]
+    profile_dict = _profile_to_dict(profile=profile)
 
-    print(profile_basic[4].tobytes())
-    profile_dict = {
-        "first_name": profile_basic[1],
-        "last_name": profile_basic[2],
-        "bio": profile_basic[3],
-        "prof_pic": profile_basic[4].tobytes().decode("utf-8"),
-        "social_media_links": links,
-        "uploads": uploads
-    }
     return jsonify(profile_dict), 200
 
     try:
@@ -314,6 +305,23 @@ def get_recipient_prof():
         print("invalid login")
         return 400
     
+def _profile_to_dict(profile):
+    profile_basic = profile[0]
+    links = profile[1]
+    uploads = profile[2]
+
+    for i in range(len(uploads)):
+        uploads[i] = [uploads[i][0], uploads[i][1].tobytes().decode("utf-8")] 
+
+    profile_dict = {
+        "first_name": profile_basic[1],
+        "last_name": profile_basic[2],
+        "bio": profile_basic[3],
+        "prof_pic": profile_basic[4].tobytes().decode("utf-8"),
+        "social_media_links": links,
+        "uploads": uploads
+    }
+    return profile_dict
 
 if __name__ == '__main__':
     app.debug = True
