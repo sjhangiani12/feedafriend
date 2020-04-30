@@ -78,8 +78,8 @@ def handle_invalid_usage(error):
 
 @app.route('/deleteUser', methods=['POST', 'OPTIONS'])
 def deleteUser():
-    if not has_args(request.json, ['email']):
-        raise InvalidUsage('No email passed')
+    if not has_args(request.json, ['idtoken']):
+        raise InvalidUsage('missing parameters')
 
     try:
         # Specify the CLIENT_ID of the app that accesses the backend:
@@ -110,7 +110,7 @@ def deleteUser():
 def create_prof():
     # required params
     # TODO the param checking is off
-    # if not has_args(request.json, ['email', 'first_name', 'last_name', 'zip_code',
+    # if not has_args(request.json, ['idtoken', 'first_name', 'last_name', 'zip_code',
     #                                'bio', 'social_media_links', 'prof_pic'
     #                                'uploads']):
     #     raise InvalidUsage('note all paramenters present')
@@ -269,7 +269,7 @@ def get_next_recipient():
 
 @app.route('/getRecipientProfile', methods=['GET', 'OPTIONS'])
 def get_recipient_prof():
-    if not has_args(request.args, ['email']):
+    if not has_args(request.args, ['idtoken']):
         raise InvalidUsage('note all paramenters present')
 
     try:
@@ -287,7 +287,8 @@ def get_recipient_prof():
 
         # ID token is valid. Get the user's Google Account ID from the decoded token.
 
-        profile = get_recipient_profile(request.args['email'])
+        email = idinfo['email']
+        profile = get_recipient_profile(email)
 
         profile_dict = _profile_to_dict(profile=profile)
 

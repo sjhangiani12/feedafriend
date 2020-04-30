@@ -20,7 +20,7 @@ function RecipientInput(props) {
 
     function createProfile() {
         const data = {
-            email: "base64iswhack@urmom.com",
+            idtoken: props.idtoken,
             first_name: "breh",
             last_name: "burg",
             zip_code: 12345,
@@ -55,7 +55,7 @@ function RecipientInput(props) {
 
     function getProfile() {
         var url = new URL('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getRecipientProfile');
-        var params = {email:"base64iswhack@urmom.com"}
+        var params = {idtoken:props.idtoken}
         url.search = new URLSearchParams(params).toString();
         fetch(url).then(
             function (res) {

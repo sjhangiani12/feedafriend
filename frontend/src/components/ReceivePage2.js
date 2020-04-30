@@ -8,9 +8,10 @@ function ReceivePage2() {
     // state is the user is new, if so display them the login page
     const [isNewUser, setIsNewUser] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [idtoken, setIdtoken] = useState("");
 
     function responseGoogle(response) {
-        console.log(response.getAuthResponse().id_token);
+        setIdtoken(response.getAuthResponse().id_token);
         const data = {
             idtoken: response.getAuthResponse().id_token
         }
