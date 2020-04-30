@@ -182,13 +182,13 @@ def insert_donation(recipient_email, dollars, donor_email, donor_first_name, don
     return "donation inserted with uid: " + str(created_tuid)
 
 
-def delete_user(email):
+def delete_user(recipient_email):
     """ Update the user donated amount and the num donations after recieiving payment """
     sql = """UPDATE recipients SET email = (%s), first_name = (%s), last_name = (%s), bio = (%s), prof_pic = (%s),
     zip_code = (%s) WHERE uid = (%s);"""
 
     """ get the info related to the user """
-    sql_user = """ SELECT uid WHERE email = %s;"""
+    sql_user = """ SELECT uid from recipients WHERE email = %s;"""
     ruid = None
 
     conn = None
@@ -215,19 +215,17 @@ def delete_user(email):
         conn.commit()
         # close communication with the database
         cur.close()
-        return True
+        return str(True)
     except (Exception, psycopg2.DatabaseError) as error:
         print("FAILED!! Nice going idiot: " + str(error))
-        return False
+        return str(False)
     finally:
         if conn is not None:
             conn.close()
 
-    return "deleted user PII with uuid: " + str(ruid)
-
 
 def create_profile(email, first_name, last_name, bio, zip_code, prof_pic, intro_email_sent):
-    """ insert a new vendor into the vendors table """
+    """ insert a new recipient into the recipients table """
     sql_insert_recipient = """INSERT INTO recipients(uid, email, first_name, last_name, bio, prof_pic, zip_code, date_created,
                                     num_donations, total_recieved, intro_email_sent)
 

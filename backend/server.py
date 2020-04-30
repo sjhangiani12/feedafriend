@@ -52,6 +52,7 @@ def has_args(iterable, args):
         return False
 
 
+# TODO deploy this in prod
 # @app.before_request
 # def before_request():
 #     print(request.url)
@@ -77,6 +78,9 @@ def handle_invalid_usage(error):
 
 @app.route('/deleteUser', methods=['POST', 'OPTIONS'])
 def deleteUser():
+    if not has_args(request.json, ['email']):
+        raise InvalidUsage('No email passed')
+
     try:
         # Specify the CLIENT_ID of the app that accesses the backend:
         CLIENT_ID = os.environ.get('CARE37_GOOGLE_CLIENT_ID')
@@ -94,7 +98,7 @@ def deleteUser():
 
         # delete the user
         email = idinfo['email']
-        delete_user_output = delete_user(request.args['email'])
+        delete_user_output = delete_user(email)
         return delete_user_output, 200
     except ValueError:
         # Invalid token
@@ -105,23 +109,12 @@ def deleteUser():
 @app.route('/createProfile', methods=['POST', 'OPTIONS'])
 def create_prof():
     # required params
+    # TODO the param checking is off
     # if not has_args(request.json, ['email', 'first_name', 'last_name', 'zip_code',
     #                                'bio', 'social_media_links', 'prof_pic'
     #                                'uploads']):
     #     raise InvalidUsage('note all paramenters present')
 
-    email = request.json['email']
-    # create the profile 
-    uid = create_profile(email=email, first_name=request.json['first_name'], last_name=request.json['last_name'],
-        bio=request.json['bio'], zip_code=request.json['zip_code'], prof_pic=request.json['prof_pic'],
-        intro_email_sent=True)
-    # insert all of the uploads
-    response = insert_uploads(uid=uid, uploads=request.json['uploads'])
-    print(response)
-    # insert all the social media links
-    response = insert_social_media_links(uid=uid, social_media_links=request.json['social_media_links'])
-    print(response)
-    return "created", 200
     try:
         # Specify the CLIENT_ID of the app that accesses the backend:
         CLIENT_ID = os.environ.get('CARE37_GOOGLE_CLIENT_ID')
@@ -149,15 +142,16 @@ def create_prof():
         response = insert_social_media_links(uid=uid, social_media_links=request.json['social_media_links'])
         print(response)
 
-        email = False
-        # if not_existing_user(request.json['email']):
-        #     template = env.get_template('recipient_intro.html')
-        #     html = template.render(recipient_name=request.json["first_name"])
-        #     # send confirm email to donor
-        #     email = send_reicipient_welcome_email(
-        #         recipient_email=request.json["email"], bodyContent=html)
-        # insert that bish in the db, naaaah what im sayin
-        return response, 200
+        email_status = False
+        if not_existing_user(email):
+            template = env.get_template('recipient_intro.html')
+            html = template.render(recipient_name=request.json["first_name"])
+            # send confirm email to donor
+            email_status = send_reicipient_welcome_email(
+                recipient_email=email, bodyContent=html)
+        print(email_status)
+                # insert that bish in the db, naaaah what im sayin
+        return 'created', 200
     
     except ValueError:
         # Invalid token
@@ -278,12 +272,6 @@ def get_recipient_prof():
     if not has_args(request.args, ['email']):
         raise InvalidUsage('note all paramenters present')
 
-    profile = get_recipient_profile(request.args['email'])
-
-    profile_dict = _profile_to_dict(profile=profile)
-
-    return jsonify(profile_dict), 200
-
     try:
         # Specify the CLIENT_ID of the app that accesses the backend:
         CLIENT_ID = os.environ.get('CARE37_GOOGLE_CLIENT_ID')
@@ -299,6 +287,11 @@ def get_recipient_prof():
 
         # ID token is valid. Get the user's Google Account ID from the decoded token.
 
+        profile = get_recipient_profile(request.args['email'])
+
+        profile_dict = _profile_to_dict(profile=profile)
+
+        return jsonify(profile_dict), 200
 
     except ValueError:
         # Invalid token
@@ -326,6 +319,3 @@ def _profile_to_dict(profile):
 if __name__ == '__main__':
     app.debug = True
     app.run(threaded=True)
-    # enable ssl for local development https://stackoverflow.com/questions/29458548/can-you-add-https-functionality-to-a-python-flask-web-server
-    # context = ('/Users/MrSwag/Library/Keychains/server.crt', '/Users/MrSwag/Library/Keychains/server.key')#certificate and key files
-    # app.run('127.0.0.1', port=5000, debug=True, ssl_context=context)
