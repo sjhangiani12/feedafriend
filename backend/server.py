@@ -272,10 +272,10 @@ def get_next_recipient():
 
 @app.route('/getRecipientProfile', methods=['GET', 'OPTIONS'])
 def get_recipient_prof():
-    if not has_args(request.json, ['email']):
+    if not has_args(request.args, ['email']):
         raise InvalidUsage('note all paramenters present')
 
-    profile = get_recipient_profile(request.json['email'])
+    profile = get_recipient_profile(request.args['email'])
     print(profile[2][0][0].tobytes())
     return jsonify(profile), 200
 
