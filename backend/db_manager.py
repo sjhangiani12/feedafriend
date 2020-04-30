@@ -201,7 +201,7 @@ def delete_user(recipient_email):
         cur = conn.cursor()
 
         # get recpient info
-        cur.execute(sql_user, (str(email),))
+        cur.execute(sql_user, (str(recipient_email),))
         recipient_row = cur.fetchone()
 
         # calc new values

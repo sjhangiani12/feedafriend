@@ -62,7 +62,7 @@ function ReceivePage2() {
             {true && (
                 <div>
                     <h1>hello</h1>
-                    <RecipientInput />
+                    <RecipientInput idtoken={idtoken} />
                 </div>
             )}
         </div>
