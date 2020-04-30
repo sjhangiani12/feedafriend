@@ -50,7 +50,7 @@ function ReceivePage2() {
 
     return (
         <div style={container}>
-            {false && !isLoggedIn && (
+            {!isLoggedIn && (
                 <GoogleLogin
                     clientId="289368909644-hnpai51fbs9fdbbod98omhdgc6e62olh.apps.googleusercontent.com"
                     buttonText="Login"
@@ -60,7 +60,7 @@ function ReceivePage2() {
                 />
             )}
 
-            {true && (
+            {isLoggedIn && (
                 <div>
                     <h1>hello</h1>
                     <RecipientInput idtoken={idtoken} />

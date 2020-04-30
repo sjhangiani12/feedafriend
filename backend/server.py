@@ -276,7 +276,7 @@ def get_recipient_prof():
         # Specify the CLIENT_ID of the app that accesses the backend:
         CLIENT_ID = os.environ.get('CARE37_GOOGLE_CLIENT_ID')
 
-        idinfo = id_token.verify_oauth2_token(request.json['idtoken'], requests.Request(), CLIENT_ID)
+        idinfo = id_token.verify_oauth2_token(request.args['idtoken'], requests.Request(), CLIENT_ID)
 
         if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
             raise ValueError('Wrong issuer.')
