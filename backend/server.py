@@ -135,6 +135,8 @@ def create_prof():
         uid = create_profile(email=email, first_name=request.json['first_name'], last_name=request.json['last_name'],
             bio=request.json['bio'], zip_code=request.json['zip_code'], prof_pic=request.json['prof_pic'],
             intro_email_sent=True)
+        if uid == None:
+            return "error with create prof, likely duplicate key", 400
         # insert all of the uploads
         response = insert_uploads(uid=uid, uploads=request.json['uploads'])
         print(response)
@@ -261,9 +263,7 @@ def login():
 @app.route('/getNextRecipient', methods=['GET', 'OPTIONS'])
 def get_next_recipient():
     recipient = Matchmaker().get_recipientProfile()
-    profile = get_recipient_profile(recipient.get_email())
-
-    profile_dict = _profile_to_dict(profile=profile)
+    profile_dict = get_recipient_profile(recipient.get_email())
 
     return jsonify(profile_dict), 200
 
@@ -288,9 +288,7 @@ def get_recipient_prof():
         # ID token is valid. Get the user's Google Account ID from the decoded token.
 
         email = idinfo['email']
-        profile = get_recipient_profile(email)
-
-        profile_dict = _profile_to_dict(profile=profile)
+        profile_dict = get_recipient_profile(email)
 
         return jsonify(profile_dict), 200
 
@@ -299,23 +297,6 @@ def get_recipient_prof():
         print("invalid login")
         return 400
     
-def _profile_to_dict(profile):
-    profile_basic = profile[0]
-    links = profile[1]
-    uploads = profile[2]
-
-    for i in range(len(uploads)):
-        uploads[i] = [uploads[i][0], uploads[i][1].tobytes().decode("utf-8")] 
-
-    profile_dict = {
-        "first_name": profile_basic[1],
-        "last_name": profile_basic[2],
-        "bio": profile_basic[3],
-        "prof_pic": profile_basic[4].tobytes().decode("utf-8"),
-        "social_media_links": links,
-        "uploads": uploads
-    }
-    return profile_dict
 
 if __name__ == '__main__':
     app.debug = True

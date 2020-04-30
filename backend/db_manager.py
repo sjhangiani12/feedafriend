@@ -224,6 +224,7 @@ def delete_user(recipient_email):
             conn.close()
 
 
+# creates a new user profile with the given information
 def create_profile(email, first_name, last_name, bio, zip_code, prof_pic, intro_email_sent):
     """ insert a new recipient into the recipients table """
     sql_insert_recipient = """INSERT INTO recipients(uid, email, first_name, last_name, bio, prof_pic, zip_code, date_created,
@@ -231,28 +232,31 @@ def create_profile(email, first_name, last_name, bio, zip_code, prof_pic, intro_
 
              VALUES( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
 
-    # read database configuration
-    params = config()
-    # connect to the PostgreSQL database
-    conn = psycopg2.connect(**params)
-    # create a new cursor
-    cur = conn.cursor()
-    # get the date created (TIMESTAMP '2004-10-19 10:23:54')
-    timestamp_string = time.strftime(
-        "%a, %d %b %Y %H:%M:%S +0000", datetime.fromtimestamp(int(time.time())).timetuple())
-    # generate the Uid
-    created_uuid = uuid.uuid5(uuid.NAMESPACE_OID, email)
-    # execute the INSERT statement
-    cur.execute(sql_insert_recipient, (str(created_uuid), email, first_name, last_name, bio, prof_pic, str(
-        zip_code), timestamp_string, str(0), str(0), intro_email_sent))
-    # commit the changes to the database
-    conn.commit()
-    # close communication with the database
-    cur.close()
-    conn.close()
+    try:
+        # read database configuration
+        params = config()
+        # connect to the PostgreSQL database
+        conn = psycopg2.connect(**params)
+        # create a new cursor
+        cur = conn.cursor()
+        # get the date created (TIMESTAMP '2004-10-19 10:23:54')
+        timestamp_string = time.strftime(
+            "%a, %d %b %Y %H:%M:%S +0000", datetime.fromtimestamp(int(time.time())).timetuple())
+        # generate the Uid
+        created_uuid = uuid.uuid5(uuid.NAMESPACE_OID, email)
+        # execute the INSERT statement
+        cur.execute(sql_insert_recipient, (str(created_uuid), email, first_name, last_name, bio, prof_pic, str(
+            zip_code), timestamp_string, str(0), str(0), intro_email_sent))
+        # commit the changes to the database
+        conn.commit()
+        # close communication with the database
+        cur.close()
+        conn.close()
 
-    return str(created_uuid)
-
+        return str(created_uuid)
+    except psycopg2.OperationalError as e:
+        print("DB error creating profile.\n{0}").format(e)
+        return None 
 
 # inserts all links in the social_media_links array into the db
 def insert_social_media_links(uid, social_media_links):
@@ -330,6 +334,7 @@ def check_if_user_exist(email):
     return exists
 
 
+# returns the profile of the recipient, including their social media links and uploads
 def get_recipient_profile(email):
     """ get the basic profile of the user """
     sql_user = """ SELECT uid, first_name, last_name, bio, prof_pic
@@ -368,4 +373,17 @@ def get_recipient_profile(email):
     cur.close()
     conn.close()
 
-    return (recipient_row, links, uploads)
+    # convert the data to a dictionary
+    for i in range(len(uploads)):
+        uploads[i] = [uploads[i][0], uploads[i][1].tobytes().decode("utf-8")] 
+
+    profile_dict = {
+        "first_name": recipient_row[1],
+        "last_name": recipient_row[2],
+        "bio": recipient_row[3],
+        "prof_pic": recipient_row[4].tobytes().decode("utf-8"),
+        "social_media_links": links,
+        "uploads": uploads
+    }
+
+    return profile_dict
