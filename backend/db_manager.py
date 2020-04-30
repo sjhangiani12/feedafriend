@@ -3,6 +3,7 @@ import uuid
 from datetime import datetime
 import time
 from configparser import ConfigParser
+import traceback
 
 
 def config(filename='database.ini', section='postgresql'):
@@ -16,12 +17,13 @@ def config(filename='database.ini', section='postgresql'):
     if parser.has_section(section):
         params = parser.items(section)
         for param in params:
-            db[param[0]] = param[1] 
+            db[param[0]] = param[1]
     else:
         raise Exception(
             'Section {0} not found in the {1} file'.format(section, filename))
 
     return db
+
 
 def update_donations_email(tid, recipient_email_sent_check, donor_email_sent_check):
     """ Update the user donated amount and the num donations after recieiving payment """
@@ -29,12 +31,12 @@ def update_donations_email(tid, recipient_email_sent_check, donor_email_sent_che
         recipient_email = 1
     else:
         recipient_email = 0
-        
+
     if donor_email_sent_check is True:
         donor_email = 1
     else:
         donor_email = 0
-    
+
     sql = """UPDATE donations SET recipient_email_sent = (%s), donor_email_sent = (%s) WHERE tid = (%s);"""
 
     data = (str(recipient_email), str(donor_email), str(tid))
@@ -82,12 +84,11 @@ def not_existing_user(email):
     finally:
         if conn is not None:
             conn.close()
-            
+
     for existing_email in all_emails:
         if email == existing_email[0]:
             return False
     return True
-    
 
 
 def update_user_entry(recipient_email, dollars):
@@ -161,7 +162,8 @@ def insert_donation(recipient_email, dollars, donor_email, donor_first_name, don
         uuid_string = donor_email + timestamp_string
         created_tuid = uuid.uuid5(uuid.NAMESPACE_OID, uuid_string)
         # execute the INSERT statement
-        data = (str(created_tuid), str(ruid), str(dollars), donor_email, donor_first_name, donor_last_name, timestamp_string, 0, 0, donor_email_sent, recipient_email_sent)
+        data = (str(created_tuid), str(ruid), str(dollars), donor_email, donor_first_name,
+                donor_last_name, timestamp_string, 0, 0, donor_email_sent, recipient_email_sent)
 
         cur.execute(sql, data)
 
@@ -182,7 +184,7 @@ def insert_donation(recipient_email, dollars, donor_email, donor_first_name, don
 
 def delete_user(email):
     """ Update the user donated amount and the num donations after recieiving payment """
-    sql = """UPDATE recipients SET email = (%s), first_name = (%s), last_name = (%s), bio = (%s), prof_pic = (%s), 
+    sql = """UPDATE recipients SET email = (%s), first_name = (%s), last_name = (%s), bio = (%s), prof_pic = (%s),
     zip_code = (%s) WHERE uid = (%s);"""
 
     """ get the info related to the user """
@@ -199,13 +201,14 @@ def delete_user(email):
         cur = conn.cursor()
 
         # get recpient info
-        cur.execute(sql_user, (str(recipient_email),))
+        cur.execute(sql_user, (str(email),))
         recipient_row = cur.fetchone()
 
         # calc new values
         ruid = recipient_row[0]
 
-        data = (str(NULL), str(NULL), str(NULL), str(NULL), str(NULL), str(NULL), str(ruid))
+        data = (str(None), str(None), str(None), str(
+            None), str(None), str(None), str(ruid))
         # execute the INSERT statement
         cur.execute(sql, data)
         # commit the changes to the database
@@ -230,31 +233,25 @@ def create_profile(email, first_name, last_name, bio, zip_code, prof_pic, intro_
 
              VALUES( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
 
-    conn = None
-    try:
-        # read database configuration
-        params = config()
-        # connect to the PostgreSQL database
-        conn = psycopg2.connect(**params)
-        # create a new cursor
-        cur = conn.cursor()
-        # get the date created (TIMESTAMP '2004-10-19 10:23:54')
-        timestamp_string = time.strftime(
-            "%a, %d %b %Y %H:%M:%S +0000", datetime.fromtimestamp(int(time.time())).timetuple())
-        # generate the Uid
-        created_uuid = uuid.uuid5(uuid.NAMESPACE_OID, email)
-        # execute the INSERT statement
-        cur.execute(sql_insert_recipient, (str(created_uuid), email, first_name, last_name, bio, prof_pic, str(
-            zip_code), timestamp_string, str(0), str(0), intro_email_sent))
-        # commit the changes to the database
-        conn.commit()
-        # close communication with the database
-        cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        return "FAILED!! Nice going idiot: " + str(error)
-    finally:
-        if conn is not None:
-            conn.close()
+    # read database configuration
+    params = config()
+    # connect to the PostgreSQL database
+    conn = psycopg2.connect(**params)
+    # create a new cursor
+    cur = conn.cursor()
+    # get the date created (TIMESTAMP '2004-10-19 10:23:54')
+    timestamp_string = time.strftime(
+        "%a, %d %b %Y %H:%M:%S +0000", datetime.fromtimestamp(int(time.time())).timetuple())
+    # generate the Uid
+    created_uuid = uuid.uuid5(uuid.NAMESPACE_OID, email)
+    # execute the INSERT statement
+    cur.execute(sql_insert_recipient, (str(created_uuid), email, first_name, last_name, bio, prof_pic, str(
+        zip_code), timestamp_string, str(0), str(0), intro_email_sent))
+    # commit the changes to the database
+    conn.commit()
+    # close communication with the database
+    cur.close()
+    conn.close()
 
     return str(created_uuid)
 
@@ -265,26 +262,20 @@ def insert_social_media_links(uid, social_media_links):
     sql_insert_link = """ INSERT INTO social_media_links(uid, link)
                                VALUES (%s, %s)"""
 
-    conn = None
-    try:
-        # read database configuration
-        params = config()
-        # connect to the PostgreSQL database
-        conn = psycopg2.connect(**params)
-        # create a new cursor
-        cur = conn.cursor()
-        for link in social_media_links:
-            # execute the INSERT statement
-            cur.execute(sql_insert_link, (uid, link))
-        # commit the changes to the database
-        conn.commit()
-        # close communication with the database
-        cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        return "FAILED!! Nice going idiot: " + str(error)
-    finally:
-        if conn is not None:
-            conn.close()
+    # read database configuration
+    params = config()
+    # connect to the PostgreSQL database
+    conn = psycopg2.connect(**params)
+    # create a new cursor
+    cur = conn.cursor()
+    for link in social_media_links:
+        # execute the INSERT statement
+        cur.execute(sql_insert_link, (uid, link))
+    # commit the changes to the database
+    conn.commit()
+    # close communication with the database
+    cur.close()
+    conn.close()
 
     return "inserted links: " + str(uid)
 
@@ -292,100 +283,25 @@ def insert_social_media_links(uid, social_media_links):
 # inserts all the uploads from the uploads array into the db with the given uid
 def insert_uploads(uid, uploads):
     """ insert the uploads"""
-    sql_insert_upload = """ INSERT INTO user_uploads(uid, upload, upload_comment)
+    sql_insert_upload = """ INSERT INTO user_uploads(uid, upload_comment, upload)
                                VALUES (%s, %s, %s)"""
 
-    conn = None
-    try:
-        # read database configuration
-        params = config()
-        # connect to the PostgreSQL database
-        conn = psycopg2.connect(**params)
-        # create a new cursor
-        cur = conn.cursor()
-        for upload in uploads:
-            # execute the INSERT statement
-            cur.execute(sql_insert_upload, (uid, upload))
-        # commit the changes to the database
-        conn.commit()
-        # close communication with the database
-        cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        return "FAILED!! Nice going idiot: " + str(error)
-    finally:
-        if conn is not None:
-            conn.close()
+    # read database configuration
+    params = config()
+    # connect to the PostgreSQL database
+    conn = psycopg2.connect(**params)
+    # create a new cursor
+    cur = conn.cursor()
+    for upload in uploads:
+        # execute the INSERT statement
+        cur.execute(sql_insert_upload, (uid, upload[0], upload[1]))
+    # commit the changes to the database
+    conn.commit()
+    # close communication with the database
+    cur.close()
+    conn.close()
 
     return "inserted uploads: " + str(uid)
-
-
-def add_phone_number(email, phone_number):
-    """ add phone number to the user """
-    sql = """update recipients 
-             set phone_number = %s
-             where email = %s;"""
-
-    # read database configuration
-    params = config()
-    # connect to the PostgreSQL database
-    conn = psycopg2.connect(**params)
-    # create a new cursor
-    cur = conn.cursor()
-    # execute the UPDATE statement
-    cur.execute(sql, (str(phone_number), str(email)))
-    # commit the changes to the database
-    conn.commit()
-    # close communication with the database
-    cur.close()
-    return "phone number updated for email: " + str(email)
-
-def get_phone_number(email):
-    """ get phone number """
-    sql = """select phone_number
-             from recipients 
-             where email = %s;"""
-
-    # read database configuration
-    params = config()
-    # connect to the PostgreSQL database
-    conn = psycopg2.connect(**params)
-    # create a new cursor
-    cur = conn.cursor()
-    # execute the UPDATE statement
-    cur.execute(sql, (str(email),))
-    # check if not found
-    if (cur.rowcount == 0):
-        return 0
-    # get the phone number
-    phone_number = cur.fetchone()
-    # commit the changes to the database
-    conn.commit()
-    # close communication with the database
-    cur.close()
-    return phone_number[0]
-
-
-def get_is_verified(email):
-    """ get is verified"""
-    sql = """select is_verified 
-             from recipients 
-             where email = %s;"""
-
-    # read database configuration
-    params = config()
-    # connect to the PostgreSQL database
-    conn = psycopg2.connect(**params)
-    # create a new cursor
-    cur = conn.cursor()
-    # execute the UPDATE statement
-    cur.execute(sql, (str(email),))
-    # get the phone number
-    is_verified = cur.fetchone()
-    # commit the changes to the database
-    conn.commit()
-    # close communication with the database
-    cur.close()
-    return is_verified[0]
 
 
 # this endpoint checks if the user is in the database
@@ -414,4 +330,44 @@ def check_if_user_exist(email):
     # close communication with the database
     cur.close()
     return exists
-            
+
+
+def get_recipient_profile(email):
+    """ get the basic profile of the user """
+    sql_user = """ SELECT uid, first_name, last_name, bio, prof_pic 
+                   FROM recipients
+                   WHERE email = %s;"""
+
+    """ get the social media links of the user """
+    sql_links = """ SELECT link FROM social_media_links WHERE uid = %s; """
+
+    """ get the uploads of the user """
+    sql_uploads = """ SELECT upload, upload_comment FROM user_uploads WHERE uid = %s; """
+
+    # read database configuration
+    params = config()
+    # connect to the PostgreSQL database
+    conn = psycopg2.connect(**params)
+    # create a new cursor
+    cur = conn.cursor()
+
+    # get basic recpient info
+    cur.execute(sql_user, (str(email),))
+    recipient_row = cur.fetchone()
+    uid = recipient_row[0]
+
+    # get social media links
+    cur.execute(sql_links, (str(uid),))
+    links = cur.fetchall()
+
+    # get uploads
+    cur.execute(sql_uploads, (str(uid),))
+    uploads = cur.fetchall()
+
+    # commit the changes to the database
+    conn.commit()
+    # close communication with the database
+    cur.close()
+    conn.close()
+
+    return (recipient_row, links, uploads)

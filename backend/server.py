@@ -12,15 +12,13 @@ import os
 from error import InvalidUsage
 from db_manager import update_user_entry
 from db_manager import insert_donation
-from db_manager import add_phone_number
-from db_manager import get_phone_number
-from db_manager import get_is_verified
 from db_manager import not_existing_user
 from db_manager import check_if_user_exist
 from db_manager import create_profile
 from db_manager import insert_social_media_links 
 from db_manager import insert_uploads
 from db_manager import delete_user
+from db_manager import get_recipient_profile
 
 from send_email import send_donor_order_confirmation
 from send_email import send_reicipient_welcome_email
@@ -76,38 +74,6 @@ def handle_invalid_usage(error):
     return response
 
 
-@app.route('/addPhoneNumber', methods=['POST', 'OPTIONS'])
-def addPhoneNumber():
-    # check all the args are there
-    if not has_args(request.json, ['email', 'phone_number']):
-        raise InvalidUsage('note all paramenters present')
-    # add the phone number to the DB entry
-    respone = add_phone_number(
-        request.json['email'], request.json['phone_number'])
-    return str(respone), 200
-
-
-@app.route('/getPhoneNumber', methods=['GET', 'OPTIONS'])
-def getPhoneNumber():
-    print(request.args)
-    # check all the args are there
-    if not has_args(request.args, ['email']):
-        raise InvalidUsage('note all paramenters present')
-    # get the phone number
-    phone_number = get_phone_number(request.args['email'])
-    return jsonify(phone_number), 200
-
-
-@app.route('/getIsVerified', methods=['GET', 'OPTIONS'])
-def getIsVerified():
-    print(request)
-    # check all the args are there
-    if not has_args(request.args, ['email']):
-        raise InvalidUsage('note all paramenters present')
-    is_verified = get_is_verified(request.args['email'])
-    return jsonify(is_verified), 200
-
-
 @app.route('/deleteUser', methods=['POST', 'OPTIONS'])
 def deleteUser():
     try:
@@ -135,14 +101,26 @@ def deleteUser():
         return 400
 
 
-@app.route('/createUser', methods=['POST', 'OPTIONS'])
-def createUser():
+@app.route('/createProfile', methods=['POST', 'OPTIONS'])
+def create_prof():
     # required params
-    if not has_args(request.json, ['first_name', 'last_name', 'zip_code',
-                                   'bio', 'social_media_links', 'prof_pic'
-                                   'uploads']):
-        raise InvalidUsage('note all paramenters present')
+    # if not has_args(request.json, ['email', 'first_name', 'last_name', 'zip_code',
+    #                                'bio', 'social_media_links', 'prof_pic'
+    #                                'uploads']):
+    #     raise InvalidUsage('note all paramenters present')
 
+    email = request.json['email']
+    # create the profile 
+    uid = create_profile(email=email, first_name=request.json['first_name'], last_name=request.json['last_name'],
+        bio=request.json['bio'], zip_code=request.json['zip_code'], prof_pic=request.json['prof_pic'],
+        intro_email_sent=True)
+    # insert all of the uploads
+    response = insert_uploads(uid=uid, uploads=request.json['uploads'])
+    print(response)
+    # insert all the social media links
+    response = insert_social_media_links(uid=uid, social_media_links=request.json['social_media_links'])
+    print(response)
+    return "created", 200
     try:
         # Specify the CLIENT_ID of the app that accesses the backend:
         CLIENT_ID = os.environ.get('CARE37_GOOGLE_CLIENT_ID')
@@ -292,6 +270,36 @@ def get_next_recipient():
     #TODO how the fuck do I access the objects field, i hate py
     return "good job", 200
 
+@app.route('/getRecipientProfile', methods=['GET', 'OPTIONS'])
+def get_recipient_prof():
+    if not has_args(request.json, ['email']):
+        raise InvalidUsage('note all paramenters present')
+
+    profile = get_recipient_profile(request.json['email'])
+    print(profile[2][0][0].tobytes())
+    return jsonify(profile), 200
+
+    try:
+        # Specify the CLIENT_ID of the app that accesses the backend:
+        CLIENT_ID = os.environ.get('CARE37_GOOGLE_CLIENT_ID')
+
+        idinfo = id_token.verify_oauth2_token(request.json['idtoken'], requests.Request(), CLIENT_ID)
+
+        if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
+            raise ValueError('Wrong issuer.')
+
+        if CLIENT_ID not in idinfo['aud']:
+            print("clientid was not in aud field from google response")
+            return 400
+
+        # ID token is valid. Get the user's Google Account ID from the decoded token.
+
+
+    except ValueError:
+        # Invalid token
+        print("invalid login")
+        return 400
+    
 
 if __name__ == '__main__':
     app.debug = True

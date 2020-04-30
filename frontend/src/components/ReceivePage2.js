@@ -28,7 +28,7 @@ function ReceivePage2() {
                     res.json().then(data => {
                         // sets if the user who logged in is new or not
                         console.log(data.user_exists);
-                        setIsNewUser(data.user_exists);
+                        setIsNewUser(!data.user_exists);
                         setIsLoggedIn(true);
                     });
                 } else if (res.status == 400) {
