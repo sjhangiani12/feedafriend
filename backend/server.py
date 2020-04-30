@@ -276,8 +276,21 @@ def get_recipient_prof():
         raise InvalidUsage('note all paramenters present')
 
     profile = get_recipient_profile(request.args['email'])
-    print(profile[2][0][0].tobytes())
-    return jsonify(profile), 200
+
+    profile_basic = profile[0]
+    links = profile[1]
+    uploads = profile[2]
+
+    print(profile)
+    profile_dict = {
+        "first_name": profile_basic[1],
+        "last_name": profile_basic[2],
+        "bio": profile_basic[3],
+        "prof_pic": profile_basic[4],
+        "social_media_links": links,
+        "uploads": uploads
+    }
+    return jsonify(profile_dict), 200
 
     try:
         # Specify the CLIENT_ID of the app that accesses the backend:

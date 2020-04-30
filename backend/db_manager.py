@@ -334,7 +334,7 @@ def check_if_user_exist(email):
 
 def get_recipient_profile(email):
     """ get the basic profile of the user """
-    sql_user = """ SELECT uid, first_name, last_name, bio, prof_pic 
+    sql_user = """ SELECT uid, first_name, last_name, bio, ENCODE(prof_pic, 'base64') 
                    FROM recipients
                    WHERE email = %s;"""
 
@@ -342,7 +342,7 @@ def get_recipient_profile(email):
     sql_links = """ SELECT link FROM social_media_links WHERE uid = %s; """
 
     """ get the uploads of the user """
-    sql_uploads = """ SELECT upload, upload_comment FROM user_uploads WHERE uid = %s; """
+    sql_uploads = """ SELECT upload_comment, ENCODE(upload, 'base64') FROM user_uploads WHERE uid = %s; """
 
     # read database configuration
     params = config()

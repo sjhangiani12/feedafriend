@@ -53,17 +53,10 @@ function RecipientInput(props) {
     }
 
     function getProfile() {
-        const data = {
-            email: "base64iswhack@urmom.com",
-        }
-        fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getRecipientProfile', {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify(data)
-        }).then(
+        var url = new URL('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getRecipientProfile');
+        var params = {email:"base64iswhack@urmom.com"}
+        url.search = new URLSearchParams(params).toString();
+        fetch(url).then(
             function (res) {
                 if (res.status == 200) {
                     res.json().then(data => {
