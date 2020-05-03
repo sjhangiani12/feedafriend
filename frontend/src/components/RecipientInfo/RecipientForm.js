@@ -41,7 +41,6 @@ function RecipientForm(props) {
                 } else {
                     alert("error not 400");
                 }
-                getProfile();
             }
         )
     }

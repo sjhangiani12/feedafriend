@@ -22,6 +22,29 @@ function RecipientPortal() {
     }
   }, [user]);
 
+
+    // function getProfile() {
+    //     var url = new URL('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getRecipientProfile');
+    //     var params = {idtoken:props.idtoken}
+    //     url.search = new URLSearchParams(params).toString();
+    //     fetch(url).then(
+    //         function (res) {
+    //             if (res.status == 200) {
+    //                 res.json().then(data => {
+    //                     // sets if the user who logged in is new or not
+    //                     var dataurl = "data:image/png;base64," + data.prof_pic; 
+    //                     console.log(dataurl);
+    //                     setRetrivedBinary(dataurl);
+    //                 });
+    //             } else if (res.status == 400) {
+    //                 alert("error 400");
+    //             } else {
+    //                 alert("error not 400");
+    //             }
+    //         }
+    //     )
+    // }
+
   function handleLogOutPressed() {
     logout({
       returnTo: 'https://www.care37.org/receive'

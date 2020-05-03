@@ -15,7 +15,7 @@ import ReactGA from 'react-ga';
 import HomePage from './components/HomePage.js';
 import DonatePage from './components/DonatePage.js';
 import FAQ from './components/FAQ.js';
-import ReceivePage2 from './components/ReceivePage.js/index.js';
+import ReceivePage from './components/ReceivePage.js';
 import AboutPage from './components/AboutPage.js';
 import Footer from './components/Footer.js';
 import RecipientPortal from './components/RecipientPortal.js';

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
 import GoogleLogin from 'react-google-login';
-import RecipientInput from './RecipientInfo/UploadForm';
+import RecipientForm from './RecipientInfo/RecipientForm';
+import RecipientPortal from './RecipientPortal';
 
 function ReceivePage() {
 
@@ -50,7 +51,7 @@ function ReceivePage() {
 
     return (
         <div style={container}>
-            {!isLoggedIn && (
+            {false && !isLoggedIn && (
                 <GoogleLogin
                     clientId="289368909644-hnpai51fbs9fdbbod98omhdgc6e62olh.apps.googleusercontent.com"
                     buttonText="Login"
@@ -60,11 +61,11 @@ function ReceivePage() {
                 />
             )}
 
-            {isLoggedIn && isNewUser && (
+            {/* {isLoggedIn && isNewUser && ( */}
                 <div>
                     <RecipientForm />
                 </div>
-            )}
+            {/* )} */}
 
             {isLoggedIn && !isNewUser && (
                 <div>
