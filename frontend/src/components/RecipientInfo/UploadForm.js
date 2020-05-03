@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Delete from '@material-ui/icons/Delete';
 
 
 function UploadForm(props) {
@@ -46,6 +47,8 @@ function UploadForm(props) {
         width: "30%",
         height: "30%",
         position: "relative",
+        marginLeft: "3%",
+        marginRight: "3%",
     }
 
     const img = {
@@ -102,6 +105,8 @@ function UploadForm(props) {
         right: 0,
         top: 0,
         zIndex: 1,
+        background: "transparent",
+        borderColor: "transparent",
     }
 
     return (
@@ -119,7 +124,9 @@ function UploadForm(props) {
                         return (
                             <div style={imgContainer}>
                                 <img key={index} style={img} src={file} />
-                                <button style={deleteUploadButton} onClick={(event) => removeUpload(event, index)} />
+                                <button style={deleteUploadButton} onClick={(event) => removeUpload(event, index)} >
+                                    <Delete color="secondary" onClick={(event) => removeUpload(event, index)}/>
+                                </button>
                             </div>
                         )
                     })
