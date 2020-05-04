@@ -43,7 +43,6 @@ function ReceivePage() {
     }
 
     const container = {
-        marginTop: "20%",
         marginBottom: "10%",
         display: "flex",
         justifyContent: "center",
@@ -63,7 +62,7 @@ function ReceivePage() {
 
             {/* {isLoggedIn && isNewUser && ( */}
                 <div>
-                    <RecipientForm />
+                    <RecipientForm/>
                 </div>
             {/* )} */}
 
