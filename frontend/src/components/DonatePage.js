@@ -467,9 +467,9 @@ function DonatePage() {
         <div style={supportForm}>
           <CurrencyInput onChangeEvent={handleSupportUsAmountChange} style={supportInput} prefix="$" value={supportUsAmount} />
         </div>*/}
-          <div>
-            <PrimaryButton onClick={() => handleNextClick(true)} text="Next: Payment information" />
-          </div>
+            <div>
+              <PrimaryButton onClick={() => handleNextClick(true)} text="Next: Payment information" />
+            </div>
           </div>
         </div>
       </div>
