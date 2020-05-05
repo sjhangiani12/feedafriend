@@ -153,7 +153,7 @@ def create_prof():
                 recipient_email=email, bodyContent=html)
         print(email_status)
                 # insert that bish in the db, naaaah what im sayin
-        return 'created', 200
+        return jsonify('created'), 200
     
     except ValueError:
         # Invalid token

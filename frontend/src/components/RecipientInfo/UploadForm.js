@@ -7,6 +7,10 @@ function UploadForm(props) {
 
     const [uploadsDataURLs, setUploadsDataURLs] = useState([]);
 
+    useEffect(() => {
+        parseUploadDataURLS();
+      }, [uploadsDataURLs]);
+
     function fileSelectedHandler(event) {
         if (uploadsDataURLs.length == 3) {
             alert("You have already uploaded 3 documents.");
@@ -36,6 +40,15 @@ function UploadForm(props) {
         uploadsArray.splice(index, 1);
         console.log(uploadsArray);
         setUploadsDataURLs(uploadsArray);
+    }
+
+    function parseUploadDataURLS() {
+        var dataURLsArray = [...uploadsDataURLs];
+        for (var i = 0; i < dataURLsArray.length; i++) {
+            dataURLsArray[i] = dataURLsArray[i].substring(dataURLsArray[i].indexOf(",") + 1);
+        }
+        props.setUploads(dataURLsArray);
+        console.log(dataURLsArray);
     }
 
     const uploadContainer = {
