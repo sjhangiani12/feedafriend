@@ -67,6 +67,7 @@ function RecipientForm(props) {
             body: JSON.stringify(data)
         }).then(
             function (res) {
+                console.log(res);
                 if (res.status == 200) {
                     res.json().then(data => {
                         // sets if the user who logged in is new or not
@@ -152,7 +153,7 @@ function RecipientForm(props) {
             back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
             />, 
         4: <UploadForm 
-                button={<PrimaryButton onClick={() => createProfile()} text="Next"></PrimaryButton>}
+                button={<PrimaryButton onClick={() => createProfile()} text="Create Profile"></PrimaryButton>}
                 back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}>
             </UploadForm>,
         5: <Done onClick={handleFinish} />
