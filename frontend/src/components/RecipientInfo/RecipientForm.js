@@ -3,10 +3,13 @@ import UploadForm from './UploadForm.js';
 import Landing from './Landing.js';
 import { PrimaryButton, SecondaryButton } from "../../shared/ButtonComponents";
 
+import { useHistory } from "react-router-dom";
+
 function RecipientForm(props) {
 
     const [step, setStep] = useState(0);
     const [completed, setCompleted] = useState(false);
+    const history = useHistory();
 
     // const [firstName, setFirstName] = useState("");
     // const [lastName, setLastName] = useState("");
@@ -23,7 +26,7 @@ function RecipientForm(props) {
         fb: "",
         insta: "",
         twit: "",
-        uploads: "",
+        uploads: [],
         profPic: "",
         email: "",
 
@@ -46,17 +49,15 @@ function RecipientForm(props) {
     function createProfile() {
         const data = {
             idtoken: props.idtoken,
-            first_name: firstName,
-            last_name: lastName,
+            first_name: formValues.firstName, 
+            last_name: formValues.lastName,
             zip_code: 12345,
-            bio: bio,
-            fb: fb,
-            insta: insta,
-            twit: twit,
-            email: email,
-            prof_pic: profPic, 
-            uploads: uploads 
+            bio: formValues.bio,
+            social_media_links: [formValues.fb, formValues.insta, formValues.twit],
+            prof_pic: formValues.profPic, 
+            uploads: formValues.uploads 
         }
+        console.log(JSON.stringify(data));
         fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/createProfile', {
             method: "POST",
             headers: {
@@ -70,6 +71,7 @@ function RecipientForm(props) {
                     res.json().then(data => {
                         // sets if the user who logged in is new or not
                         console.log(res);
+                        history.push("/recipientPortal");
                     });
                 } else if (res.status == 400) {
                     alert("error 400");
@@ -120,8 +122,8 @@ function RecipientForm(props) {
             title="Hi. What is your full name?"
             forms={<>
             <div style={{display: "flex", flexDirection: "column"}}>
-                    <div > <input style={form} placeholder="First Name" name="firstName" onChange={(e) => props.handle(e)}></input></div>
-                    <div > <input style={form} placeholder="Last Name" name="lastName" onChange={(e) => props.handle(e)}></input> </div>
+                    <div > <input style={form} placeholder="First Name" name="firstName" onChange={(e) => handleChange(e)}></input></div>
+                    <div > <input style={form} placeholder="Last Name" name="lastName" onChange={(e) => handleChange(e)}></input> </div>
             </div>
                 </>}
             handle={handleChange} 
@@ -132,7 +134,7 @@ function RecipientForm(props) {
             title = "What are you going through?"
             subTitle={<h3 style={{ color: "#828282", fontFamily: "sans-serif", fontSize: "1em"}}>How has COVID-19 effected you and your loved ones? </h3>}
             forms={<>
-                <div><input style={form} placeholder="Your Story" name="bio" onChange={(e) => props.handle(e)}></input></div>
+                <div><input style={form} placeholder="Your Story" name="bio" onChange={(e) => handleChange(e)}></input></div>
                 </>}
             handle={handleChange}
             button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
@@ -141,16 +143,16 @@ function RecipientForm(props) {
         3: <GenericStep 
             title= "Where can people find you?"
             forms={<>
-                <div ><input style={form} placeholder="@yourFB" name="fb" onChange={(e) => props.handle(e)}></input></div>
-                <div ><input style={form} placeholder="@yourInstagram" name="insta" onChange={(e) => props.handle(e)}></input></div>
-                <div ><input style={form} placeholder="@yourTwitter" name="twit" onChange={(e) => props.handle(e)}></input></div>
+                <div ><input style={form} placeholder="@yourFB" name="fb" onChange={(e) => handleChange(e)}></input></div>
+                <div ><input style={form} placeholder="@yourInstagram" name="insta" onChange={(e) => handleChange(e)}></input></div>
+                <div ><input style={form} placeholder="@yourTwitter" name="twit" onChange={(e) => handleChange(e)}></input></div>
                 </>}
             handle={handleChange}
             button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
             back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
             />, 
         4: <UploadForm 
-                button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
+                button={<PrimaryButton onClick={() => createProfile()} text="Next"></PrimaryButton>}
                 back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}>
             </UploadForm>,
         5: <Done onClick={handleFinish} />
@@ -233,7 +235,7 @@ function RecipientForm(props) {
                                     <span style={stepStyles[step-1].text3} align="left">Social Media</span>
                                 </div>
                                 <div >
-                                    <h1 style={stepStyles[step-1].title4}>STEP 3</h1>
+                                    <h1 style={stepStyles[step-1].title4}>STEP 4</h1>
                                     <span style={stepStyles[step-1].text4} align="left">Document Upload</span>
                                 </div>
                             </>
@@ -268,7 +270,6 @@ function Step0(props) {
             {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
             <h1 style={{ fontSize: "2.4em", margin: "0px", marginRight: "3%" }}>You’re under a lot of pressure right now.<br></br>People want to help.</h1>
             <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>Share your COVID-19 story with thousands who want to donate a meal to you and your family.</h3>
-            <PrimaryButton text="THIS IS WHERE THE SIGNUP BUTTON SHOULD BE THAT LINKS TO GOOGLE"></PrimaryButton>
             {props.button}
         </div>
     )
@@ -377,8 +378,8 @@ const currentStepText = {
 //                     <div className="col-md-8 col-sm-12" style={{ marginTop: "5%" }} >
 //                         {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
 //                         <h1 style={{ fontSize: "2.4em", margin: "0px", marginRight: "3%" }}>Hi. What's your name?</h1>
-//                         <input placeholder="First Name" name="firstName" onChange={(e) => props.handle(e)}></input>
-//                         <input placeholder="Last Name" name="lastName" onChange={(e) => props.handle(e)}></input>
+//                         <input placeholder="First Name" name="firstName" onChange={(e) => handleChange(e)}></input>
+//                         <input placeholder="Last Name" name="lastName" onChange={(e) => handleChange(e)}></input>
 //                         <br></br>
 //                         {props.button}
 //                     </div>
@@ -417,7 +418,7 @@ const currentStepText = {
 //                         <h1 style={{ fontSize: "2.4em", margin: "0px", marginRight: "3%" }}>Tell us what you're going through.</h1>
 //                         <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>How has COVID-19 effected you and your loved ones? </h3>
 
-//                         <input placeholder="Your Story" name="bio" onChange={(e) => props.handle(e)}></input>
+//                         <input placeholder="Your Story" name="bio" onChange={(e) => handleChange(e)}></input>
 //                         <br></br>
 
 //                         {props.button}
@@ -456,9 +457,9 @@ const currentStepText = {
 //                     <div className="col-md-8 col-sm-12" style={{ marginTop: "5%" }} >
 //                         {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
 //                         <h1 style={{ fontSize: "2.4em", margin: "0px", marginRight: "3%" }}>Where can people find you?</h1>
-//                         <input placeholder="@yourFB" name="fb" onChange={(e) => props.handle(e)}></input>
-//                         <input placeholder="@yourInstagram" name="insta" onChange={(e) => props.handle(e)}></input>
-//                         <input placeholder="@yourTwitter" name="twit" onChange={(e) => props.handle(e)}></input>
+//                         <input placeholder="@yourFB" name="fb" onChange={(e) => handleChange(e)}></input>
+//                         <input placeholder="@yourInstagram" name="insta" onChange={(e) => handleChange(e)}></input>
+//                         <input placeholder="@yourTwitter" name="twit" onChange={(e) => handleChange(e)}></input>
 //                         <br></br>
 
 //                         {props.button}
