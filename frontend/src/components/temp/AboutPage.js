@@ -6,9 +6,8 @@ import saurav from "../static/saurav.jpg";
 import sharan from "../static/sharan.jpg";
 import robi from "../static/robi.jpg";
 import MediaQuery from 'react-responsive'
-import forDonor from "../static/forDonator.svg"
-import { Link } from 'react-router-dom';
-import { PrimaryButton, SecondaryButton } from "../shared/ButtonComponents";
+
+
 
 const sty = {
   position: "relative",
@@ -46,7 +45,7 @@ class Team extends React.Component {
   render() {
     return (
       <>
-        {/* <MediaQuery minDeviceWidth={700} >
+        <MediaQuery minDeviceWidth={700} >
 
           <div className="container-fluid" style={sty} >
 
@@ -139,7 +138,7 @@ class Team extends React.Component {
               </div>
             </div>
           </div >
-        </MediaQuery> */}
+        </MediaQuery>
       </>
 
     )
@@ -149,76 +148,38 @@ class Team extends React.Component {
 class About extends React.Component {
 render() {
   return (
-    <>
     <div className="container-fluid" style={who}>
       <div className="row" style={ro} >
         <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
-            <h2 align = "left">Who are we?</h2>
-            {/* <p align = "left ">We are five students from the University of Washington who love building things. We met through mutual friends and were lucky enough to find a common interest - designing and building useful stuff. We are studying engineering, computer science, informatics, and design.</p> */}
-            <p align="left ">We are a group of five engineers and develoeprs from the Seattle area who love to eat. While complaining over Zoom about how we couldn't grab dinner together, we came up with the idea to bring meals to the people who need it most - Donable was born! </p>
-
+            <h2 align = "left">Who we are</h2>
+            <p align = "left ">We are five students from the University of Washington who love building things. We met through mutual friends and were lucky enough to find a common interest - designing and building useful stuff. We are studying engineering, computer science, informatics, and design.</p>
+          
         </div>
         <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
-          <h2 align = "left">How does this work?</h2>
-            <p align="left">Someone in need of a meal signs up on Donable.org. Our team screens their request for meal credits by speaking to each and every user. When someone donates, 100% of their donated funds becomes a gift card to a major food delivery service for someone who qualifies for the donation.</p>
+          <h2 align = "left">Why we built this</h2>
+          <p align = "left">We had been ideating on a number of project ideas for a few days when COVID-19 started to become a national emergency. We thought, 'What can we build that would help people?'. We started to think about what people need and how to get it to them. After a number of rounds of iteration, this idea emerged!</p>
 
         </div>
       </div>
     </div>
-    </>)
+  )
 }
 }
-
-
-const header = {
-  display: "flex",
-  flexWrap: "wrap",
-  marginLeft: "5%",
-  marginRight: "5%",
-}
-const root = {
-  position: "relative",
-  marginTop: "120px",
-  height: "100vh",
-  // left: "20%",
-  // width: "70%"
-  marginLeft: "40px",
-  marginRight: "40px"
-}
-
-
 
 function AboutPage () {
 
   return (
-    <div style={root}>
-      <div className="container-fluid" >
-        <div className="row flex-wrap" style={header}>
-          <div className="col-md-7 col-sm-12" >
-            {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
-            <h1 style={{ fontSize: "48px", margin: "0px" }}>Give the gift of a meal and support local business.</h1>
-            <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>Donable is a platform that lets you help both the hungry and restaurants by donating credits to major food delivery services. Anyone can request credits and our team screens all of them to make sure donations get distributed fairly.</h3>
-          </div>
-          <div className="col-md-5 col-sm-12 mt-5" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-            <img style={{ width: "120%" }} src={forDonor} alt="header image" />
-          </div>
-        </div>
+    <div style={{marginTop: "120px"}}>
+      < div className="row mx-5" style={{ alignItems: "center", justifyContent: "center" }} >
+        <h1>About</h1>
       </div>
-      <div style={{marginTop: "10%"}}>
-        <About />
-      </div>
-      <div className="row flex-wrap" style={{ justifyContent: "center", align: "center", marginTop: "7%"}}>
-        <a href="/FAQ">Learn More</a>
-      </div>
+      <About />
+
+      <Team />
     </div>
+
   );
 
-}
-
-const bigText = {
-  marginTop: "12px",
-  fontSize: "3em",
-  paddingTop: "12px",
 }
 
 export default AboutPage;

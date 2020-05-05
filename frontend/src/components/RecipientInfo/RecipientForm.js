@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 function RecipientForm(props) {
     const [uploadsDataURLs, setUploadsDataURLs] = useState([]);
 
-    const [step, setStep] = useState(0);
+    const [step, setStep] = useState(1);
     const [completed, setCompleted] = useState(false);
     const history = useHistory();
     const [uploadsArray, setUploads] = useState([]);
@@ -31,10 +31,10 @@ function RecipientForm(props) {
         uploads: [],
         profPic: "",
         email: "",
-
     }
+
     const [formValues, setFormValues] = useState(formDefaultValues);
-    // const { firstName, lastName, bio, uploads, profPic, email, fb, insta, twit} = formValues
+    const { firstName, lastName, bio, uploads, profPic, email, fb, insta, twit} = formValues
 
     function checkAllFieldsFilled() {
         if (formValues.firstName != "" &&
@@ -94,11 +94,10 @@ function RecipientForm(props) {
 
     function handleChange(e) {
         const target = e.target
-        setFormValues(prevState => ({
-            ...prevState,
+        setFormValues({
+            ...formValues,
             [target.name]: target.value
-        }))
-        console.log(formValues)
+        })
     }
 
     function handleFinish() {
@@ -120,13 +119,13 @@ function RecipientForm(props) {
     // }
 
     const toRender = {
-        0: <Landing />, 
+        0: <Landing googleButton={props.googleButton}/>, 
         1: <GenericStep 
             title="Hi. What is your full name?"
             forms={<>
             <div style={{display: "flex", flexDirection: "column"}}>
-                    <div > <input style={form} placeholder="First Name" name="firstName" onChange={(e) => handleChange(e)}></input></div>
-                    <div > <input style={form} placeholder="Last Name" name="lastName" onChange={(e) => handleChange(e)}></input> </div>
+                    <div > <input style={form} placeholder="First Name" name="firstName" value={firstName} onChange={(e) => handleChange(e)}></input></div>
+                    <div > <input style={form} placeholder="Last Name" name="lastName" value={lastName} onChange={(e) => handleChange(e)}></input> </div>
             </div>
                 </>}
             handle={handleChange} 
@@ -137,7 +136,7 @@ function RecipientForm(props) {
             title = "What are you going through?"
             subTitle={<h3 style={{ color: "#828282", fontFamily: "sans-serif", fontSize: "1em"}}>How has COVID-19 effected you and your loved ones? </h3>}
             forms={<>
-                <div><input style={form} placeholder="Your Story" name="bio" onChange={(e) => handleChange(e)}></input></div>
+                <div><input style={form} placeholder="Your Story" name="bio" value={bio} onChange={(e) => handleChange(e)}></input></div>
                 </>}
             handle={handleChange}
             button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
@@ -146,9 +145,9 @@ function RecipientForm(props) {
         3: <GenericStep 
             title= "Where can people find you?"
             forms={<>
-                <div ><input style={form} placeholder="FUCK" name="fb" onChange={(e) => handleChange(e)}></input></div>
-                <div ><input style={form} placeholder="@yourInstagram" name="insta" onChange={(e) => handleChange(e)}></input></div>
-                <div ><input style={form} placeholder="@yourTwitter" name="twit" onChange={(e) => handleChange(e)}></input></div>
+                <div ><input style={form} placeholder="/yourFacebook" name="fb" value={fb} onChange={(e) => handleChange(e)}></input></div>
+                <div ><input style={form} placeholder="@yourInstagram" name="insta" value={insta} onChange={(e) => handleChange(e)}></input></div>
+                <div ><input style={form} placeholder="@yourTwitter" name="twit" value={twit} onChange={(e) => handleChange(e)}></input></div>
                 </>}
             handle={handleChange}
             button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
@@ -204,42 +203,43 @@ function RecipientForm(props) {
             text4:  currentStepText 
         }
     ]
+    console.log(formValues)
     return (
         <>
-            <div style={root}>
-                <div className="container-fluid" style={{height: "80vh", width: "100vw", marginLeft: "5%"}}>
-                    <div className="row flex-wrap" style={header1}>
-                        {toRender[step]}
-                        <div className="col-md-4 col-sm mr-0 ml-auto" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left", width: "100%", marginTop: "5%", alignSelf: "flex-start" }}>
-                            {step == 0 ? 
-                            <>
-                                <div className="col-md-5 col-sm-12 mt-5" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left" }}>
-                                    <img style={{ width: "100%" }} src={forDonor} alt="header image" />
+            {!props.isLoggedIn ?
+                <>
+                    {toRender[0]}
+                </> :
+                <>
+                    <div style={root}>
+                        <div className="container-fluid" style={{height: "80vh", width: "100vw", marginLeft: "5%"}}>
+                            <div className="row flex-wrap" style={header1}>
+                                {toRender[step]}
+                                <div className="col-md-4 col-sm mr-0 ml-auto" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left", width: "100%", marginTop: "5%", alignSelf: "flex-start" }}>
+                                    <>
+                                        <div>
+                                            <h1 style={stepStyles[step-1].title1}>STEP 1</h1>
+                                            <span style={stepStyles[step-1].text1} align="left">Name</span>
+                                        </div>
+                                        <div >
+                                            <h1 style={stepStyles[step-1].title2}>STEP 2</h1>
+                                            <span style={stepStyles[step-1].text2} align="left">Your Story</span>
+                                        </div>
+                                        <div >
+                                            <h1 style={stepStyles[step-1].title3}>STEP 3</h1>
+                                            <span style={stepStyles[step-1].text3} align="left">Social Media</span>
+                                        </div>
+                                        <div >
+                                            <h1 style={stepStyles[step-1].title4}>STEP 4</h1>
+                                            <span style={stepStyles[step-1].text4} align="left">Document Upload</span>
+                                        </div>
+                                    </>
                                 </div>
-                            </> :
-                            <>
-                                <div>
-                                    <h1 style={stepStyles[step-1].title1}>STEP 1</h1>
-                                    <span style={stepStyles[step-1].text1} align="left">Name</span>
-                                </div>
-                                <div >
-                                    <h1 style={stepStyles[step-1].title2}>STEP 2</h1>
-                                    <span style={stepStyles[step-1].text2} align="left">Your Story</span>
-                                </div>
-                                <div >
-                                    <h1 style={stepStyles[step-1].title3}>STEP 3</h1>
-                                    <span style={stepStyles[step-1].text3} align="left">Social Media</span>
-                                </div>
-                                <div >
-                                    <h1 style={stepStyles[step-1].title4}>STEP 4</h1>
-                                    <span style={stepStyles[step-1].text4} align="left">Document Upload</span>
-                                </div>
-                            </>
-                         }
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </>
+            }
         </>
 
     );

@@ -70,6 +70,7 @@ function ReceivePage() {
                         onFailure={responseGoogle}
                         cookiePolicy={'single_host_origin'}
                     />}
+                    isLoggedIn={isLoggedIn}
                     />
                 </div>
             {/* )} */}

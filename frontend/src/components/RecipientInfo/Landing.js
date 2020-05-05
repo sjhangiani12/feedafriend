@@ -89,7 +89,10 @@ function Landing(props) {
                 <h1 style={{ fontSize: "3em", margin: "0px" }}>In need of a meal?</h1>
 
                 <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}> A lot of people are struggling right now. If you're one of them, lets get in touch. Anyone can request credits to major food delivery services.</h3>
-                {props.button}
+                <div style={{marginTop: "5%"}}>
+                  {props.googleButton}
+                </div>
+                
               </div>
               <div className="col-md-5 col-sm-12 mt-5" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left" }}>
                 <img style={{ width: "100%" }} src={forDonor} alt="header image" />
