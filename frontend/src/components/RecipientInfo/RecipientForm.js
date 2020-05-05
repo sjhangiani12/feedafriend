@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import UploadForm from './UploadForm.js';
 import Landing from './Landing.js';
 import { PrimaryButton, SecondaryButton } from "../../shared/ButtonComponents";
+import forDonor from "../../static/forRecip.svg"
 
 import { useHistory } from "react-router-dom";
-
 function RecipientForm(props) {
+    const [uploadsDataURLs, setUploadsDataURLs] = useState([]);
 
     const [step, setStep] = useState(0);
     const [completed, setCompleted] = useState(false);
@@ -32,7 +33,7 @@ function RecipientForm(props) {
 
     }
     const [formValues, setFormValues] = useState(formDefaultValues);
-    const { firstName, lastName, bio, uploads, profPic, email, fb, insta, twit} = formValues
+    // const { firstName, lastName, bio, uploads, profPic, email, fb, insta, twit} = formValues
 
     function checkAllFieldsFilled() {
         if (formValues.firstName != "" &&
@@ -118,7 +119,7 @@ function RecipientForm(props) {
     // }
 
     const toRender = {
-        0: <Step0 button = {< PrimaryButton onClick = {() => handleNext()} text = "Next" ></PrimaryButton >}/>,
+        0: <Landing />, 
         1: <GenericStep 
             title="Hi. What is your full name?"
             forms={<>
@@ -144,7 +145,7 @@ function RecipientForm(props) {
         3: <GenericStep 
             title= "Where can people find you?"
             forms={<>
-                <div ><input style={form} placeholder="@yourFB" name="fb" onChange={(e) => handleChange(e)}></input></div>
+                <div ><input style={form} placeholder="FUCK" name="fb" onChange={(e) => handleChange(e)}></input></div>
                 <div ><input style={form} placeholder="@yourInstagram" name="insta" onChange={(e) => handleChange(e)}></input></div>
                 <div ><input style={form} placeholder="@yourTwitter" name="twit" onChange={(e) => handleChange(e)}></input></div>
                 </>}
@@ -209,18 +210,9 @@ function RecipientForm(props) {
                         <div className="col-md-4 col-sm mr-0 ml-auto" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left", width: "100%", marginTop: "5%", alignSelf: "flex-start" }}>
                             {step == 0 ? 
                             <>
-                                    <div>
-                                        <h1 style={currentStepTitle}>STEP 1</h1>
-                                        <span style={currentStepText} align="left">Create your profile</span>
-                                    </div>
-                                    <div >
-                                        <h1 style={currentStepTitle}>STEP 2</h1>
-                                        <span style={currentStepText} align="left">Share your story</span>
-                                    </div>
-                                    <div >
-                                        <h1 style={currentStepTitle}>STEP 3</h1>
-                                        <span style={currentStepText} align="left">Enjoy a meal delivered to your door!</span>
-                                    </div>
+                                <div className="col-md-5 col-sm-12 mt-5" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left" }}>
+                                    <img style={{ width: "100%" }} src={forDonor} alt="header image" />
+                                </div>
                             </> :
                             <>
                                 <div>

@@ -43,7 +43,6 @@ function ReceivePage() {
     }
 
     const container = {
-        marginTop: "10%",
         marginBottom: "10%",
         display: "flex",
         justifyContent: "center",
@@ -51,7 +50,7 @@ function ReceivePage() {
 
     return (
         <div style={container}>
-            {!isLoggedIn && (
+            {false && !isLoggedIn && (
                 <GoogleLogin
                     clientId="289368909644-hnpai51fbs9fdbbod98omhdgc6e62olh.apps.googleusercontent.com"
                     buttonText="Login"
@@ -61,11 +60,19 @@ function ReceivePage() {
                 />
             )}
 
-            {isLoggedIn && isNewUser && (
+            {/* {isLoggedIn && isNewUser && ( */}
                 <div>
-                    <RecipientForm idtoken={idtoken} />
+                    <RecipientForm 
+                    googleButton={<GoogleLogin
+                        clientId="289368909644-hnpai51fbs9fdbbod98omhdgc6e62olh.apps.googleusercontent.com"
+                        buttonText="Login"
+                        onSuccess={responseGoogle}
+                        onFailure={responseGoogle}
+                        cookiePolicy={'single_host_origin'}
+                    />}
+                    />
                 </div>
-            )} 
+            {/* )} */}
 
             {isLoggedIn && !isNewUser && (
                 <div>
