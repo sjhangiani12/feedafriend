@@ -11,6 +11,7 @@ function RecipientForm(props) {
     const [step, setStep] = useState(0);
     const [completed, setCompleted] = useState(false);
     const history = useHistory();
+    const [uploadsArray, setUploads] = useState([]);
 
     // const [firstName, setFirstName] = useState("");
     // const [lastName, setLastName] = useState("");
@@ -56,23 +57,22 @@ function RecipientForm(props) {
             bio: formValues.bio,
             social_media_links: [formValues.fb, formValues.insta, formValues.twit],
             prof_pic: formValues.profPic, 
-            uploads: formValues.uploads 
+            uploads: uploadsArray,
         }
         console.log(JSON.stringify(data));
         fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/createProfile', {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Accept" : "application/json",
             },
 
             body: JSON.stringify(data)
         }).then(
             function (res) {
-                console.log(res);
                 if (res.status == 200) {
                     res.json().then(data => {
                         // sets if the user who logged in is new or not
-                        console.log(res);
                         history.push("/recipientPortal");
                     });
                 } else if (res.status == 400) {
@@ -91,6 +91,7 @@ function RecipientForm(props) {
     function handleBack() {
         setStep(step - 1);
     }
+
     function handleChange(e) {
         const target = e.target
         setFormValues(prevState => ({
@@ -155,7 +156,9 @@ function RecipientForm(props) {
             />, 
         4: <UploadForm 
                 button={<PrimaryButton onClick={() => createProfile()} text="Create Profile"></PrimaryButton>}
-                back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}>
+                back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
+                uploadsArray={uploadsArray}
+                setUploads={setUploads}>
             </UploadForm>,
         5: <Done onClick={handleFinish} />
     }
