@@ -4,6 +4,8 @@ import geo2zip from 'geo2zip';
 import { PrimaryButton, SecondaryButton } from "../../shared/ButtonComponents";
 import MediaQuery from 'react-responsive'
 import forDonor from "../../static/forRecip.svg"
+import RecievePage from '../ReceivePage';
+
 
 class Q extends React.Component {
   constructor(props) {
@@ -79,6 +81,15 @@ function Landing(props) {
     alignItems: "center",
 
   }
+
+  // state for when the user clicks the next button (may be unecessary but im lazy)
+  const [nextToRegistartionPressed, setNextToRegistration] = useState(false);
+
+  function handleNextClick() {
+    setNextToRegistration(true);
+    
+  }
+if((!nextToRegistartionPressed)){
   return (
     <>
       <div style={root}>
@@ -90,6 +101,7 @@ function Landing(props) {
 
                 <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}> A lot of people are struggling right now. If you're one of them, lets get in touch. Anyone can request credits to major food delivery services.</h3>
                 {props.button}
+                <PrimaryButton onClick={() => handleNextClick(true)} text="Next: Register/Login" />
               </div>
               <div className="col-md-5 col-sm-12 mt-5" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left" }}>
                 <img style={{ width: "100%" }} src={forDonor} alt="header image" />
@@ -110,11 +122,10 @@ function Landing(props) {
           </div>  
       </div>
     </>
+  ); }
+  else {
 
-
-
-
-  );
+  }
 }
 const thankYou = {
   justifyContent: "center",
