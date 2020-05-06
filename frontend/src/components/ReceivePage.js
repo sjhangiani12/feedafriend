@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import GoogleLogin from 'react-google-login';
 import RecipientForm from './RecipientInfo/RecipientForm';
 import RecipientPortal from './RecipientPortal';
+import Landing from '../components/RecipientInfo/Landing';
 
 function ReceivePage() {
 
@@ -50,30 +51,26 @@ function ReceivePage() {
 
     return (
         <div style={container}>
-            {false && !isLoggedIn && (
-                <GoogleLogin
-                    clientId="289368909644-hnpai51fbs9fdbbod98omhdgc6e62olh.apps.googleusercontent.com"
-                    buttonText="Login"
-                    onSuccess={responseGoogle}
-                    onFailure={responseGoogle}
-                    cookiePolicy={'single_host_origin'}
-                />
-            )}
-
-            {/* {isLoggedIn && isNewUser && ( */}
-                <div>
-                    <RecipientForm 
-                    googleButton={<GoogleLogin
+            {!isLoggedIn && (
+                <Landing googleButton={
+                    <GoogleLogin
                         clientId="289368909644-hnpai51fbs9fdbbod98omhdgc6e62olh.apps.googleusercontent.com"
                         buttonText="Login"
                         onSuccess={responseGoogle}
                         onFailure={responseGoogle}
                         cookiePolicy={'single_host_origin'}
-                    />}
+                    />
+                }/> 
+            )}
+
+            {isLoggedIn && isNewUser && (
+                <div>
+                    <RecipientForm 
                     isLoggedIn={isLoggedIn}
+                    idtoken={idtoken}
                     />
                 </div>
-            {/* )} */}
+            )}
 
             {isLoggedIn && !isNewUser && (
                 <div>

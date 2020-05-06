@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import UploadForm from './UploadForm.js';
-import Landing from './Landing.js';
+import UploadProfPic from './UploadProfPic';
 import { PrimaryButton, SecondaryButton } from "../../shared/ButtonComponents";
 import forDonor from "../../static/forRecip.svg"
 
 import { useHistory } from "react-router-dom";
 function RecipientForm(props) {
-    const [uploadsDataURLs, setUploadsDataURLs] = useState([]);
 
-    const [step, setStep] = useState(1);
+    const [step, setStep] = useState(0);
     const [completed, setCompleted] = useState(false);
     const history = useHistory();
     const [uploadsArray, setUploads] = useState([]);
+    const [profPic, setProfPic] = useState("");
 
     // const [firstName, setFirstName] = useState("");
     // const [lastName, setLastName] = useState("");
@@ -34,7 +34,7 @@ function RecipientForm(props) {
     }
 
     const [formValues, setFormValues] = useState(formDefaultValues);
-    const { firstName, lastName, bio, uploads, profPic, email, fb, insta, twit} = formValues
+    const { firstName, lastName, bio, fb, insta, twit } = formValues
 
     function checkAllFieldsFilled() {
         if (formValues.firstName != "" &&
@@ -51,12 +51,12 @@ function RecipientForm(props) {
     function createProfile() {
         const data = {
             idtoken: props.idtoken,
-            first_name: formValues.firstName, 
+            first_name: formValues.firstName,
             last_name: formValues.lastName,
             zip_code: 12345,
             bio: formValues.bio,
             social_media_links: [formValues.fb, formValues.insta, formValues.twit],
-            prof_pic: formValues.profPic, 
+            prof_pic: profPic,
             uploads: uploadsArray,
         }
         console.log(JSON.stringify(data));
@@ -64,7 +64,7 @@ function RecipientForm(props) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Accept" : "application/json",
+                "Accept": "application/json",
             },
 
             body: JSON.stringify(data)
@@ -85,7 +85,7 @@ function RecipientForm(props) {
     }
 
     function handleNext() {
-        setStep(step+1);
+        setStep(step + 1);
     }
 
     function handleBack() {
@@ -109,139 +109,148 @@ function RecipientForm(props) {
         }
     }
 
-    // const toRender = {
-    //     0: <Step0 button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}/>,
-    // 1: <Step1 handle={handleChange} button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>} back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}/>,
-    //     2: <Step2 handle={handleChange} button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>} back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}/>,
-    //     3: <Step3 handle={handleChange} button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>} back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}/>,
-    //     4: <UploadForm></UploadForm>,
-    //     6: <Done onClick={handleFinish}/>
-    // }
-
     const toRender = {
-        0: <Landing googleButton={props.googleButton}/>, 
-        1: <GenericStep 
+        0: <GenericStep
             title="Hi. What is your full name?"
             forms={<>
-            <div style={{display: "flex", flexDirection: "column"}}>
+                <div style={{ display: "flex", flexDirection: "column" }}>
                     <div > <input style={form} placeholder="First Name" name="firstName" value={firstName} onChange={(e) => handleChange(e)}></input></div>
                     <div > <input style={form} placeholder="Last Name" name="lastName" value={lastName} onChange={(e) => handleChange(e)}></input> </div>
-            </div>
-                </>}
-            handle={handleChange} 
-            button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>} 
-            back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
-            />,
-        2: <GenericStep 
-            title = "What are you going through?"
-            subTitle={<h3 style={{ color: "#828282", fontFamily: "sans-serif", fontSize: "1em"}}>How has COVID-19 effected you and your loved ones? </h3>}
-            forms={<>
-                <div><input style={form} placeholder="Your Story" name="bio" value={bio} onChange={(e) => handleChange(e)}></input></div>
-                </>}
+                </div>
+            </>}
             handle={handleChange}
             button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
             back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
-            />,
-        3: <GenericStep 
-            title= "Where can people find you?"
+        />,
+        1: <GenericStep
+            title="What are you going through?"
+            subTitle={<h3 style={{ color: "#828282", fontFamily: "sans-serif", fontSize: "1em" }}>How has COVID-19 effected you and your loved ones? </h3>}
+            forms={<>
+                <div><input style={form} placeholder="Your Story" name="bio" value={bio} onChange={(e) => handleChange(e)}></input></div>
+            </>}
+            handle={handleChange}
+            button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
+            back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
+        />,
+        2: <GenericStep
+            title="Where can people find you?"
             forms={<>
                 <div ><input style={form} placeholder="/yourFacebook" name="fb" value={fb} onChange={(e) => handleChange(e)}></input></div>
                 <div ><input style={form} placeholder="@yourInstagram" name="insta" value={insta} onChange={(e) => handleChange(e)}></input></div>
                 <div ><input style={form} placeholder="@yourTwitter" name="twit" value={twit} onChange={(e) => handleChange(e)}></input></div>
-                </>}
+            </>}
             handle={handleChange}
             button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
             back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
-            />, 
-        4: <UploadForm 
-                button={<PrimaryButton onClick={() => createProfile()} text="Create Profile"></PrimaryButton>}
-                back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
-                uploadsArray={uploadsArray}
-                setUploads={setUploads}>
-            </UploadForm>,
+        />,
+        3: <UploadProfPic
+            button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
+            back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
+            setProfPic={setProfPic}>
+        </UploadProfPic>,
+        4: <UploadForm
+            button={<PrimaryButton onClick={() => handleNext()} text="Create Profile"></PrimaryButton>}
+            back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
+            uploadsArray={uploadsArray}
+            setUploads={setUploads}>
+        </UploadForm>,
         5: <Done onClick={handleFinish} />
     }
     const stepStyles = [
-        { 
-            title1: currentStepTitle,
-            text1:  currentStepText,
-            title2: stepTitle ,
-            text2:  stepText ,
-            title3: stepTitle ,
-            text3: stepText ,
-            title4:  stepTitle ,
-            text4: stepText 
-        },
         {
-            title1: stepTitle ,
-            text1: stepText ,
-            title2:  currentStepTitle ,
-            text2:  currentStepText ,
-            title3: stepTitle ,
+            title1: currentStepTitle,
+            text1: currentStepText,
+            title2: stepTitle,
+            text2: stepText,
+            title3: stepTitle,
             text3: stepText,
             title4: stepTitle,
-            text4: stepText 
+            text4: stepText,
+            title5: stepTitle,
+            text5: stepText,
         },
         {
             title1: stepTitle,
-            text1: stepText ,
-            title2: stepTitle ,
-            text2: stepText,
-            title3: currentStepTitle ,
-            text3: currentStepText ,
-            title4:  stepTitle ,
-            text4: stepText 
+            text1: stepText,
+            title2: currentStepTitle,
+            text2: currentStepText,
+            title3: stepTitle,
+            text3: stepText,
+            title4: stepTitle,
+            text4: stepText,
+            title5: stepTitle,
+            text5: stepText,
         },
         {
-            title1:  stepTitle ,
-            text1:  stepText ,
-            title2: stepTitle ,
-            text2:  stepText ,
-            title3: stepTitle ,
-            text3:  stepText ,
-            title4:  currentStepTitle ,
-            text4:  currentStepText 
+            title1: stepTitle,
+            text1: stepText,
+            title2: stepTitle,
+            text2: stepText,
+            title3: currentStepTitle,
+            text3: currentStepText,
+            title4: stepTitle,
+            text4: stepText,
+            title5: stepTitle,
+            text5: stepText,
+        },
+        {
+            title1: stepTitle,
+            text1: stepText,
+            title2: stepTitle,
+            text2: stepText,
+            title3: stepTitle,
+            text3: stepText,
+            title4: currentStepTitle,
+            text4: currentStepText,
+            title5: stepTitle,
+            text5: stepText,
+        },
+        {
+            title1: stepTitle,
+            text1: stepText,
+            title2: stepTitle,
+            text2: stepText,
+            title3: stepTitle,
+            text3: stepText,
+            title4: stepTitle,
+            text4: stepText,
+            title5: currentStepTitle,
+            text5: currentStepText
         }
     ]
     console.log(formValues)
     return (
-        <>
-            {!props.isLoggedIn ?
-                <>
-                    {toRender[0]}
-                </> :
-                <>
-                    <div style={root}>
-                        <div className="container-fluid" style={{height: "80vh", width: "100vw", marginLeft: "5%"}}>
-                            <div className="row flex-wrap" style={header1}>
-                                {toRender[step]}
-                                <div className="col-md-4 col-sm mr-0 ml-auto" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left", width: "100%", marginTop: "5%", alignSelf: "flex-start" }}>
-                                    <>
-                                        <div>
-                                            <h1 style={stepStyles[step-1].title1}>STEP 1</h1>
-                                            <span style={stepStyles[step-1].text1} align="left">Name</span>
-                                        </div>
-                                        <div >
-                                            <h1 style={stepStyles[step-1].title2}>STEP 2</h1>
-                                            <span style={stepStyles[step-1].text2} align="left">Your Story</span>
-                                        </div>
-                                        <div >
-                                            <h1 style={stepStyles[step-1].title3}>STEP 3</h1>
-                                            <span style={stepStyles[step-1].text3} align="left">Social Media</span>
-                                        </div>
-                                        <div >
-                                            <h1 style={stepStyles[step-1].title4}>STEP 4</h1>
-                                            <span style={stepStyles[step-1].text4} align="left">Document Upload</span>
-                                        </div>
-                                    </>
-                                </div>
+        <div style={root}>
+            <div className="container-fluid" style={{ height: "80vh", width: "100vw", marginLeft: "5%" }}>
+                <div className="row flex-wrap" style={header1}>
+                    {toRender[step]}
+                    <div className="col-md-4 col-sm mr-0 ml-auto" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left", width: "100%", marginTop: "5%", alignSelf: "flex-start" }}>
+                        <>
+                            <div>
+                                <h1 style={stepStyles[step].title1}>STEP 1</h1>
+                                <span style={stepStyles[step].text1} align="left">Name</span>
                             </div>
-                        </div>
+                            <div >
+                                <h1 style={stepStyles[step].title2}>STEP 2</h1>
+                                <span style={stepStyles[step].text2} align="left">Your Story</span>
+                            </div>
+                            <div >
+                                <h1 style={stepStyles[step].title3}>STEP 3</h1>
+                                <span style={stepStyles[step].text3} align="left">Social Media</span>
+                            </div>
+                            <div >
+                                <h1 style={stepStyles[step].title4}>STEP 4</h1>
+                                <span style={stepStyles[step].text4} align="left">Profile Picture</span>
+                            </div>
+                            <div >
+                                <h1 style={stepStyles[step].title5}>STEP 5</h1>
+                                <span style={stepStyles[step].text5} align="left">Document Upload</span>
+                            </div>
+                        </>
                     </div>
-                </>
-            }
-        </>
-
+                </div>
+            </div>
+        </div>
     );
 
 }
@@ -249,7 +258,7 @@ function GenericStep(props) {
     return (
         <div className="col-md-8 col-sm-12 " style={{ marginTop: "5%", justifyContent: "left" }} >
             {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
-            <h1 style={{ fontSize: "3em", margin: "0px"}}>{props.title}</h1>
+            <h1 style={{ fontSize: "3em", margin: "0px" }}>{props.title}</h1>
             {props.subTitle}
             {props.forms}
             <br></br>
@@ -365,124 +374,5 @@ const currentStepText = {
     fontSize: "2.2vmax",
     width: "100%"
 }
-// function Step1(props) {
-//     return (
 
-//         <div style={root}>
-//             <div className="container-fluid" >
-//                 <div className="row flex-wrap" style={header}>
-//                     <div className="col-md-8 col-sm-12" style={{ marginTop: "5%" }} >
-//                         {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
-//                         <h1 style={{ fontSize: "2.4em", margin: "0px", marginRight: "3%" }}>Hi. What's your name?</h1>
-//                         <input placeholder="First Name" name="firstName" onChange={(e) => handleChange(e)}></input>
-//                         <input placeholder="Last Name" name="lastName" onChange={(e) => handleChange(e)}></input>
-//                         <br></br>
-//                         {props.button}
-//                     </div>
-//                     <div className="col-md-4 col-sm-12 mt-5" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left" }}>
-//                         <div>
-//                             <h1 style={currentStepTitle}>STEP 1</h1>
-//                             <span style={currentStepText} align="left">Name</span>
-//                         </div>
-//                         <div >
-//                             <h1 style={stepTitle}>STEP 2</h1>
-//                             <span style={stepText} align="left">Your Story</span>
-//                         </div>
-//                         <div >
-//                             <h1 style={stepTitle}>STEP 3</h1>
-//                             <span style={stepText} align="left">Social Media</span>
-//                         </div>
-//                         <div >
-//                             <h1 style={stepTitle}>STEP 3</h1>
-//                             <span style={stepText} align="left">Document Upload</span>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     )
-// }
-
-// function Step2(props) {
-//     return (
-
-//         <div style={root}>
-//             <div className="container-fluid" >
-//                 <div className="row flex-wrap" style={header}>
-//                     <div className="col-md-8 col-sm-12" style={{ marginTop: "5%" }} >
-//                         {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
-//                         <h1 style={{ fontSize: "2.4em", margin: "0px", marginRight: "3%" }}>Tell us what you're going through.</h1>
-//                         <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>How has COVID-19 effected you and your loved ones? </h3>
-
-//                         <input placeholder="Your Story" name="bio" onChange={(e) => handleChange(e)}></input>
-//                         <br></br>
-
-//                         {props.button}
-//                         {props.back}
-//                     </div>
-//                     <div className="col-md-4 col-sm-12 mt-5" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left" }}>
-//                         <div>
-//                             <h1 style={stepTitle}>STEP 1</h1>
-//                             <span style={stepText} align="left">Name</span>
-//                         </div>
-//                         <div >
-//                             <h1 style={currentStepTitle}>STEP 2</h1>
-//                             <span style={currentStepText} align="left">Your Story</span>
-//                         </div>
-//                         <div >
-//                             <h1 style={stepTitle}>STEP 3</h1>
-//                             <span style={stepText} align="left">Social Media</span>
-//                         </div>
-//                         <div >
-//                             <h1 style={stepTitle}>STEP 3</h1>
-//                             <span style={stepText} align="left">Document Upload</span>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     )
-// }
-
-// function Step3(props) {
-//     return (
-
-//         <div style={root}>
-//             <div className="container-fluid" >
-//                 <div className="row flex-wrap" style={header}>
-//                     <div className="col-md-8 col-sm-12" style={{ marginTop: "5%" }} >
-//                         {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
-//                         <h1 style={{ fontSize: "2.4em", margin: "0px", marginRight: "3%" }}>Where can people find you?</h1>
-//                         <input placeholder="@yourFB" name="fb" onChange={(e) => handleChange(e)}></input>
-//                         <input placeholder="@yourInstagram" name="insta" onChange={(e) => handleChange(e)}></input>
-//                         <input placeholder="@yourTwitter" name="twit" onChange={(e) => handleChange(e)}></input>
-//                         <br></br>
-
-//                         {props.button}
-//                         {props.back}
-//                     </div>
-//                     <div className="col-md-4 col-sm-12 mt-5" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left" }}>
-//                         <div>
-//                             <h1 style={stepTitle}>STEP 1</h1>
-//                             <span style={stepText} align="left">Name</span>
-//                         </div>
-//                         <div >
-//                             <h1 style={stepTitle}>STEP 2</h1>
-//                             <span style={stepText} align="left">Your Story</span>
-//                         </div>
-//                         <div >
-//                             <h1 style={currentStepTitle}>STEP 3</h1>
-//                             <span style={currentStepText} align="left">Social Media</span>
-//                         </div>
-//                         <div >
-//                             <h1 style={stepTitle}>STEP 3</h1>
-//                             <span style={stepText} align="left">Document Upload</span>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-
-//     )
-// }
 export default RecipientForm;
