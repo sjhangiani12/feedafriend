@@ -4,6 +4,7 @@ import Delete from '@material-ui/icons/Delete';
 function UploadProfPic(props) {
 
     const [profPic, setProfPic] = useState("");
+    const [displayImage, setDisplayImage] = useState(false);
 
     useEffect(() => {
         parseUploadDataURLS();

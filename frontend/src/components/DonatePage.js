@@ -9,7 +9,7 @@ import SelectSearch from 'react-select-search';
 import '../style.css';
 import { useHistory, withRouter } from "react-router-dom";
 import MediaQuery from 'react-responsive';
-import Banner from '.././shared/banner.js';
+import { Banner } from '.././shared/banner.js';
 import forDonor from "../static/toDonate.svg"
 
 import Toolbar from '@material-ui/core/Toolbar';

@@ -17,25 +17,21 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Slide from '@material-ui/core/Slide';
 
-const useStyles = makeStyles(() => ({
-  root: {
+
+export function Banner(props) {
+
+  const root = {
     height: "100%",
-    backgroundColor: "#1136FC",
+    backgroundColor: "rgba(17, 54, 252, .9)",
     boxShadow: "none",
     top: 'auto',
-    opacity: 0.9,
-    top: 90,
+    top: 90, 
+    marginBottom: "100px",
   }
-}));
-
-
-function Banner(props) {
-  const classes = useStyles();
-  const { isAuthenticated } = useAuth0();
 
   return (
     <div id="ban">
-      <AppBar className={classes.root} style={{ "margin-bottom": "100px" }}>
+      <AppBar style={root}>
         <div className="row pt-5" style={{ justifyContent: "center", display: "flex", marginTop: "10%" }}>
           <div className="col-lg-5 col-xs-12" style={{ justifyContent: "center", textAlign: "center" }}>
             <h2>Sorry, we're closed right now!</h2>
@@ -46,16 +42,36 @@ function Banner(props) {
                 </p>
           </div>
         </div>
-        <div className="row pt-5" style={{ justifyContent: "center" }}>
-          {props.children}
+        <div className="row pt-5" style={{ justifyContent: "center", }}>
+          <div style={{ backgroundColor: "rgba(200, 200, 200, 1)" }}>
+            {props.children}
+          </div>
         </div>
       </AppBar>
     </div>
-
-
-
-
   );
 }
 
-export default Banner;
+export function ImageBanner(props) {
+
+  const root = {
+    height: "100%",
+    backgroundColor: "rgba(200, 200, 200, .9)",
+    boxShadow: "none",
+    top: 'auto',
+    top: 90, 
+    marginBottom: "100px",
+  }
+
+  return (
+    <div id="ban" onClick={props.onClick}>
+      <AppBar style={root}>
+        <div className="row pt-5" style={{ justifyContent: "center", }}>
+          <div style={{ backgroundColor: "rgba(200, 200, 200, 1)" }}>
+            {props.children}
+          </div>
+        </div>
+      </AppBar>
+    </div>
+  );
+}

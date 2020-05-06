@@ -101,11 +101,7 @@ function RecipientForm(props) {
     }
 
     function handleFinish() {
-        if (checkAllFieldsFilled()) {
-            createProfile();
-        } else {
-            alert("Please fill out all the fields.");
-        }
+        createProfile();
     }
 
     const toRender = {
