@@ -102,8 +102,7 @@ function RecipientForm(props) {
 
     function handleFinish() {
         if (checkAllFieldsFilled()) {
-            setCompleted(true);
-            console.log(formValues)
+            createProfile();
         } else {
             alert("Please fill out all the fields.");
         }
@@ -224,30 +223,33 @@ function RecipientForm(props) {
             <div className="container-fluid" style={{ height: "80vh", width: "100vw", marginLeft: "5%" }}>
                 <div className="row flex-wrap" style={header1}>
                     {toRender[step]}
-                    <div className="col-md-4 col-sm mr-0 ml-auto" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left", width: "100%", marginTop: "5%", alignSelf: "flex-start" }}>
-                        <>
-                            <div>
-                                <h1 style={stepStyles[step].title1}>STEP 1</h1>
-                                <span style={stepStyles[step].text1} align="left">Name</span>
-                            </div>
-                            <div >
-                                <h1 style={stepStyles[step].title2}>STEP 2</h1>
-                                <span style={stepStyles[step].text2} align="left">Your Story</span>
-                            </div>
-                            <div >
-                                <h1 style={stepStyles[step].title3}>STEP 3</h1>
-                                <span style={stepStyles[step].text3} align="left">Social Media</span>
-                            </div>
-                            <div >
-                                <h1 style={stepStyles[step].title4}>STEP 4</h1>
-                                <span style={stepStyles[step].text4} align="left">Profile Picture</span>
-                            </div>
-                            <div >
-                                <h1 style={stepStyles[step].title5}>STEP 5</h1>
-                                <span style={stepStyles[step].text5} align="left">Document Upload</span>
-                            </div>
-                        </>
-                    </div>
+                    {step < 5 && (
+                        <div className="col-md-4 col-sm mr-0 ml-auto" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left", width: "100%", marginTop: "5%", alignSelf: "flex-start" }}>
+                            <>
+                                <div>
+                                    <h1 style={stepStyles[step].title1}>STEP 1</h1>
+                                    <span style={stepStyles[step].text1} align="left">Name</span>
+                                </div>
+                                <div >
+                                    <h1 style={stepStyles[step].title2}>STEP 2</h1>
+                                    <span style={stepStyles[step].text2} align="left">Your Story</span>
+                                </div>
+                                <div >
+                                    <h1 style={stepStyles[step].title3}>STEP 3</h1>
+                                    <span style={stepStyles[step].text3} align="left">Social Media</span>
+                                </div>
+                                <div >
+                                    <h1 style={stepStyles[step].title4}>STEP 4</h1>
+                                    <span style={stepStyles[step].text4} align="left">Profile Picture</span>
+                                </div>
+                                <div >
+                                    <h1 style={stepStyles[step].title5}>STEP 5</h1>
+                                    <span style={stepStyles[step].text5} align="left">Document Upload</span>
+                                </div>
+                            </>
+                        </div>
+
+                    )}
                 </div>
             </div>
         </div>
