@@ -226,7 +226,7 @@ function RecipientForm(props) {
                     {step < 5 && (
                         <div className="col-md-4 col-sm mr-0 ml-auto" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left", width: "100%", marginTop: "5%", alignSelf: "flex-start" }}>
                             <>
-                                <div>
+                                <div id="recipSteps">
                                     <h1 style={stepStyles[step].title1}>STEP 1</h1>
                                     <span style={stepStyles[step].text1} align="left">Name</span>
                                 </div>
@@ -258,7 +258,7 @@ function RecipientForm(props) {
 }
 function GenericStep(props) {
     return (
-        <div className="col-md-8 col-sm-12 " style={{ marginTop: "5%", justifyContent: "left" }} >
+        <div className="col-md-8 col-sm-12 " style={{ marginTop: "5%", justifyContent: "left"}} >
             {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
             <h1 style={{ fontSize: "3em", margin: "0px" }}>{props.title}</h1>
             {props.subTitle}
@@ -266,7 +266,6 @@ function GenericStep(props) {
             <br></br>
             {props.button}
             {props.back}
-
         </div>
     )
 }

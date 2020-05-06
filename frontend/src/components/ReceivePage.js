@@ -4,6 +4,7 @@ import GoogleLogin from 'react-google-login';
 import RecipientForm from './RecipientInfo/RecipientForm';
 import RecipientPortal from './RecipientPortal';
 import Landing from '../components/RecipientInfo/Landing';
+import Profile from '../components/Profile.js';
 
 function ReceivePage() {
 
@@ -48,19 +49,37 @@ function ReceivePage() {
         display: "flex",
         justifyContent: "center",
     }
+// props:
+// firstName
+// lastName
+// profilePic
+// fb
+// insta
+// twti
+// uploadURLs
 
     return (
         <div style={container}>
             {!isLoggedIn && (
-                <Landing googleButton={
-                    <GoogleLogin
-                        clientId="289368909644-hnpai51fbs9fdbbod98omhdgc6e62olh.apps.googleusercontent.com"
-                        buttonText="Login"
-                        onSuccess={responseGoogle}
-                        onFailure={responseGoogle}
-                        cookiePolicy={'single_host_origin'}
-                    />
-                }/> 
+                <Profile 
+                    firstName="Robi"
+                    lastName="Lin"
+                    profilePic=""
+                    fb="/robilinperson"
+                    insta="@linrobi"
+                    twit="@Robert-Lin-16"
+                    uploadURLs=""
+
+                />
+                // <Landing googleButton={
+                //     <GoogleLogin
+                //         clientId="289368909644-hnpai51fbs9fdbbod98omhdgc6e62olh.apps.googleusercontent.com"
+                //         buttonText="Login"
+                //         onSuccess={responseGoogle}
+                //         onFailure={responseGoogle}
+                //         cookiePolicy={'single_host_origin'}
+                //     />
+                // }/> 
             )}
 
             {isLoggedIn && isNewUser && (

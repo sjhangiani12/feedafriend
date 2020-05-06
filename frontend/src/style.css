@@ -377,6 +377,9 @@
     height: 300px;
   }
 }
+#recipSteps {
+  align-content: flex-start;
+}
 html {
   scroll-behavior: smooth;
 }

@@ -119,68 +119,6 @@ function Landing(props) {
 
   );
 }
-const thankYou = {
-  justifyContent: "center",
-  alignItems: "center",
-  textAlign: "center",
-  paddingBottom: "20px",
-  fontSize: "3em",
-}
-
-const infoBeenAdded = {
-  textAlign: "center",
-  marginLeft: "10%",
-  marginRight: "10%",
-  fontSize: "1.5em",
-}
-
-const textHeader = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  textAlign: "center"
-}
-
-const last = {
-  "color": "black",
-  "font-family": "sans-serif",
-  "text-decoration": "none",
-  "&:hover": {
-    textDecoration: "underline"
-  },
-  display: "flex",
-  flexDirection: "column",
-  marginTop: "5%"
-}
-
-const loginButton = {
-  marginTop: "100px",
-}
-
-const mobileRow = {
-  position: "absolute",
-  top: "15%",
-  margin: "2%",
-  tesstAlign: "center"
-}
-const signUpMessage = {
-  flexBasis: "40%",
-  padding: "20px",
-}
-
-const logoutButton = {
-  flexBasis: "40%",
-  width: "150px",
-  height: "28px",
-}
-
-const loggedInView = {
-  marginTop: "100px",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-}
 
 const header = {
   display: "flex",
