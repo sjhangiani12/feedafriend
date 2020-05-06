@@ -87,12 +87,15 @@ function UploadProfPic(props) {
                 Upload
                         </label>
             <div style={uploadsContainer} >
-                <div style={imgContainer}>
-                    <img style={img} src={profPic} />
-                    <button style={deleteUploadButton} onClick={(event) => removeUpload(event)} >
-                        <Delete color="secondary" onClick={(event) => removeUpload(event)} />
-                    </button>
-                </div>
+                {profPic != "" && (
+                    <div style={imgContainer}>
+                        <img style={img} src={profPic} />
+                        <button style={deleteUploadButton} onClick={(event) => removeUpload(event)} >
+                            <Delete color="secondary" onClick={(event) => removeUpload(event)} />
+                        </button>
+                    </div>
+
+                )}
             </div>
             <br></br>
             {props.button}
