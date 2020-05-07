@@ -58,7 +58,6 @@ function ReceivePage() {
     // twti
     // uploadURLs
 
-
     return (
         <div style={container}>
             {!isLoggedIn && (
@@ -70,8 +69,7 @@ function ReceivePage() {
                         onFailure={responseGoogle}
                         cookiePolicy={'single_host_origin'}
                     />
-                }
-                /> 
+                }/> 
             )}
 
             {isLoggedIn && isNewUser && (
@@ -79,8 +77,6 @@ function ReceivePage() {
                     <RecipientForm
                         isLoggedIn={isLoggedIn}
                         idtoken={idtoken}
-                        setIsLoggedIn={setIsLoggedIn}
-
                     />
                 </div>
             )}
