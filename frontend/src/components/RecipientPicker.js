@@ -8,7 +8,7 @@ function RecipientPicker(props) {
         getNextRecipient();
     }, []);
 
-    const [recipientJSON, setRecipientJSON] = useState({});
+    const [recipientJSON, setRecipientJSON] = useState(null);
 
     function getNextRecipient() {
         fetch("https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getNextRecipient", {
@@ -57,6 +57,7 @@ function RecipientPicker(props) {
                 <div className="container-fluid">
                     <div className="row flex-wrap" style={header}>
                         <div className="col-md-7 col-sm-12" style={{ marginTop: "5%", paddingRight: "2%" }} >
+                            { console.log(recipientJSON) }
                             <Profile data={recipientJSON} />
                         </div>
                         <div className="col-md-7 col-sm-12" style={{ marginTop: "5%", paddingRight: "2%" }} >
