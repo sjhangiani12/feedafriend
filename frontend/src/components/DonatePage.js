@@ -11,8 +11,9 @@ import { useHistory, withRouter } from "react-router-dom";
 import MediaQuery from 'react-responsive';
 import { Banner } from '.././shared/banner.js';
 import forDonor from "../static/toDonate.svg"
-
 import Toolbar from '@material-ui/core/Toolbar';
+
+import RecipientPicker from '../components/RecipientPicker';
 
 
 function DonatePage() {
@@ -425,6 +426,11 @@ function DonatePage() {
   }
 
   // this is step one of the donation process
+  if (true) {
+    return (
+      <RecipientPicker/>  
+    );
+  }
   if ((!nextToPaymentPressed || donateAmount == 0)) {
     return (<div id ="donator">
       <div className="container-fliud px-2" style={{width: "100%"}}>

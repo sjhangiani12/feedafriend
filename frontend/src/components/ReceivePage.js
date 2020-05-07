@@ -12,8 +12,7 @@ function ReceivePage(props) {
     const [isNewUser, setIsNewUser] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [idtoken, setIdtoken] = useState("");
-    const [profileData, setProfileData] = useState("");
-    const [shouldBeRendered, setShouldBeRendered] = useState(false)
+    const [profileData, setProfileData] = useState(null);
 
     function responseGoogle(response) {
         let token = response.getAuthResponse().id_token;
@@ -59,24 +58,24 @@ function ReceivePage(props) {
         fetch(`https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getRecipientProfile?idtoken=${encodeURIComponent(data.idtoken)}`, {
             method: "GET",
             headers: {
-            "Content-Type": "application/json"
+                "Content-Type": "application/json"
             }
         }).then(
             function (response) {
-            if (response.status == 200) {
-                response.json().then(json => {
-                console.log(json);
-                    setProfileData(json);
-                })
-            } else if (response.status == 500) {
-                // there was an error with the DB
-                response.json().then(json => {
-                console.log(json);
-                })
-            } else {
-                // unexpected error
-                console.log(response);
-            }
+                if (response.status == 200) {
+                    response.json().then(json => {
+                        console.log(json);
+                        setProfileData(json);
+                    })
+                } else if (response.status == 500) {
+                    // there was an error with the DB
+                    response.json().then(json => {
+                        console.log(json);
+                    })
+                } else {
+                    // unexpected error
+                    console.log(response);
+                }
             }
         )
     }
@@ -105,7 +104,7 @@ function ReceivePage(props) {
                         onFailure={responseGoogle}
                         cookiePolicy={'single_host_origin'}
                     />
-                }/> 
+                } />
             )}
 
             {isLoggedIn && isNewUser && (
@@ -117,11 +116,11 @@ function ReceivePage(props) {
                 </div>
             )}
 
-            {isLoggedIn && !isNewUser && shouldBeRendered && (
-                
+            {isLoggedIn && !isNewUser && (
+
                 <div>
                     <Profile
-                        data={profileData} 
+                        data={profileData}
                     />
                 </div>
             )}
