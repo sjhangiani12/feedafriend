@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ImageBanner } from '../shared/banner';
-import { PrimaryButton, SecondaryButton } from "../shared/ButtonComponents";
-
-const immm = "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAAEEfUpiAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo3NzdjMDA3Ny03N2RkLTM2NDItODY3ZC1mMTY3YmQ0ZjAxOGEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QkI3N0VGRkNEMkRBMTFFNkE0MTA4NDhCMTA5MThEMjQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QkI3N0VGRkJEMkRBMTFFNkE0MTA4NDhCMTA5MThEMjQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6Nzc3YzAwNzctNzdkZC0zNjQyLTg2N2QtZjE2N2JkNGYwMThhIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjc3N2MwMDc3LTc3ZGQtMzY0Mi04NjdkLWYxNjdiZDRmMDE4YSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuUV09MAAAVySURBVHjaYqyrq2P49u0bAxAwA/FfFhBn//79/xmggAkk8+vXLwYzMzMGERERBhaQMjY2NoZTp06BVQAEEGNJSQkDMmBB1g8ED0FmMPz9+5dBR0cHxJQHCzAzMzNcuXIFxIwHCED2FJwAEIOweOhurnFbOkw38WGNtPe5QEBDDGYy+oxL4Q95zlCZCfKiavx1DTAzqCrcHfxbRL4iE9VcFCMC7NF4qW8BhOEPFAcANbDs27cPxMgF8iehy4N8A7KCFYsk3FcgBb9sbGzgon/+/AEHDBT0gh3JxcXFEBISwuDt7Q326o8fP8AYCCIZjYyM/sO8BPJ7SkoKw9y5cxmgIRoAUgByJLZQBClgRA4HDF+CCIAAAofD3r174SEHilIgPgzEFlg05QDxVCQbICEN0gzEOSCnAPFvILaAiqHjKVA1/2FiLFDDTgOxCciTSC4hBED+5oYZYAIi3N3dGbZs2cIgLCzMYGpqyvD9+3cwGwR27drFEB4eDk4wc+bMATsfCC4wIRv59u1bhsjISIaPHz8yCAkJMTx9+pTh8+fPDExMTGCNIE0gNSA+FLwEByIwvWQBnT4VqzuB3gJhJE1Yo2kajqgChwkWzWth6llACkBOgwYezBAuIG4CYh8g5gPiW0A8AYg3oLmAASAAZVXMkiEURW/xoYvfL3AVbIpo+YZWpeYGR5ttaXIpqLGt0RAHG1wlwSHIybEhjVyaFVoLoaAlevf1rryvPiMPHBB89z7ffecc13zfJ3utAm79OfYSNTwry5IrXMIB49WK9Q+MO4zvNBvLsr6PIN39B6MysuEW45s42pks2yUD/gOnou5EDo17mIZjMVzeALkN0/FIDY7wARPAMIxBPBQbOGC6JTkYMWdpBvtUhHmHhZgaGI5hGILrumCaJhRFAZqmQVVV0Pc9NVHW6SwE3CXLMoiiiOdUkiRQ1zXous5zw7ZteTl34xPjJsp1sVjw3wg6cD6fQxAE4Hkef87zHBzHgTRN5QYv2OCC0VFVFeI4XpoSFqL7mqaBruugbdtfeYEN7kYTg80Fdxbe/1l8Lutgd6wJFY9oYWhwy3g5QQOK7DbCIV3pH3gWlh8EMcNPlOx8LRbsMfqMG8J9N8IDr/J8cCZfAtReBS0JBFF4Cg+aEHUwWRAvgoEGEUGBl/wD6bVLFw9WPyAwutTFunQN6tZf6FCdg4UOSqcOQrdE1rpVVhZJ73u8kWXaFRf0wceuM8PMm9k33/fJfGDbNlfcEIy8RFgjLEslTsuCb4Qnwj3hVlj+d9DHAcdCNEO67H0SyEmZrA55thvG7wc5iWszAf2c9JnoQOjFDrC4V2QJVzLXqR/lugOLfbsJb4SxI4ms+yWwSbgTxzPOuCRUzARA9xemHAawCUHjSF9+ncCuW5dhKWAzMpkM06rmZVy5VCql4vE4t6OI0J5MJpktQYhIutvtMimC3+FfDdHUUXEryoLZ2+v1+tWKhIrFospms6per6tms6lKpRInCIYFWTYaDW5LJBKqXC4rx3FUrVZT6XRaFQoFnsOIecJMSHT/3ezVXkg7k06nw7vCjrThQhtEJhwO8xPtWAjj8Q6Vi8Vi7K88PicU/jPkKoyc7olEIn0Wh0wg4NdxlEgCigbpQB+cHpJinmy1uA9KCHXE4nCF6EeSRtzAhugaOBHS+KcC+BQAdoVJ9VFiUhBYNBpVlmXxicG8ozbkrwiPxbvH7h3TlqBKVsTDDR2YGBLebrf7iw0RL4RFwqvJAx9SGIdj5IBzwhzh2Y8JNQ3jzKojXPhMNHjLk4q1iTewT5ggzBL2CI8+47zQJFQJlsyxTfgxx/Ftg8XO5/ODLDo0/FhguoopOS1U5lfQ+sFt+wM8kkHzBg5NeAAAAABJRU5ErkJggg=="
+import { SecondaryButton } from '../shared/ButtonComponents.js';
 
 const root = {
   position: "relative",
@@ -71,7 +69,7 @@ function Profile(props) {
         if (response.status == 200) {
           response.json().then(json => {
             console.log(json);
-            setUploadData([[immm]]);
+            setUploadData(json.uploads);
             setFirstName(json.first_name);
             setLastName(json.last_name);
             setProfilePic("data:*/*;base64," + json.prof_pic);
@@ -88,56 +86,7 @@ function Profile(props) {
         }
       }
     )
-    setToke(data.idtoken)
   }
-
-
-  function deleteUser() {
-    const data = {
-      idtoken: props.idtoken
-    }
-    fetch(`https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/deleteUser?idtoken=${encodeURIComponent(data.idtoken)}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    }).then(
-      function (response) {
-        if (response.status == 200) {
-          response.json().then(json => {
-            console.log(json);
-          })
-        } else if (response.status == 500) {
-          // there was an error with the DB
-          response.json().then(json => {
-            console.log(json);
-          })
-        } else {
-          // unexpected error
-          console.log(response);
-        }
-      }
-    )
-  }
-
-  useEffect(() => {
-    console.log(props);
-    getProfile();
-  }, [props])
-
-  const [imageToPreview, setImageToPreview] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const [uploadData, setUploadData] = useState([]);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [profilePic, setProfilePic] = useState("");
-  const [fb, setFB] = useState("");
-  const [insta, setInsta] = useState("");
-  const [twit, setTwit] = useState("");
-  const [bio, setBio] = useState("");
-
-
 
   return (
     <div style={root}>
@@ -201,24 +150,9 @@ function Profile(props) {
                 </div>
               </div>
             </div>
-            <div style={uploadsContainer} >
-              {
-                uploadData.map(function (file, index) {
-                  return (
-                    <div key={index} style={imgContainer} onClick={() => {
-                      setImageToPreview(file);
-                      setShowModal(true);
-                    }}>
-                      <img style={img} src={"data:*/*;base64," + file} />
-                    </div>
-                  )
-                })
-              }
-            </div>
           </div>
-          </div>
-          <PrimaryButton onClick={() => deleteUser(toke)}></PrimaryButton>
         </div>
+      </div>
     </div>
   )
 }
