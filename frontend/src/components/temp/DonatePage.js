@@ -9,11 +9,10 @@ import SelectSearch from 'react-select-search';
 import '../style.css';
 import { useHistory, withRouter } from "react-router-dom";
 import MediaQuery from 'react-responsive';
-import { Banner } from '.././shared/banner.js';
-import forDonor from "../static/toDonate.svg"
-import Toolbar from '@material-ui/core/Toolbar';
+import Banner from '.././shared/banner.js';
+import Mode from '.././shared/modal.js';
 
-import RecipientPicker from '../components/RecipientPicker';
+import Toolbar from '@material-ui/core/Toolbar';
 
 
 function DonatePage() {
@@ -426,11 +425,6 @@ function DonatePage() {
   }
 
   // this is step one of the donation process
-  if (true) {
-    return (
-      <RecipientPicker/>  
-    );
-  }
   if ((!nextToPaymentPressed || donateAmount == 0)) {
     return (<div id ="donator">
       <div className="container-fliud px-2" style={{width: "100%"}}>
@@ -439,18 +433,13 @@ function DonatePage() {
           {(donateAmount == 0) ? (
             <div className="col-xl-5 col-lg-5 col-sm-12">
               <h1 style={headerBase}>Your donation is giving someone a meal.</h1>
-              <img style={{ width: "90%" }} src={forDonor} alt="header image" />
-
             </div>
           ) : (
             <div className='col-xl-5 col-lg-5 col-sm-12'>
                 <h1 style={bigText}>You're donating  around <mark style={numOfMealsNumber}>
                   {donateAmount / 12.5}</mark> meals</h1>
-                <img style={{ width: "90%" }} src={forDonor} alt="header image" />
-
             </div>
             )}
-
           <div className='col-xl-6 col-lg-6 col-sm-12 ml-xl-2' >
             <h1 style={step}>STEP 1</h1>
             <h1 style={enterDonation}>Enter donation amount</h1>

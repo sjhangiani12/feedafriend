@@ -2,9 +2,9 @@ env/
 venv/
 ./frontend/node_modules
 __pycache__/
-database.ini
 .vscode
 .ipynb_checkpoints
+database.ini
 .DS_store
 sendgrid.env
 sendgrid.env

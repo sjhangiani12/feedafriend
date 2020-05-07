@@ -95,13 +95,13 @@ function HomePage () {
     <div>
       <div style={root}>
         <MediaQuery minDeviceWidth={700} >
-          <div className="container-fluid" >
+          <div className="container-fluid">
             <div className="row flex-wrap" style={header}>
-              <div className="col-md-7 col-sm-12" style={{marginTop: "5%", paddingRight: "2%"}} >
+              <div className="col-md-7 col-sm-12" style={{marginTop: "5%"}} >
                 {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
-                <h1 style={{ fontSize: "3em", margin: "0px", marginTop: "5%", marginRight: "3%" }}>44% of adults couldn't cover an emergency expense of $400 dollars.</h1>
-                <a style={{ fontSize: ".3em" }}> -Board of Governors of the Federal Reserve System (May 2017).</a>
-                <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%"}}>Our mission is to support the Americans who are struggling to make ends meet. Anyone can request credits to major food delivery services. We screen each request and make sure donations get distributed <strong > <a href="/faq#fairly">fairly.</a></strong></h3>
+                <h1 style={{ fontSize: "3em", margin: "0px" }}>Help feed people in <br /> need and support<br /> local restaurants.</h1>
+                <p style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>People all over the nation are struggling to meet their basic food needs while self-isolating with little to no income. Meanwhile, your local restaurants are suffering as a result of depressed business due to the health crisis.
+              Support your locals restaurants while giving people a meal that they can enjoy a meal in the safety of their own home by donating a Door Dash gift card.</p>
                 <a href="https://www.patreon.com/care37"> <h1 style={whyTheseAmountsText}>Click here to support us!</h1></a>
                 <div style={{ marginTop: "30px" }}>
                   <Link to="/receive" style={{ marginRight: "20px" }}><SecondaryButton text="Receive a meal" /></Link>
@@ -109,22 +109,21 @@ function HomePage () {
                 </div>
               </div>
               <div className="col-md-5 col-sm-12 mt-5" style = {{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-                <img style={{width: "100%"}} src={banner} alt="header image" />
+                <img style={{width: "120%"}} src={banner} alt="header image" />
               </div>
-
             </div>
             <div className="row flex-wrap" style={{justifyContent: "center", align: "center"}}> 
-              <a href="#learnMore">Learn More</a>
+              <a href="#toJump">Learn More</a>
             </div>
           </div>
 
         </MediaQuery>
 
         <MediaQuery maxDeviceWidth={699}>
-          <div style={header2} >
+          <div style={header2}>
             <div>
               {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
-              <h1 style={{ fontSize: "3em", margin: "0px", marginTop: "5%", marginRight: "3%" }}>44% of adults couldn't cover an emergency expense of $400 dollars.<a style={{ fontSize: ".3em" }}> -Board of Governors of the Federal Reserve System (May 2017).</a></h1>
+              <h1 style={{ fontSize: "48px", margin: "0px" }}>Help feed people in <br /> need and support<br /> local restaurants.</h1>
             <p style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%"}}>People all over the nation are struggling to meet their basic food needs while self-isolating with little to no income. Meanwhile, your local restaurants are suffering as a result of depressed business due to the health crisis.
               Support your locals restaurants while giving people a meal by buying and donating a Door Dash gift card so they can enjoy a meal in the safety of their own home. </p>
 
@@ -137,7 +136,7 @@ function HomePage () {
           </div>
         </MediaQuery>
       </div>
-      <div id="learnMore">
+      <div id="toJump">
         <How2/>
         {/* <How /> */}
       </div>

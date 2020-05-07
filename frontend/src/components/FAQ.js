@@ -79,7 +79,7 @@ class Q extends React.Component {
         <div style={line} >
           <div style={{ display: "flex", alignItems: "center", width: "100%"}}>
             <span style={{ fontSize: "4em", marginLeft: "1%", color: "#1136FC", fontStyle: "bold", marginLeft: "5px", marginRight: "10px"}}>Q.  </span>
-            <span id="Qqs" align="left" style={{fontSize: "2.2vmax", width: "100%", marginTop: "5%"}}>{this.props.children}</span>
+            <span align="left" style={{fontSize: "2.2vmax", width: "100%", marginTop: "5%"}}>{this.props.children}</span>
           </div>
         </div>
       </div>
@@ -118,10 +118,10 @@ function FAQ () {
 
   return (
     <div>
-    <div style={{ marginTop: "120px", marginLeft: "5%", marginRight:" 5%"}}>
+    <div style={{ marginTop: "150px", marginLeft: "5%", marginRight:" 5%"}}>
       < div className="row mx-5" style={{ alignItems: "center", justifyContent: "center" }} >
         <div style={{ marginBottom: "5%" }}>
-          <h1>Frequently Asked Questions (FAQ)</h1>
+          <h1 style={{textAlign: "center"}}>Frequently Asked Questions (FAQ)</h1>
         </div>
       </ div>
       < div className="row mx-5" style={{ alignItems: "center", justifyContent: "center"}} >
@@ -130,14 +130,14 @@ function FAQ () {
             For Donors
           </h2>
         </a>
-          <a href="#recips" style={{ whiteSpace: "nowrap", marginLeft: "2%" }}>
+          <a href="#recipients" style={{ whiteSpace: "nowrap", marginLeft: "2%" }}>
           <h2>
             For Recipients
           </h2>
       </a>
 
       </div>
-      < div className="row mx-5" style={{ alignItems: "center", justifyContent: "center" }} >
+      < div className="row mx-5" style={{ alignItems: "center", justifyContent: "center", marginTop: "4%" }} >
 
         <div className="col-12" style={{
           display: "flex", alignItems: "baseline", padding: "0"
@@ -150,7 +150,7 @@ function FAQ () {
       </div>
       <br></br>
       <br></br>
-      <div className="row mx-5"  >
+        <div className="row mx-5" style={{ alignItems: "center", justifyContent: "center", marginTop: "4%" }}>
         <div className="col-12" style={{
           display: "flex", alignItems: "baseline", padding: "0"
         }}>
@@ -160,13 +160,16 @@ function FAQ () {
           <A> Our database orders recipients by how recently they've been donated to and how much money they've been donated. The recipient who has received the least gets the next donation that comes in. </A>
         </div>
       </div>
+        <hr id="donors"  style={{ marginTop: "5%"}}></hr>
 
-      < div id="donors" className="row mx-5" style={{ alignItems: "center", justifyContent: "left", marginTop: "5%" }} >
+        < div className="row mx-5" style={{ alignItems: "center", justifyContent: "left", marginTop: "5%" }} >
+
         <div  style={{ marginBottom: "2%" }}>
           <h2>For Donors</h2>
         </div>
       </ div>
-      <div className="row mx-5"  >
+
+        <div className="row mx-5" style={{ alignItems: "center", justifyContent: "center", marginTop: "4%" }}>
         <div className="col-12" style={{
           display: "flex", alignItems: "baseline", padding: "0"
         }}>
@@ -176,9 +179,9 @@ function FAQ () {
           <A> We use SSL and HTTPS for end-to-end encryption when handling your credit card information. We port your information directly into DoorDash so that we never have to store any of your data.</A>
         </div>
       </div>
+        <br id="fairly"></br>
       <br></br>
-      <br></br>
-      <div className="row mx-5"  >
+        <div  className="row mx-5" style={{ alignItems: "center", justifyContent: "center", marginTop: "4%" }} >
         <div className="col-12" style={{
           display: "flex", alignItems: "baseline", padding: "0"
         }}>
@@ -190,7 +193,7 @@ function FAQ () {
       </div>
       <br></br>
       <br></br>
-      <div className="row mx-5"  >
+        <div className="row mx-5" style={{ alignItems: "center", justifyContent: "center", marginTop: "4%" }}>
         <div className="col-12" style={{
           display: "flex", alignItems: "baseline", padding: "0"
         }}>
@@ -203,7 +206,7 @@ function FAQ () {
 
       <br></br>
       <br></br>
-      <div className="row mx-5"  >
+        <div className="row mx-5" style={{ alignItems: "center", justifyContent: "center", marginTop: "4%" }}  >
         <div className="col-12" style={{
           display: "flex", alignItems: "baseline", padding: "0"
         }}>
@@ -213,13 +216,16 @@ function FAQ () {
           <A> Because we don't store your credit card data or collect funds ourselves, we can't split up donations at this time. Any amount you donate is something that one person recieves!</A>
         </div>
       </div>
+        <hr id="recipients" style={{ marginTop: "5%" }}></hr>
 
-      < div id="recips" className="row mx-5" style={{ alignItems: "center", justifyContent: "left", marginTop: "5%" }} >
+      < div  className="row mx-5" style={{ alignItems: "center", justifyContent: "left", marginTop: "5%" }} >
         <div style={{ marginBottom: "2%" }}>
-          <h2>For Recipient</h2>
+          <h2>For Recipients</h2>
+
         </div>
       </ div>
-      <div className="row mx-5"  >
+
+        <div className="row mx-5" style={{ alignItems: "center", justifyContent: "center", marginTop: "4%" }} >
         <div className="col-12" style={{
           display: "flex", alignItems: "baseline", padding: "0"
         }}>
@@ -231,7 +237,7 @@ function FAQ () {
       </div>
         <br></br>
         <br></br>
-        <div className="row mx-5"  >
+        <div className="row mx-5" style={{ alignItems: "center", justifyContent: "center", marginTop: "4%" }} >
           <div className="col-12" style={{
             display: "flex", alignItems: "baseline", padding: "0"
           }}>
