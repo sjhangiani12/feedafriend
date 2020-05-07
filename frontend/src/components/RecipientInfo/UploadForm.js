@@ -8,8 +8,9 @@ function UploadForm(props) {
     const [uploadsDataURLs, setUploadsDataURLs] = useState([]);
 
     useEffect(() => {
+        console.log(uploadsDataURLs);
         parseUploadDataURLS();
-      }, [uploadsDataURLs]);
+    }, [uploadsDataURLs]);
 
     function fileSelectedHandler(event) {
         if (uploadsDataURLs.length == 3) {
@@ -27,34 +28,32 @@ function UploadForm(props) {
             const reader = new FileReader();
             reader.onload = function (e) {
                 var binaryString = e.target.result;
-                setUploadsDataURLs(uploadsDataURLs => uploadsDataURLs.concat(binaryString));
+                var dataURLsArray = [...uploadsDataURLs];
+                dataURLsArray.push();
+                setUploadsDataURLs(uploadsDataURLs => uploadsDataURLs.concat([["", binaryString]]));
             }
             reader.readAsDataURL(files[i]);
         }
     }
 
     function removeUpload(event, index) {
-        console.log(index);
         var uploadsArray = [...uploadsDataURLs];
-        console.log(uploadsArray);
         uploadsArray.splice(index, 1);
-        console.log(uploadsArray);
         setUploadsDataURLs(uploadsArray);
     }
 
     function parseUploadDataURLS() {
         var dataURLsArray = [...uploadsDataURLs];
         for (var i = 0; i < dataURLsArray.length; i++) {
-            dataURLsArray[i] = dataURLsArray[i].substring(dataURLsArray[i].indexOf(",") + 1);
+            dataURLsArray[i][1] = dataURLsArray[i][1].substring(dataURLsArray[i][1].indexOf(",") + 1);
         }
         props.setUploads(dataURLsArray);
-        console.log(dataURLsArray);
     }
 
-    const uploadContainer = {
-        display: "flex",
-        justifyContent: "space-evenly",
-        flexDirection: "column",
+    function addUploadCaption(event, index) {
+        var dataURLsArray = [...uploadsDataURLs];
+        dataURLsArray[index][0] = event.target.value;
+        props.setUploads(dataURLsArray);
     }
 
     const imgContainer = {
@@ -69,37 +68,6 @@ function UploadForm(props) {
         objectFit: "cover",
         width: "100%",
         height: "100%",
-    }
-
-    const stepTitle = {
-        marginTop: "5%",
-        fontStyle: "normal",
-        fontWeight: "bold",
-        fontSize: "18px",
-        color: "#828282",
-    }
-
-    const currentStepTitle = {
-        marginTop: "5%",
-        fontStyle: "normal",
-        fontWeight: "bold",
-        fontSize: "18px",
-    }
-
-    const stepText = {
-        color: "#919191",
-        fontSize: "2.2vmax",
-        width: "100%"
-    }
-
-    const currentStepText = {
-        fontSize: "2.2vmax",
-        width: "100%"
-    }
-
-    const pageContainer = {
-        display: "flex",
-        flexDirection: "row",
     }
 
     const uploadInput = {
@@ -131,19 +99,13 @@ function UploadForm(props) {
         zIndex: 1,
     }
 
-    const header = {
-        display: "flex",
-        flexWrap: "wrap",
-        marginLeft: "5%",
-        marginRight: "5%",
-    }
-    const root = {
-        position: "relative",
-        marginTop: "120px",
-        // left: "20%",
-        // width: "70%"
-        marginLeft: "40px",
-        marginRight: "40px"
+    const form = {
+        border: "none",
+        width: "85%",
+        fontSize: "2rem",
+        borderBottom: "1px ",
+        borderBottomStyle: "solid",
+        backgroundColor: "#FFFBF4"
     }
 
     return (
@@ -158,17 +120,19 @@ function UploadForm(props) {
                     multiple
                     onChange={(event) => fileSelectedHandler(event)}
                     style={uploadInput} />
-                             Upload
+                Upload
                         </label>
             <div style={uploadsContainer} >
+                {console.log(uploadsDataURLs)}
                 {
                     uploadsDataURLs.map(function (file, index) {
                         return (
                             <div style={imgContainer}>
-                                <img key={index} style={img} src={file} />
+                                <img key={index} style={img} src={"data:*/*;base64," + file[1]} />
                                 <button style={deleteUploadButton} onClick={(event) => removeUpload(event, index)} >
                                     <Delete color="secondary" onClick={(event) => removeUpload(event, index)} />
                                 </button>
+                                <input style={form} placeholder="Upload Caption" onChange={(e) => addUploadCaption(e, index)} />
                             </div>
                         )
                     })
