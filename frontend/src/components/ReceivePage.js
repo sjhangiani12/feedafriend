@@ -15,6 +15,7 @@ function ReceivePage(props) {
     const [profileData, setProfileData] = useState(null);
 
     function responseGoogle(response) {
+        let token = response.getAuthResponse().id_token;
         setIdtoken(response.getAuthResponse().id_token);
         const data = {
             idtoken: response.getAuthResponse().id_token
@@ -34,7 +35,7 @@ function ReceivePage(props) {
                         // sets if the user who logged in is new or not
                         console.log(data.user_exists);
                         if (data.user_exists) {
-                            getProfile(idtoken)
+                            getProfile(token)
                         }
                         setIsNewUser(!data.user_exists);
                         setIsLoggedIn(true);
@@ -46,11 +47,12 @@ function ReceivePage(props) {
                 }
             }
         )
-    }
+    }   
 
-    function getProfile() {
+
+    function getProfile(token) {
         const data = {
-            idtoken: props.idtoken
+            idtoken: token
         }
 
         fetch(`https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getRecipientProfile?idtoken=${encodeURIComponent(data.idtoken)}`, {
