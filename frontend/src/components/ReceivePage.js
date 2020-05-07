@@ -6,12 +6,13 @@ import RecipientPortal from './RecipientPortal';
 import Landing from '../components/RecipientInfo/Landing';
 import Profile from '../components/Profile.js';
 
-function ReceivePage() {
+function ReceivePage(props) {
 
     // state is the user is new, if so display them the login page
     const [isNewUser, setIsNewUser] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [idtoken, setIdtoken] = useState("");
+    const [profileData, setProfileData] = useState("");
 
     function responseGoogle(response) {
         setIdtoken(response.getAuthResponse().id_token);
@@ -32,6 +33,9 @@ function ReceivePage() {
                     res.json().then(data => {
                         // sets if the user who logged in is new or not
                         console.log(data.user_exists);
+                        if (data.user_exists) {
+                            getProfile(idtoken)
+                        }
                         setIsNewUser(!data.user_exists);
                         setIsLoggedIn(true);
                     });
@@ -44,6 +48,35 @@ function ReceivePage() {
         )
     }
 
+    function getProfile() {
+        const data = {
+            idtoken: props.idtoken
+        }
+
+        fetch(`https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getRecipientProfile?idtoken=${encodeURIComponent(data.idtoken)}`, {
+            method: "GET",
+            headers: {
+            "Content-Type": "application/json"
+            }
+        }).then(
+            function (response) {
+            if (response.status == 200) {
+                response.json().then(json => {
+                console.log(json);
+                setProfileData(json);
+                })
+            } else if (response.status == 500) {
+                // there was an error with the DB
+                response.json().then(json => {
+                console.log(json);
+                })
+            } else {
+                // unexpected error
+                console.log(response);
+            }
+            }
+        )
+    }
     const container = {
         marginBottom: "10%",
         display: "flex",
@@ -58,7 +91,6 @@ function ReceivePage() {
     // twti
     // uploadURLs
 
-
     return (
         <div style={container}>
             {!isLoggedIn && (
@@ -70,8 +102,7 @@ function ReceivePage() {
                         onFailure={responseGoogle}
                         cookiePolicy={'single_host_origin'}
                     />
-                }
-                /> 
+                }/> 
             )}
 
             {isLoggedIn && isNewUser && (
@@ -79,16 +110,15 @@ function ReceivePage() {
                     <RecipientForm
                         isLoggedIn={isLoggedIn}
                         idtoken={idtoken}
-                        setIsLoggedIn={setIsLoggedIn}
-
                     />
                 </div>
             )}
 
             {isLoggedIn && !isNewUser && (
+                
                 <div>
                     <Profile
-                        idtoken={idtoken} 
+                        data={profileData} 
                     />
                 </div>
             )}
