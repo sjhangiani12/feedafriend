@@ -84,8 +84,21 @@ function RecipientForm(props) {
         )
     }
 
-    function handleNext() {
-        setStep(step + 1);
+    function handleNext(vals) {
+        let thingsOkay = true
+        if (vals != null) {
+            vals.map((val) => {
+                if (formValues[val] == "") {
+                    thingsOkay = false
+                }
+            })
+        }
+
+        if (thingsOkay) {
+            setStep(step + 1);
+        } else {
+            alert("Please fill out all the fields.");
+        }
     }
 
     function handleBack() {
@@ -104,6 +117,11 @@ function RecipientForm(props) {
         createProfile();
     }
 
+    function runChecks() {
+
+    }
+
+    
     const toRender = {
         0: <GenericStep
             title="Hi. What is your full name?"
@@ -114,8 +132,8 @@ function RecipientForm(props) {
                 </div>
             </>}
             handle={handleChange}
-            button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
-            back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
+            button={<PrimaryButton onClick={() => handleNext(["firstName", "lastName"])} text="Next"></PrimaryButton>}
+            back={<SecondaryButton onClick={() => props.setIsLoggedIn(false)} text="Back"></SecondaryButton>}
         />,
         1: <GenericStep
             title="What are you going through?"
@@ -124,7 +142,7 @@ function RecipientForm(props) {
                 <div><input style={form} placeholder="Your Story" name="bio" value={bio} onChange={(e) => handleChange(e)}></input></div>
             </>}
             handle={handleChange}
-            button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
+            button={<PrimaryButton onClick={() => handleNext(["bio"])} text="Next"></PrimaryButton>}
             back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
         />,
         2: <GenericStep
