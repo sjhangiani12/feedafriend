@@ -154,7 +154,7 @@ function Profile(props) {
 
               </div>
               <div className="col-md-5 col-sm-12" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left", alignSelf: "flex-start" }}>
-                <a style={{ fontSize: "1rem" }}>{bio}</a>
+                <a style={{ fontSize: "1rem" }}>{props.data.bio}</a>
                 <div style={uploadsContainer} >
                   {props.data.uploads != null &&
                     props.data.uploads.map(function (file, index) {
