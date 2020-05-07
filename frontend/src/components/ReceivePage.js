@@ -66,7 +66,7 @@ function ReceivePage(props) {
             if (response.status == 200) {
                 response.json().then(json => {
                 console.log(json);
-                    setProfileData(json).then(setShouldBeRendered(true));
+                    setProfileData(json);
                 })
             } else if (response.status == 500) {
                 // there was an error with the DB
