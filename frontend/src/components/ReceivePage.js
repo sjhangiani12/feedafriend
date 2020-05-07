@@ -15,6 +15,7 @@ function ReceivePage() {
 
     function responseGoogle(response) {
         setIdtoken(response.getAuthResponse().id_token);
+        console.log("TOKEN = ", response.getAuthResponse().id_token)
         const data = {
             idtoken: response.getAuthResponse().id_token
         }
@@ -62,6 +63,8 @@ function ReceivePage() {
     return (
         <div style={container}>
             {!isLoggedIn && (
+                // <Profile idToken="eyJhbGciOiJSUzI1NiIsImtpZCI6Ijc0YmQ4NmZjNjFlNGM2Y2I0NTAxMjZmZjRlMzhiMDY5YjhmOGYzNWMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiMjg5MzY4OTA5NjQ0LWhucGFpNTFmYnM5ZmRiYm9kOThvbWhkZ2M2ZTYyb2xoLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMjg5MzY4OTA5NjQ0LWhucGFpNTFmYnM5ZmRiYm9kOThvbWhkZ2M2ZTYyb2xoLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTAyMTEyODg2OTc0NDg5ODg3NTIzIiwiaGQiOiJ1dy5lZHUiLCJlbWFpbCI6InJsaW4yMEB1dy5lZHUiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6IkFTNWh1bDh2bXR0WUhlNDdSN2l2UUEiLCJuYW1lIjoiUm9iZXJ0IFNhbXVlbCBLZWFvYWt1YSBMaW4iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDUuZ29vZ2xldXNlcmNvbnRlbnQuY29tLy1xY0drWTlNWlU5VS9BQUFBQUFBQUFBSS9BQUFBQUFBQUFBQS9BQUtXSkpOU3FPMlhCcUVMYmNibUpGYTlFMk9UdWthUEZBL3M5Ni1jL3Bob3RvLmpwZyIsImdpdmVuX25hbWUiOiJSb2JlcnQgU2FtdWVsIEtlYW9ha3VhIiwiZmFtaWx5X25hbWUiOiJMaW4iLCJsb2NhbGUiOiJlbiIsImlhdCI6MTU4ODgxODA1NSwiZXhwIjoxNTg4ODIxNjU1LCJqdGkiOiJlZDM3NjNhYzg4ODcwYjljZTA4MmMyZTc5YmUzM2UwNDhjNTA4MTMzIn0.iRKaiPRgkkHIOuDGIiBdNdEX9GWOa7jhbAbvTX_YgSUjy_HY6MhPDi0KScIwAFiQNTQpyPjveAeLKP33U54F3WTSPrywgQGrVa4hYy09aF50fRe9AWgcLZ0QNFWyM9pzroFmJH1tViLitXGxj_rwJrqPJbN9jsoGrcFO8vyDwTTlGnb2n3Kp7PUKJaMdaDwzY7HJafZEtWKfrTWaLX2uWkZNNHCXaw9SsfyX13vcwlwF1NxGHD9auDAQKO3nuWA-wdo9dKB8ZPk76z42-VVIncSjNrVMIPCjXbkxZoG7vcDTAtyiZK8FLJTC69wUogvPwZBgSBIZV3A3LjB0CR7T8w" />
+
                 <Landing googleButton={
                     <GoogleLogin
                         clientId="289368909644-hnpai51fbs9fdbbod98omhdgc6e62olh.apps.googleusercontent.com"

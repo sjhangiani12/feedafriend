@@ -97,9 +97,9 @@ function HomePage () {
         <MediaQuery minDeviceWidth={700} >
           <div className="container-fluid" >
             <div className="row flex-wrap" style={header}>
-              <div className="col-md-7 col-sm-12" style={{marginTop: "5%", paddingRight: "2%"}} >
+              <div className="col-md-6 col-sm-12" style={{marginTop: "5%", paddingRight: "2%"}} >
                 {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
-                <h1 style={{ fontSize: "3em", margin: "0px", marginTop: "5%", marginRight: "3%" }}>44% of adults couldn't cover an emergency expense of $400 dollars.</h1>
+                <h1 style={{ fontSize: "2.5em", margin: "0px", marginTop: "5%", marginRight: "3%" }}>44% of adults couldn't cover an emergency expense of $400 dollars.</h1>
                 <a style={{ fontSize: ".3em" }}> -Board of Governors of the Federal Reserve System (May 2017).</a>
                 <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%"}}>Our mission is to support the Americans who are struggling to make ends meet. Anyone can request credits to major food delivery services. We screen each request and make sure donations get distributed <strong > <a href="/faq#fairly">fairly.</a></strong></h3>
                 <a href="https://www.patreon.com/care37"> <h1 style={whyTheseAmountsText}>Click here to support us!</h1></a>
@@ -108,7 +108,7 @@ function HomePage () {
                   <Link to="/donate"><PrimaryButton text="Donate" /></Link>
                 </div>
               </div>
-              <div className="col-md-5 col-sm-12 mt-5" style = {{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+              <div className="col-md-6 col-sm-12 mt-5" style = {{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
                 <img style={{width: "100%"}} src={banner} alt="header image" />
               </div>
 
