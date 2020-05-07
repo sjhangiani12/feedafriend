@@ -43,8 +43,8 @@ function Profile(props) {
   const [data, setData] = useState(null)
 
   useEffect(() => {
-    setData(props.data.json())
-  })
+    setData(props.data)
+  }, [props])
 
   const [imageToPreview, setImageToPreview] = useState("");
   const [showModal, setShowModal] = useState(false);
