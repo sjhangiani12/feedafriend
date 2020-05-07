@@ -19,8 +19,8 @@ const header = {
 
 const img = {
   objectFit: "cover",
-  width: "10%",
-  height: "auto",
+  width: "100%",
+  height: "100%",
 }
 
 const uploadsContainer = {
@@ -40,7 +40,6 @@ const imgContainer = {
 function Profile(props) {
 
   useEffect(() => {
-    console.log(props);
     getProfile();
   }, [props])
 
@@ -92,9 +91,9 @@ function Profile(props) {
   return (
     <div style={root}>
       {showModal && (
-        <ImageBanner backgroundColor="rgba(200, 200, 200, .9)" onClick={setShowModal(false)}>
+        <ImageBanner backgroundColor="rgba(200, 200, 200, .9)" >
           <div style={imgContainer} >
-            <img style={imageToPreview} src={imageToPreview} />
+            <img style={img} src={imageToPreview} />
           </div>
         </ImageBanner>
       )}
@@ -136,18 +135,17 @@ function Profile(props) {
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <a style={{ fontSize: "1rem" }}>{bio}</a>
                   <div style={uploadsContainer} >
-                    {
-                      uploadData.map(function (file, index) {
+                    { uploadData.map(function (file, index) {
                         return (
                           <div key={index} style={imgContainer} onClick={() => {
-                            setImageToPreview(file);
+                            console.log("hey im being clicked");
+                            setImageToPreview("data:*/*;base64," + file[1]);
                             setShowModal(true);
                           }}>
-                            <img style={img} src={"data:*/*;base64," + file} />
+                            <img style={img} src={"data:*/*;base64," + file[1]} />
                           </div>
                         )
-                      })
-                    }
+                      })}
                   </div>
                 </div>
               </div>

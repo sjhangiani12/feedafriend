@@ -130,7 +130,7 @@ function RecipientForm(props) {
         2: <GenericStep
             title="Where can people find you?"
             forms={<>
-                <div ><input style={form} placeholder="/yourFacebook" name="fb" value={fb} onChange={(e) => handleChange(e)}></input></div>
+                <div ><input style={form} placeholder="@yourFacebook" name="fb" value={fb} onChange={(e) => handleChange(e)}></input></div>
                 <div ><input style={form} placeholder="@yourInstagram" name="insta" value={insta} onChange={(e) => handleChange(e)}></input></div>
                 <div ><input style={form} placeholder="@yourTwitter" name="twit" value={twit} onChange={(e) => handleChange(e)}></input></div>
             </>}
