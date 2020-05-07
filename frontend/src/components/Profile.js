@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ImageBanner } from '../shared/banner';
+import BounceLoader from "react-spinners/BounceLoader";
 import { SecondaryButton } from '../shared/ButtonComponents.js';
 
 const root = {
@@ -38,6 +39,19 @@ const imgContainer = {
   marginRight: "3%",
 }
 
+const loadingContainer = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100vh",
+  marginRight: "5%",
+  marginLeft: "5%"
+}
+
+const loader = {
+  marginTop: "5%",
+}
 
 function Profile(props) {
   const [data, setData] = useState(null)
@@ -163,7 +177,14 @@ function Profile(props) {
       </div>
     )
   } else {
-    return null;
+    return (
+      <div style={loadingContainer}>
+        <h1>One moment, we are loading your profile.</h1>
+        <div style={loader}>
+          <BounceLoader color={"#999999"} size={100} />
+        </div>
+      </div>
+    );
   }
 }
 
