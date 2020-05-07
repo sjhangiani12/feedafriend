@@ -134,7 +134,7 @@ def create_prof():
         # create the profile 
         uid = create_profile(email=email, first_name=request.json['first_name'], last_name=request.json['last_name'],
             bio=request.json['bio'], zip_code=request.json['zip_code'], prof_pic=request.json['prof_pic'],
-            intro_email_sent=True)
+            intro_email_sent=False)
         if uid == None:
             return "error with create prof, likely duplicate key", 400
         # insert all of the uploads
@@ -152,6 +152,9 @@ def create_prof():
             email_status = send_reicipient_welcome_email(
                 recipient_email=email, bodyContent=html)
         print(email_status)
+        # update db with email status
+        response = update_intro_email(uid, email_status)
+        print(response)
                 # insert that bish in the db, naaaah what im sayin
         return jsonify('created'), 200
     

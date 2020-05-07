@@ -24,6 +24,36 @@ def config(filename='database.ini', section='postgresql'):
 
     return db
 
+def update_intro_email(uid, email_status):
+    """ Update the user donated amount and the num donations after recieiving payment """
+        
+    sql = """UPDATE recipients SET intro_email_sent = (%s) WHERE uid = (%s);"""
+
+    data = (str(email_status), str(uid))
+    conn = None
+    try:
+        # read database configuration
+        params = config()
+        # connect to the PostgreSQL database
+        conn = psycopg2.connect(**params)
+        # create a new cursor
+        cur = conn.cursor()
+        # execute the INSERT statement
+        cur.execute(sql, data)
+        # commit the changes to the database
+        conn.commit()
+        # close communication with the database
+        cur.close()
+        return True
+    except (Exception, psycopg2.DatabaseError) as error:
+        print("FAILED!! Nice going idiot: " + str(error))
+        return False
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return "Donations Table Email Fields Updated " + str(tid)
+
 
 def update_donations_email(tid, recipient_email_sent_check, donor_email_sent_check):
     """ Update the user donated amount and the num donations after recieiving payment """
