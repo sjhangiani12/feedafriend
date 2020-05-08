@@ -20,7 +20,7 @@ const header = {
 
 const img = {
   objectFit: "cover",
-  maxHeight: "5rem",
+  maxHeight: "8rem",
   height: "auto",
   width: "auto",
   borderRadius: "6px"
@@ -32,8 +32,8 @@ const uploadsContainer = {
 }
 
 const imgContainer = {
-  width: "150px",
-  height: "150px",
+  width: "100%",
+  height: "100%",
   position: "relative",
   marginLeft: "3%",
   marginRight: "3%",
@@ -61,6 +61,7 @@ function Profile(props) {
   }, [props])
 
   const [imageToPreview, setImageToPreview] = useState("");
+  const [captionToPreview, setCaptionToPreview] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [uploadData, setUploadData] = useState([]);
   const [firstName, setFirstName] = useState("");
@@ -106,15 +107,18 @@ function Profile(props) {
   }
 
   if (props.data != null) {
-    console.log(props.data);
     return (
       <div style={root}>
         {showModal && (
-          <ImageBanner backgroundColor="rgba(200, 200, 200, .9)" >
-            <div style={imgContainer} >
-              <img style={img} src={imageToPreview} />
-            </div>
-          </ImageBanner>
+          <div onClick={() => setShowModal(false)}>
+            <ImageBanner backgroundColor="rgba(200, 200, 200, .9)" >
+              <div style={imgContainer} >
+                <img style={{...img, maxHeight: "30rem"}} src={imageToPreview} />
+                {console.log(captionToPreview)}
+                <h1>{captionToPreview}</h1>    
+              </div>
+            </ImageBanner>
+          </div>
         )}
         <div className="container-fluid">
           <div className="row flex-wrap" style={header}>
@@ -160,8 +164,8 @@ function Profile(props) {
                     props.data.uploads.map(function (file, index) {
                       return (
                         <div key={index} style={imgContainer} onClick={() => {
-                          console.log("hey im being clicked");
                           setImageToPreview("data:*/*;base64," + file[1]);
+                          setCaptionToPreview(file[0]);
                           setShowModal(true);
                         }}>
                           <img style={img} src={"data:*/*;base64," + file[1]} />

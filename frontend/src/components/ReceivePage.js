@@ -33,7 +33,6 @@ function ReceivePage(props) {
                 if (res.status == 200) {
                     res.json().then(data => {
                         // sets if the user who logged in is new or not
-                        console.log(data.user_exists);
                         if (data.user_exists) {
                             getProfile(token)
                         }

@@ -54,41 +54,25 @@ const whyTheseAmountsText = {
 
 
 
-function HomePage () {
+function HomePage() {
 
   const { loading, isAuthenticated, loginWithRedirect, logout, user, text } = useAuth0();
 
-  const [userInfo, setUserInfo] = useState(user);
-
   useEffect(() => {
-    createUser();
-  }, [userInfo])
+    wakeUpAPI();
+  }, [])
 
-  const createUser = async () => {
-    if (userInfo !== undefined) {
-      let info = userInfo["https://example.com/geoip"];
-      let location = {latitude: info.latitude, longitude: info.longitude};
-      const zip = await geo2zip(location);
-
-      const data = {
-        first_name: userInfo.given_name,
-        last_name: userInfo.family_name,
-        email: userInfo.email,
-        zip_code:  zip[0]
+  function wakeUpAPI() {
+    fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/', {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    }).then(
+      function (response) {
+        console.log(response);
       }
-
-      const response = await fetch('https://care37.herokuapp.com/createUser/', {
-        method: "POST",
-        headers: {
-          "Content-Type" : "application/json",
-        },
-
-        body: JSON.stringify (data)
-      });
-
-      const text = await response.text();
-      await console.log(text);
-    }
+    )
   }
 
   return (
@@ -97,23 +81,23 @@ function HomePage () {
         <MediaQuery minDeviceWidth={700} >
           <div className="container-fluid" >
             <div className="row flex-wrap" style={header}>
-              <div className="col-md-7 col-sm-12" style={{marginTop: "5%", paddingRight: "2%"}} >
+              <div className="col-md-7 col-sm-12" style={{ marginTop: "5%", paddingRight: "2%" }} >
                 {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
                 <h1 style={{ fontSize: "3em", margin: "0px", marginTop: "5%", marginRight: "3%" }}>44% of adults couldn't cover an emergency expense of $400 dollars.</h1>
                 <a style={{ fontSize: ".3em" }}> -Board of Governors of the Federal Reserve System (May 2017).</a>
-                <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%"}}>Our mission is to support the Americans who are struggling to make ends meet. Anyone can request credits to major food delivery services. We screen each request and make sure donations get distributed <strong > <a href="/faq#fairly">fairly.</a></strong></h3>
+                <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>Our mission is to support the Americans who are struggling to make ends meet. Anyone can request credits to major food delivery services. We screen each request and make sure donations get distributed <strong > <a href="/faq#fairly">fairly.</a></strong></h3>
                 <a href="https://www.patreon.com/care37"> <h1 style={whyTheseAmountsText}>Click here to support us!</h1></a>
                 <div style={{ marginTop: "30px" }}>
                   <Link to="/receive" style={{ marginRight: "20px" }}><SecondaryButton text="Receive a meal" /></Link>
                   <Link to="/donate"><PrimaryButton text="Donate" /></Link>
                 </div>
               </div>
-              <div className="col-md-5 col-sm-12 mt-5" style = {{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-                <img style={{width: "100%"}} src={banner} alt="header image" />
+              <div className="col-md-5 col-sm-12 mt-5" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                <img style={{ width: "100%" }} src={banner} alt="header image" />
               </div>
 
             </div>
-            <div className="row flex-wrap" style={{justifyContent: "center", align: "center"}}> 
+            <div className="row flex-wrap" style={{ justifyContent: "center", align: "center" }}>
               <a href="#learnMore">Learn More</a>
             </div>
           </div>
@@ -125,7 +109,7 @@ function HomePage () {
             <div>
               {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
               <h1 style={{ fontSize: "3em", margin: "0px", marginTop: "5%", marginRight: "3%" }}>44% of adults couldn't cover an emergency expense of $400 dollars.<a style={{ fontSize: ".3em" }}> -Board of Governors of the Federal Reserve System (May 2017).</a></h1>
-            <p style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%"}}>People all over the nation are struggling to meet their basic food needs while self-isolating with little to no income. Meanwhile, your local restaurants are suffering as a result of depressed business due to the health crisis.
+              <p style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%" }}>People all over the nation are struggling to meet their basic food needs while self-isolating with little to no income. Meanwhile, your local restaurants are suffering as a result of depressed business due to the health crisis.
               Support your locals restaurants while giving people a meal by buying and donating a Door Dash gift card so they can enjoy a meal in the safety of their own home. </p>
 
               <div style={{ marginTop: "30px" }}>
@@ -133,12 +117,12 @@ function HomePage () {
                 <Link to="/donate" style={{ marginRight: "20px" }}><PrimaryButton text="Donate" /></Link>
               </div>
             </div>
-            <img style={{ width: "100%", marginTop: "10%", marginRight: "5%"}} src={banner} alt="header image" />
+            <img style={{ width: "100%", marginTop: "10%", marginRight: "5%" }} src={banner} alt="header image" />
           </div>
         </MediaQuery>
       </div>
       <div id="learnMore">
-        <How2/>
+        <How2 />
         {/* <How /> */}
       </div>
     </div>
@@ -202,7 +186,7 @@ const cap = {
   marginTop: "10px"
 }
 
-function How () {
+function How() {
   return (
     <div>
       <div className="container-fluid" style={who}>
@@ -238,9 +222,9 @@ function How () {
       <MediaQuery maxDeviceWidth={699}>
         <div style={ro}>
           <img style={money} src={mun}></img>
-          <p style = {cap}>You donate</p>          
+          <p style={cap}>You donate</p>
           <img style={peep} src={people}></img>
-          <p style = {cap}>Our system selects someone in need</p>
+          <p style={cap}>Our system selects someone in need</p>
           <img style={money} src={food}></img>
           <p style={cap}> They get a DoorDash gift card so they can enjoy a meal at home!</p>
         </div>
@@ -253,49 +237,49 @@ function How () {
 
 function How2() {
   return (
-    <div style={{background: "#fff"}}>
-    <div className="container-fluid" style={{paddingLeft: "10%", paddingRight: "10%", textAlign: "center", marginTop: "10%"}}>
-      <h2 style={{marginBottom: "50px", paddingTop: "50px"}}>Helping is easy</h2>
-      <div className="row" style={{display: "flex"}}>
-        <div className="col-md-4 " style={how2col}>
-          <img src={mun} style={money2}></img>
-          <a style={cap2}>Choose to donate either $25, $50, $100, or $200.</a>
-        </div>
-        <div className="col-md-4 " style={how2col}>
-          <img src={people} style={peep2}></img>
-          <a style={cap2}>We pair you with someone in need.</a>
-          <br></br>
+    <div style={{ background: "#fff" }}>
+      <div className="container-fluid" style={{ paddingLeft: "10%", paddingRight: "10%", textAlign: "center", marginTop: "10%" }}>
+        <h2 style={{ marginBottom: "50px", paddingTop: "50px" }}>Helping is easy</h2>
+        <div className="row" style={{ display: "flex" }}>
+          <div className="col-md-4 " style={how2col}>
+            <img src={mun} style={money2}></img>
+            <a style={cap2}>Choose to donate either $25, $50, $100, or $200.</a>
+          </div>
+          <div className="col-md-4 " style={how2col}>
+            <img src={people} style={peep2}></img>
+            <a style={cap2}>We pair you with someone in need.</a>
+            <br></br>
             <OverlayTrigger
               placement={'bottom'}
               overlay={
-              <Tooltip>
-                100% of your money becomes DoorDash credits for a pre-vetted recipient in our system. We speak to everyone who signs up to ensure donor money goes to the right plcaes.
+                <Tooltip>
+                  100% of your money becomes DoorDash credits for a pre-vetted recipient in our system. We speak to everyone who signs up to ensure donor money goes to the right plcaes.
               </Tooltip>
               }>
               <h1 style={whyTheseAmountsText}>Where does the money go?</h1>
 
             </OverlayTrigger>
-        </div>
-        <div className="col-md-4 " style={how2col}>
-          <img src={food} style={money2}></img>
-          <a style={cap2}>They get a DoorDash gift card so they can enjoy a meal at home!</a>
-        </div>
-      </div>
-    </div>
-      <div className="container-fluid " style={{display: "flex", justifyContent: "center", marginTop: "10%"}}>
-      <div className="row" style={{display: "flex", justifyContent: "center"}} >
-        <div className="col-xl-5 col-md-4 col-sm-12 px-50">
-          <h2 align="left">Step 1</h2>
-          <p align="left " >People in need sign up on our platform and we call each and every one of them by phone to verify that they are in need. We add them to the system and prioritize them by how much they've been donated to and how recently they've been donated to.</p>
-
-        </div>
-        <div className="col-xl-5 col-md-4 col-sm-12 px-50">
-          <h2 align="left">Step 2</h2>
-          <p align="left">When you donate, our system selects the highest priority recipient. We securely port your credit card data and the recipient we selected directly into Door Dash using end-to-end encryption. The recipient gets 100% of the funds you donated and can enjoy a meal in the safety of their own home!</p>
-
+          </div>
+          <div className="col-md-4 " style={how2col}>
+            <img src={food} style={money2}></img>
+            <a style={cap2}>They get a DoorDash gift card so they can enjoy a meal at home!</a>
+          </div>
         </div>
       </div>
-    </div>
+      <div className="container-fluid " style={{ display: "flex", justifyContent: "center", marginTop: "10%" }}>
+        <div className="row" style={{ display: "flex", justifyContent: "center" }} >
+          <div className="col-xl-5 col-md-4 col-sm-12 px-50">
+            <h2 align="left">Step 1</h2>
+            <p align="left " >People in need sign up on our platform and we call each and every one of them by phone to verify that they are in need. We add them to the system and prioritize them by how much they've been donated to and how recently they've been donated to.</p>
+
+          </div>
+          <div className="col-xl-5 col-md-4 col-sm-12 px-50">
+            <h2 align="left">Step 2</h2>
+            <p align="left">When you donate, our system selects the highest priority recipient. We securely port your credit card data and the recipient we selected directly into Door Dash using end-to-end encryption. The recipient gets 100% of the funds you donated and can enjoy a meal in the safety of their own home!</p>
+
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

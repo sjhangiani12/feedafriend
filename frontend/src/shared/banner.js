@@ -7,16 +7,6 @@ import { PrimaryButton, SecondaryButton } from "../shared/ButtonComponents";
 import Nav from './hamburger.js'
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from '@material-ui/core/AppBar';
-import logo from "../static/CARE_37.svg";
-import { useAuth0 } from "../contexts/react-auth0-spa";
-import MediaQuery from 'react-responsive'
-
-import PropTypes from 'prop-types';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
-import Slide from '@material-ui/core/Slide';
-
 
 export function Banner(props) {
 
@@ -31,7 +21,7 @@ export function Banner(props) {
 
   return (
     <div id="ban">
-      <AppBar style={root}>
+      <AppBar style={root} >
         <div className="row pt-5" style={{ justifyContent: "center", display: "flex", marginTop: "10%" }}>
           <div className="col-lg-5 col-xs-12" style={{ justifyContent: "center", textAlign: "center" }}>
             <h2>Sorry, we're closed right now!</h2>
@@ -58,14 +48,12 @@ export function ImageBanner(props) {
     height: "100%",
     backgroundColor: "rgba(200, 200, 200, .9)",
     boxShadow: "none",
-    top: 'auto',
-    top: 90, 
     marginBottom: "100px",
   }
 
   return (
-    <div id="ban" onClick={props.onClick}>
-      <AppBar style={root}>
+    <div id="ban" >
+      <AppBar style={root} >
         <div className="row pt-5" style={{ justifyContent: "center", }}>
           <div style={{ backgroundColor: "rgba(200, 200, 200, 1)" }}>
             {props.children}
