@@ -105,7 +105,7 @@ function Profile(props) {
                 </div>
 
               </div>
-              <div className="col-md-5 col-sm-12" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left", alignSelf: "flex-start" }}>
+              <div className="col-md-7 col-sm-12" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left", alignSelf: "flex-start" }}>
                 <a style={{ fontSize: "1rem" }}>{props.bio}</a>
                 <hr></hr>
                 <a style={{fontSize: "70%"}}>Your Uploads</a>
