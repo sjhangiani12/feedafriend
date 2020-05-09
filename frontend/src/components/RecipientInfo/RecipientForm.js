@@ -3,6 +3,7 @@ import UploadForm from './UploadForm.js';
 import UploadProfPic from './UploadProfPic';
 import { PrimaryButton, SecondaryButton } from "../../shared/ButtonComponents";
 import forDonor from "../../static/forRecip.svg"
+import Profile from '../Profile';
 
 import { useHistory } from "react-router-dom";
 function RecipientForm(props) {
@@ -115,7 +116,6 @@ function RecipientForm(props) {
             </>}
             handle={handleChange}
             button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
-            back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
         />,
         1: <GenericStep
             title="What are you going through?"
@@ -149,7 +149,15 @@ function RecipientForm(props) {
             uploadsArray={uploadsArray}
             setUploads={setUploads}>
         </UploadForm>,
-        5: <Done onClick={handleFinish} />
+        5: <Done 
+                onClick={handleFinish} 
+                firstName={formValues.firstName}
+                lastName={formValues.lastName}
+                bio={formValues.bio}
+                socialMediaLinks={[formValues.fb, formValues.insta, formValues.twit]}
+                profPic={profPic}
+                uploads={uploadsArray}
+                />
     }
     const stepStyles = [
         {
@@ -285,11 +293,16 @@ function Done(props) {
             <div className="container-fluid" >
                 <div className="row flex-wrap" style={header}>
                     <div className="col-md-8 col-sm-12" style={{ marginTop: "5%" }} >
-                        {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
-                        <h1 style={{ fontSize: "2.4em", margin: "0px", marginRight: "3%" }}>Hell yeah bitch!</h1>
-                        <PrimaryButton text="eat a dick!" onClick={() => props.onClick()}></PrimaryButton>
+                        <Profile
+                            first_name={props.firstName}
+                            last_name={props.lastName}
+                            prof_pic={props.profPic}
+                            social_media_links={props.socialMediaLinks}
+                            bio={props.bio}
+                            uploads={props.uploads}
+                        />
+                        <PrimaryButton text="Create my profile" onClick={() => props.onClick()}></PrimaryButton>
                         <br></br>
-
                         {props.button}
                         {props.back}
                     </div>

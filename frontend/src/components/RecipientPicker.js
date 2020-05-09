@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Profile from '../components/Profile.js';
 import { PrimaryButton, SecondaryButton } from '../shared/ButtonComponents.js';
+import BounceLoader from "react-spinners/BounceLoader";
 
 function RecipientPicker(props) {
 
@@ -11,6 +12,7 @@ function RecipientPicker(props) {
     const [recipientJSON, setRecipientJSON] = useState(null);
 
     function getNextRecipient() {
+        setRecipientJSON(null);
         fetch("https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/getNextRecipient", {
             method: "GET",
             headers: {
@@ -36,6 +38,12 @@ function RecipientPicker(props) {
         )
     }
 
+    function recipientSelected() {
+        props.setRecipientEmail(recipientJSON.email);
+        props.setRecipientFirstName(recipientJSON.first_name);
+        props.setRecipientLastName(recipientJSON.last_name);
+    }
+
     const root = {
         position: "relative",
         marginTop: "120px",
@@ -51,17 +59,49 @@ function RecipientPicker(props) {
         marginLeft: "5%",
         marginRight: "5%",
     }
+
+    const loadingContainer = {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        marginRight: "5%",
+        marginLeft: "5%"
+    }
+
+    const loader = {
+        marginTop: "5%",
+    }
+
     return (
         <>
             <div style={root}>
                 <div className="container-fluid">
                     <div className="row flex-wrap" style={header}>
                         <div className="col-md-7 col-sm-12" style={{ marginTop: "5%", paddingRight: "2%" }} >
-                            { console.log(recipientJSON) }
-                            <Profile data={recipientJSON} />
+                            {recipientJSON == null && (
+                                <div style={loadingContainer}>
+                                    <h1>One moment, we are loading the next profile.</h1>
+                                    <div style={loader}>
+                                        <BounceLoader color={"#999999"} size={100} />
+                                    </div>
+                                </div>
+                            )}
+
+                            {recipientJSON !== null && (
+                                <Profile
+                                    first_name={recipientJSON.first_name}
+                                    last_name={recipientJSON.last_name}
+                                    prof_pic={recipientJSON.prof_pic}
+                                    social_media_links={recipientJSON.social_media_links}
+                                    bio={recipientJSON.bio}
+                                    uploads={recipientJSON.uploads}
+                                />
+                            )}
                         </div>
                         <div className="col-md-7 col-sm-12" style={{ marginTop: "5%", paddingRight: "2%" }} >
-                            <PrimaryButton text="Donate To" onClick={console.log("tits")} />
+                            <PrimaryButton text="Donate To" onClick={() => recipientSelected()} />
                             <SecondaryButton text="Next Profile" onClick={() => getNextRecipient()} />
                         </div>
                     </div>

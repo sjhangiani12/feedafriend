@@ -20,6 +20,7 @@ from db_manager import insert_social_media_links
 from db_manager import insert_uploads
 from db_manager import delete_user
 from db_manager import get_recipient_profile
+from db_manager import update_intro_email
 
 from send_email import send_donor_order_confirmation
 from send_email import send_reicipient_welcome_email

@@ -408,6 +408,7 @@ def get_recipient_profile(email):
         uploads[i] = [uploads[i][0], uploads[i][1].tobytes().decode("utf-8")] 
 
     profile_dict = {
+        "email": email,
         "first_name": recipient_row[1],
         "last_name": recipient_row[2],
         "bio": recipient_row[3],
