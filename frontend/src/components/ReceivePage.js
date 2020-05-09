@@ -14,8 +14,10 @@ function ReceivePage(props) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [idtoken, setIdtoken] = useState("");
     const [profileData, setProfileData] = useState(null);
+    const [isLoggingIn, setIsLoggingIn] = useState(false);
 
     function responseGoogle(response) {
+        setIsLoggingIn(true);
         let token = response.getAuthResponse().id_token;
         setIdtoken(response.getAuthResponse().id_token);
         const data = {
@@ -31,6 +33,7 @@ function ReceivePage(props) {
             body: JSON.stringify(data)
         }).then(
             function (res) {
+                setIsLoggingIn(false);
                 if (res.status == 200) {
                     res.json().then(data => {
                         // sets if the user who logged in is new or not
@@ -102,52 +105,65 @@ function ReceivePage(props) {
         marginTop: "5%",
     }
 
-    return (
-        <div style={container}>
-            {!isLoggedIn && (
-                <Landing googleButton={
+    if (isLoggingIn) {
+        return (
+            <div style={loadingContainer}>
+                <h1>One moment. We are logging you in.</h1>
+                <div style={loader}>
+                    <BounceLoader color={"#999999"} size={100} />
+                </div>
+            </div>
+        )
+    } else {
+        return (
+            <div style={container}>
+                {!isLoggedIn && (
+                    <Landing googleButton={
+                        <div>
+                            <GoogleLogin
+                                clientId="289368909644-hnpai51fbs9fdbbod98omhdgc6e62olh.apps.googleusercontent.com"
+                                buttonText="Login with Google"
+                                onSuccess={responseGoogle}
+                                onFailure={googleLoginFailed}
+                                cookiePolicy={'single_host_origin'}
+                            />
+                        </div>
+                    } />
+                )}
+
+                {isLoggedIn && isNewUser && (
                     <div>
-                        <GoogleLogin
-                            clientId="289368909644-hnpai51fbs9fdbbod98omhdgc6e62olh.apps.googleusercontent.com"
-                            buttonText="Login with Google"
-                            onSuccess={responseGoogle}
-                            onFailure={googleLoginFailed}
-                            cookiePolicy={'single_host_origin'}
+                        <RecipientForm
+                            idtoken={idtoken}
+                            setIsNewUser={setIsNewUser}
+                            setProfileData={setProfileData}
                         />
                     </div>
-                } />
-            )}
+                )}
 
-            {isLoggedIn && isNewUser && (
-                <div>
-                    <RecipientForm
-                        isLoggedIn={isLoggedIn}
-                        idtoken={idtoken}
-                    />
-                </div>
-            )}
-
-            {isLoggedIn && !isNewUser && (profileData === null) && (
-                <div style={loadingContainer}>
-                    <h1>One moment, we are loading your profile.</h1>
-                    <div style={loader}>
-                        <BounceLoader color={"#999999"} size={100} />
+                {isLoggedIn && !isNewUser && (profileData === null) && (
+                    <div style={loadingContainer}>
+                        <h1>One moment, we are loading your profile.</h1>
+                        <div style={loader}>
+                            <BounceLoader color={"#999999"} size={100} />
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
 
-            {isLoggedIn && !isNewUser && (profileData !== null) && (
-                <Profile
-                    first_name={profileData.first_name}
-                    last_name={profileData.last_name}
-                    prof_pic={profileData.prof_pic}
-                    social_media_links={profileData.social_media_links}
-                    bio={profileData.bio}
-                    uploads={profileData.uploads}
-                />
-            )}
-        </div>
-    );
+                {isLoggedIn && !isNewUser && (profileData !== null) && (
+                    console.log(props),
+                    <Profile
+                        first_name={profileData.first_name}
+                        last_name={profileData.last_name}
+                        prof_pic={profileData.prof_pic}
+                        social_media_links={profileData.social_media_links}
+                        bio={profileData.bio}
+                        uploads={profileData.uploads}
+                    />
+                )}
+            </div>
+        );
+    }
 }
 
 export default ReceivePage;

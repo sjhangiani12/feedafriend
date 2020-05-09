@@ -16,7 +16,7 @@ from db_manager import insert_donation
 from db_manager import not_existing_user
 from db_manager import check_if_user_exist
 from db_manager import create_profile
-from db_manager import insert_social_media_links 
+from db_manager import insert_social_media_links
 from db_manager import insert_uploads
 from db_manager import delete_user
 from db_manager import get_recipient_profile
@@ -86,7 +86,8 @@ def deleteUser():
         # Specify the CLIENT_ID of the app that accesses the backend:
         CLIENT_ID = os.environ.get('CARE37_GOOGLE_CLIENT_ID')
 
-        idinfo = id_token.verify_oauth2_token(request.json['idtoken'], requests.Request(), CLIENT_ID)
+        idinfo = id_token.verify_oauth2_token(
+            request.json['idtoken'], requests.Request(), CLIENT_ID)
 
         if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
             raise ValueError('Wrong issuer.')
@@ -120,7 +121,8 @@ def create_prof():
         # Specify the CLIENT_ID of the app that accesses the backend:
         CLIENT_ID = os.environ.get('CARE37_GOOGLE_CLIENT_ID')
 
-        idinfo = id_token.verify_oauth2_token(request.json['idtoken'], requests.Request(), CLIENT_ID)
+        idinfo = id_token.verify_oauth2_token(
+            request.json['idtoken'], requests.Request(), CLIENT_ID)
 
         if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
             raise ValueError('Wrong issuer.')
@@ -132,17 +134,18 @@ def create_prof():
         # ID token is valid. Get the user's Google Account ID from the decoded token.
 
         email = idinfo['email']
-        # create the profile 
+        # create the profile
         uid = create_profile(email=email, first_name=request.json['first_name'], last_name=request.json['last_name'],
-            bio=request.json['bio'], zip_code=request.json['zip_code'], prof_pic=request.json['prof_pic'],
-            intro_email_sent=False)
+                             bio=request.json['bio'], zip_code=request.json['zip_code'], prof_pic=request.json['prof_pic'],
+                             intro_email_sent=False)
         if uid == None:
             return "error with create prof, likely duplicate key", 400
         # insert all of the uploads
         response = insert_uploads(uid=uid, uploads=request.json['uploads'])
         print(response)
         # insert all the social media links
-        response = insert_social_media_links(uid=uid, social_media_links=request.json['social_media_links'])
+        response = insert_social_media_links(
+            uid=uid, social_media_links=request.json['social_media_links'])
         print(response)
 
         email_status = False
@@ -156,14 +159,24 @@ def create_prof():
         # update db with email status
         response = update_intro_email(uid, email_status)
         print(response)
-                # insert that bish in the db, naaaah what im sayin
-        return jsonify('created'), 200
-    
+        # insert that bish in the db, naaaah what im sayin
+
+        profile_dict = {
+            "email": email,
+            "first_name": request.json['first_name'],
+            "last_name": request.json['last_name'],
+            "bio": request.json['bio'],
+            "prof_pic": request.json['prof_pic'],
+            "social_media_links": request.json['social_media_links'],
+            "uploads": request.json['uploads']
+        }
+
+        return jsonify(profile_dict), 200
+
     except ValueError:
         # Invalid token
         print("invalid login")
         return 400
-
 
 
 @app.route('/makeDonation', methods=['POST', 'OPTIONS'])
@@ -241,7 +254,8 @@ def login():
         # Specify the CLIENT_ID of the app that accesses the backend:
         CLIENT_ID = os.environ.get('CARE37_GOOGLE_CLIENT_ID')
 
-        idinfo = id_token.verify_oauth2_token(request.json['idtoken'], requests.Request(), CLIENT_ID)
+        idinfo = id_token.verify_oauth2_token(
+            request.json['idtoken'], requests.Request(), CLIENT_ID)
 
         if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
             raise ValueError('Wrong issuer.')
@@ -271,6 +285,7 @@ def get_next_recipient():
 
     return jsonify(profile_dict), 200
 
+
 @app.route('/getRecipientProfile', methods=['GET', 'OPTIONS'])
 def get_recipient_prof():
     if not has_args(request.args, ['idtoken']):
@@ -280,7 +295,8 @@ def get_recipient_prof():
         # Specify the CLIENT_ID of the app that accesses the backend:
         CLIENT_ID = os.environ.get('CARE37_GOOGLE_CLIENT_ID')
 
-        idinfo = id_token.verify_oauth2_token(request.args['idtoken'], requests.Request(), CLIENT_ID)
+        idinfo = id_token.verify_oauth2_token(
+            request.args['idtoken'], requests.Request(), CLIENT_ID)
 
         if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
             raise ValueError('Wrong issuer.')
@@ -300,7 +316,7 @@ def get_recipient_prof():
         # Invalid token
         print("invalid login")
         return 400
-    
+
 
 if __name__ == '__main__':
     app.debug = True

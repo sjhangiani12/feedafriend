@@ -4,23 +4,16 @@ import UploadProfPic from './UploadProfPic';
 import { PrimaryButton, SecondaryButton } from "../../shared/ButtonComponents";
 import forDonor from "../../static/forRecip.svg"
 import Profile from '../Profile';
+import BounceLoader from "react-spinners/BounceLoader";
 
 import { useHistory } from "react-router-dom";
 function RecipientForm(props) {
 
     const [step, setStep] = useState(0);
-    const [completed, setCompleted] = useState(false);
-    const history = useHistory();
+    const [clickedCreateProfile, setClickedCreateProfile] = useState(false);
     const [uploadsArray, setUploads] = useState([]);
     const [profPic, setProfPic] = useState("");
-
-    // const [firstName, setFirstName] = useState("");
-    // const [lastName, setLastName] = useState("");
-    // const [bio, setBio] = useState("");
-    // const [socialMediaLinks, setSocialMediaLinks] = useState([]);
-    // const [uploads, setUploads] = useState([]);
-    // const [profPic, setProfPic] = useState("");
-    // const [email, setEmail] = useState("");
+    const [isCreateingProf, setIsCreatingProf] = useState(false);
 
     const formDefaultValues = {
         firstName: "",
@@ -72,9 +65,11 @@ function RecipientForm(props) {
         }).then(
             function (res) {
                 if (res.status == 200) {
-                    res.json().then(data => {
-                        // sets if the user who logged in is new or not
-                        history.push("/recipientPortal");
+                    res.json().then(json => {
+                        setIsCreatingProf(false);
+                        props.setIsNewUser(false);
+                        props.setProfileData(json);
+                        setClickedCreateProfile(false);
                     });
                 } else if (res.status == 400) {
                     alert("error 400");
@@ -102,7 +97,11 @@ function RecipientForm(props) {
     }
 
     function handleFinish() {
-        createProfile();
+        if (!clickedCreateProfile) {
+            setClickedCreateProfile(true);
+            setIsCreatingProf(true);
+            createProfile();
+        }
     }
 
     const toRender = {
@@ -221,12 +220,36 @@ function RecipientForm(props) {
             text5: currentStepText
         }
     ]
-    console.log(formValues)
+
+    const loadingContainer = {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        marginRight: "5%",
+        marginLeft: "5%"
+    }
+
+    const loader = {
+        marginTop: "5%",
+    }
+
     return (
         <div style={root}>
             <div className="container-fluid" style={{ height: "80vh", width: "100vw", marginLeft: "5%" }}>
                 <div className="row flex-wrap" style={header1}>
-                    {toRender[step]}
+                    { isCreateingProf && (
+                        <div style={loadingContainer}>
+                            <h1>One moment. We are creating your profile.</h1>
+                            <div style={loader}>
+                                <BounceLoader color={"#999999"} size={100} />
+                            </div>
+                        </div>
+                    )}
+                    { !isCreateingProf && (
+                        toRender[step]
+                    )}
                     {step < 5 && (
                         <div className="col-md-4 col-sm mr-0 ml-auto" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left", width: "100%", marginTop: "5%", alignSelf: "flex-start" }}>
                             <>
