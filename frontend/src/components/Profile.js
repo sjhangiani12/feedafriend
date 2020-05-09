@@ -69,7 +69,6 @@ function Profile(props) {
               }} />
 
               <div className="row mx-1 my-1">
-                {console.log(props)}
                 {props.social_media_links[0] != "" ?
                   <a target="_blank" href={props.social_media_links[0]}>
                     <svg className="mx-1" width="10%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
