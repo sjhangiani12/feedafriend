@@ -96,6 +96,9 @@ function ConfirmationPage(props) {
             exp_date: props.exp.trim(),
             cvc: props.cvc,
             dollars: props.amount,
+            recipient_email: props.recipientEmail,
+            recipient_first_name: props.recipientFirstName,
+            recipient_last_name: props.recipientLastName,
         }
 
         fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/makeDonation', {

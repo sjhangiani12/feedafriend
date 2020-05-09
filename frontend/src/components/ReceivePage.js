@@ -4,7 +4,8 @@ import GoogleLogin from 'react-google-login';
 import RecipientForm from './RecipientInfo/RecipientForm';
 import RecipientPortal from './RecipientPortal';
 import Landing from '../components/RecipientInfo/Landing';
-import Profile from '../components/Profile.js';
+import Profile from './Profile';
+import BounceLoader from "react-spinners/BounceLoader";
 
 function ReceivePage(props) {
 
@@ -46,8 +47,11 @@ function ReceivePage(props) {
                 }
             }
         )
-    }   
+    }
 
+    function googleLoginFailed() {
+        alert("Looks like the Google login failed. Please try again.")
+    }
 
     function getProfile(token) {
         const data = {
@@ -83,26 +87,34 @@ function ReceivePage(props) {
         display: "flex",
         justifyContent: "center",
     }
-    // props:
-    // firstName
-    // lastName
-    // profilePic
-    // fb
-    // insta
-    // twti
-    // uploadURLs
+
+    const loadingContainer = {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        marginRight: "5%",
+        marginLeft: "5%"
+    }
+
+    const loader = {
+        marginTop: "5%",
+    }
 
     return (
         <div style={container}>
             {!isLoggedIn && (
                 <Landing googleButton={
-                    <GoogleLogin
-                        clientId="289368909644-hnpai51fbs9fdbbod98omhdgc6e62olh.apps.googleusercontent.com"
-                        buttonText="Login"
-                        onSuccess={responseGoogle}
-                        onFailure={responseGoogle}
-                        cookiePolicy={'single_host_origin'}
-                    />
+                    <div>
+                        <GoogleLogin
+                            clientId="289368909644-hnpai51fbs9fdbbod98omhdgc6e62olh.apps.googleusercontent.com"
+                            buttonText="Login with Google"
+                            onSuccess={responseGoogle}
+                            onFailure={googleLoginFailed}
+                            cookiePolicy={'single_host_origin'}
+                        />
+                    </div>
                 } />
             )}
 
@@ -115,13 +127,24 @@ function ReceivePage(props) {
                 </div>
             )}
 
-            {isLoggedIn && !isNewUser && (
-
-                <div>
-                    <Profile
-                        data={profileData}
-                    />
+            {isLoggedIn && !isNewUser && (profileData === null) && (
+                <div style={loadingContainer}>
+                    <h1>One moment, we are loading your profile.</h1>
+                    <div style={loader}>
+                        <BounceLoader color={"#999999"} size={100} />
+                    </div>
                 </div>
+            )}
+
+            {isLoggedIn && !isNewUser && (profileData !== null) && (
+                <Profile
+                    first_name={profileData.first_name}
+                    last_name={profileData.last_name}
+                    prof_pic={profileData.prof_pic}
+                    social_media_links={profileData.social_media_links}
+                    bio={profileData.bio}
+                    uploads={profileData.uploads}
+                />
             )}
         </div>
     );
