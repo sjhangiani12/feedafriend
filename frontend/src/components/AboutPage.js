@@ -179,7 +179,6 @@ const header = {
 const root = {
   position: "relative",
   marginTop: "120px",
-  height: "100vh",
   // left: "20%",
   // width: "70%"
   marginLeft: "40px",

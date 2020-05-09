@@ -236,50 +236,70 @@ function RecipientForm(props) {
     }
 
     return (
-        <div style={root}>
-            <div className="container-fluid" style={{ height: "80vh", width: "100vw", marginLeft: "5%" }}>
-                <div className="row flex-wrap" style={header1}>
-                    { isCreateingProf && (
-                        <div style={loadingContainer}>
-                            <h1>One moment. We are creating your profile.</h1>
-                            <div style={loader}>
-                                <BounceLoader color={"#999999"} size={100} />
-                            </div>
-                        </div>
-                    )}
-                    { !isCreateingProf && (
-                        toRender[step]
-                    )}
-                    {step < 5 && (
-                        <div className="col-md-4 col-sm mr-0 ml-auto" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left", width: "100%", marginTop: "5%", alignSelf: "flex-start" }}>
-                            <>
-                                <div id="recipSteps">
-                                    <h1 style={stepStyles[step].title1}>STEP 1</h1>
-                                    <span style={stepStyles[step].text1} align="left">Name</span>
+        // Becasuse <Profile> is formatted as the whole page, 
+        // add an 'if' check to render it alone
+        <>
+            {(step == 5) ? (
+            <> 
+                    <Done
+                        onClick={handleFinish}
+                        firstName={formValues.firstName}
+                        lastName={formValues.lastName}
+                        bio={formValues.bio}
+                        socialMediaLinks={[formValues.fb, formValues.insta, formValues.twit]}
+                        profPic={profPic}
+                        uploads={uploadsArray}
+                    />
+            </>
+            ) : (
+            <> 
+                <div style={root}>
+                    <div className="container-fluid" style={{ height: "80vh", width: "100vw", marginLeft: "5%" }}>
+                        <div className="row flex-wrap" style={header1}>
+                            {isCreateingProf && (
+                                <div style={loadingContainer}>
+                                    <h1>One moment. We are creating your profile.</h1>
+                                    <div style={loader}>
+                                        <BounceLoader color={"#999999"} size={100} />
+                                    </div>
                                 </div>
-                                <div >
-                                    <h1 style={stepStyles[step].title2}>STEP 2</h1>
-                                    <span style={stepStyles[step].text2} align="left">Your Story</span>
+                            )}
+                            {!isCreateingProf && (
+                                toRender[step]
+                            )}
+                            {step < 5 && (
+                                <div className="col-md-4 col-sm mr-0 ml-auto" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left", width: "100%", marginTop: "5%", alignSelf: "flex-start" }}>
+                                    <>
+                                        <div id="recipSteps">
+                                            <h1 style={stepStyles[step].title1}>STEP 1</h1>
+                                            <span style={stepStyles[step].text1} align="left">Name</span>
+                                        </div>
+                                        <div >
+                                            <h1 style={stepStyles[step].title2}>STEP 2</h1>
+                                            <span style={stepStyles[step].text2} align="left">Your Story</span>
+                                        </div>
+                                        <div >
+                                            <h1 style={stepStyles[step].title3}>STEP 3</h1>
+                                            <span style={stepStyles[step].text3} align="left">Social Media</span>
+                                        </div>
+                                        <div >
+                                            <h1 style={stepStyles[step].title4}>STEP 4</h1>
+                                            <span style={stepStyles[step].text4} align="left">Profile Picture</span>
+                                        </div>
+                                        <div >
+                                            <h1 style={stepStyles[step].title5}>STEP 5</h1>
+                                            <span style={stepStyles[step].text5} align="left">Document Upload</span>
+                                        </div>
+                                    </>
                                 </div>
-                                <div >
-                                    <h1 style={stepStyles[step].title3}>STEP 3</h1>
-                                    <span style={stepStyles[step].text3} align="left">Social Media</span>
-                                </div>
-                                <div >
-                                    <h1 style={stepStyles[step].title4}>STEP 4</h1>
-                                    <span style={stepStyles[step].text4} align="left">Profile Picture</span>
-                                </div>
-                                <div >
-                                    <h1 style={stepStyles[step].title5}>STEP 5</h1>
-                                    <span style={stepStyles[step].text5} align="left">Document Upload</span>
-                                </div>
-                            </>
-                        </div>
 
-                    )}
+                            )}
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </>
+            )}
+        </>
     );
 
 }
@@ -312,41 +332,20 @@ function Step0(props) {
 
 function Done(props) {
     return (
-        <div style={root}>
-            <div className="container-fluid" >
-                <div className="row flex-wrap" style={header}>
-                    <div className="col-md-8 col-sm-12" style={{ marginTop: "5%" }} >
-                        <Profile
-                            first_name={props.firstName}
-                            last_name={props.lastName}
-                            prof_pic={props.profPic}
-                            social_media_links={props.socialMediaLinks}
-                            bio={props.bio}
-                            uploads={props.uploads}
-                        />
-                        <PrimaryButton text="Create my profile" onClick={() => props.onClick()}></PrimaryButton>
-                        <br></br>
-                        {props.button}
-                        {props.back}
-                    </div>
-                    <div className="col-md-4 col-sm-12 mt-5" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left" }}>
-                        <div>
-                            <h1 style={currentStepTitle}>STEP 1</h1>
-                            <span style={currentStepText} align="left">Create your profile</span>
-                        </div>
-                        <div >
-                            <h1 style={currentStepTitle}>STEP 2</h1>
-                            <span style={currentStepText} align="left">Share your story</span>
-                        </div>
-                        <div >
-                            <h1 style={currentStepTitle}>STEP 3</h1>
-                            <span style={currentStepText} align="left">Enjoy a meal delivered to your door!</span>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
+        <>
+            <Profile
+                first_name={props.firstName}
+                last_name={props.lastName}
+                prof_pic={props.profPic}
+                social_media_links={props.socialMediaLinks}
+                bio={props.bio}
+                uploads={props.uploads}
+            />
+            <PrimaryButton text="Create my profile" onClick={() => props.onClick()}></PrimaryButton>
+            <br></br>
+            {props.button}
+            {props.back}
+        </>
     )
 }
 const form = {
@@ -374,7 +373,6 @@ const header1 = {
 const root = {
     position: "relative",
     marginTop: "120px",
-    height: "100vh",
     // left: "20%",
     // width: "70%"
     marginLeft: "40px",
