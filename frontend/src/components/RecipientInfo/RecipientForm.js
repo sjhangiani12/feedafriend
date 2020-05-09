@@ -81,6 +81,25 @@ function RecipientForm(props) {
     }
 
     function handleNext() {
+        if (step == 0) {  // enter name
+            if (formValues.firstName == "" || formValues.lastName == "") {
+                alert("Please fill out the name feilds.");
+                return;
+            }
+        } else if (step == 1) {  // bio
+            if (formValues.bio == "") {
+                alert("Please fill out the bio.");
+                return;
+            }
+        } else if (step == 2) {  // social media
+            // optional
+        } else if (step == 3) {  // prof pic
+            // optional
+        } else if (step == 4) {  // uploads
+            // optional
+        }
+
+        // advance to the next screen
         setStep(step + 1);
     }
 
