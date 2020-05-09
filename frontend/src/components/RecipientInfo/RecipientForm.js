@@ -4,6 +4,7 @@ import UploadProfPic from './UploadProfPic';
 import { PrimaryButton, SecondaryButton } from "../../shared/ButtonComponents";
 import forDonor from "../../static/forRecip.svg"
 import Profile from '../Profile';
+import BounceLoader from "react-spinners/BounceLoader";
 
 import { useHistory } from "react-router-dom";
 function RecipientForm(props) {
@@ -12,6 +13,7 @@ function RecipientForm(props) {
     const [clickedCreateProfile, setClickedCreateProfile] = useState(false);
     const [uploadsArray, setUploads] = useState([]);
     const [profPic, setProfPic] = useState("");
+    const [isCreateingProf, setIsCreatingProf] = useState(false);
 
     const formDefaultValues = {
         firstName: "",
@@ -64,7 +66,7 @@ function RecipientForm(props) {
             function (res) {
                 if (res.status == 200) {
                     res.json().then(json => {
-                        console.log(json);
+                        setIsCreatingProf(false);
                         props.setIsNewUser(false);
                         props.setProfileData(json);
                         setClickedCreateProfile(false);
@@ -97,6 +99,7 @@ function RecipientForm(props) {
     function handleFinish() {
         if (!clickedCreateProfile) {
             setClickedCreateProfile(true);
+            setIsCreatingProf(true);
             createProfile();
         }
     }
@@ -217,12 +220,36 @@ function RecipientForm(props) {
             text5: currentStepText
         }
     ]
-    console.log(formValues)
+
+    const loadingContainer = {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        marginRight: "5%",
+        marginLeft: "5%"
+    }
+
+    const loader = {
+        marginTop: "5%",
+    }
+
     return (
         <div style={root}>
             <div className="container-fluid" style={{ height: "80vh", width: "100vw", marginLeft: "5%" }}>
                 <div className="row flex-wrap" style={header1}>
-                    {toRender[step]}
+                    { isCreateingProf && (
+                        <div style={loadingContainer}>
+                            <h1>One moment. We are creating your profile.</h1>
+                            <div style={loader}>
+                                <BounceLoader color={"#999999"} size={100} />
+                            </div>
+                        </div>
+                    )}
+                    { !isCreateingProf && (
+                        toRender[step]
+                    )}
                     {step < 5 && (
                         <div className="col-md-4 col-sm mr-0 ml-auto" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left", width: "100%", marginTop: "5%", alignSelf: "flex-start" }}>
                             <>
