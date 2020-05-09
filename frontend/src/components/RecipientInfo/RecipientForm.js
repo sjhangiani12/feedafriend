@@ -9,18 +9,9 @@ import { useHistory } from "react-router-dom";
 function RecipientForm(props) {
 
     const [step, setStep] = useState(0);
-    const [completed, setCompleted] = useState(false);
-    const history = useHistory();
+    const [clickedCreateProfile, setClickedCreateProfile] = useState(false);
     const [uploadsArray, setUploads] = useState([]);
     const [profPic, setProfPic] = useState("");
-
-    // const [firstName, setFirstName] = useState("");
-    // const [lastName, setLastName] = useState("");
-    // const [bio, setBio] = useState("");
-    // const [socialMediaLinks, setSocialMediaLinks] = useState([]);
-    // const [uploads, setUploads] = useState([]);
-    // const [profPic, setProfPic] = useState("");
-    // const [email, setEmail] = useState("");
 
     const formDefaultValues = {
         firstName: "",
@@ -72,9 +63,11 @@ function RecipientForm(props) {
         }).then(
             function (res) {
                 if (res.status == 200) {
-                    res.json().then(data => {
-                        // sets if the user who logged in is new or not
-                        history.push("/recipientPortal");
+                    res.json().then(json => {
+                        console.log(json);
+                        props.setIsNewUser(false);
+                        props.setProfileData(json);
+                        setClickedCreateProfile(false);
                     });
                 } else if (res.status == 400) {
                     alert("error 400");
@@ -102,7 +95,10 @@ function RecipientForm(props) {
     }
 
     function handleFinish() {
-        createProfile();
+        if (!clickedCreateProfile) {
+            setClickedCreateProfile(true);
+            createProfile();
+        }
     }
 
     const toRender = {

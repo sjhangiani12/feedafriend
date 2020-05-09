@@ -19,6 +19,7 @@ function DonatePage() {
             )}
             { recipientEmail != "" && (
                 <DonationFlow 
+                        setRecipientEmail={setRecipientEmail}
                         recipientEmail={recipientEmail}
                         recipientFirstName={recipientFirstName}
                         recipientLastName={recipientLastName}

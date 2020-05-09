@@ -150,7 +150,9 @@ function DonateFlow(props) {
     setErrorWithPayment(true);
   }
 
-
+  function handleBackToRecipientPicker() {
+    props.setRecipientEmail("");
+  }
 
   const donateHeaderMobile = {
     display: "flex",
@@ -487,6 +489,7 @@ function DonateFlow(props) {
         </div>*/}
             <div>
               <PrimaryButton onClick={() => handleNextClick(true)} text="Next: Payment information" />
+              <SecondaryButton onClick={() => handleBackToRecipientPicker()} text="Back" />
             </div>
           </div>
         </div>
