@@ -109,8 +109,16 @@ function Profile(props) {
                         : <> </>
                       }
                     </div>
-                    <div style={{marginTop: "3%"}}>
-                      {props.logoutButton}
+                    <div className="row" style={{marginTop: "3%"}}>
+                      <div style={{marginRight: "3%"}}>
+                       {props.logoutButton}
+
+                      </div>
+                    <SecondaryButton text="Delete Profile" onClick={() => {
+                      if (window.confirm("Are you sure you want to delete your profile? This action cannot be undone.")) {
+                        props.deleteProfile()
+                      }
+                    }}></SecondaryButton>
                     </div>
                   </div>
 
