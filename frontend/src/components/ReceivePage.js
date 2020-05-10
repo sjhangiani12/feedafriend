@@ -6,6 +6,7 @@ import RecipientPortal from './RecipientPortal';
 import Landing from '../components/RecipientInfo/Landing';
 import Profile from './Profile';
 import BounceLoader from "react-spinners/BounceLoader";
+import history from "../utils/history";
 
 function ReceivePage(props) {
 
@@ -97,6 +98,36 @@ function ReceivePage(props) {
             }
         )
     }
+
+    function deleteProfile(token) {
+        const data = {
+            idtoken: token
+        }
+
+        fetch(`https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/deleteUser`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then(
+            function (response) {
+                if (response.status == 200) {
+                    alert("Profile has been deleted");
+                    history.push("/")
+                } else if (response.status == 500) {
+                    // there was an error with the DB
+                    response.json().then(json => {
+                        console.log(json);
+                    })
+                } else {
+                    // unexpected error
+                    console.log(response);
+                }
+            }
+        )
+    }
+
     const container = {
         marginBottom: "10%",
         display: "flex",
@@ -179,6 +210,7 @@ function ReceivePage(props) {
                                 onFailure={googleLogoutFailed}
                                 cookiePolicy={'single_host_origin'}
                             />}
+                            deleteProfile={() => deleteProfile(idtoken)}
                         />
                     </div>
                 )}
