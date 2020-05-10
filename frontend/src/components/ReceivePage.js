@@ -171,14 +171,15 @@ function ReceivePage(props) {
                             social_media_links={profileData.social_media_links}
                             bio={profileData.bio}
                             uploads={profileData.uploads}
-                        />
-                        <GoogleLogout 
+                            uploadText="Your Uploads"
+                            logoutButton={<GoogleLogout
                                 clientId="289368909644-hnpai51fbs9fdbbod98omhdgc6e62olh.apps.googleusercontent.com"
                                 buttonText="Logout"
                                 onLogoutSuccess={googleLogout}
                                 onFailure={googleLogoutFailed}
                                 cookiePolicy={'single_host_origin'}
-                                />
+                            />}
+                        />
                     </div>
                 )}
             </div>
