@@ -350,11 +350,13 @@ function Done(props) {
                 uploads={props.uploads}
                 uploadText = "Your Uploads"
             />
-            <PrimaryButton text="Create my profile" onClick={() => props.onClick()}></PrimaryButton>
-            <SecondaryButton text="Back" onClick={() => props.handleBack()} />
-            <br></br>
+            <div style={{marginLeft: "10%", marginTop: "3%"}}>
+                <PrimaryButton text="Create my profile" onClick={() => props.onClick()}></PrimaryButton>
+                <SecondaryButton text="Back" onClick={() => props.handleBack()} />
+            </div>
+            {/* <br></br>
             {props.button}
-            {props.back}
+            {props.back} */}
         </>
     )
 }
