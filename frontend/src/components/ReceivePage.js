@@ -195,6 +195,7 @@ function ReceivePage(props) {
 
                 {isLoggedIn && !isNewUser && (profileData !== null) && (
                     <div>
+                        <h1>Thank you for joining Feed a Friend! Check you email regularly to access your donations!</h1>
                         <Profile
                             first_name={profileData.first_name}
                             last_name={profileData.last_name}
