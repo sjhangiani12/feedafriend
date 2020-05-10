@@ -347,6 +347,7 @@ function Done(props) {
                 social_media_links={props.socialMediaLinks}
                 bio={props.bio}
                 uploads={props.uploads}
+                uploadText = "Your Uploads"
             />
             <PrimaryButton text="Create my profile" onClick={() => props.onClick()}></PrimaryButton>
             <SecondaryButton text="Back" onClick={() => props.handleBack()} />

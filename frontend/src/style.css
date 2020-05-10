@@ -231,7 +231,6 @@
     display: flex;
     margin-left: 40px;
     margin-right: 40px;
-    height: 100vh;
     margin-top: 15%;
 }
 
@@ -273,7 +272,6 @@
     margin-top: 120px;
     margin-left: 0px;
     margin-right: 0px;
-    height: 100vh
   }
   #enterpmt {
     left: 0px;

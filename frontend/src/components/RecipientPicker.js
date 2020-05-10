@@ -76,37 +76,31 @@ function RecipientPicker(props) {
 
     return (
         <>
-            <div style={root}>
-                <div className="container-fluid">
-                    <div className="row flex-wrap" style={header}>
-                        <div className="col-md-7 col-sm-12" style={{ marginTop: "5%", paddingRight: "2%" }} >
-                            {recipientJSON == null && (
-                                <div style={loadingContainer}>
-                                    <h1>One moment, we are loading the next profile.</h1>
-                                    <div style={loader}>
-                                        <BounceLoader color={"#999999"} size={100} />
-                                    </div>
-                                </div>
-                            )}
-
-                            {recipientJSON !== null && (
-                                <Profile
-                                    first_name={recipientJSON.first_name}
-                                    last_name={recipientJSON.last_name}
-                                    prof_pic={recipientJSON.prof_pic}
-                                    social_media_links={recipientJSON.social_media_links}
-                                    bio={recipientJSON.bio}
-                                    uploads={recipientJSON.uploads}
-                                />
-                            )}
-                        </div>
-                        <div className="col-md-7 col-sm-12" style={{ marginTop: "5%", paddingRight: "2%" }} >
-                            <PrimaryButton text="Donate To" onClick={() => recipientSelected()} />
-                            <SecondaryButton text="Next Profile" onClick={() => getNextRecipient()} />
-                        </div>
+            {recipientJSON == null && (
+                <div style={loadingContainer}>
+                    <h1>One moment, we are loading the next profile.</h1>
+                    <div style={loader}>
+                        <BounceLoader color={"#999999"} size={100} />
                     </div>
                 </div>
-            </div>
+            )}
+            {recipientJSON !== null && (
+                <>
+                <Profile
+                    first_name={recipientJSON.first_name}
+                    last_name={recipientJSON.last_name}
+                    prof_pic={recipientJSON.prof_pic}
+                    social_media_links={recipientJSON.social_media_links}
+                    bio={recipientJSON.bio}
+                    uploads={recipientJSON.uploads}
+                    uploadText ="Documents"
+                />
+                <div className="col-md-7 col-sm-12" style={{ marginTop: "5%", paddingRight: "2%" }} >
+                    <PrimaryButton text="Donate To" onClick={() => recipientSelected()} />
+                    <SecondaryButton text="Next Profile" onClick={() => getNextRecipient()} />
+                </div>
+                </>
+            )}
         </>
     );
 }
