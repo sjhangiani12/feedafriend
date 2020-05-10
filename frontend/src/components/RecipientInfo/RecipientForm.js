@@ -128,8 +128,8 @@ function RecipientForm(props) {
             title="Hi. What is your full name?"
             forms={<>
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                    <div > <input style={form} placeholder="First Name" name="firstName" value={firstName} onChange={(e) => handleChange(e)}></input></div>
-                    <div > <input style={form} placeholder="Last Name" name="lastName" value={lastName} onChange={(e) => handleChange(e)}></input> </div>
+                    <div > <input style={form} maxlength="30" placeholder="First Name" name="firstName" value={firstName} onChange={(e) => handleChange(e)}></input></div>
+                    <div > <input style={form} maxlength="30" placeholder="Last Name" name="lastName" value={lastName} onChange={(e) => handleChange(e)}></input> </div>
                 </div>
             </>}
             handle={handleChange}
@@ -139,7 +139,7 @@ function RecipientForm(props) {
             title="What are you going through?"
             subTitle={<h3 style={{ color: "#828282", fontFamily: "sans-serif", fontSize: "1em" }}>How has COVID-19 effected you and your loved ones? </h3>}
             forms={<>
-                <div><input style={form} placeholder="Your Story" name="bio" value={bio} onChange={(e) => handleChange(e)}></input></div>
+                <div><textarea style={bioForm} maxlength="300" placeholder="Your Story" name="bio" value={bio} onChange={(e) => handleChange(e)}/></div>
             </>}
             handle={handleChange}
             button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
@@ -356,6 +356,7 @@ function Done(props) {
         </>
     )
 }
+
 const form = {
     border: "none",
     width: "85%",
@@ -363,8 +364,17 @@ const form = {
     borderBottom: "1px ",
     borderBottomStyle: "solid",
     backgroundColor: "#FFFBF4"
-
 }
+
+const bioForm = {
+    border: "none",
+    width: "85%",
+    fontSize: "1rem",
+    borderBottom: "1px ",
+    borderBottomStyle: "solid",
+    backgroundColor: "#FFFBF4"
+}
+
 const header = {
     display: "flex",
     flexWrap: "wrap",

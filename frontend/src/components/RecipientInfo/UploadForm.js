@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Delete from '@material-ui/icons/Delete';
 import { PrimaryButton } from "../../shared/ButtonComponents";
+import BounceLoader from "react-spinners/BounceLoader";
 
 
 function UploadForm(props) {
 
     const [uploadsDataURLs, setUploadsDataURLs] = useState([]);
+    const [imagesLoaded, setImagesLoaded] = useState([false, false, false]);
 
     useEffect(() => {
         console.log(uploadsDataURLs);
@@ -56,6 +58,13 @@ function UploadForm(props) {
         props.setUploads(dataURLsArray);
     }
 
+    function handleImageLoaded(index) {
+        console.log("at least it is getting called");
+        var imagesLoadedTemp = [...imagesLoaded];
+        imagesLoadedTemp[index] = true;
+        setImagesLoaded(imagesLoadedTemp);
+    }
+
     const imgContainer = {
         width: "150px",
         height: "150px",
@@ -99,10 +108,10 @@ function UploadForm(props) {
         zIndex: 1,
     }
 
-    const form = {
+    const uploadCaption = {
         border: "none",
-        width: "85%",
-        fontSize: "2rem",
+        width: "100%",
+        fontSize: "1rem",
         borderBottom: "1px ",
         borderBottomStyle: "solid",
         backgroundColor: "#FFFBF4"
@@ -126,15 +135,28 @@ function UploadForm(props) {
                 {console.log(uploadsDataURLs)}
                 {
                     uploadsDataURLs.map(function (file, index) {
-                        return (
-                            <div style={imgContainer}>
-                                <img key={index} style={img} src={"data:*/*;base64," + file[1]} />
-                                <button style={deleteUploadButton} onClick={(event) => removeUpload(event, index)} >
-                                    <Delete color="secondary" onClick={(event) => removeUpload(event, index)} />
-                                </button>
-                                <input style={form} placeholder="Upload Caption" onChange={(e) => addUploadCaption(e, index)} />
-                            </div>
-                        )
+                        // if (imagesLoaded[index]) {
+                            return (
+                                <div style={imgContainer}>
+                                    { imagesLoaded[!index] && (
+                                        <BounceLoader color={"#999999"} size={100} />
+                                    )}
+                                    <img 
+                                        key={index} 
+                                        style={img} 
+                                        onLoad={() => handleImageLoaded(index)} 
+                                        src={"data:*/*;base64," + file[1]} 
+                                        />
+                                    <button style={deleteUploadButton} onClick={(event) => removeUpload(event, index)} >
+                                        <Delete color="secondary" onClick={(event) => removeUpload(event, index)} />
+                                    </button>
+                                    <textarea style={uploadCaption} maxlength="60" placeholder="Upload Caption" onChange={(e) => addUploadCaption(e, index)} />
+                                </div>
+                            )
+                        // } else {
+                        //     return (
+                        //     )
+                        // }
                     })
                 }
             </div>
