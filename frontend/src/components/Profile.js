@@ -73,7 +73,7 @@ function Profile(props) {
       )}
       <div className="container-fluid">
         <div className="row flex-wrap" style={header}>
-              {props.prof_pic != null ? (<> 
+              {props.prof_pic != "" ? (<> 
                 <h1 style={{ fontSize: "3em", margin: "0px" }}>Hi! I'm {props.first_name} {props.last_name}</h1>
                 <div className="row mt-2">
                   <div className="col-md-4 col-sm-12" style={{ justifyContent: "center" }} >
@@ -112,13 +112,14 @@ function Profile(props) {
                     <div className="row" style={{marginTop: "3%"}}>
                       <div style={{marginRight: "3%"}}>
                        {props.logoutButton}
-
                       </div>
+                      {props.isPrivate ? (
                     <SecondaryButton text="Delete Profile" onClick={() => {
                       if (window.confirm("Are you sure you want to delete your profile? This action cannot be undone.")) {
                         props.deleteProfile()
                       }
                     }}></SecondaryButton>
+                      ) : (<></>)}
                     </div>
                   </div>
 

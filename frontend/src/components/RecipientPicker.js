@@ -94,8 +94,9 @@ function RecipientPicker(props) {
                     bio={recipientJSON.bio}
                     uploads={recipientJSON.uploads}
                     uploadText ="Documents"
+                    private="false"
                 />
-                <div className="col-md-7 col-sm-12" style={{ marginTop: "5%", paddingRight: "10%" }} >
+                <div className="col-md-7 col-sm-12" style={{ marginTop: "5%", marginLeft: "10%" }} >
                     <PrimaryButton text="Donate To" onClick={() => recipientSelected()} />
                     <SecondaryButton text="Next Profile" onClick={() => getNextRecipient()} />
                 </div>

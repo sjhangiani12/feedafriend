@@ -211,6 +211,7 @@ function ReceivePage(props) {
                                 cookiePolicy={'single_host_origin'}
                             />}
                             deleteProfile={() => deleteProfile(idtoken)}
+                            isPrivate = "true"
                         />
                     </div>
                 )}
