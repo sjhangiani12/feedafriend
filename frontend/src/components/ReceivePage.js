@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
-import GoogleLogin from 'react-google-login';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import RecipientForm from './RecipientInfo/RecipientForm';
 import RecipientPortal from './RecipientPortal';
 import Landing from '../components/RecipientInfo/Landing';
@@ -56,6 +56,19 @@ function ReceivePage(props) {
         alert("Looks like the Google login failed. Please try again.")
     }
 
+    function googleLogout() {
+        // reset the states after logout
+        console.log("trying to log out");
+        setIsNewUser(false);
+        setIsLoggedIn(false);
+        setProfileData(null);
+        setIdtoken("");
+    }
+
+    function googleLogoutFailed() {
+        alert("Failed to logout, please try again.")
+    }
+
     function getProfile(token) {
         const data = {
             idtoken: token
@@ -70,7 +83,6 @@ function ReceivePage(props) {
             function (response) {
                 if (response.status == 200) {
                     response.json().then(json => {
-                        console.log(json);
                         setProfileData(json);
                     })
                 } else if (response.status == 500) {
@@ -151,15 +163,23 @@ function ReceivePage(props) {
                 )}
 
                 {isLoggedIn && !isNewUser && (profileData !== null) && (
-                    console.log(props),
-                    <Profile
-                        first_name={profileData.first_name}
-                        last_name={profileData.last_name}
-                        prof_pic={profileData.prof_pic}
-                        social_media_links={profileData.social_media_links}
-                        bio={profileData.bio}
-                        uploads={profileData.uploads}
-                    />
+                    <div>
+                        <Profile
+                            first_name={profileData.first_name}
+                            last_name={profileData.last_name}
+                            prof_pic={profileData.prof_pic}
+                            social_media_links={profileData.social_media_links}
+                            bio={profileData.bio}
+                            uploads={profileData.uploads}
+                        />
+                        <GoogleLogout 
+                                clientId="289368909644-hnpai51fbs9fdbbod98omhdgc6e62olh.apps.googleusercontent.com"
+                                buttonText="Logout"
+                                onLogoutSuccess={googleLogout}
+                                onFailure={googleLogoutFailed}
+                                cookiePolicy={'single_host_origin'}
+                                />
+                    </div>
                 )}
             </div>
         );

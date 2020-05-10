@@ -162,7 +162,7 @@ function RecipientForm(props) {
             setProfPic={setProfPic}>
         </UploadProfPic>,
         4: <UploadForm
-            button={<PrimaryButton onClick={() => handleNext()} text="Create Profile"></PrimaryButton>}
+            button={<PrimaryButton onClick={() => handleNext()} text="Review Profile"></PrimaryButton>}
             back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
             uploadsArray={uploadsArray}
             setUploads={setUploads}>
@@ -268,6 +268,7 @@ function RecipientForm(props) {
                         socialMediaLinks={[formValues.fb, formValues.insta, formValues.twit]}
                         profPic={profPic}
                         uploads={uploadsArray}
+                        handleBack={handleBack}
                     />
             </>
             ) : (
@@ -336,19 +337,6 @@ function GenericStep(props) {
     )
 }
 
-function Step0(props) {
-    return (
-        <div className="col-md-8 col-sm-12" style={{ marginTop: "5%" }} >
-            {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
-            <h1 style={{ fontSize: "2.4em", margin: "0px", marginRight: "3%" }}>You’re under a lot of pressure right now.<br></br>People want to help.</h1>
-            <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>Share your COVID-19 story with thousands who want to donate a meal to you and your family.</h3>
-            {props.button}
-        </div>
-    )
-}
-
-
-
 function Done(props) {
     return (
         <>
@@ -361,6 +349,7 @@ function Done(props) {
                 uploads={props.uploads}
             />
             <PrimaryButton text="Create my profile" onClick={() => props.onClick()}></PrimaryButton>
+            <SecondaryButton text="Back" onClick={() => props.handleBack()} />
             <br></br>
             {props.button}
             {props.back}
