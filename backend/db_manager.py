@@ -273,7 +273,7 @@ def create_profile(email, first_name, last_name, bio, zip_code, prof_pic, intro_
         timestamp_string = time.strftime(
             "%a, %d %b %Y %H:%M:%S +0000", datetime.fromtimestamp(int(time.time())).timetuple())
         # generate the Uid
-        uuid_string = email + str(time.now())
+        uuid_string = email + str(datetime.now())
         created_uuid = uuid.uuid5(uuid.NAMESPACE_OID, uuid_string)
         # execute the INSERT statement
         cur.execute(sql_insert_recipient, (str(created_uuid), email, first_name, last_name, bio, prof_pic, str(
