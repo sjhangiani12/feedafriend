@@ -41,7 +41,6 @@ function Profile(props) {
     height: "auto",
     width: "10%vw",
     borderRadius: "6px",
-
   }
 
   const uploadsContainer = {

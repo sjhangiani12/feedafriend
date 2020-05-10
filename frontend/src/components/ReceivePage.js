@@ -6,7 +6,7 @@ import RecipientPortal from './RecipientPortal';
 import Landing from '../components/RecipientInfo/Landing';
 import Profile from './Profile';
 import BounceLoader from "react-spinners/BounceLoader";
-import history from "../utils/history";
+import { useHistory } from 'react-router-dom';
 
 function ReceivePage(props) {
 
@@ -16,6 +16,7 @@ function ReceivePage(props) {
     const [idtoken, setIdtoken] = useState("");
     const [profileData, setProfileData] = useState(null);
     const [isLoggingIn, setIsLoggingIn] = useState(false);
+    let history = useHistory();
 
     function responseGoogle(response) {
         setIsLoggingIn(true);
@@ -114,7 +115,7 @@ function ReceivePage(props) {
             function (response) {
                 if (response.status == 200) {
                     alert("Profile has been deleted");
-                    history.push("/")
+                    history.push("/");
                 } else if (response.status == 500) {
                     // there was an error with the DB
                     response.json().then(json => {
@@ -146,6 +147,12 @@ function ReceivePage(props) {
 
     const loader = {
         marginTop: "5%",
+    }
+
+    const profileViewContainer = {
+        paddingTop: "10%",
+        marginRight: "5%",
+        marginLeft: "5%"
     }
 
     if (isLoggingIn) {
@@ -194,7 +201,7 @@ function ReceivePage(props) {
                 )}
 
                 {isLoggedIn && !isNewUser && (profileData !== null) && (
-                    <div>
+                    <div style={profileViewContainer}>
                         <h1>Thank you for joining Feed a Friend! Check you email regularly to access your donations!</h1>
                         <Profile
                             first_name={profileData.first_name}
