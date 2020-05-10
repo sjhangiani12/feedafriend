@@ -4,7 +4,7 @@ import Delete from '@material-ui/icons/Delete';
 function UploadProfPic(props) {
     var fileInput = document.getElementById("profile");
 
-    const [profPic, setProfPic] = useState("");
+    const [profPic, setProfPic] = useState(props.profPic);
     const [displayImage, setDisplayImage] = useState(false);
 
     useEffect(() => {
@@ -76,35 +76,35 @@ function UploadProfPic(props) {
         zIndex: 1,
     }
 
-    fileInput.onchange = function (e) {
-        e.preventDefault();
+    // fileInput.onchange = function (e) {
+    //     e.preventDefault();
 
-        // get the file someone selected
-        var file = fileInput.files && fileInput.files[0];
+    //     // get the file someone selected
+    //     var file = fileInput.files && fileInput.files[0];
 
-        // create an image element with that selected file
-        var img = new Image();
-        img.src = window.URL.createObjectURL(file);
+    //     // create an image element with that selected file
+    //     var img = new Image();
+    //     img.src = window.URL.createObjectURL(file);
 
-        // as soon as the image has been loaded
-        img.onload = function () {
-            var width = img.naturalWidth,
-                height = img.naturalHeight;
+    //     // as soon as the image has been loaded
+    //     img.onload = function () {
+    //         var width = img.naturalWidth,
+    //             height = img.naturalHeight;
 
-            // unload it
-            window.URL.revokeObjectURL(img.src);
+    //         // unload it
+    //         window.URL.revokeObjectURL(img.src);
 
-            // check its dimensions
-            if (width <= 800 && height <= 800) {
-                // it fits 
-            } else {
-                // it doesn't fit, unset the value 
-                // post an error
-                fileInput.value = ""
-                alert("max image size is 800x800")
-            }
-        };
-    }
+    //         // check its dimensions
+    //         if (width <= 800 && height <= 800) {
+    //             // it fits 
+    //         } else {
+    //             // it doesn't fit, unset the value 
+    //             // post an error
+    //             fileInput.value = ""
+    //             alert("max image size is 800x800")
+    //         }
+    //     };
+    // }
 
     return (
         <div className="col-md-8 col-sm-12 " style={{ marginTop: "5%", justifyContent: "left" }} >

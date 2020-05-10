@@ -159,6 +159,7 @@ function RecipientForm(props) {
         3: <UploadProfPic
             button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
             back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
+            profPic={profPic}
             setProfPic={setProfPic}>
         </UploadProfPic>,
         4: <UploadForm

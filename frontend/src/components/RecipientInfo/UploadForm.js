@@ -6,7 +6,7 @@ import BounceLoader from "react-spinners/BounceLoader";
 
 function UploadForm(props) {
 
-    const [uploadsDataURLs, setUploadsDataURLs] = useState([]);
+    const [uploadsDataURLs, setUploadsDataURLs] = useState(props.uploadsArray);
     const [imagesLoaded, setImagesLoaded] = useState([false, false, false]);
 
     useEffect(() => {
