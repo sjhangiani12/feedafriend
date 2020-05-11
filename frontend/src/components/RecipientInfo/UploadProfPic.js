@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Delete from '@material-ui/icons/Delete';
 import Resizer from 'react-image-file-resizer';
+import BounceLoader from "react-spinners/BounceLoader";
 
 function UploadProfPic(props) {
 
     const [profPic, setProfPic] = useState(props.profPic);
-    const [displayImage, setDisplayImage] = useState(false);
+    const [profPicLoaded, setProfPicLoaded] = useState(false);
 
     useEffect(() => {
         parseUploadDataURLS();
@@ -107,14 +108,21 @@ function UploadProfPic(props) {
                 Upload
                         </label>
             <div style={uploadsContainer} >
+                {profPic != "" && !profPicLoaded && (
+                    <BounceLoader color={"#999999"} size={100} />
+                )}
                 {profPic != "" && (
-                    <div style={imgContainer}>
-                        <img style={img} src={profPic} id="profile" />
-                        <button style={deleteUploadButton} onClick={(event) => removeUpload(event)} >
-                            <Delete color="secondary" onClick={(event) => removeUpload(event)} />
-                        </button>
+                    <div style={{ display: profPicLoaded ? "block" : "none" }}>
+                        <div style={imgContainer}>
+                            <img
+                                style={img}
+                                src={profPic}
+                                onLoad={() => setProfPicLoaded(true)} />
+                            <button style={deleteUploadButton} onClick={(event) => removeUpload(event)} >
+                                <Delete color="secondary" onClick={(event) => removeUpload(event)} />
+                            </button>
+                        </div>
                     </div>
-
                 )}
             </div>
             <br></br>

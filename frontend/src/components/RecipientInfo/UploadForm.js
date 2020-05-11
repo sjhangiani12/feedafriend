@@ -151,19 +151,21 @@ function UploadForm(props) {
                     uploadsDataURLs.map(function (file, index) {
                         return (
                             <div style={uploadContainer}>
-                                {imagesLoaded[!index] && (
+                                {!imagesLoaded[index] && (
                                     <BounceLoader color={"#999999"} size={100} />
                                 )}
-                                <img
-                                    key={index}
-                                    style={img}
-                                    onLoad={() => handleImageLoaded(index)}
-                                    src={"data:*/*;base64," + file[1]}
-                                />
-                                <button style={deleteUploadButton} onClick={(event) => removeUpload(event, index)} >
-                                    <Delete color="secondary" onClick={(event) => removeUpload(event, index)} />
-                                </button>
-                                <textarea style={uploadCaption} maxlength="60" placeholder="Upload Caption" onChange={(e) => addUploadCaption(e, index)} />
+                                <div style={{ display: imagesLoaded[index] ? "block" : "none" }}>
+                                    <img
+                                        key={index}
+                                        style={img}
+                                        onLoad={() => handleImageLoaded(index)}
+                                        src={"data:*/*;base64," + file[1]}
+                                    />
+                                    <button style={deleteUploadButton} onClick={(event) => removeUpload(event, index)} >
+                                        <Delete color="secondary" onClick={(event) => removeUpload(event, index)} />
+                                    </button>
+                                    <textarea style={uploadCaption} maxlength="60" placeholder="Upload Caption" onChange={(e) => addUploadCaption(e, index)} />
+                                </div>
                             </div>
                         )
                     })
