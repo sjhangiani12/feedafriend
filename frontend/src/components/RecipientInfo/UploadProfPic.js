@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Delete from '@material-ui/icons/Delete';
+import Resizer from 'react-image-file-resizer';
 
 function UploadProfPic(props) {
-    var fileInput = document.getElementById("profile");
 
     const [profPic, setProfPic] = useState(props.profPic);
     const [displayImage, setDisplayImage] = useState(false);
@@ -17,12 +17,29 @@ function UploadProfPic(props) {
             return;
         }
 
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            var binaryString = e.target.result;
-            setProfPic(binaryString);
+        var file = event.target.files[0];
+
+        if (file.size > 200000) {
+            Resizer.imageFileResizer(
+                file,
+                500,
+                500,
+                'JPEG',
+                100,
+                0,
+                uri => {
+                    setProfPic(uri);
+                },
+                'base64'
+            );
+        } else {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                var binaryString = e.target.result;
+                setProfPic(binaryString);
+            }
+            reader.readAsDataURL(file);
         }
-        reader.readAsDataURL(event.target.files[0]);
     }
 
     function removeUpload(event) {
@@ -76,36 +93,6 @@ function UploadProfPic(props) {
         top: 0,
         zIndex: 1,
     }
-
-    // fileInput.onchange = function (e) {
-    //     e.preventDefault();
-
-    //     // get the file someone selected
-    //     var file = fileInput.files && fileInput.files[0];
-
-    //     // create an image element with that selected file
-    //     var img = new Image();
-    //     img.src = window.URL.createObjectURL(file);
-
-    //     // as soon as the image has been loaded
-    //     img.onload = function () {
-    //         var width = img.naturalWidth,
-    //             height = img.naturalHeight;
-
-    //         // unload it
-    //         window.URL.revokeObjectURL(img.src);
-
-    //         // check its dimensions
-    //         if (width <= 800 && height <= 800) {
-    //             // it fits 
-    //         } else {
-    //             // it doesn't fit, unset the value 
-    //             // post an error
-    //             fileInput.value = ""
-    //             alert("max image size is 800x800")
-    //         }
-    //     };
-    // }
 
     return (
         <div className="col-md-8 col-sm-12 " style={{ marginTop: "5%", justifyContent: "left" }} >

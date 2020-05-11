@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Delete from '@material-ui/icons/Delete';
-import { PrimaryButton } from "../../shared/ButtonComponents";
 import BounceLoader from "react-spinners/BounceLoader";
+import Resizer from 'react-image-file-resizer';
 
 
 function UploadForm(props) {
@@ -27,14 +27,27 @@ function UploadForm(props) {
             alert("You added more than 3 files, only some will be uploaded.");
         }
         for (var i = 0; i < max; i++) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                var binaryString = e.target.result;
-                var dataURLsArray = [...uploadsDataURLs];
-                dataURLsArray.push();
-                setUploadsDataURLs(uploadsDataURLs => uploadsDataURLs.concat([["", binaryString]]));
+            if (files[i].size > 200000) {
+                Resizer.imageFileResizer(
+                    files[i],
+                    800,
+                    800,
+                    'JPEG',
+                    100,
+                    0,
+                    uri => {
+                        setUploadsDataURLs(uploadsDataURLs => uploadsDataURLs.concat([["", uri]]));
+                    },
+                    'base64'
+                );
+            } else {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    var binaryString = e.target.result;
+                    setUploadsDataURLs(uploadsDataURLs => uploadsDataURLs.concat([["", binaryString]]));
+                }
+                reader.readAsDataURL(files[i]);
             }
-            reader.readAsDataURL(files[i]);
         }
     }
 
