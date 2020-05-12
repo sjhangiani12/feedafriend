@@ -1,5 +1,5 @@
 {
-  "name": "care37",
+  "name": "feedafriend",
   "version": "0.1.0",
   "homepage": ".",
   "private": true,
@@ -46,6 +46,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -60,5 +61,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "html-loader": "^1.1.0"
   }
 }

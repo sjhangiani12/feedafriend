@@ -115,6 +115,7 @@ function ReceivePage(props) {
             function (response) {
                 if (response.status == 200) {
                     alert("Profile has been deleted");
+                    history.push("/")
                     // context.router.history.push("/")
                 } else if (response.status == 500) {
                     // there was an error with the DB

@@ -21,6 +21,8 @@ import Footer from './components/Footer.js';
 import RecipientPortal from './components/RecipientPortal.js';
 import NavBar from './shared/NavBar.js';
 import ConfirmationPage from './components/ConfirmationPage.js';
+import TC from "./static/TC.js";
+import PP from "./static/PP.js";
 
 function initGoogleAnayltics() {
   ReactGA.initialize('UA-163953067-1');
@@ -69,6 +71,16 @@ function App () {
         </Route>
         <Route path="/faq">
           <FAQ />
+          <Footer />
+
+        </Route>
+        <Route path="/terms">
+          <TC />
+          <Footer />
+
+        </Route>
+        <Route path="/privacy">
+          <PP />
           <Footer />
 
         </Route>
