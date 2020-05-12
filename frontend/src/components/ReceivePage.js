@@ -6,7 +6,7 @@ import RecipientPortal from './RecipientPortal';
 import Landing from '../components/RecipientInfo/Landing';
 import Profile from './Profile';
 import BounceLoader from "react-spinners/BounceLoader";
-import history from "../utils/history";
+import { useHistory } from 'react-router-dom';
 
 function ReceivePage(props) {
 
@@ -16,6 +16,7 @@ function ReceivePage(props) {
     const [idtoken, setIdtoken] = useState("");
     const [profileData, setProfileData] = useState(null);
     const [isLoggingIn, setIsLoggingIn] = useState(false);
+    let history = useHistory();
 
     function responseGoogle(response) {
         setIsLoggingIn(true);
@@ -148,6 +149,12 @@ function ReceivePage(props) {
         marginTop: "5%",
     }
 
+    const profileViewContainer = {
+        paddingTop: "15%",
+        marginRight: "5%",
+        marginLeft: "5%"
+    }
+
     if (isLoggingIn) {
         return (
             <div style={loadingContainer}>
@@ -194,9 +201,11 @@ function ReceivePage(props) {
                 )}
 
                 {isLoggedIn && !isNewUser && (profileData !== null) && (
-                    <div>
+                    <div style={profileViewContainer}>
+                        <div className="mx-4">
+                            <h1>Thank you for joining Feed a Friend! Check your email regularly to access your donations!</h1>
+                        </div>
                         <Profile
-                            title={<h1>Thank you for joining Feed a Friend! Check your email regularly to look for donations!</h1>}
                             first_name={profileData.first_name}
                             last_name={profileData.last_name}
                             prof_pic={profileData.prof_pic}

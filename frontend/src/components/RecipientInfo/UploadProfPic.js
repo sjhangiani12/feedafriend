@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Delete from '@material-ui/icons/Delete';
+import Resizer from 'react-image-file-resizer';
+import BounceLoader from "react-spinners/BounceLoader";
 
 function UploadProfPic(props) {
-    var fileInput = document.getElementById("profile");
 
     const [profPic, setProfPic] = useState(props.profPic);
-    const [displayImage, setDisplayImage] = useState(false);
+    const [profPicLoaded, setProfPicLoaded] = useState(false);
 
     useEffect(() => {
         parseUploadDataURLS();
@@ -17,12 +18,29 @@ function UploadProfPic(props) {
             return;
         }
 
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            var binaryString = e.target.result;
-            setProfPic(binaryString);
+        var file = event.target.files[0];
+
+        if (file.size > 200000) {
+            Resizer.imageFileResizer(
+                file,
+                500,
+                500,
+                'JPEG',
+                100,
+                0,
+                uri => {
+                    setProfPic(uri);
+                },
+                'base64'
+            );
+        } else {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                var binaryString = e.target.result;
+                setProfPic(binaryString);
+            }
+            reader.readAsDataURL(file);
         }
-        reader.readAsDataURL(event.target.files[0]);
     }
 
     function removeUpload(event) {
@@ -45,6 +63,7 @@ function UploadProfPic(props) {
         objectFit: "cover",
         width: "100%",
         height: "100%",
+        borderRadius: "6px",
     }
 
     const uploadInput = {
@@ -76,36 +95,6 @@ function UploadProfPic(props) {
         zIndex: 1,
     }
 
-    // fileInput.onchange = function (e) {
-    //     e.preventDefault();
-
-    //     // get the file someone selected
-    //     var file = fileInput.files && fileInput.files[0];
-
-    //     // create an image element with that selected file
-    //     var img = new Image();
-    //     img.src = window.URL.createObjectURL(file);
-
-    //     // as soon as the image has been loaded
-    //     img.onload = function () {
-    //         var width = img.naturalWidth,
-    //             height = img.naturalHeight;
-
-    //         // unload it
-    //         window.URL.revokeObjectURL(img.src);
-
-    //         // check its dimensions
-    //         if (width <= 800 && height <= 800) {
-    //             // it fits 
-    //         } else {
-    //             // it doesn't fit, unset the value 
-    //             // post an error
-    //             fileInput.value = ""
-    //             alert("max image size is 800x800")
-    //         }
-    //     };
-    // }
-
     return (
         <div className="col-md-8 col-sm-12 " style={{ marginTop: "5%", justifyContent: "left" }} >
             {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
@@ -119,14 +108,21 @@ function UploadProfPic(props) {
                 Upload
                         </label>
             <div style={uploadsContainer} >
+                {profPic != "" && !profPicLoaded && (
+                    <BounceLoader color={"#999999"} size={100} />
+                )}
                 {profPic != "" && (
-                    <div style={imgContainer}>
-                        <img style={img} src={profPic} id="profile" />
-                        <button style={deleteUploadButton} onClick={(event) => removeUpload(event)} >
-                            <Delete color="secondary" onClick={(event) => removeUpload(event)} />
-                        </button>
+                    <div style={{ display: profPicLoaded ? "block" : "none" }}>
+                        <div style={imgContainer}>
+                            <img
+                                style={img}
+                                src={profPic}
+                                onLoad={() => setProfPicLoaded(true)} />
+                            <button style={deleteUploadButton} onClick={(event) => removeUpload(event)} >
+                                <Delete color="secondary" onClick={(event) => removeUpload(event)} />
+                            </button>
+                        </div>
                     </div>
-
                 )}
             </div>
             <br></br>

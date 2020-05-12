@@ -106,7 +106,7 @@ function Landing(props) {
                   <Q number="2">Tell your story.</Q>
                   </div>
                   <div className="col-md-4 " style={how2col}>
-                  <Q number="3">Recieve meal delivary credits!</Q>
+                  <Q number="3">Recieve meal delivery credits!</Q>
                   </div>
                 </div>
             </div>

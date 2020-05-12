@@ -41,7 +41,6 @@ function Profile(props) {
     height: "auto",
     width: "10%vw",
     borderRadius: "6px",
-
   }
 
   const uploadsContainer = {
@@ -86,7 +85,7 @@ function Profile(props) {
           ) : (<></>)}
         </div>
         <div className="row flex-wrap" style={header}>
-              {props.prof_pic != "" ? (<> 
+              {props.prof_pic.length > 30 ? (<> 
                 <h1 style={{ fontSize: "3em", margin: "0px" }}>Hi! I'm {props.first_name} {props.last_name}</h1>
                 <div className="row mt-2">
                   <div className="col-md-4 col-sm-12" style={{ justifyContent: "center" }} >

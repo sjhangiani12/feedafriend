@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Delete from '@material-ui/icons/Delete';
-import { PrimaryButton } from "../../shared/ButtonComponents";
 import BounceLoader from "react-spinners/BounceLoader";
+import Resizer from 'react-image-file-resizer';
 
 
 function UploadForm(props) {
@@ -27,14 +27,27 @@ function UploadForm(props) {
             alert("You added more than 3 files, only some will be uploaded.");
         }
         for (var i = 0; i < max; i++) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                var binaryString = e.target.result;
-                var dataURLsArray = [...uploadsDataURLs];
-                dataURLsArray.push();
-                setUploadsDataURLs(uploadsDataURLs => uploadsDataURLs.concat([["", binaryString]]));
+            if (files[i].size > 200000) {
+                Resizer.imageFileResizer(
+                    files[i],
+                    800,
+                    800,
+                    'JPEG',
+                    100,
+                    0,
+                    uri => {
+                        setUploadsDataURLs(uploadsDataURLs => uploadsDataURLs.concat([["", uri]]));
+                    },
+                    'base64'
+                );
+            } else {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    var binaryString = e.target.result;
+                    setUploadsDataURLs(uploadsDataURLs => uploadsDataURLs.concat([["", binaryString]]));
+                }
+                reader.readAsDataURL(files[i]);
             }
-            reader.readAsDataURL(files[i]);
         }
     }
 
@@ -65,7 +78,7 @@ function UploadForm(props) {
         setImagesLoaded(imagesLoadedTemp);
     }
 
-    const imgContainer = {
+    const uploadContainer = {
         width: "150px",
         height: "150px",
         position: "relative",
@@ -77,6 +90,7 @@ function UploadForm(props) {
         objectFit: "cover",
         width: "100%",
         height: "100%",
+        borderRadius: "6px",
     }
 
     const uploadInput = {
@@ -133,33 +147,29 @@ function UploadForm(props) {
                     onChange={(event) => fileSelectedHandler(event)}
                     style={uploadInput} />
                 Upload
-                        </label>
+            </label>
             <div style={uploadsContainer} >
-                {console.log(uploadsDataURLs)}
                 {
                     uploadsDataURLs.map(function (file, index) {
-                        // if (imagesLoaded[index]) {
-                            return (
-                                <div style={imgContainer}>
-                                    { imagesLoaded[!index] && (
-                                        <BounceLoader color={"#999999"} size={100} />
-                                    )}
-                                    <img 
-                                        key={index} 
-                                        style={img} 
-                                        onLoad={() => handleImageLoaded(index)} 
-                                        src={"data:*/*;base64," + file[1]} 
-                                        />
+                        return (
+                            <div style={uploadContainer}>
+                                {!imagesLoaded[index] && (
+                                    <BounceLoader color={"#999999"} size={100} />
+                                )}
+                                <div style={{ display: imagesLoaded[index] ? "block" : "none" }}>
+                                    <img
+                                        key={index}
+                                        style={img}
+                                        onLoad={() => handleImageLoaded(index)}
+                                        src={"data:*/*;base64," + file[1]}
+                                    />
                                     <button style={deleteUploadButton} onClick={(event) => removeUpload(event, index)} >
                                         <Delete color="secondary" onClick={(event) => removeUpload(event, index)} />
                                     </button>
                                     <input style={uploadCaption} maxlength="60" placeholder="Upload Caption" onChange={(e) => addUploadCaption(e, index)} />
                                 </div>
-                            )
-                        // } else {
-                        //     return (
-                        //     )
-                        // }
+                            </div>
+                        )
                     })
                 }
             </div>
