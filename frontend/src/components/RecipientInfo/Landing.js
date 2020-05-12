@@ -88,7 +88,7 @@ function Landing(props) {
                 {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
                 <h1 style={{ fontSize: "3em", margin: "0px" }}>In need of a meal?</h1>
 
-                <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}> A lot of people are struggling right now. If you're one of them, lets get in touch. Anyone can request credits to major food delivery services.</h3>
+                <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}> A lot of people are struggling right now. If you're one of them, create a profile to tell your story!</h3>
                 <div style={{marginTop: "5%"}}>
                   {props.googleButton}
                 </div>
@@ -103,7 +103,7 @@ function Landing(props) {
                   <Q number="1">Create an account with an email.</Q>
                   </div>
                   <div className="col-md-4 " style={how2col}>
-                  <Q number="2">Enter your number, tell us your story.</Q>
+                  <Q number="2">Tell your story.</Q>
                   </div>
                   <div className="col-md-4 " style={how2col}>
                   <Q number="3">Recieve meal delivary credits!</Q>

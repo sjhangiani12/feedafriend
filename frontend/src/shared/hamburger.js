@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from "../static/CARE_37.svg";
+import logo from "../static/FAF.svg";
 import {
   Link
 } from 'react-router-dom';
@@ -88,7 +88,7 @@ export default class Nav extends React.Component {
     return (
       <div>
         <div style={styles.container}>
-          <a onClick={() => this.handleMenuClick()}><Link to="/" style={{ position: "relative", left: "5%" }} ><img style={{ width: "130%" }} src={logo} alt="logo" /></Link></a>
+          <a onClick={() => this.handleMenuClick()}><Link to="/" style={{ position: "relative", left: "5%" }} ><img style={{ width: "80%" }} src={logo} alt="logo" /></Link></a>
           <MenuButton open={this.state.menuOpen} onClick={() => this.handleMenuClick()} color='black' />
 
         </div>

@@ -109,7 +109,7 @@ function UploadProfPic(props) {
     return (
         <div className="col-md-8 col-sm-12 " style={{ marginTop: "5%", justifyContent: "left" }} >
             {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
-            <h1 style={{ fontSize: "3em", margin: "0px" }}>Upload a profile picture.</h1>
+            <h1 style={{ fontSize: "3em", margin: "0px" }}>Upload a profile picture. <a style={{ fontSize: "70%", color: "#828282" }}>(Optional)</a></h1>
             <label style={uploadButton} >
                 <input type="file"
                     accept='image/*'

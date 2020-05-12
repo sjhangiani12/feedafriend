@@ -72,6 +72,7 @@ function Profile(props) {
         </div>
       )}
       <div className="container-fluid">
+        {props.title}
         <div className="row" style={{ marginTop: "3%", marginLeft: "5%" }}>
           <div style={{ marginRight: "3%" }}>
             {props.logoutButton}
@@ -126,7 +127,7 @@ function Profile(props) {
               <div className="col-md-8 col-sm-12" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left", alignSelf: "flex-start" }}>
                 <a style={{ fontSize: "1rem" }}>{props.bio}</a>
                 <hr></hr>
-                    <a style={{ fontSize: "70%" }}>{props.uploadText}</a>
+                    <a style={{ fontSize: "70%" }}>Supporting Documents</a>
                 <div style={uploadsContainer} >
                   {props.uploads != null &&
                     props.uploads.map(function (file, index) {
@@ -156,6 +157,8 @@ function Profile(props) {
                       <h1 style={{ fontSize: "3em", margin: "0px" }}>Hi! I'm {props.first_name} {props.last_name}</h1>
                   </div>
                     <div className="row mx-1 my-1">
+                  <a style={{ fontSize: "1rem" }}>{props.bio}</a>
+
                       {props.social_media_links[0] != "" ?
                         <svg className="mr-1" width="2vw" height="auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <a target="_blank" href={props.social_media_links[0]}>
@@ -185,7 +188,6 @@ function Profile(props) {
                     </div>
                 </div>
               <div className="col-md-8 col-sm-12" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left", alignSelf: "flex-start" }}>
-                <a style={{ fontSize: "1rem" }}>{props.bio}</a>
                 <hr></hr>
                 <a style={{ fontSize: "70%" }}>Your Uploads</a>
                 <div style={uploadsContainer} >

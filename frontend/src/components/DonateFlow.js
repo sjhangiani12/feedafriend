@@ -574,7 +574,7 @@ function DonateFlow(props) {
                     <SecondaryButton onClick={() => handleBackClick()} text="Back" />
                     <PrimaryButton text="Pay Now" onClick={() => handleDonateClick()} />
                   </div>
-                  <h1 style={protectInfoBody}>By continuing, you are agreeing with CARE 37 terms and praivacy policy.</h1>
+                  <h1 style={protectInfoBody}>By continuing, you are agreeing with Feed-A-Friend's terms and praivacy policy.</h1>
                 </div>
               </div>
             </div>

@@ -261,6 +261,14 @@ function RecipientForm(props) {
         <>
             {(step == 5) ? (
             <> 
+                    {isCreateingProf && (
+                        <div style={loadingContainer}>
+                            <h1>One moment. We are creating your profile.</h1>
+                            <div style={loader}>
+                                <BounceLoader color={"#999999"} size={100} />
+                            </div>
+                        </div>
+                    )}
                     <Done
                         onClick={handleFinish}
                         firstName={formValues.firstName}

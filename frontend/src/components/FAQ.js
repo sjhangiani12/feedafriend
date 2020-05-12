@@ -145,7 +145,7 @@ function FAQ () {
           <Q> Is this legit? </Q>
         </div>
         <div className="col-12" style={{ display: "flex", alignItems: "baseline", padding: "0" }}>
-          <A> Yes! 100% of your donated funds become DoorDash gift cards for someone in need (we verify their situation by speaking to each and every person who signs up!)</A>
+            <A>Yes! 100% of your donated funds become meal delivery service gift cards for someone in need.</A>
         </div>
       </div>
       <br></br>
@@ -157,7 +157,7 @@ function FAQ () {
           <Q> How do you choose who gets the funds? </Q>
         </div>
         <div className="col-12" style={{ display: "flex", alignItems: "baseline", padding: "0" }}>
-          <A> Our database orders recipients by how recently they've been donated to and how much money they've been donated. The recipient who has received the least gets the next donation that comes in. </A>
+            <A> Donors themselves decide who receives their donation! We simply display profiles of people in need so that they can get their stories out there!</A>
         </div>
       </div>
         <hr id="donors"  style={{ marginTop: "5%"}}></hr>
@@ -188,7 +188,7 @@ function FAQ () {
           <Q> Who are the recipients?</Q>
         </div>
         <div className="col-12" style={{ display: "flex", alignItems: "baseline", padding: "0" }}>
-          <A> Every person who signs up to be a care37 recipient gets screened. We call each and every person to make sure they are in need of your donations. 100% of donated funds becomes a DoorDash gift card so they can enjoy a meal in the safety of their own home.</A>
+            <A>Anyone can make a Feed a Friend account. You decide who you are helping. 100% of donated funds becomes a DoorDash gift card so they can enjoy a meal in the safety of their own home.</A>
         </div>
       </div>
       <br></br>
@@ -204,18 +204,6 @@ function FAQ () {
         </div>
       </div>
 
-      <br></br>
-      <br></br>
-        <div className="row mx-5" style={{ alignItems: "center", justifyContent: "center", marginTop: "4%" }}  >
-        <div className="col-12" style={{
-          display: "flex", alignItems: "baseline", padding: "0"
-        }}>
-          <Q> Does a large donation get split among multiple recipients?</Q>
-        </div>
-        <div className="col-12" style={{ display: "flex", alignItems: "baseline", padding: "0" }}>
-          <A> Because we don't store your credit card data or collect funds ourselves, we can't split up donations at this time. Any amount you donate is something that one person recieves!</A>
-        </div>
-      </div>
         <hr id="recipients" style={{ marginTop: "5%" }}></hr>
 
       < div  className="row mx-5" style={{ alignItems: "center", justifyContent: "left", marginTop: "5%" }} >
@@ -232,7 +220,7 @@ function FAQ () {
           <Q> How can I be a recipient? </Q>
         </div>
         <div className="col-12" style={{ display: "flex", alignItems: "baseline", padding: "0" }}>
-          <A> If you are under significant monetary stress due to the COVID-19 health crisis, you can sign up for care37 <Link to="/receive">here</Link>. We will contact you and verify your status, at which point you will be placed in a queue to receive donated DoorDash credits.</A>
+            <A> If you are under significant monetary stress due to the COVID-19 health crisis, you can sign up for care37 <Link to="/receive">here</Link>. Simply tell the world your story and then check your email for meal delivery service gift cards!</A>
         </div>
       </div>
         <br></br>
@@ -244,7 +232,7 @@ function FAQ () {
             <Q> What will be asked of me? </Q>
           </div>
           <div className="col-12" style={{ display: "flex", alignItems: "baseline", padding: "0" }}>
-            <A> In order to ensure that donated money has the highest impact, we ask questions about your employment status, health status, location, and dependency status. </A>
+            <A> In order to ensure that donated money has the highest impact, we ask you to describe your situation. You have the option of uploading any supporting documents that might make your story more compelling! </A>
           </div>
         </div>
     </div>

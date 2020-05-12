@@ -114,7 +114,7 @@ function ReceivePage(props) {
             function (response) {
                 if (response.status == 200) {
                     alert("Profile has been deleted");
-                    history.push("/")
+                    // context.router.history.push("/")
                 } else if (response.status == 500) {
                     // there was an error with the DB
                     response.json().then(json => {
@@ -157,7 +157,7 @@ function ReceivePage(props) {
                 </div>
             </div>
         )
-    } else {
+    } else {    
         return (
             <div style={container}>
                 {!isLoggedIn && (
@@ -195,8 +195,8 @@ function ReceivePage(props) {
 
                 {isLoggedIn && !isNewUser && (profileData !== null) && (
                     <div>
-                        <h1>Thank you for joining Feed a Friend! Check you email regularly to access your donations!</h1>
                         <Profile
+                            title={<h1>Thank you for joining Feed a Friend! Check your email regularly to look for donations!</h1>}
                             first_name={profileData.first_name}
                             last_name={profileData.last_name}
                             prof_pic={profileData.prof_pic}

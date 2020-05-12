@@ -1,6 +1,13 @@
 import React from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from '@material-ui/core/AppBar';
+import TC from "../static/TC.js"
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom';
 // import {FootModal, About, Built} from '../components/ExpModal.js';
 
 //Render the footer of both Home and REsources page
@@ -47,6 +54,9 @@ class Footer extends React.Component {
                 <div className="col-12 col-md-4 pb-4">
                   <p className="font-weight-bold">Project</p>
                   <div className="d-flex flex-column">
+                    <Route path="demo" component={TC} />
+                    <a href="/tc.html"> Terms and Agreements</a>
+                    <a href="/pp.html"> Privacy Policy</a>
                     <a> All Rights Reserved, 2020</a>
                     {/* <About />
             <Built /> */}

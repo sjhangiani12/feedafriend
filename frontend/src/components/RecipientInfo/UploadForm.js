@@ -99,6 +99,9 @@ function UploadForm(props) {
     const uploadsContainer = {
         display: "flex",
         flexDirection: "row",
+        marginBotton: "3%",
+        height: "auto"
+
     }
 
     const deleteUploadButton = {
@@ -114,15 +117,15 @@ function UploadForm(props) {
         fontSize: "1rem",
         borderBottom: "1px ",
         borderBottomStyle: "solid",
-        backgroundColor: "#FFFBF4"
+        backgroundColor: "#FFFBF4",
     }
 
     return (
 
         <div className="col-md-8 col-sm-12 " style={{ marginTop: "5%", justifyContent: "left" }} >
             {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
-            <h1 style={{ fontSize: "3em", margin: "0px" }}>Upload up to 3 supoorting documents.</h1>
-            <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>Some Examples / guidelines</h3>
+            <h1 style={{ fontSize: "3em", margin: "0px" }}>Upload up to 3 supoorting documents. <a style={{fontSize: "70%", color: "#828282"}}>(Optional)</a></h1>
+            <h3 style={{fontSize: "70%", color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>Provide some more color to your story. For example, a note about being laid off.</h3>
             <label style={uploadButton} >
                 <input type="file"
                     accept='image/*'
@@ -150,7 +153,7 @@ function UploadForm(props) {
                                     <button style={deleteUploadButton} onClick={(event) => removeUpload(event, index)} >
                                         <Delete color="secondary" onClick={(event) => removeUpload(event, index)} />
                                     </button>
-                                    <textarea style={uploadCaption} maxlength="60" placeholder="Upload Caption" onChange={(e) => addUploadCaption(e, index)} />
+                                    <input style={uploadCaption} maxlength="60" placeholder="Upload Caption" onChange={(e) => addUploadCaption(e, index)} />
                                 </div>
                             )
                         // } else {
@@ -160,9 +163,10 @@ function UploadForm(props) {
                     })
                 }
             </div>
-            <br></br>
-            {props.button}
-            {props.back}
+            <div style={{marginTop: "40px"}}>
+                {props.button}
+                {props.back}
+            </div>
 
         </div>
     );

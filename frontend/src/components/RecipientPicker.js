@@ -85,7 +85,7 @@ function RecipientPicker(props) {
                 </div>
             )}
             {recipientJSON !== null && (
-                <>
+                <div style={{height: "100vh"}}>
                 <Profile
                     first_name={recipientJSON.first_name}
                     last_name={recipientJSON.last_name}
@@ -100,7 +100,7 @@ function RecipientPicker(props) {
                     <PrimaryButton text="Donate To" onClick={() => recipientSelected()} />
                     <SecondaryButton text="Next Profile" onClick={() => getNextRecipient()} />
                 </div>
-                </>
+                </div>
             )}
         </>
     );

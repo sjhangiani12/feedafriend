@@ -84,8 +84,8 @@ function HomePage() {
               <div className="col-md-7 col-sm-12" style={{ paddingRight: "2%" }} >
                 {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
                 <h1 style={{ fontSize: "3em", margin: "0px", marginRight: "3%" }}>44% of adults couldn't cover an emergency expense of $400 dollars.</h1>
-                <a style={{ fontSize: ".3em" }}> -Board of Governors of the Federal Reserve System (May 2017).</a>
-                <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>Our mission is to support the Americans who are struggling to make ends meet. Anyone can request credits to major food delivery services. We screen each request and make sure donations get distributed <strong > <a href="/faq#fairly">fairly.</a></strong></h3>
+                <a style={{ fontSize: "1em" }}> -Board of Governors of the Federal Reserve System (May 2017).</a>
+                <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>Our mission is to support the Americans who are struggling to make ends meet. Anyone can create a profile and donors decide who receives their donations! 100% of funds are converted into meal delivery service gift cards for recipients to enjoy a meal.</h3>
                 <a href="https://www.patreon.com/care37"> <h1 style={whyTheseAmountsText}>Click here to support us!</h1></a>
                 <div style={{ marginTop: "30px" }}>
                   <Link to="/receive" style={{ marginRight: "20px" }}><SecondaryButton text="Receive a meal" /></Link>
@@ -109,8 +109,7 @@ function HomePage() {
             <div>
               {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
               <h1 style={{ fontSize: "3em", margin: "0px", marginTop: "5%", marginRight: "3%" }}>44% of adults couldn't cover an emergency expense of $400 dollars.<a style={{ fontSize: ".3em" }}> -Board of Governors of the Federal Reserve System (May 2017).</a></h1>
-              <p style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%" }}>People all over the nation are struggling to meet their basic food needs while self-isolating with little to no income. Meanwhile, your local restaurants are suffering as a result of depressed business due to the health crisis.
-              Support your locals restaurants while giving people a meal by buying and donating a Door Dash gift card so they can enjoy a meal in the safety of their own home. </p>
+              <p style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%" }}>Our mission is to support the Americans who are struggling to make ends meet. Anyone can create a profile and donors decide who receives their donations! 100% of funds are converted into meal delivery service gift cards for recipients to enjoy a meal.</p>
 
               <div style={{ marginTop: "30px" }}>
                 <Link to="/receive"><SecondaryButton text="Receive a meal" /></Link>
@@ -240,14 +239,16 @@ function How2() {
     <div style={{ background: "#fff" }}>
       <div className="container-fluid" style={{ paddingLeft: "10%", paddingRight: "10%", textAlign: "center", marginTop: "10%" }}>
         <h2 style={{ marginBottom: "50px", paddingTop: "50px" }}>Helping is easy</h2>
+
+
         <div className="row" style={{ display: "flex" }}>
           <div className="col-md-4 " style={how2col}>
-            <img src={mun} style={money2}></img>
-            <a style={cap2}>Choose to donate either $25, $50, $100, or $200.</a>
+            <img src={people} style={peep2}></img>
+            <a style={cap2}>Find a story you connect with.</a>
           </div>
           <div className="col-md-4 " style={how2col}>
-            <img src={people} style={peep2}></img>
-            <a style={cap2}>We pair you with someone in need.</a>
+            <img src={mun} style={money2}></img>
+            <a style={cap2}>Donate $25, $50, $100, or $200.</a>
             <br></br>
             <OverlayTrigger
               placement={'bottom'}
@@ -262,11 +263,13 @@ function How2() {
           </div>
           <div className="col-md-4 " style={how2col}>
             <img src={food} style={money2}></img>
-            <a style={cap2}>They get a DoorDash gift card so they can enjoy a meal at home!</a>
+            <a style={cap2}>Provide the gift of a meal!</a>
           </div>
         </div>
+
+
       </div>
-      <div className="container-fluid " style={{ display: "flex", justifyContent: "center", marginTop: "10%" }}>
+      {/* <div className="container-fluid " style={{ display: "flex", justifyContent: "center", marginTop: "10%" }}>
         <div className="row" style={{ display: "flex", justifyContent: "center" }} >
           <div className="col-xl-5 col-md-4 col-sm-12 px-50">
             <h2 align="left">Step 1</h2>
@@ -279,7 +282,7 @@ function How2() {
 
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

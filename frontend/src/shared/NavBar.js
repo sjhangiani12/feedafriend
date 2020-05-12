@@ -7,7 +7,7 @@ import { PrimaryButton, SecondaryButton } from "../shared/ButtonComponents";
 import Nav from './hamburger.js'
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from '@material-ui/core/AppBar';
-import logo from "../static/CARE_37.svg";
+import logo from "../static/FAF.svg";
 import { useAuth0 } from "../contexts/react-auth0-spa";
 import MediaQuery from 'react-responsive'
 
@@ -66,7 +66,7 @@ function NavBar () {
         {/* <MediaQuery minDeviceWidth={"60em"} > */}
           <AppBar className={classes.root} positive="static" style={{ "margin-bottom": "100px" }}>
           <div style={forLogo}>
-            <NavItem underline="false"><Link to="/" ><img style={{width: "130%"}} src={logo} alt="logo" /></Link></NavItem>
+            <NavItem underline="false"><Link to="/" ><img style={{width: "70%"}} src={logo} alt="logo" /></Link></NavItem>
 
           </div>
             {!isAuthenticated && <div style={{ position: "relative", display: "flex", justifyContent: "space-evenly", width: "40%", alignItems: "baseline", marginRight: "5%"}}>
