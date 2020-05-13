@@ -24,14 +24,14 @@ function DonateLanding(props) {
             </div>
             <div className="col-md-5 col-sm-12" style={{ marginTop: "5%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left" }}>
               <h2 style={{ marginBottom: "50px", paddingTop: "50px" }}>It's easy as 1, 2, 3</h2>
-              <div style={{ display: "flex", flexDirection: "column", marginBottom: "5%" }}>
-                <div style={how2col}>
+              <div style={{ display: "flex", flexDirection: "column", marginBottom: "5%", align: "left" }}>
+                <div style={{marginBottom: "3%"}}>
                   <Q number="1">Select a Recipient.</Q>
                 </div>
-                <div style={how2col}>
+                <div style={{ marginBottom: "3%" }}>
                   <Q number="2">Choose a donation amount.</Q>
                 </div>
-                <div style={how2col}>
+                <div style={{ marginBottom: "3%" }}>
                   <Q number="3">Smile because you're helping!</Q>
                 </div>
               </div>
@@ -59,13 +59,13 @@ const header = {
   marginRight: "5%",
 }
 
-const how2col = {
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  marginBottom: "3%"
+// const how2col = {
+//   display: "flex",
+//   flexDirection: "column",
+//   alignItems: "center",
+//   marginBottom: "3%"
 
-}
+// }
 
 class Q extends React.Component {
   constructor(props) {

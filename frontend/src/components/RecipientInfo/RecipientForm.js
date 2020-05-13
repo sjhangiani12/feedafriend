@@ -348,9 +348,13 @@ function Done(props) {
                 uploads={props.uploads}
                 uploadText="Your Uploads"
             />
+
             <div style={{ marginLeft: "10%", marginTop: "3%" }}>
                 <PrimaryButton text="Create my profile" onClick={() => props.onClick()}></PrimaryButton>
                 <SecondaryButton text="Back" onClick={() => props.handleBack()} />
+            </div>
+            <div >
+                <span style={{ fontSize: ".5rem", marginLeft: "10%" }}>By continuing you agree to Feed a Friend's Terms and Privacy Policy</span>
             </div>
             {/* <br></br>
             {props.button}

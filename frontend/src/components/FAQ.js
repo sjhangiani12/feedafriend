@@ -176,7 +176,7 @@ function FAQ () {
           <Q> How can I trust my data is secure?</Q>
         </div>
         <div className="col-12" style={{ display: "flex", alignItems: "baseline", padding: "0" }}>
-          <A> We use SSL and HTTPS for end-to-end encryption when handling your credit card information. We port your information directly into DoorDash so that we never have to store any of your data.</A>
+          <A> We use end-to-end encryption when handling your credit card information. We port your information directly into DoorDash so that we never have to store any of your data.</A>
         </div>
       </div>
         <br id="fairly"></br>
