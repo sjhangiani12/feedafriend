@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import forDonor from "../static/toDonate.svg"
+import '../style.css';
 
 function DonateLanding(props) {
 
   return (
     <>
       <div style={root}>
-        <div className="container-fluid">
+        <div className="container-fluid" style={{ marginBottom: "10%" }}>
           <div className="row flex-wrap" style={header}>
             <div className="col-md-7 col-sm-12" style={{ marginTop: "5%", paddingRight: "2%" }} >
               <h1 style={{ fontSize: "3em", margin: "0px" }}>Give the gift of a meal!</h1>
@@ -23,7 +24,7 @@ function DonateLanding(props) {
             </div>
             <div className="col-md-5 col-sm-12" style={{ marginTop: "5%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left" }}>
               <h2 style={{ marginBottom: "50px", paddingTop: "50px" }}>It's easy as 1, 2, 3</h2>
-              <div  style={{ display: "flex", flexDirection: "column", marginBottom: "5%" }}>
+              <div style={{ display: "flex", flexDirection: "column", marginBottom: "5%" }}>
                 <div style={how2col}>
                   <Q number="1">Select a Recipient.</Q>
                 </div>
@@ -33,7 +34,7 @@ function DonateLanding(props) {
                 <div style={how2col}>
                   <Q number="3">Smile because you're helping!</Q>
                 </div>
-              </div>            
+              </div>
             </div>
           </div>
         </div>
@@ -48,8 +49,8 @@ const root = {
   height: "100vh",
   // left: "20%",
   // width: "70%"
-  marginLeft: "40px",
-  marginRight: "40px",
+  marginLeft: "5%",
+  marginRight: "5%",
 }
 const header = {
   display: "flex",
@@ -82,11 +83,13 @@ class Q extends React.Component {
       marginRight: "1%",
     }
     return (
-      <div style={{ display: "flex", align: "center", alignItems: "center", width: "100%" }}>
-        <div style={line} >
-          <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
-            <span style={{ fontSize: "4em", marginLeft: "1%", color: "#1136FC", fontStyle: "bold", marginLeft: "5px", marginRight: "10px" }}>{this.props.number}. </span>
-            <span align="left" style={{ fontSize: "2vmax", width: "100%", marginTop: "5%" }}>{this.props.children}</span>
+      <div>
+        <div style={{ display: "flex", align: "center", alignItems: "center", width: "100%" }}>
+          <div style={line} >
+            <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
+              <span style={{ fontSize: "4em", marginLeft: "1%", color: "#1136FC", fontStyle: "bold", marginLeft: "5px", marginRight: "10px" }}>{this.props.number}. </span>
+              <span align="left" style={{ fontSize: "2vmax", width: "100%", marginTop: "5%" }}>{this.props.children}</span>
+            </div>
           </div>
         </div>
       </div>

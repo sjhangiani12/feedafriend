@@ -18,11 +18,11 @@ import FAQ from './components/FAQ.js';
 import ReceivePage from './components/ReceivePage.js';
 import AboutPage from './components/AboutPage.js';
 import Footer from './components/Footer.js';
-import RecipientPortal from './components/RecipientPortal.js';
 import NavBar from './shared/NavBar.js';
 import ConfirmationPage from './components/ConfirmationPage.js';
 import TC from "./static/TC.js";
 import PP from "./static/PP.js";
+import './style.css';
 
 function initGoogleAnayltics() {
   ReactGA.initialize('UA-163953067-1');
@@ -51,6 +51,7 @@ function App () {
         </Route>
         <Route path="/donate">
           <DonatePage />
+          <div id="donationLandingPadding" />
           <Footer />
 
         </Route>

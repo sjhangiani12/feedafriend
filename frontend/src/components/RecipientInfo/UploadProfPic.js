@@ -5,7 +5,7 @@ import BounceLoader from "react-spinners/BounceLoader";
 
 function UploadProfPic(props) {
 
-    const [profPic, setProfPic] = useState(props.profPic);
+    const [profPic, setProfPic] = useState("data:*/*;base64," + props.profPic);
     const [profPicLoaded, setProfPicLoaded] = useState(false);
 
     useEffect(() => {
@@ -13,7 +13,7 @@ function UploadProfPic(props) {
     }, [profPic]);
 
     function fileSelectedHandler(event) {
-        if (profPic != "") {
+        if (profPic.length > 30) {
             alert("You have already uploaded a profile picture. Remove it to upload another");
             return;
         }
@@ -108,10 +108,10 @@ function UploadProfPic(props) {
                 Upload
                         </label>
             <div style={uploadsContainer} >
-                {profPic != "" && !profPicLoaded && (
+                {profPic.length > 30 && !profPicLoaded && (
                     <BounceLoader color={"#999999"} size={100} />
                 )}
-                {profPic != "" && (
+                {profPic.length > 30 && (
                     <div style={{ display: profPicLoaded ? "block" : "none" }}>
                         <div style={imgContainer}>
                             <img

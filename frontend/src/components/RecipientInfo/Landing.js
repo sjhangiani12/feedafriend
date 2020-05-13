@@ -70,8 +70,8 @@ function Landing(props) {
     marginTop: "120px",
     // left: "20%",
     // width: "70%"
-    marginLeft: "40px",
-    marginRight: "40px",
+    marginLeft: "5%",
+    marginRight: "5%",
   }
   const how2col = {
     display: "flex",

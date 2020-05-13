@@ -382,3 +382,27 @@ html {
   scroll-behavior: smooth;
 }
   
+#profileViewContainer {
+  padding-top: 15%;
+  margin-right: 5%;
+  margin-left: 5%;
+}
+@media (max-width: 767px) {
+  #profileViewContainer{
+    padding-top: 25%;
+    margin-right: 5%;
+    margin-left: 5%;
+  }
+}
+
+@media (max-width: 767px) {
+  #genericStep {
+    margin-bottom: 80%;
+  }
+}
+
+@media (max-width: 767px) {
+  #donationLandingPadding {
+    margin-bottom: 70%;
+  }
+}

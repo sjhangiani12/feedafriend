@@ -6,6 +6,7 @@ import forDonor from "../../static/forRecip.svg"
 import Profile from '../Profile';
 import BounceLoader from "react-spinners/BounceLoader";
 import { useHistory } from "react-router-dom";
+import '../../style.css';
 
 function RecipientForm(props) {
 
@@ -282,7 +283,7 @@ function RecipientForm(props) {
             ) : (
                     <>
                         <div style={root}>
-                            <div className="container-fluid" style={{ height: "80vh", width: "100vw", marginLeft: "5%" }}>
+                            <div className="container-fluid" id="genericStep" style={{ height: "80vh", width: "100vw", marginLeft: "5%" }}>
                                 <div className="row flex-wrap" style={header1}>
                                     {toRender[step]}
                                     {step < 5 && (
@@ -394,8 +395,8 @@ const root = {
     marginTop: "120px",
     // left: "20%",
     // width: "70%"
-    marginLeft: "40px",
-    marginRight: "40px"
+    marginLeft: "5%",
+    marginRight: "5%"
 }
 
 const stepText = {

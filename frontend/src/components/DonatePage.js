@@ -17,7 +17,6 @@ function DonatePage() {
             {!finishedLanding ? (
                 <>
                     <DonorLanding letsGo={<PrimaryButton text="Let's get donating!" onClick={() => setFinishedLanding(true)}></PrimaryButton>}></DonorLanding>
-
                 </>
             ) : (
                 <>
@@ -38,7 +37,6 @@ function DonatePage() {
                     )}
                 </>
             )}
-
         </div>
     );
 }

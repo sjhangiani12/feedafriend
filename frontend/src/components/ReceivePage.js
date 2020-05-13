@@ -7,6 +7,7 @@ import Landing from '../components/RecipientInfo/Landing';
 import Profile from './Profile';
 import BounceLoader from "react-spinners/BounceLoader";
 import { useHistory } from 'react-router-dom';
+import '../style.css';
 
 function ReceivePage(props) {
 
@@ -151,9 +152,6 @@ function ReceivePage(props) {
     }
 
     const profileViewContainer = {
-        paddingTop: "15%",
-        marginRight: "5%",
-        marginLeft: "5%"
     }
 
     if (isLoggingIn) {
@@ -202,7 +200,7 @@ function ReceivePage(props) {
                 )}
 
                 {isLoggedIn && !isNewUser && (profileData !== null) && (
-                    <div style={profileViewContainer}>
+                    <div id="profileViewContainer" style={profileViewContainer}>
                         <div className="mx-4">
                             <h1>Thank you for joining Feed a Friend! Check your email regularly to access your donations!</h1>
                         </div>
