@@ -254,7 +254,7 @@ function How2() {
               placement={'bottom'}
               overlay={
                 <Tooltip>
-                  100% of your money becomes DoorDash credits for a pre-vetted recipient in our system. We speak to everyone who signs up to ensure donor money goes to the right plcaes.
+                  100% of your money becomes DoorDash credits for a recipient that you select. Anyone can make a profile and you choose who gets your money.
               </Tooltip>
               }>
               <h1 style={whyTheseAmountsText}>Where does the money go?</h1>

@@ -75,7 +75,7 @@ class Footer extends React.Component {
                 <div className="col-12 col-md-4 text-left text-md-right pb-4">
                   <p className="font-weight-bold">Contact</p>
                   <div className="d-flex flex-column">
-                    <a href="mailto: info@care37.org">info@care37.org</a>
+                    <a href="mailto: help@feedafriend.org">help@feedafriend.org</a>
                     <a href="https://www.patreon.com/care37">Support Us!</a>
 
                   </div>
