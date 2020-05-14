@@ -553,7 +553,7 @@ function DonatePage() {
                     <SecondaryButton onClick={() => handleBackClick()} text="Back" />
                     <PrimaryButton text="Pay Now" onClick={() => handleDonateClick()} />
                   </div>
-                  <h1 style={protectInfoBody}>By continuing, you are agreeing with CARE 37 terms and praivacy policy.</h1>
+                  <h1 style={protectInfoBody}>By continuing, you are agreeing with Feed-a-Friend terms and praivacy policy.</h1>
                 </div>
               </div>
             </div>

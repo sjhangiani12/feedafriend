@@ -12,7 +12,7 @@ from email.mime.multipart import MIMEMultipart
 def send_donor_order_confirmation(donor_email, bodyContent):
     # Define to/from
     sender = 'admin@care37.org'
-    sender_title = "Care 37"
+    sender_title = "Feed-a-Friend"
     recipient = str(donor_email)
 
     # Create message
@@ -43,7 +43,7 @@ def send_donor_order_confirmation(donor_email, bodyContent):
 def send_recipient_order_confirmation(recipient_email, bodyContent):
     # Define to/from
     sender = 'admin@care37.org'
-    sender_title = "Care 37"
+    sender_title = "Feed-a-Friend"
     recipient = str(recipient_email)
 
     # Create message
@@ -73,7 +73,7 @@ def send_recipient_order_confirmation(recipient_email, bodyContent):
 def send_reicipient_welcome_email(recipient_email, bodyContent):
     # Define to/from
     sender = 'admin@care37.org'
-    sender_title = "Care 37"
+    sender_title = "Feed-a-Friend"
     recipient = str(recipient_email)
 
     # Create message
