@@ -11,7 +11,7 @@ from email.mime.multipart import MIMEMultipart
 
 def send_donor_order_confirmation(donor_email, bodyContent):
     # Define to/from
-    sender = 'admin@care37.org'
+    sender = 'hello@feedafriend.org'
     sender_title = "Feed-a-Friend"
     recipient = str(donor_email)
 
@@ -28,13 +28,14 @@ def send_donor_order_confirmation(donor_email, bodyContent):
     try:
         # Create server object with SSL option
         print('connecting')
-        server = smtplib.SMTP_SSL('smtp.zoho.com', 465)
+        server = smtplib.SMTP_SSL('smtp.sendgrid.net', 465)
         print('connected')
         # Perform operations via server
-        server.login('admin@care37.org', 'Care37Pwd')
+        server.login('apikey', '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')
         server.sendmail(sender, [recipient], msgBody)
+        print("Sent email")
         server.quit()
-        return True    
+        return True
     except Exception as error:
         print(error)
         return False
@@ -42,7 +43,7 @@ def send_donor_order_confirmation(donor_email, bodyContent):
     
 def send_recipient_order_confirmation(recipient_email, bodyContent):
     # Define to/from
-    sender = 'admin@care37.org'
+    sender = 'ahello@feedafriend.org'
     sender_title = "Feed-a-Friend"
     recipient = str(recipient_email)
 
@@ -59,26 +60,27 @@ def send_recipient_order_confirmation(recipient_email, bodyContent):
     try:
         # Create server object with SSL option
         print('connecting')
-        server = smtplib.SMTP_SSL('smtp.zoho.com', 465)
+        server = smtplib.SMTP_SSL('smtp.sendgrid.net', 465)
         print('connected')
         # Perform operations via server
-        server.login('admin@care37.org', 'Care37Pwd')
+        server.login('apikey', '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')
         server.sendmail(sender, [recipient], msgBody)
+        print("Sent email")
         server.quit()
-        return True    
+        return True
     except Exception as error:
         print(error)
         return False
     
 def send_reicipient_welcome_email(recipient_email, bodyContent):
     # Define to/from
-    sender = 'admin@care37.org'
+    sender = 'hello@feedafriend.org'
     sender_title = "Feed-a-Friend"
     recipient = str(recipient_email)
 
     # Create message
     msg = MIMEMultipart()
-    msg['Subject'] =  Header("Thanks for joining the Care37 Community!", 'utf-8')
+    msg['Subject'] =  Header("Thanks for joining the FeedAFriend Community!", 'utf-8')
     msg['From'] = formataddr((str(Header(sender_title, 'utf-8')), sender))
     msg['To'] = recipient
     
@@ -86,16 +88,17 @@ def send_reicipient_welcome_email(recipient_email, bodyContent):
     msg.attach(MIMEText(bodyContent, "html"))
     msgBody = msg.as_string()
 
-    try:
+        try:
         # Create server object with SSL option
         print('connecting')
-        server = smtplib.SMTP_SSL('smtp.zoho.com', 465)
+        server = smtplib.SMTP_SSL('smtp.sendgrid.net', 465)
         print('connected')
         # Perform operations via server
-        server.login('admin@care37.org', 'Care37Pwd')
+        server.login('apikey', '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')
         server.sendmail(sender, [recipient], msgBody)
+        print("Sent email")
         server.quit()
-        return True    
+        return True
     except Exception as error:
         print(error)
         return False
