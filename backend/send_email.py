@@ -5,6 +5,7 @@ from email.header import Header
 from email.utils import formataddr
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
+import os
 
 
 pwd = os.environ.get('SENDGRID_API_KEY')
