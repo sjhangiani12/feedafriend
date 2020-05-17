@@ -95,7 +95,7 @@ def update_donations_email(tid, recipient_email_sent_check, donor_email_sent_che
     return "Donations Table Email Fields Updated " + str(tid)
 
 
-def not_existing_user(email):
+def get_email_status(uid):
     conn = None
     try:
         # read database configuration
@@ -106,19 +106,15 @@ def not_existing_user(email):
         cur = conn.cursor()
         # get all the entries in the recipients table
         cur.execute(
-            "SELECT email FROM recipients ORDER BY date_created")
-        all_emails = cur.fetchall()
+            "SELECT intro_email_sent FROM recipients WHERE uid = (%s)", str(uid))
+        email_status = cur.fetchone()
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
     finally:
         if conn is not None:
             conn.close()
-
-    for existing_email in all_emails:
-        if email == existing_email[0]:
-            return False
-    return True
+    return email_status
 
 
 def update_user_entry(recipient_email, dollars):

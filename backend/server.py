@@ -13,7 +13,7 @@ import base64
 from error import InvalidUsage
 from db_manager import update_user_entry
 from db_manager import insert_donation
-from db_manager import not_existing_user
+from db_manager import get_email_status
 from db_manager import check_if_user_exist
 from db_manager import create_profile
 from db_manager import insert_social_media_links
@@ -149,7 +149,7 @@ def create_prof():
         print(response)
 
         email_status = False
-        if not_existing_user(email):
+        if get_email_status(uid) == False:
             template = env.get_template('recipient_intro.html')
             html = template.render(recipient_name=request.json["first_name"])
             # send confirm email to donor
