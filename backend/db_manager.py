@@ -96,6 +96,7 @@ def update_donations_email(tid, recipient_email_sent_check, donor_email_sent_che
 
 
 def get_email_status(uid):
+    email_status = None
     conn = None
     try:
         # read database configuration
@@ -114,6 +115,8 @@ def get_email_status(uid):
     finally:
         if conn is not None:
             conn.close()
+    if email_status is None:
+            return "Error no UID Found"
     return email_status
 
 
