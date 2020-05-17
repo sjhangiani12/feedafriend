@@ -117,6 +117,8 @@ def get_email_status(uid):
             conn.close()
     if email_status is None:
             return "Error no UID Found"
+    print("Email status")
+    print(email_status)
     return email_status
 
 
