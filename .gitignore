@@ -9,3 +9,5 @@ database.ini
 sendgrid.env
 sendgrid.env
 node_modules
+sendgrid.env
+sendgrid.env
