@@ -103,38 +103,4 @@ def send_reicipient_welcome_email(recipient_email, bodyContent):
         return True
     except Exception as error:
         print(error)
-        return 
-    
-    
-    
-    
-# Define to/from
-recipient_email = "sharan@uw.edu"
-
-sender = 'hello@feedafriend.org'
-sender_title = "Feed-a-Friend"
-recipient = str(recipient_email)
-
-# Create message
-msg = MIMEMultipart()
-msg['Subject'] =  Header("Thanks for joining the FeedAFriend Community!", 'utf-8')
-msg['From'] = formataddr((str(Header(sender_title, 'utf-8')), sender))
-msg['To'] = recipient
-msg['Body'] = "test"
-
-
-# msg.attach(MIMEText(bodyContent, "html"))
-msgBody = msg.as_string()
-try:
-    # Create server object with SSL option
-    print('connecting')
-    server = smtplib.SMTP_SSL('smtp.sendgrid.net', 465)
-    print('connected')
-    # Perform operations via server
-
-    server.login('apikey', pwd)
-    server.sendmail(sender, [recipient], msgBody)
-    print("Sent email")
-    server.quit()
-except Exception as error:
-    print(error)
+        return False
