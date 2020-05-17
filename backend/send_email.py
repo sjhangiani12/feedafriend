@@ -7,8 +7,7 @@ from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 
 
-file = open('sendgrid_api.txt')
-pwd = file.read()
+pwd = os.environ.get('SENDGRID_API_KEY')
 
 
 def send_donor_order_confirmation(donor_email, bodyContent):
