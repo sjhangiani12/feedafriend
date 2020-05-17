@@ -155,7 +155,7 @@ def create_prof():
             # send confirm email to donor
             email_status = send_reicipient_welcome_email(
                 recipient_email=email, bodyContent=html)
-        print(email_status)
+        print("sent the email")
         # update db with email status
         response = update_intro_email(uid, email_status)
         print(response)
