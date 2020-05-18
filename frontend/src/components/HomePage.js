@@ -81,7 +81,7 @@ function HomePage() {
         <MediaQuery minDeviceWidth={700} >
           <div className="container-fluid" >
             <div className="row flex-wrap" style={header}>
-              <div className="col-md-7 col-sm-12" style={{ paddingRight: "2%" }} >
+              <div className="col-md-7 col-sm-12" style={{marginTop: "5%", paddingRight: "2%" }} >
                 {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
                 <h1 style={{ fontSize: "3em", margin: "0px", marginRight: "3%" }}>44% of adults couldn't cover an emergency expense of $400 dollars.</h1>
                 <a style={{ fontSize: "1em" }}> -Board of Governors of the Federal Reserve System (May 2017).</a>
