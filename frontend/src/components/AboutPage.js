@@ -155,7 +155,7 @@ render() {
         <div className="col-xl-5 col-md-4 col-sm-12 mx-4">
             <h2 align = "left">Who are we?</h2>
             {/* <p align = "left ">We are five students from the University of Washington who love building things. We met through mutual friends and were lucky enough to find a common interest - designing and building useful stuff. We are studying engineering, computer science, informatics, and design.</p> */}
-            <p align="left ">We are a group of five engineers and developers from the Seattle area who love to eat. While complaining over Zoom about how we couldn't grab dinner together, we came up with the idea to bring meals to the people who need it most - Feed-A-Friend was born! </p>
+            <p align="left ">We are a group of five engineers and developers from the Seattle area who love to eat. While complaining over Zoom about how we couldn't grab dinner together, we came up with the idea to bring meals to the people who need it most. Feed-A-Friend was born! </p>
 
         </div>
         <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
