@@ -148,9 +148,9 @@ def create_prof():
             uid=uid, social_media_links=request.json['social_media_links'])
         print(response)
 
-        email_status = False
+        email_status = get_email_status(uid)
         print('checking email status')
-        if get_email_status(uid) == False:
+        if email_status == False:
             template = env.get_template('recipient_intro.html')
             html = template.render(recipient_name=request.json["first_name"])
             # send confirm email to donor
