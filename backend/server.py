@@ -148,15 +148,13 @@ def create_prof():
             uid=uid, social_media_links=request.json['social_media_links'])
         print(response)
 
-        email_status = get_email_status(uid)
-        print('checking email status')
-        if email_status == False:
-            template = env.get_template('recipient_intro.html')
-            html = template.render(recipient_name=request.json["first_name"])
-            # send confirm email to donor
-            email_status = send_reicipient_welcome_email(
-                recipient_email=email, bodyContent=html)
-            print("sent the email")
+        template = env.get_template('recipient_intro.html')
+        html = template.render(recipient_name=request.json["first_name"])
+        # send confirm email to donor
+        email_status = send_reicipient_welcome_email(
+            recipient_email=email, bodyContent=html)
+        print("sent the email")
+        
         # update db with email status
         response = update_intro_email(uid, email_status)
         print(response)
