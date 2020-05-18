@@ -188,7 +188,7 @@ function FAQ () {
           <Q> Who are the recipients?</Q>
         </div>
         <div className="col-12" style={{ display: "flex", alignItems: "baseline", padding: "0" }}>
-            <A>Anyone can make a Feed a Friend account. You decide who you are helping. 100% of donated funds becomes a DoorDash gift card so they can enjoy a meal in the safety of their own home.</A>
+            <A>Anyone can make a Feed-A-Friend account. You decide who you are helping. 100% of donated funds becomes a DoorDash gift card so they can enjoy a meal in the safety of their own home.</A>
         </div>
       </div>
       <br></br>

@@ -202,7 +202,7 @@ function ReceivePage(props) {
                 {isLoggedIn && !isNewUser && (profileData !== null) && (
                     <div id="profileViewContainer" style={profileViewContainer}>
                         <div className="mx-4">
-                            <h1>Thank you for joining Feed a Friend! Check your email regularly to access your donations!</h1>
+                            <h1>Thank you for joining Feed-A-Friend! Check your email regularly to access your donations!</h1>
                         </div>
                         <Profile
                             first_name={profileData.first_name}

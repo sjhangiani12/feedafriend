@@ -354,7 +354,7 @@ function Done(props) {
                 <SecondaryButton text="Back" onClick={() => props.handleBack()} />
             </div>
             <div >
-                <span style={{ fontSize: ".5rem", marginLeft: "10%" }}>By continuing you agree to Feed a Friend's Terms and Privacy Policy</span>
+                <span style={{ fontSize: ".5rem", marginLeft: "10%" }}>By continuing you agree to Feed-A-Friend's Terms and Privacy Policy</span>
             </div>
             {/* <br></br>
             {props.button}

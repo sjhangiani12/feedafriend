@@ -85,7 +85,7 @@ function HomePage() {
                 {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
                 <h1 style={{ fontSize: "3em", margin: "0px", marginRight: "3%" }}>44% of adults couldn't cover an emergency expense of $400 dollars.</h1>
                 <a style={{ fontSize: "1em" }}> -Board of Governors of the Federal Reserve System (May 2017).</a>
-                <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>Our mission is to support the Americans who are struggling to make ends meet. Anyone can create a profile and donors decide who receives their donations! 100% of funds are converted into meal delivery service gift cards for recipients to enjoy a meal.</h3>
+                <h3 style={{ color: "#5c5c5c", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>Feed-A-Friend's mission is to support the Americans who are struggling to make ends meet. Anyone can create a profile and donors decide who receives their donations! 100% of funds are converted into meal delivery service gift cards for recipients to enjoy a meal.</h3>
                 <a href="https://www.patreon.com/care37"> <h1 style={whyTheseAmountsText}>Click here to support us!</h1></a>
                 <div style={{ marginTop: "30px" }}>
                   <Link to="/receive" style={{ marginRight: "20px" }}><SecondaryButton text="Receive a meal" /></Link>
@@ -108,8 +108,8 @@ function HomePage() {
           <div style={header2} >
             <div>
               {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
-              <h1 style={{ fontSize: "3em", margin: "0px", marginTop: "5%", marginRight: "3%" }}>44% of adults couldn't cover an emergency expense of $400 dollars.<a style={{ fontSize: ".3em" }}> -Board of Governors of the Federal Reserve System (May 2017).</a></h1>
-              <p style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%" }}>Our mission is to support the Americans who are struggling to make ends meet. Anyone can create a profile and donors decide who receives their donations! 100% of funds are converted into meal delivery service gift cards for recipients to enjoy a meal.</p>
+              <h1 style={{ fontSize: "3em", margin: "0px", marginTop: "5%", marginRight: "3%" }}>44% of adults couldn't cover an emergency expense of $400.<a style={{ fontSize: ".3em" }}> -Board of Governors of the Federal Reserve System (May 2017).</a></h1>
+              <p style={{ color: "#5c5c5c", fontFamily: "sans-serif", marginRight: "10%" }}>Feed-A-Friend's mission is to support the Americans who are struggling to make ends meet. Anyone can create a profile and donors decide who receives their donations! 100% of funds are converted into meal delivery service gift cards for recipients to enjoy a meal.</p>
 
               <div style={{ marginTop: "30px" }}>
                 <Link to="/receive"><SecondaryButton text="Receive a meal" /></Link>

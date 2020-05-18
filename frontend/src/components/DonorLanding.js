@@ -14,7 +14,7 @@ function DonateLanding(props) {
 
               {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
 
-              <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>You're about to see real people who need your help.</h3>
+              <h3 style={{ color: "#5c5c5c", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>You're about to see real people who need your help. Simply click on 'Donate' or 'Next Profile'!</h3>
               <div style={{ marginTop: "5%" }}>
                 {props.letsGo}
               </div>

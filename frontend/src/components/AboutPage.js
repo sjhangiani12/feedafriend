@@ -155,12 +155,12 @@ render() {
         <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
             <h2 align = "left">Who are we?</h2>
             {/* <p align = "left ">We are five students from the University of Washington who love building things. We met through mutual friends and were lucky enough to find a common interest - designing and building useful stuff. We are studying engineering, computer science, informatics, and design.</p> */}
-            <p align="left ">We are a group of five engineers and develoeprs from the Seattle area who love to eat. While complaining over Zoom about how we couldn't grab dinner together, we came up with the idea to bring meals to the people who need it most - Feed a Friend was born! </p>
+            <p align="left ">We are a group of five engineers and developers from the Seattle area who love to eat. While complaining over Zoom about how we couldn't grab dinner together, we came up with the idea to bring meals to the people who need it most - Feed-A-Friend was born! </p>
 
         </div>
         <div className="col-xl-5 col-md-4 col-sm-12 mx-4 mt-3">
           <h2 align = "left">How does this work?</h2>
-            <p align="left">Anyone can create a Feed a Friend profile. They simply tell their story, and we leave it up to donors to decide who receives their money! 100% of donated funds becomes credits for a meal delivery service like DoorDash.</p>
+            <p align="left">Anyone can create a Feed-A-Friend profile. They simply tell their story, and we leave it up to donors to decide who receives their money! 100% of donated funds become credits for a meal delivery service like DoorDash.</p>
 
         </div>
       </div>
@@ -196,7 +196,7 @@ function AboutPage () {
           <div className="col-md-7 col-sm-12" >
             {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
             <h1 style={{ fontSize: "48px", margin: "0px" }}>Give the gift of a meal and support local business.</h1>
-            <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>Feed a Friend is a platform that lets you help both the hungry and restaurants by donating credits to major food delivery services. Anyone can request credits and donors choose who gets their money!</h3>
+            <h3 style={{ color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>Feed-A-Friend is a platform that lets you help both the hungry and restaurants by donating credits to major food delivery services. Anyone can request credits and donors choose who gets their money!</h3>
           </div>
           <div className="col-md-5 col-sm-12 mt-5" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
             <img style={{ width: "120%" }} src={forDonor} alt="header image" />
