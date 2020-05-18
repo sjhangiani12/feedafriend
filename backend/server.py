@@ -149,6 +149,7 @@ def create_prof():
         print(response)
 
         email_status = False
+        print('checking email status')
         if get_email_status(uid) == False:
             template = env.get_template('recipient_intro.html')
             html = template.render(recipient_name=request.json["first_name"])
