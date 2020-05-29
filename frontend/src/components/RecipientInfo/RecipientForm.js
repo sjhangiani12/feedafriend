@@ -15,6 +15,10 @@ function RecipientForm(props) {
     const [uploadsArray, setUploads] = useState([]);
     const [profPic, setProfPic] = useState("");
     const [isCreatingProf, setIsCreatingProf] = useState(false);
+    const [canCreateProf, setCanCreateProf] = useState(false);
+    const [userState, setUserState] = useState("");
+    const [userCity, setUserCity] = useState("");
+    const [userCountry, setUserCountry] = useState("");
 
     const formDefaultValues = {
         firstName: "",
@@ -44,42 +48,77 @@ function RecipientForm(props) {
         }
     }
 
-    function createProfile() {
-        const data = {
-            idtoken: props.idtoken,
-            first_name: formValues.firstName,
-            last_name: formValues.lastName,
-            zip_code: formValues.zip,
-            bio: formValues.bio,
-            social_media_links: [formValues.fb, formValues.insta, formValues.twit],
-            prof_pic: profPic,
-            uploads: uploadsArray,
-        }
-        console.log(JSON.stringify(data));
-        fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/createProfile', {
-            method: "POST",
+    function validateZip(zip) {
+
+        let url = 'http://ctp-zip-api.herokuapp.com/zip/'+ zip
+        fetch(url, {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
             },
 
-            body: JSON.stringify(data)
+
         }).then(
             function (res) {
                 if (res.status == 200) {
                     res.json().then(json => {
-                        setIsCreatingProf(false);
-                        props.setIsNewUser(false);
-                        props.setProfileData(json);
-                        setClickedCreateProfile(false);
+                        console.log(json[0])
+                        setUserCity(json[0].City);
+                        setUserState(json[0].State);
+                        setUserCountry(json[0].Country);
+                        if(json[0].Country == "US") {
+                            setCanCreateProf(true);
+                        }
                     });
-                } else if (res.status == 400) {
-                    alert("error 400");
                 } else {
-                    alert("error not 400");
+                    alert("Error: Zip Code invalid - We only operate in the US at this time due to limited meal delivery options.");
                 }
             }
         )
+
+    }
+
+    function createProfile() {
+        if (canCreateProf) {
+            const data = {
+                idtoken: props.idtoken,
+                first_name: formValues.firstName,
+                last_name: formValues.lastName,
+                zip_code: formValues.zip,
+                bio: formValues.bio,
+                social_media_links: [formValues.fb, formValues.insta, formValues.twit],
+                prof_pic: profPic,
+                uploads: uploadsArray,
+            }
+            console.log(JSON.stringify(data));
+            fetch('https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/createProfile', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+
+                body: JSON.stringify(data)
+            }).then(
+                function (res) {
+                    if (res.status == 200) {
+                        res.json().then(json => {
+                            setIsCreatingProf(false);
+                            props.setIsNewUser(false);
+                            props.setProfileData(json);
+                            setClickedCreateProfile(false);
+                        });
+                    } else if (res.status == 400) {
+                        alert("error 400");
+                    } else {
+                        alert("error not 400");
+                    }
+                }
+            )   
+        } else {
+            alert("We cannot create your profile - probably because you do not reside in the US")
+        }
     }
 
     function handleNext() {
@@ -89,10 +128,11 @@ function RecipientForm(props) {
                 return;
             }
         } else if (step == 1) {  // zip
-            if (formValues.zip == "") {
-                alert("Please fill out your zip code.");
-                return;
-            }
+            validateZip(formValues.zip)
+            // if (userCountry != "US") {
+            //     alert("Your Zip Code is invalid - we only operate in the US.");
+            //     return;
+            // }
         } else if (step == 2) {  // bio
             if (formValues.bio == "") {
                 alert("Please fill out the bio.");
@@ -114,11 +154,13 @@ function RecipientForm(props) {
     }
 
     function handleChange(e) {
+
         const target = e.target
         setFormValues({
             ...formValues,
             [target.name]: target.value
         })
+
     }
 
     function handleFinish() {
@@ -145,6 +187,7 @@ function RecipientForm(props) {
             title="What is your Zip Code?"
             forms={<>
                 <div style={{ display: "flex", flexDirection: "column" }}>
+                    <h3 style={{ fontSize: "70%", color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>Note: We only operate in the USA due to meal delivery coverage</h3>
                     <div > <input style={form} maxlength="5" placeholder="Zip Code" name="zip" value={zip} onChange={(e) => handleChange(e)}></input></div>
                 </div>
             </>}
