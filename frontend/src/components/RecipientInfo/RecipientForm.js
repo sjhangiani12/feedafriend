@@ -50,7 +50,7 @@ function RecipientForm(props) {
 
     function validateZip(zip) {
 
-        let url = 'http://ctp-zip-api.herokuapp.com/zip/'+ zip
+        let url = 'https://ctp-zip-api.herokuapp.com/zip/'+ zip
         fetch(url, {
             method: "GET",
             headers: {
