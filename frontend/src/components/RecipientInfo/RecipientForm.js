@@ -145,7 +145,7 @@ function RecipientForm(props) {
             title="What is your Zip Code?"
             forms={<>
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                    <div > <input style={form} maxlength="30" placeholder="Zip Code" name="zip" value={zip} onChange={(e) => handleChange(e)}></input></div>
+                    <div > <input style={form} maxlength="5" placeholder="Zip Code" name="zip" value={zip} onChange={(e) => handleChange(e)}></input></div>
                 </div>
             </>}
             handle={handleChange}
