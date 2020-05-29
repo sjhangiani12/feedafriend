@@ -140,6 +140,7 @@ function UploadForm(props) {
             {/* <p style={{ color: "#828282", fontFamily: "sans-serif", fontWeight: "bold" }}>WHAT WE DO</p> */}
             <h1 style={{ fontSize: "3em", margin: "0px" }}>Upload up to 3 supoorting documents. <a style={{fontSize: "70%", color: "#828282"}}>(Optional)</a></h1>
             <h3 style={{fontSize: "70%", color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>Provide some more color to your story. For example, a note about being laid off.</h3>
+            <h3 style={{ fontSize: "70%", color: "#828282", fontFamily: "sans-serif", marginRight: "10%", marginTop: "5%" }}>Note: Donors will see your uploads - don't upload any sensitive information!</h3>
             <label style={uploadButton} >
                 <input type="file"
                     accept='image/*'
