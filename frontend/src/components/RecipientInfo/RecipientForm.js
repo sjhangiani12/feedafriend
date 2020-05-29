@@ -211,6 +211,18 @@ function RecipientForm(props) {
             text5: stepText,
         },
         {
+            title1: currentStepTitle,
+            text1: currentStepText,
+            title2: stepTitle,
+            text2: stepText,
+            title3: stepTitle,
+            text3: stepText,
+            title4: stepTitle,
+            text4: stepText,
+            title5: stepTitle,
+            text5: stepText,
+        },
+        {
             title1: stepTitle,
             text1: stepText,
             title2: currentStepTitle,
