@@ -363,6 +363,7 @@ def check_if_user_exist(email):
     conn.commit()
     # close communication with the database
     cur.close()
+    conn.close()
     return exists
 
 
