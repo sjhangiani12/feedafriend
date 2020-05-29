@@ -32,8 +32,7 @@ create table donations (
 
 create table social_media_links (
 	uid uuid references recipients,
-	link varchar(2000),
-	site_name varchar(30)
+	link varchar(2000)
 );
 
 create table user_uploads (
@@ -46,4 +45,3 @@ create table holding_table (
 	uid uuid references recipients,
 	entered_timestamp TIMESTAMP WITHOUT TIME zone
 );
-
