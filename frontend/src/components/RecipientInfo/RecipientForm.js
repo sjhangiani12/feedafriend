@@ -19,6 +19,7 @@ function RecipientForm(props) {
     const [userState, setUserState] = useState("");
     const [userCity, setUserCity] = useState("");
     const [userCountry, setUserCountry] = useState("");
+    let history = useHistory();
 
     const formDefaultValues = {
         firstName: "",
@@ -118,6 +119,8 @@ function RecipientForm(props) {
             )   
         } else {
             alert("We cannot create your profile - probably because you do not reside in the US")
+            history.push("/")
+
         }
     }
 
