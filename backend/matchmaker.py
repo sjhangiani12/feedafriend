@@ -132,7 +132,7 @@ class Matchmaker:
             cur = conn.cursor()
             # get all the entries in the recipients table that are not in the holding table
             cur.execute(
-                """ SELECT first_name, last_name, email, total_recieved, date_created, num_donations, uid
+                """ SELECT first_name, last_name, email, total_recieved, date_created, num_donations, uid, verified_doordash
                 FROM recipients r
                 WHERE r.uid not in (SELECT uid FROM holding_table)
                 ORDER BY date_created """)
@@ -140,7 +140,7 @@ class Matchmaker:
             if cur.rowcount == 0:
                 early_release()
                 cur.execute(
-                    """ SELECT first_name, last_name, email, total_recieved, date_created, num_donations, uid
+                    """ SELECT first_name, last_name, email, total_recieved, date_created, num_donations, uid, verified_doordash
                     FROM recipients r
                     WHERE r.uid not in (SELECT uid FROM holding_table)
                     ORDER BY date_created """)
@@ -152,9 +152,10 @@ class Matchmaker:
             self._queue = PriorityQueue()
             for user in all_users:
                 # check if the user is verified before adding them to the queue
-                curr = recipientProfile(
-                    user[0], user[1], user[2], user[3], user[4], user[5], user[6])
-                self._queue.put(curr)
+                if user[7] != False:
+                    curr = recipientProfile(
+                        user[0], user[1], user[2], user[3], user[4], user[5], user[6])
+                    self._queue.put(curr)
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
         finally:
