@@ -19,6 +19,7 @@ function RecipientForm(props) {
     const formDefaultValues = {
         firstName: "",
         lastName: "",
+        zip: "",
         bio: "",
         fb: "",
         insta: "",
@@ -29,7 +30,7 @@ function RecipientForm(props) {
     }
 
     const [formValues, setFormValues] = useState(formDefaultValues);
-    const { firstName, lastName, bio, fb, insta, twit } = formValues
+    const { firstName, lastName, zip,  bio, fb, insta, twit } = formValues
 
     function checkAllFieldsFilled() {
         if (formValues.firstName != "" &&
@@ -48,7 +49,7 @@ function RecipientForm(props) {
             idtoken: props.idtoken,
             first_name: formValues.firstName,
             last_name: formValues.lastName,
-            zip_code: 12345,
+            zip_code: formValues.zip,
             bio: formValues.bio,
             social_media_links: [formValues.fb, formValues.insta, formValues.twit],
             prof_pic: profPic,
@@ -87,16 +88,21 @@ function RecipientForm(props) {
                 alert("Please fill out the name feilds.");
                 return;
             }
-        } else if (step == 1) {  // bio
+        } else if (step == 1) {  // zip
+            if (formValues.zip == "") {
+                alert("Please fill out your zip code.");
+                return;
+            }
+        } else if (step == 2) {  // bio
             if (formValues.bio == "") {
                 alert("Please fill out the bio.");
                 return;
             }
-        } else if (step == 2) {  // social media
+        } else if (step == 3) {  // social media
             // optional
-        } else if (step == 3) {  // prof pic
+        } else if (step == 4) {  // prof pic
             // optional
-        } else if (step == 4) {  // uploads
+        } else if (step == 5) {  // uploads
             // optional
         }
         // advance to the next screen
@@ -136,6 +142,18 @@ function RecipientForm(props) {
             button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
         />,
         1: <GenericStep
+            title="What is your Zip Code?"
+            forms={<>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                    <div > <input style={form} maxlength="5" placeholder="Zip Code" name="zip" value={zip} onChange={(e) => handleChange(e)}></input></div>
+                </div>
+            </>}
+            handle={handleChange}
+            button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
+            back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
+
+        />,
+        2: <GenericStep
             title="What are you going through?"
             subTitle={<h3 style={{ color: "#828282", fontFamily: "sans-serif", fontSize: "1em" }}>How has COVID-19 effected you and your loved ones? </h3>}
             forms={<>
@@ -145,30 +163,31 @@ function RecipientForm(props) {
             button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
             back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
         />,
-        2: <GenericStep
+        3: <GenericStep
             title="Where can people find you?"
             forms={<>
-                <div ><input style={form} placeholder="@yourFacebook" name="fb" value={fb} onChange={(e) => handleChange(e)}></input></div>
-                <div ><input style={form} placeholder="@yourInstagram" name="insta" value={insta} onChange={(e) => handleChange(e)}></input></div>
-                <div ><input style={form} placeholder="@yourTwitter" name="twit" value={twit} onChange={(e) => handleChange(e)}></input></div>
+                <h3 style={{ fontSize: "70%", color: "#828282", fontFamily: "sans-serif"}}>Provide the <stong>link</stong> to your social medias.</h3>
+                <div ><input style={form} placeholder="Your Facebook" name="fb" value={fb} onChange={(e) => handleChange(e)}></input></div>
+                <div ><input style={form} placeholder="Your Instagram" name="insta" value={insta} onChange={(e) => handleChange(e)}></input></div>
+                <div ><input style={form} placeholder="Your Twitter" name="twit" value={twit} onChange={(e) => handleChange(e)}></input></div>
             </>}
             handle={handleChange}
             button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
             back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
         />,
-        3: <UploadProfPic
+        4: <UploadProfPic
             button={<PrimaryButton onClick={() => handleNext()} text="Next"></PrimaryButton>}
             back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
             profPic={profPic}
             setProfPic={setProfPic}>
         </UploadProfPic>,
-        4: <UploadForm
+        5: <UploadForm
             button={<PrimaryButton onClick={() => handleNext()} text="Review Profile"></PrimaryButton>}
             back={<SecondaryButton onClick={() => handleBack()} text="Back"></SecondaryButton>}
             uploadsArray={uploadsArray}
             setUploads={setUploads}>
         </UploadForm>,
-        5: <Done
+        6: <Done
             onClick={handleFinish}
             firstName={formValues.firstName}
             lastName={formValues.lastName}
@@ -179,6 +198,18 @@ function RecipientForm(props) {
         />
     }
     const stepStyles = [
+        {
+            title1: currentStepTitle,
+            text1: currentStepText,
+            title2: stepTitle,
+            text2: stepText,
+            title3: stepTitle,
+            text3: stepText,
+            title4: stepTitle,
+            text4: stepText,
+            title5: stepTitle,
+            text5: stepText,
+        },
         {
             title1: currentStepTitle,
             text1: currentStepText,
@@ -259,7 +290,7 @@ function RecipientForm(props) {
         // Becasuse <Profile> is formatted as the whole page, 
         // add an 'if' check to render it alone
         <>
-            {(step == 5) ? (
+            {(step == 6) ? (
                 <>
                     {isCreatingProf && (
                         <div style={loadingContainer}>
@@ -286,12 +317,12 @@ function RecipientForm(props) {
                             <div className="container-fluid" id="genericStep" style={{ height: "80vh", width: "100vw", marginLeft: "5%" }}>
                                 <div className="row flex-wrap" style={header1}>
                                     {toRender[step]}
-                                    {step < 5 && (
+                                    {step < 6 && (
                                         <div className="col-md-4 col-sm mr-0 ml-auto" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "left", width: "100%", marginTop: "5%", alignSelf: "flex-start" }}>
                                             <>
                                                 <div id="recipSteps">
                                                     <h1 style={stepStyles[step].title1}>STEP 1</h1>
-                                                    <span style={stepStyles[step].text1} align="left">Name</span>
+                                                    <span style={stepStyles[step].text1} align="left">Name and Zip Code</span>
                                                 </div>
                                                 <div >
                                                     <h1 style={stepStyles[step].title2}>STEP 2</h1>
