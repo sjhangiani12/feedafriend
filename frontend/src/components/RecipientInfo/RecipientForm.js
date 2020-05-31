@@ -100,6 +100,26 @@ function RecipientForm(props) {
             }
         } else if (step == 3) {  // social media
             // optional
+
+            // checks that the field contains a link
+            if (formValues.fb != "") {
+                if (!formValues.fb.includes("https://www.facebook.com/")) {
+                    alert("Please make sure you entered a link for Facebook");
+                    return;
+                }
+            }
+            if (formValues.insta != "") {
+                if (!formValues.insta.includes("https://www.instagram.com/")) {
+                    alert("Please make sure you entered a link for Instagram");
+                    return;
+                }
+            }
+            if (formValues.twit != "") {
+                if (!formValues.twit.includes("https://twitter.com/")) {
+                    alert("Please make sure you entered a link for Twitter");
+                    return;
+                }
+            }
         } else if (step == 4) {  // prof pic
             // optional
         } else if (step == 5) {  // uploads

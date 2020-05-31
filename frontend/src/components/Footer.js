@@ -38,8 +38,8 @@ class Footer extends React.Component {
     const phantom = {
         backgroundColor: this.props.isHome ? '#fff' : null,
         display: "block",
-        padding: "5%",
-        height: "5%",
+        padding: "20px",
+        height: "350px",
         width: "100%",
       }
     
@@ -47,7 +47,7 @@ class Footer extends React.Component {
     return (
       <div>
         <div style={phantom} />
-        <div style={root} positive="static">
+        <div style={root}>
           <section className=" pt-4" style={{ " background-color": "#f1f1ff" }}>
             <footer className="container">
               <div className="row pt-4">
