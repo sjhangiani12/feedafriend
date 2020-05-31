@@ -134,7 +134,7 @@ class Matchmaker:
             cur.execute(
                 """ SELECT first_name, last_name, email, total_recieved, date_created, num_donations, uid, verified_doordash
                 FROM recipients r
-                WHERE r.uid not in (SELECT uid FROM holding_table)
+                WHERE r.uid not in (SELECT uid FROM holding_table) AND r.verified_doordash
                 ORDER BY date_created """)
             # if row count is 0, all users in holding cell (or no users)
             if cur.rowcount == 0:
@@ -142,7 +142,7 @@ class Matchmaker:
                 cur.execute(
                     """ SELECT first_name, last_name, email, total_recieved, date_created, num_donations, uid, verified_doordash
                     FROM recipients r
-                    WHERE r.uid not in (SELECT uid FROM holding_table)
+                    WHERE r.uid not in (SELECT uid FROM holding_table) AND r.verified_doordash
                     ORDER BY date_created """)
 
 
@@ -152,6 +152,7 @@ class Matchmaker:
             self._queue = PriorityQueue()
             for user in all_users:
                 # check if the user is verified before adding them to the queue
+                print(user[7])
                 if user[7] != False:
                     curr = recipientProfile(
                         user[0], user[1], user[2], user[3], user[4], user[5], user[6])
