@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Profile from '../components/Profile.js';
 import { PrimaryButton, SecondaryButton } from '../shared/ButtonComponents.js';
 import BounceLoader from "react-spinners/BounceLoader";
+import { createGenerateClassName } from '@material-ui/core';
+import { ButtonToolbar, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 function RecipientPicker(props) {
 
@@ -36,6 +38,36 @@ function RecipientPicker(props) {
                 }
             }
         )
+    }
+    function reportProfile() {
+        // setRecipientJSON(null);
+        const data = {
+            recipient_email: recipientJSON.email
+        }
+        fetch("https://care37-cors-anywhere.herokuapp.com/https://care37.herokuapp.com/report", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then(
+            function (response) {
+                if (response.status == 200) {
+                    response.json().then(json => {
+                        console.log(json);
+                    })
+                } else if (response.status == 500) {
+                    // there was an error with the DB
+                    response.json().then(json => {
+                        console.log(json);
+                    })
+                } else {
+                    // unexpected error
+                    console.log(response);
+                }
+            }
+        )
+        getNextRecipient()
     }
 
     function recipientSelected() {
@@ -96,10 +128,16 @@ function RecipientPicker(props) {
                     uploadText ="Documents"
                     private="false"
                 />
-                <div className="col-md-7 col-sm-12" style={{ marginTop: "5%", marginLeft: "10%" }} >
-                    <PrimaryButton text="Donate To" onClick={() => recipientSelected()} />
-                    <SecondaryButton text="Next Profile" onClick={() => getNextRecipient()} />
+                <div style={{ marginTop: "5%", marginLeft: "10%" }} >
+
+                        <h3  onClick={(e) => { if (window.confirm('Click confirm this profile is inappropriate, contains sensitive information, or if this person is not in need.')) reportProfile(e) }} style={{fontSize: "18px", marginLeft: "2%", color: "blue"}}>Report This Profile</h3>
+
+                        <div className="col-md-7 col-sm-12" >
+                            <PrimaryButton text="Donate To" onClick={() => recipientSelected()} />
+                            <SecondaryButton text="Next Profile" onClick={() => getNextRecipient()} />
+                        </div>
                 </div>
+
                 </div>
             )}
         </>

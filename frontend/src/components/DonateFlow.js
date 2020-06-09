@@ -30,7 +30,7 @@ function DonateFlow(props) {
   const [donateNowClicked, setDonateNowClicked] = useState(false);
   // state if there was an error w/ the payment info
   const [errorWithPayment, setErrorWithPayment] = useState(false);
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   // payment info
   const [cardNumber, setCardNumber] = useState("");
@@ -96,7 +96,7 @@ function DonateFlow(props) {
   }
 
   function handleDonateClick() {
-    setShowModal(true);
+    setShowModal(false);
     // if (checkAllFieldsFilled()) {
     //   setDonateNowClicked(true);
     // } else {
