@@ -39,6 +39,7 @@ function RecipientPicker(props) {
             }
         )
     }
+
     function reportProfile() {
         // setRecipientJSON(null);
         const data = {

@@ -421,3 +421,26 @@ def get_recipient_profile(email):
     }
 
     return profile_dict
+
+
+# marks a users profile as reported
+def report_profile(email):
+    """ report a users profile """
+    sql = """ UPDATE recipients 
+              SET reported = true 
+              WHERE email = %s; """
+
+    # read database configuration
+    params = config()
+    # connect to the PostgreSQL database
+    conn = psycopg2.connect(**params)
+    # create a new cursor
+    cur = conn.cursor()
+    # execute the UPDATE statement
+    cur.execute(sql, (str(email),))
+    # commit the changes to the database
+    conn.commit()
+    # close communication with the database
+    cur.close()
+    conn.close()
+    return True

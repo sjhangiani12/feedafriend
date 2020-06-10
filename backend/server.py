@@ -21,6 +21,7 @@ from db_manager import insert_uploads
 from db_manager import delete_user
 from db_manager import get_recipient_profile
 from db_manager import update_intro_email
+from db_manager import report_profile
 
 from send_email import send_donor_order_confirmation
 from send_email import send_reicipient_welcome_email
@@ -241,8 +242,6 @@ def makeDonation():
         return "There was an error", 500
 
 
-############################## GOOGLE AUTH ##############################
-
 # logins in a user given their google idtoken
 # returns true is the user exists in the db, false if not
 @app.route('/login', methods=['POST', 'OPTIONS'])
@@ -316,6 +315,14 @@ def get_recipient_prof():
         print("invalid login")
         return 400
 
+@app.route('/report', methods=['POST', 'OPTIONS'])
+def get_next_recipient():
+    if not has_args(request.args, ['recipient_email']):
+        raise InvalidUsage('note all paramenters present')
+
+    report_profile(request.args['recipient_email'])
+
+    return jsonify("reported"), 200
 
 if __name__ == '__main__':
     app.debug = True
