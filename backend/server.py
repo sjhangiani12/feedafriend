@@ -316,7 +316,7 @@ def get_recipient_prof():
         return 400
 
 @app.route('/report', methods=['POST', 'OPTIONS'])
-def report():
+def report_recipient_profile():
     if not has_args(request.args, ['recipient_email']):
         raise InvalidUsage('note all paramenters present')
 
