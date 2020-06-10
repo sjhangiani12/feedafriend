@@ -134,7 +134,7 @@ class Matchmaker:
             cur.execute(
                 """ SELECT first_name, last_name, email, total_recieved, date_created, num_donations, uid, verified_doordash
                 FROM recipients r
-                WHERE r.uid not in (SELECT uid FROM holding_table)
+                WHERE r.uid not in (SELECT uid FROM holding_table) AND reported = false
                 ORDER BY date_created """)
             # if row count is 0, all users in holding cell (or no users)
             if cur.rowcount == 0:
@@ -142,7 +142,7 @@ class Matchmaker:
                 cur.execute(
                     """ SELECT first_name, last_name, email, total_recieved, date_created, num_donations, uid, verified_doordash
                     FROM recipients r
-                    WHERE r.uid not in (SELECT uid FROM holding_table)
+                    WHERE r.uid not in (SELECT uid FROM holding_table) AND reported = false 
                     ORDER BY date_created """)
 
 
